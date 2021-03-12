@@ -73,285 +73,249 @@
       <div class="outer">
         <section id="main">
   
-    <article id="<%= post.layout %>-<%= post.slug %>" class="h-entry article article-type-<%= post.layout %>" itemprop="blogPost" itemscope itemtype="https://schema.org/BlogPosting">
+    <article id="post-[置顶]About Me" class="h-entry article article-type-post" itemprop="blogPost" itemscope itemtype="https://schema.org/BlogPosting">
   <div class="article-meta">
-    <%- partial('post/date', {class_name: 'article-date', date_format: null}) %>
-    <%- partial('post/category') %>
+    <a href="/2021/02/27/%5B%E7%BD%AE%E9%A1%B6%5DAbout%20Me/" class="article-date">
+  <time class="dt-published" datetime="2021-02-27T02:49:00.000Z" itemprop="datePublished">2021-02-27</time>
+</a>
+    
   </div>
   <div class="article-inner">
-    <%- partial('post/gallery') %>
-    <% if (post.link || post.title){ %>
+    
+    
       <header class="article-header">
-        <%- partial('post/title', {class_name: 'p-name article-title'}) %>
-      </header>
-    <% } %>
-    <div class="e-content article-entry" itemprop="articleBody">
-      <% if (post.excerpt && index){ %>
-        <%- post.excerpt %>
-        <% if (theme.excerpt_link){ %>
-          <p class="article-more-link">
-            <a href="<%- url_for(post.path) %>#more"><%= theme.excerpt_link %></a>
-          </p>
-        <% } %>
-      <% } else { %>
-        <%- post.content %>
-      <% } %>
-    </div>
-    <footer class="article-footer">
-      <a data-url="<%- post.permalink %>" data-id="<%= post._id %>" data-title="<%= post.title %>" class="article-share-link"><%= __('share') %></a>
-      <% if (post.comments && config.disqus_shortname){ %>
-        <a href="<%- post.permalink %>#disqus_thread" class="article-comment-link"><%= __('comment') %></a>
-      <% } %>
-      <% if (post.comments && theme.valine.enable && theme.valine.appId && theme.valine.appKey ){ %>
-        <a href="<%- url_for(post.path) %>#comments" class="article-comment-link">
-          <span class="post-comments-count valine-comment-count" data-xid="<%- url_for(post.path) %>" itemprop="commentCount"></span>
-          <%= __('comment') %>
-        </a>
-      <% } %>
-      <%- partial('post/tag') %>
-    </footer>
-  </div>
-  <% if (!index){ %>
-    <%- partial('post/nav') %>
-  <% } %>
-</article>
-
-<% if (!index && post.comments && config.disqus_shortname){ %>
-<section id="comments">
-  <div id="disqus_thread">
-    <noscript>Please enable JavaScript to view the <a target="_blank" rel="noopener" href="//disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
-  </div>
-</section>
-<% } %>
-<% if (!index && post.comments && theme.valine.enable && theme.valine.appId && theme.valine.appKey){ %>
-  <section id="comments" class="vcomment">
-
-  </section>
-<% } %>
+        
   
-    <article id="<%= post.layout %>-<%= post.slug %>" class="h-entry article article-type-<%= post.layout %>" itemprop="blogPost" itemscope itemtype="https://schema.org/BlogPosting">
-  <div class="article-meta">
-    <%- partial('post/date', {class_name: 'article-date', date_format: null}) %>
-    <%- partial('post/category') %>
-  </div>
-  <div class="article-inner">
-    <%- partial('post/gallery') %>
-    <% if (post.link || post.title){ %>
-      <header class="article-header">
-        <%- partial('post/title', {class_name: 'p-name article-title'}) %>
-      </header>
-    <% } %>
-    <div class="e-content article-entry" itemprop="articleBody">
-      <% if (post.excerpt && index){ %>
-        <%- post.excerpt %>
-        <% if (theme.excerpt_link){ %>
-          <p class="article-more-link">
-            <a href="<%- url_for(post.path) %>#more"><%= theme.excerpt_link %></a>
-          </p>
-        <% } %>
-      <% } else { %>
-        <%- post.content %>
-      <% } %>
-    </div>
-    <footer class="article-footer">
-      <a data-url="<%- post.permalink %>" data-id="<%= post._id %>" data-title="<%= post.title %>" class="article-share-link"><%= __('share') %></a>
-      <% if (post.comments && config.disqus_shortname){ %>
-        <a href="<%- post.permalink %>#disqus_thread" class="article-comment-link"><%= __('comment') %></a>
-      <% } %>
-      <% if (post.comments && theme.valine.enable && theme.valine.appId && theme.valine.appKey ){ %>
-        <a href="<%- url_for(post.path) %>#comments" class="article-comment-link">
-          <span class="post-comments-count valine-comment-count" data-xid="<%- url_for(post.path) %>" itemprop="commentCount"></span>
-          <%= __('comment') %>
-        </a>
-      <% } %>
-      <%- partial('post/tag') %>
-    </footer>
-  </div>
-  <% if (!index){ %>
-    <%- partial('post/nav') %>
-  <% } %>
-</article>
-
-<% if (!index && post.comments && config.disqus_shortname){ %>
-<section id="comments">
-  <div id="disqus_thread">
-    <noscript>Please enable JavaScript to view the <a target="_blank" rel="noopener" href="//disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
-  </div>
-</section>
-<% } %>
-<% if (!index && post.comments && theme.valine.enable && theme.valine.appId && theme.valine.appKey){ %>
-  <section id="comments" class="vcomment">
-
-  </section>
-<% } %>
+    <h1 itemprop="name">
+      <a class="p-name article-title" href="/2021/02/27/%5B%E7%BD%AE%E9%A1%B6%5DAbout%20Me/">（置顶）About Me</a>
+    </h1>
   
-    <article id="<%= post.layout %>-<%= post.slug %>" class="h-entry article article-type-<%= post.layout %>" itemprop="blogPost" itemscope itemtype="https://schema.org/BlogPosting">
-  <div class="article-meta">
-    <%- partial('post/date', {class_name: 'article-date', date_format: null}) %>
-    <%- partial('post/category') %>
-  </div>
-  <div class="article-inner">
-    <%- partial('post/gallery') %>
-    <% if (post.link || post.title){ %>
-      <header class="article-header">
-        <%- partial('post/title', {class_name: 'p-name article-title'}) %>
+
       </header>
-    <% } %>
+    
     <div class="e-content article-entry" itemprop="articleBody">
-      <% if (post.excerpt && index){ %>
-        <%- post.excerpt %>
-        <% if (theme.excerpt_link){ %>
-          <p class="article-more-link">
-            <a href="<%- url_for(post.path) %>#more"><%= theme.excerpt_link %></a>
-          </p>
-        <% } %>
-      <% } else { %>
-        <%- post.content %>
-      <% } %>
+      
+        <p>我是ywy_c_asm，曾经是HE SJZEZ的退役OIer，目前是HIT的现役ACMer。<del>虽然不管在哪里都是一样的菜</del></p>
+<p>以前的文章都在<a target="_blank" rel="noopener" href="https://www.luogu.com.cn/blog/ywycasm/">OI时期的旧博客</a>，<del>尽管我自己现在也难以看懂我以前的文章</del></p>
+<p>最大的爱好是代码压行，码风写的越毒瘤越能从中找到愉悦的快感……</p>
+<p>没了。</p>
+
+      
     </div>
     <footer class="article-footer">
-      <a data-url="<%- post.permalink %>" data-id="<%= post._id %>" data-title="<%= post.title %>" class="article-share-link"><%= __('share') %></a>
-      <% if (post.comments && config.disqus_shortname){ %>
-        <a href="<%- post.permalink %>#disqus_thread" class="article-comment-link"><%= __('comment') %></a>
-      <% } %>
-      <% if (post.comments && theme.valine.enable && theme.valine.appId && theme.valine.appKey ){ %>
-        <a href="<%- url_for(post.path) %>#comments" class="article-comment-link">
-          <span class="post-comments-count valine-comment-count" data-xid="<%- url_for(post.path) %>" itemprop="commentCount"></span>
-          <%= __('comment') %>
-        </a>
-      <% } %>
-      <%- partial('post/tag') %>
+      <a data-url="http://www.ywy-c-asm.cn/2021/02/27/[%E7%BD%AE%E9%A1%B6]About%20Me/" data-id="ckm6d6st3000100t274s2dafw" data-title="（置顶）About Me"></a>
+      
+      
+      
+  <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/%E4%B8%AA%E4%BA%BA%E4%BB%8B%E7%BB%8D/" rel="tag">个人介绍</a></li></ul>
+
     </footer>
   </div>
-  <% if (!index){ %>
-    <%- partial('post/nav') %>
-  <% } %>
-</article>
-
-<% if (!index && post.comments && config.disqus_shortname){ %>
-<section id="comments">
-  <div id="disqus_thread">
-    <noscript>Please enable JavaScript to view the <a target="_blank" rel="noopener" href="//disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
-  </div>
-</section>
-<% } %>
-<% if (!index && post.comments && theme.valine.enable && theme.valine.appId && theme.valine.appKey){ %>
-  <section id="comments" class="vcomment">
-
-  </section>
-<% } %>
   
-    <article id="<%= post.layout %>-<%= post.slug %>" class="h-entry article article-type-<%= post.layout %>" itemprop="blogPost" itemscope itemtype="https://schema.org/BlogPosting">
-  <div class="article-meta">
-    <%- partial('post/date', {class_name: 'article-date', date_format: null}) %>
-    <%- partial('post/category') %>
-  </div>
-  <div class="article-inner">
-    <%- partial('post/gallery') %>
-    <% if (post.link || post.title){ %>
-      <header class="article-header">
-        <%- partial('post/title', {class_name: 'p-name article-title'}) %>
-      </header>
-    <% } %>
-    <div class="e-content article-entry" itemprop="articleBody">
-      <% if (post.excerpt && index){ %>
-        <%- post.excerpt %>
-        <% if (theme.excerpt_link){ %>
-          <p class="article-more-link">
-            <a href="<%- url_for(post.path) %>#more"><%= theme.excerpt_link %></a>
-          </p>
-        <% } %>
-      <% } else { %>
-        <%- post.content %>
-      <% } %>
-    </div>
-    <footer class="article-footer">
-      <a data-url="<%- post.permalink %>" data-id="<%= post._id %>" data-title="<%= post.title %>" class="article-share-link"><%= __('share') %></a>
-      <% if (post.comments && config.disqus_shortname){ %>
-        <a href="<%- post.permalink %>#disqus_thread" class="article-comment-link"><%= __('comment') %></a>
-      <% } %>
-      <% if (post.comments && theme.valine.enable && theme.valine.appId && theme.valine.appKey ){ %>
-        <a href="<%- url_for(post.path) %>#comments" class="article-comment-link">
-          <span class="post-comments-count valine-comment-count" data-xid="<%- url_for(post.path) %>" itemprop="commentCount"></span>
-          <%= __('comment') %>
-        </a>
-      <% } %>
-      <%- partial('post/tag') %>
-    </footer>
-  </div>
-  <% if (!index){ %>
-    <%- partial('post/nav') %>
-  <% } %>
 </article>
 
-<% if (!index && post.comments && config.disqus_shortname){ %>
-<section id="comments">
-  <div id="disqus_thread">
-    <noscript>Please enable JavaScript to view the <a target="_blank" rel="noopener" href="//disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
-  </div>
-</section>
-<% } %>
-<% if (!index && post.comments && theme.valine.enable && theme.valine.appId && theme.valine.appKey){ %>
-  <section id="comments" class="vcomment">
 
-  </section>
-<% } %>
+
   
-    <article id="<%= post.layout %>-<%= post.slug %>" class="h-entry article article-type-<%= post.layout %>" itemprop="blogPost" itemscope itemtype="https://schema.org/BlogPosting">
+    <article id="post-小球碰撞" class="h-entry article article-type-post" itemprop="blogPost" itemscope itemtype="https://schema.org/BlogPosting">
   <div class="article-meta">
-    <%- partial('post/date', {class_name: 'article-date', date_format: null}) %>
-    <%- partial('post/category') %>
+    <a href="/2021/03/12/%E5%B0%8F%E7%90%83%E7%A2%B0%E6%92%9E/" class="article-date">
+  <time class="dt-published" datetime="2021-03-12T13:24:00.000Z" itemprop="datePublished">2021-03-12</time>
+</a>
+    
   </div>
   <div class="article-inner">
-    <%- partial('post/gallery') %>
-    <% if (post.link || post.title){ %>
+    
+    
       <header class="article-header">
-        <%- partial('post/title', {class_name: 'p-name article-title'}) %>
+        
+  
+    <h1 itemprop="name">
+      <a class="p-name article-title" href="/2021/03/12/%E5%B0%8F%E7%90%83%E7%A2%B0%E6%92%9E/">小球碰撞</a>
+    </h1>
+  
+
       </header>
-    <% } %>
+    
     <div class="e-content article-entry" itemprop="articleBody">
-      <% if (post.excerpt && index){ %>
-        <%- post.excerpt %>
-        <% if (theme.excerpt_link){ %>
-          <p class="article-more-link">
-            <a href="<%- url_for(post.path) %>#more"><%= theme.excerpt_link %></a>
-          </p>
-        <% } %>
-      <% } else { %>
-        <%- post.content %>
-      <% } %>
+      
+        <p>最近看到了一篇用JavaScript写物理引擎的文章，就<del>先因此而入坑了JS之后</del>去模仿实现了一下小球碰撞。原理是用windows.requestAnimationFrame()实现每毫秒调用一次基于canvas的绘图函数，碰撞时将速度沿两球的公切线正交分解，在球心连线的分量上用对心正碰求解新速度。并且在碰撞时设置速度的恢复系数以模拟实际中碰撞时的能量损失。再加上重力（每时每刻令竖直速度加上向下的分量）就行了。</p>
+<p><a href="https://www.ywy-c-asm.cn/balls1.html">有重力的小球碰撞</a></p>
+<p><a href="https://www.ywy-c-asm.cn/balls2.html">失重状态下有能量损失的小球碰撞</a></p>
+<p><a href="https://www.ywy-c-asm.cn/balls3.html">失重状态下无能量损失的小球碰撞</a></p>
+<p>由于图像是一帧一帧的更新的，时间并非连续，所以在下落后可能会出现一些玄学的现象（速度没法收敛到0，小球们在地上疯狂振动……）</p>
+<p>有重力版本的代码：</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br><span class="line">84</span><br><span class="line">85</span><br><span class="line">86</span><br><span class="line">87</span><br><span class="line">88</span><br><span class="line">89</span><br><span class="line">90</span><br><span class="line">91</span><br><span class="line">92</span><br><span class="line">93</span><br><span class="line">94</span><br><span class="line">95</span><br><span class="line">96</span><br><span class="line">97</span><br><span class="line">98</span><br><span class="line">99</span><br><span class="line">100</span><br><span class="line">101</span><br><span class="line">102</span><br><span class="line">103</span><br><span class="line">104</span><br><span class="line">105</span><br><span class="line">106</span><br><span class="line">107</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> canvas=<span class="built_in">document</span>.getElementById(<span class="string">&#x27;canvas&#x27;</span>);</span><br><span class="line"><span class="keyword">var</span> hdc=canvas.getContext(<span class="string">&#x27;2d&#x27;</span>);</span><br><span class="line"><span class="keyword">var</span> pos=<span class="number">70</span>;</span><br><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">rand</span>(<span class="params"></span>)</span>&#123;</span><br><span class="line">	<span class="keyword">return</span>(<span class="built_in">Math</span>.random());</span><br><span class="line">&#125;</span><br><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">max</span>(<span class="params">a,b</span>)</span>&#123;</span><br><span class="line">	<span class="keyword">if</span>(a&gt;b)<span class="keyword">return</span>(a);<span class="keyword">return</span>(b);</span><br><span class="line">&#125;</span><br><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">min</span>(<span class="params">a,b</span>)</span>&#123;</span><br><span class="line">	<span class="keyword">if</span>(a&lt;b)<span class="keyword">return</span>(a);<span class="keyword">return</span>(b);</span><br><span class="line">&#125;</span><br><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">randsign</span>(<span class="params"></span>)</span>&#123;</span><br><span class="line">	<span class="keyword">if</span>(<span class="built_in">Math</span>.random()&lt;<span class="number">0.5</span>)<span class="keyword">return</span>(<span class="number">1</span>);<span class="keyword">return</span>(-<span class="number">1</span>);</span><br><span class="line">&#125;</span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">circle</span></span>&#123;</span><br><span class="line">	<span class="function"><span class="title">constructor</span>(<span class="params">x,y,r,vx,vy,color</span>)</span>&#123;</span><br><span class="line">		<span class="built_in">this</span>.x=x;</span><br><span class="line">		<span class="built_in">this</span>.y=y;</span><br><span class="line">		<span class="built_in">this</span>.r=r;</span><br><span class="line">		<span class="comment">//this.vx=vx;</span></span><br><span class="line">		<span class="built_in">this</span>.vx=<span class="number">0</span>;</span><br><span class="line">		<span class="built_in">this</span>.vy=vy;</span><br><span class="line">		<span class="built_in">this</span>.color=color;</span><br><span class="line">	&#125;</span><br><span class="line">	<span class="function"><span class="title">run</span>(<span class="params"></span>)</span>&#123;</span><br><span class="line">		<span class="built_in">this</span>.x+=<span class="built_in">this</span>.vx;</span><br><span class="line">		<span class="built_in">this</span>.y+=<span class="built_in">this</span>.vy;</span><br><span class="line">		<span class="built_in">this</span>.vy+=<span class="number">0.3</span>;</span><br><span class="line">		<span class="comment">//this.vy*=0.98;</span></span><br><span class="line">		<span class="comment">//this.vx*=0.98;</span></span><br><span class="line">		<span class="keyword">if</span>(<span class="built_in">this</span>.x+<span class="built_in">this</span>.r&gt;<span class="number">700.00001</span>||<span class="built_in">this</span>.x-<span class="built_in">this</span>.r&lt;<span class="number">0.00001</span>)&#123;<span class="built_in">this</span>.vx=-<span class="number">0.8</span>*<span class="built_in">this</span>.vx;<span class="built_in">this</span>.vy=<span class="number">0.8</span>*<span class="built_in">this</span>.vy;&#125;</span><br><span class="line">		<span class="keyword">if</span>(<span class="built_in">this</span>.y+<span class="built_in">this</span>.r&gt;<span class="number">700.00001</span>||<span class="built_in">this</span>.y-<span class="built_in">this</span>.r&lt;<span class="number">0.00001</span>)&#123;<span class="built_in">this</span>.vy=-<span class="number">0.8</span>*<span class="built_in">this</span>.vy;<span class="built_in">this</span>.vx=<span class="number">0.8</span>*<span class="built_in">this</span>.vx;&#125;</span><br><span class="line">		<span class="built_in">this</span>.x=min(<span class="built_in">this</span>.x,<span class="number">699.99999</span>-<span class="built_in">this</span>.r);</span><br><span class="line">		<span class="built_in">this</span>.x=max(<span class="built_in">this</span>.x,<span class="number">0.00001</span>+<span class="built_in">this</span>.r);</span><br><span class="line">		<span class="built_in">this</span>.y=min(<span class="built_in">this</span>.y,<span class="number">699.99999</span>-<span class="built_in">this</span>.r);</span><br><span class="line">		<span class="built_in">this</span>.y=max(<span class="built_in">this</span>.y,<span class="number">0.00001</span>+<span class="built_in">this</span>.r);</span><br><span class="line">	&#125;</span><br><span class="line">&#125;</span><br><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">dis</span>(<span class="params">x1,y1,x2,y2</span>)</span>&#123;</span><br><span class="line">	<span class="keyword">return</span>(<span class="built_in">Math</span>.sqrt((x1-x2)*(x1-x2)+(y1-y2)*(y1-y2)));</span><br><span class="line">&#125;</span><br><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">cross</span>(<span class="params">a,b</span>)</span>&#123;</span><br><span class="line">	<span class="keyword">if</span>(dis(a.x,a.y,b.x,b.y)&lt;=a.r+b.r)<span class="keyword">return</span>(<span class="literal">true</span>);</span><br><span class="line">	<span class="keyword">return</span>(<span class="literal">false</span>);</span><br><span class="line">&#125;</span><br><span class="line"><span class="keyword">var</span> colors=[<span class="string">&#x27;#00FFFF&#x27;</span>,<span class="string">&#x27;#0000FF&#x27;</span>,<span class="string">&#x27;#ADFF2F&#x27;</span>,<span class="string">&#x27;#B030AD&#x27;</span>,<span class="string">&#x27;#F0E68C&#x27;</span>,<span class="string">&#x27;#20B2AA&#x27;</span>,<span class="string">&#x27;#FF00FF&#x27;</span>,<span class="string">&#x27;#000080&#x27;</span>,<span class="string">&#x27;#FF0000&#x27;</span>,<span class="string">&#x27;#FFFF00&#x27;</span>];</span><br><span class="line"><span class="keyword">var</span> array=[];</span><br><span class="line"><span class="keyword">for</span>(<span class="keyword">let</span> i=<span class="number">0</span>;i&lt;<span class="number">40</span>;i++)&#123;</span><br><span class="line">	<span class="keyword">var</span> x=<span class="number">0</span>,y=<span class="number">0</span>,r=<span class="number">0</span>;</span><br><span class="line">	<span class="keyword">while</span>(<span class="number">1</span>)&#123;</span><br><span class="line">		x=rand()*<span class="number">700</span>;y=rand()*<span class="number">700</span>;r=rand()*<span class="number">30</span>+<span class="number">10</span>;</span><br><span class="line">		<span class="keyword">if</span>(x-r&lt;=<span class="number">0</span>||x+r&gt;=<span class="number">700</span>||y-r&lt;=<span class="number">0</span>||y+r&gt;=<span class="number">700</span>)<span class="keyword">continue</span>;</span><br><span class="line">		<span class="keyword">var</span> flag=<span class="number">0</span>;</span><br><span class="line">		<span class="keyword">for</span>(<span class="keyword">let</span> j=<span class="number">0</span>;j&lt;i;j++)&#123;</span><br><span class="line">			<span class="keyword">if</span>(dis(x,y,array[j].x,array[j].y)&lt;=r+array[j].r)&#123;</span><br><span class="line">				flag=<span class="number">1</span>;<span class="keyword">break</span>;</span><br><span class="line">			&#125;				</span><br><span class="line">		&#125;</span><br><span class="line">		<span class="keyword">if</span>(flag===<span class="number">1</span>)<span class="keyword">continue</span>;</span><br><span class="line">		array.push(<span class="keyword">new</span> circle(x,y,r,randsign()*(rand()*<span class="number">5</span>+<span class="number">1</span>),randsign()*(rand()*<span class="number">5</span>+<span class="number">1</span>),<span class="built_in">Math</span>.floor(<span class="number">10</span>*rand())));</span><br><span class="line">		<span class="keyword">break</span>;</span><br><span class="line">	&#125;</span><br><span class="line">&#125;</span><br><span class="line"><span class="keyword">var</span> tot=<span class="number">0</span>;</span><br><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">process</span>(<span class="params"></span>)</span>&#123;</span><br><span class="line">	hdc.clearRect(<span class="number">0</span>,<span class="number">0</span>,<span class="number">700</span>,<span class="number">700</span>);</span><br><span class="line">	hdc.strokeStyle=<span class="string">&#x27;black&#x27;</span></span><br><span class="line">	hdc.strokeRect(<span class="number">0</span>,<span class="number">0</span>,<span class="number">700</span>,<span class="number">700</span>);</span><br><span class="line">	hdc.fillStyle=<span class="string">&#x27;#00FFFF&#x27;</span>;</span><br><span class="line">	<span class="keyword">var</span> path=<span class="keyword">new</span> Path2D();</span><br><span class="line">	<span class="keyword">for</span>(<span class="keyword">let</span> i=<span class="number">0</span>;i&lt;<span class="number">40</span>;i++)&#123;</span><br><span class="line">		<span class="keyword">let</span> path=<span class="keyword">new</span> Path2D();</span><br><span class="line">		path.arc(array[i].x,array[i].y,array[i].r,<span class="number">0</span>,<span class="number">2</span>*<span class="built_in">Math</span>.PI);</span><br><span class="line">		hdc.fillStyle=colors[array[i].color];</span><br><span class="line">		hdc.fill(path);</span><br><span class="line">		<span class="keyword">for</span>(<span class="keyword">let</span> j=<span class="number">0</span>;j&lt;i;j++)&#123;</span><br><span class="line">			<span class="keyword">if</span>(cross(array[i],array[j]))&#123;</span><br><span class="line">				<span class="keyword">let</span> mi=array[i].r*array[i].r*array[i].r,mj=array[j].r*array[j].r*array[j].r;</span><br><span class="line">				mi=array[i].r;mj=array[j].r;</span><br><span class="line">				<span class="keyword">let</span> dx=array[j].x-array[i].x,dy=array[j].y-array[i].y;</span><br><span class="line">				<span class="keyword">let</span> len=dis(<span class="number">0</span>,<span class="number">0</span>,dx,dy);</span><br><span class="line">				dx/=len;dy/=len;</span><br><span class="line">				<span class="keyword">let</span> vti=array[i].vx*dx+array[i].vy*dy,vni=array[i].vx*dy-array[i].vy*dx;</span><br><span class="line">				<span class="keyword">let</span> vtj=array[j].vx*dx+array[j].vy*dy,vnj=array[j].vx*dy-array[j].vy*dx;</span><br><span class="line">				<span class="keyword">let</span> miu=<span class="number">0.85</span>;</span><br><span class="line">				<span class="keyword">let</span> vti_1=vti-((<span class="number">1</span>+miu)*mj*(vti-vtj))/(mi+mj);</span><br><span class="line">				<span class="keyword">let</span> vtj_1=vtj+((<span class="number">1</span>+miu)*mi*(vti-vtj))/(mi+mj);</span><br><span class="line">				array[i].vx=vti_1*dx+vni*dy;</span><br><span class="line">				array[i].vy=vti_1*dy-vni*dx;</span><br><span class="line">				array[j].vx=vtj_1*dx+vnj*dy;</span><br><span class="line">				array[j].vy=vtj_1*dy-vnj*dx;</span><br><span class="line">				dx=-dx;dy=-dy;</span><br><span class="line">				array[i].x=array[j].x+(array[i].r+array[j].r+<span class="number">0.00001</span>)*dx;</span><br><span class="line">				array[i].y=array[j].y+(array[i].r+array[j].r+<span class="number">0.00001</span>)*dy;</span><br><span class="line">			&#125;</span><br><span class="line">		&#125;</span><br><span class="line">	&#125;</span><br><span class="line">	<span class="keyword">for</span>(<span class="keyword">let</span> i=<span class="number">0</span>;i&lt;<span class="number">40</span>;i++)&#123;</span><br><span class="line">		array[i].run();</span><br><span class="line">	&#125;</span><br><span class="line">	<span class="comment">//tot++;</span></span><br><span class="line">	<span class="comment">//if(tot&lt;480)&#123;</span></span><br><span class="line">		<span class="built_in">window</span>.requestAnimationFrame(process);</span><br><span class="line">	<span class="comment">//&#125;</span></span><br><span class="line">&#125;</span><br><span class="line"><span class="built_in">window</span>.requestAnimationFrame(process);</span><br></pre></td></tr></table></figure>
+
+
+      
     </div>
     <footer class="article-footer">
-      <a data-url="<%- post.permalink %>" data-id="<%= post._id %>" data-title="<%= post.title %>" class="article-share-link"><%= __('share') %></a>
-      <% if (post.comments && config.disqus_shortname){ %>
-        <a href="<%- post.permalink %>#disqus_thread" class="article-comment-link"><%= __('comment') %></a>
-      <% } %>
-      <% if (post.comments && theme.valine.enable && theme.valine.appId && theme.valine.appKey ){ %>
-        <a href="<%- url_for(post.path) %>#comments" class="article-comment-link">
-          <span class="post-comments-count valine-comment-count" data-xid="<%- url_for(post.path) %>" itemprop="commentCount"></span>
-          <%= __('comment') %>
-        </a>
-      <% } %>
-      <%- partial('post/tag') %>
+      <a data-url="http://www.ywy-c-asm.cn/2021/03/12/%E5%B0%8F%E7%90%83%E7%A2%B0%E6%92%9E/" data-id="ckm6d6stb000600t22e8w6jt4" data-title="小球碰撞"></a>
+      
+      
+      
+  <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/JavaScript/" rel="tag">JavaScript</a></li></ul>
+
     </footer>
   </div>
-  <% if (!index){ %>
-    <%- partial('post/nav') %>
-  <% } %>
+  
 </article>
 
-<% if (!index && post.comments && config.disqus_shortname){ %>
-<section id="comments">
-  <div id="disqus_thread">
-    <noscript>Please enable JavaScript to view the <a target="_blank" rel="noopener" href="//disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
-  </div>
-</section>
-<% } %>
-<% if (!index && post.comments && theme.valine.enable && theme.valine.appId && theme.valine.appKey){ %>
-  <section id="comments" class="vcomment">
 
-  </section>
-<% } %>
+
+  
+    <article id="post-关于我为什么以最为极端的态度反对游戏这件事" class="h-entry article article-type-post" itemprop="blogPost" itemscope itemtype="https://schema.org/BlogPosting">
+  <div class="article-meta">
+    <a href="/2021/03/09/%E5%85%B3%E4%BA%8E%E6%88%91%E4%B8%BA%E4%BB%80%E4%B9%88%E4%BB%A5%E6%9C%80%E4%B8%BA%E6%9E%81%E7%AB%AF%E7%9A%84%E6%80%81%E5%BA%A6%E5%8F%8D%E5%AF%B9%E6%B8%B8%E6%88%8F%E8%BF%99%E4%BB%B6%E4%BA%8B/" class="article-date">
+  <time class="dt-published" datetime="2021-03-09T12:06:00.000Z" itemprop="datePublished">2021-03-09</time>
+</a>
+    
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="p-name article-title" href="/2021/03/09/%E5%85%B3%E4%BA%8E%E6%88%91%E4%B8%BA%E4%BB%80%E4%B9%88%E4%BB%A5%E6%9C%80%E4%B8%BA%E6%9E%81%E7%AB%AF%E7%9A%84%E6%80%81%E5%BA%A6%E5%8F%8D%E5%AF%B9%E6%B8%B8%E6%88%8F%E8%BF%99%E4%BB%B6%E4%BA%8B/">关于我为什么以最为极端的态度反对游戏这件事</a>
+    </h1>
+  
+
+      </header>
+    
+    <div class="e-content article-entry" itemprop="articleBody">
+      
+        <p>（本文是我在见到了一位自称“我很讨厌有人跟我炫耀自己从来不玩游戏”的同学后（emmm，其实我可能对他产生了些许误会……）有感而发）</p>
+<p>认识我的人都知道我号称的“我从来不玩游戏，并且强烈反对它”的鲜明态度，这并非炫耀，假如你有和我一样的经历的话，你也会这么说。</p>
+<p>实际上这“从来不”并非完全正确，更为准确地说，应为“6年以来从不”。6年前的2014年是我这辈子经历过的第一个至暗时刻（第二个是OI省选失败后）。如果你去看我的学生档案，会发现我的学习经历中的2013~2014这一学年的记录是缺失的，小学于2013年夏结束，初中于2014年秋开始，中间一年的时间被抹去了，事实上我一直都在竭力把它从我的记忆中抹去，因为实在难以回首，只能尽力逃避，让它化作不再提起的历史。</p>
+<p>很多人问我那年发生了什么，我很为难，只能告诉他们“我因病休学”。这话是假的，实际上也不假，毕竟“心病”亦为“病”，那年我一直沉迷于淘米网某著名游戏（我十分不情愿说出它的名字，这令我感到令人作呕的耻辱）之中，以至于完全丧失了学习的动力，也许我当时就已经有因此而来的轻度的精神障碍（或许根本就没有，是我想多了）。我清楚的记得我是如何通过朋友与这该死的游戏初识（呵，听起来就像吸毒，不是吗），是如何每一天偷偷摸摸的沦丧于它带来的所谓“欢愉”的颓废之中，是如何在某一天运用一切拖延的方式拒绝再去上学，是如何在“因病休学”的日子里“享受”在家的所谓慵懒……现在想来，今天我说话的不利索，也许与当时长期在家几乎不与人言语有关吧。</p>
+<p>这一天天的时光就这样过去，不再上学的我仍然沉浸于赢的一场场战斗的喜悦与“能力”养成的满足感之中，就这样终日混着，不知道要干些什么。当时的一个心理医生问我，“你才初一，就这样整天待在家里，你为你的未来考虑过吗？是去上学，还是去打工？”我说不出话来，我只想着赶紧结束这无聊的心理治疗回家看看游戏今天的进度更新（后来这好心的心理医生由于给我咨询的时间太短，我几乎啥都不说，就没收钱）。后来到了2014年9月，开学了，尽管在最初的几天我以包括装病在内的手段在家赖着不走，但我还是被强制送到了学校，我就这样见到了41中初一20班的一群本应是我的学弟学妹们的新同学，这感觉十分奇怪，大家同样用“怎么都开学几天了又来了个人”的奇怪眼神看着我。</p>
+<p>开学后的一段时间内我仍然没有摆脱对游戏的沉迷，然而不久之后对它的兴趣开始逐渐减弱，直至某一天最后一次登录游戏后的第二天以来再也没有登录进入游戏过，再然后就居然变成了对它的越来越强烈的反感——一想起那个游戏以及那里面所谓“几大星系”的世界观中的一切，我会觉得起鸡皮疙瘩的不适感，也许这就是所谓“免疫抗体”，<strong>从那之后我再也没接触过任何游戏</strong>，并树立了反对它的强烈观念。这其中的原因我自己也说不清楚，或许是我的兴趣转移到了Visual Basic .NET编程上（这是我计算机科学之路的开端），或许是班主任刘英老师对我的特别照顾，或许是感受到了新班级同学们的热情（尤其是可爱的cjr同学，哈哈）。可能更为重要的是我的“我现在到底在干什么啊”的良心发现。</p>
+<p>这可能听起来有点奇怪，但我早已习惯于每天进入那个被我倒背如流的游戏网址中，“习惯”，确实是这样，当我有一天下决心不再继续，之后的每一天都再也没有进去过了，这似乎亦成了另一种<strong>习惯</strong>。事实上，最初的几天确实会有所谓的戒断反应，后来随着放弃游戏的天数越来越长，我开始恐惧，如果我回归那游戏，我会被它这段时间更新的越来越多的新东西所冲击到，我之前坚持每天上游戏积累的优势将会荡然无存，毕竟这是个养成类游戏，这恐惧一定程度上加速了我对它的远离。</p>
+<p>平心而论，游戏设计确实是一项了不起的事业，这复杂的可以称之为一门艺术的计算机图形学工程简直令人叹为观止。可是我就在想，为什么它为人类带来了如此之多的消沉与颓废？玩家根本不会关心CPU内部花了多少心血只为优化这图形的计算速度，根本不会关心这么多如此逼真的物理效果是如何用方程模拟出来，只会依赖于它给身体带来的某些激素浓度的升高来寻欢作乐，被它们所吸引，所沦陷，所无法自拔。所以，出于个人情感，<strong>我这辈子都不会从事任何与游戏开发有关的工作</strong>。</p>
+<p>当刺激的游戏体验与充满激情的讲课中的教授在课堂之上狭路相逢时，赢的往往是前者——进入HIT以来，我看到了实在是太多太多，这真是令我眼界大开，同学们与各种游戏之间碰撞出的火花实在是比我6年前更甚数倍。我不知道如何去评论他们，<strong>我只希望大家不会重蹈我的覆辙</strong>，毕竟绝大部分人都不知道，几乎被游戏推向毁灭，究竟是什么样的感受（我在讲完我的故事后再次告诉大家这感受一点也不好，真的糟糕极了）。</p>
+<p>厌恶游戏并不意味着热衷于内卷，就像对某些人来说热爱游戏并不意味着厌弃学习一样。我承认我以前可能曾经对内卷怀有深深的热情，甚至还有点享受其中，但起码现在不是，因为我意识到了与其整天刷那些没意思的数学题，还不如去学点真正有用的好东西，也没有什么必要非得执着于抓着那几个学分不放。</p>
+<p>我还记得当我初中时下定决心将我那一年发生的真实情况告诉我最好的朋友时，她说，你有没有想过，如果没有那游戏，你不会出现在这里，咱们也不可能会认识。诚如斯言，这游戏极大地改变了我的人生走向，不可否认的是，我今天能在这里，必须要感谢它（尽管我十分不情愿），这就是命运的有意思之处。不妨假设我从来都没有受到那游戏的影响，我现在或许就在某个大学甚至大专读大二，或许是否也在HIT也未可知。甚至，不妨再假设我没能在2014年9月重返校园，继续深陷其中，现在我或许成为家里蹲的巨婴，或许成为社会渣滓，或许在某个角落做着最低级的工作，原谅我无法再继续想象。</p>
+<p> <strong>谨以此文纪念我失去的一年，以及奉劝大家珍爱生命，远离游戏。</strong></p>
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="http://www.ywy-c-asm.cn/2021/03/09/%E5%85%B3%E4%BA%8E%E6%88%91%E4%B8%BA%E4%BB%80%E4%B9%88%E4%BB%A5%E6%9C%80%E4%B8%BA%E6%9E%81%E7%AB%AF%E7%9A%84%E6%80%81%E5%BA%A6%E5%8F%8D%E5%AF%B9%E6%B8%B8%E6%88%8F%E8%BF%99%E4%BB%B6%E4%BA%8B/" data-id="ckm6d6st7000300t2btl86axf" data-title="关于我为什么以最为极端的态度反对游戏这件事"></a>
+      
+      
+      
+  <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/%E6%83%B3%E6%B3%95/" rel="tag">想法</a></li></ul>
+
+    </footer>
+  </div>
+  
+</article>
+
+
+
+  
+    <article id="post-快速获取整数最高二进制位" class="h-entry article article-type-post" itemprop="blogPost" itemscope itemtype="https://schema.org/BlogPosting">
+  <div class="article-meta">
+    <a href="/2021/03/08/%E5%BF%AB%E9%80%9F%E8%8E%B7%E5%8F%96%E6%95%B4%E6%95%B0%E6%9C%80%E9%AB%98%E4%BA%8C%E8%BF%9B%E5%88%B6%E4%BD%8D/" class="article-date">
+  <time class="dt-published" datetime="2021-03-08T14:07:00.000Z" itemprop="datePublished">2021-03-08</time>
+</a>
+    
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="p-name article-title" href="/2021/03/08/%E5%BF%AB%E9%80%9F%E8%8E%B7%E5%8F%96%E6%95%B4%E6%95%B0%E6%9C%80%E9%AB%98%E4%BA%8C%E8%BF%9B%E5%88%B6%E4%BD%8D/">快速获取整数最高二进制位</a>
+    </h1>
+  
+
+      </header>
+    
+    <div class="e-content article-entry" itemprop="articleBody">
+      
+        <p>问题描述：给一个uint32型整数x，求最高的为1的二进制位对应的2的幂，用尽量少的算术运算和位运算完成。</p>
+<p>Solution：<del>（看上去很像补码干的事，然而不是）</del>思路是把那个最高的1往下“扩散”，把x变为形如$[000…011..1]$的二进制数。这个“扩散”的过程<strong>倍增</strong>实现，简直妙极！</p>
+<p>code：</p>
+<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">unsigned</span> <span class="keyword">int</span> <span class="title">gethighest1</span><span class="params">(<span class="keyword">unsigned</span> <span class="keyword">int</span> x)</span></span>&#123;</span><br><span class="line">    x|=(x&gt;&gt;<span class="number">1</span>);</span><br><span class="line">    x|=(x&gt;&gt;<span class="number">2</span>);</span><br><span class="line">    x|=(x&gt;&gt;<span class="number">4</span>);</span><br><span class="line">    x|=(x&gt;&gt;<span class="number">8</span>);</span><br><span class="line">    x|=(x&gt;&gt;<span class="number">16</span>);</span><br><span class="line">    x&gt;&gt;=<span class="number">1</span>;</span><br><span class="line">    <span class="keyword">return</span>(x+<span class="number">1</span>);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="http://www.ywy-c-asm.cn/2021/03/08/%E5%BF%AB%E9%80%9F%E8%8E%B7%E5%8F%96%E6%95%B4%E6%95%B0%E6%9C%80%E9%AB%98%E4%BA%8C%E8%BF%9B%E5%88%B6%E4%BD%8D/" data-id="ckm6d6stc000800t20mrte96n" data-title="快速获取整数最高二进制位"></a>
+      
+      
+      
+  <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/%E4%BD%8D%E8%BF%90%E7%AE%97/" rel="tag">位运算</a></li></ul>
+
+    </footer>
+  </div>
+  
+</article>
+
+
+
+  
+    <article id="post-衡量两个汉语句子的相似度" class="h-entry article article-type-post" itemprop="blogPost" itemscope itemtype="https://schema.org/BlogPosting">
+  <div class="article-meta">
+    <a href="/2021/03/07/%E8%A1%A1%E9%87%8F%E4%B8%A4%E4%B8%AA%E6%B1%89%E8%AF%AD%E5%8F%A5%E5%AD%90%E7%9A%84%E7%9B%B8%E4%BC%BC%E5%BA%A6/" class="article-date">
+  <time class="dt-published" datetime="2021-03-07T11:44:00.000Z" itemprop="datePublished">2021-03-07</time>
+</a>
+    
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="p-name article-title" href="/2021/03/07/%E8%A1%A1%E9%87%8F%E4%B8%A4%E4%B8%AA%E6%B1%89%E8%AF%AD%E5%8F%A5%E5%AD%90%E7%9A%84%E7%9B%B8%E4%BC%BC%E5%BA%A6/">衡量两个汉语句子的相似度</a>
+    </h1>
+  
+
+      </header>
+    
+    <div class="e-content article-entry" itemprop="articleBody">
+      
+        <p>（其实这里的原始问题是，给一个英语句子和汉语句子，求一个衡量它们语义相似程度的分数，这里直接用一个transformer模型翻译了英语句子，转化为单语句子的相似度问题）</p>
+<p>需要说明的是，以下3种思路都是基于“字符相等”（这里的粒度是<strong>字符</strong>而不是<strong>词</strong>，如果基于“词相等”的话，两个词只要有一个字符不相等就会被判为<strong>完全不</strong>相等，从而会错判很多近义词），而不是“字符或词的相似”，后者大概需要词向量之类的东西处理。并且，就像大多数NLP工具一样，它们更加适合长句的处理，对于短句可能会出现奇怪的情况。</p>
+<h1 id="1-编辑距离"><a href="#1-编辑距离" class="headerlink" title="1.编辑距离"></a>1.编辑距离</h1><p>给两个字符串$A$和$B$，每次把其中一个插个字符、删个字符、改个字符，变成另一个串的最小操作次数，简单dp即可。这样的话短句子的编辑距离显然更倾向于远小于长句子，为消除这种偏好将其除以$max(|A|,|B|)$。</p>
+<p>它确实完全考虑了字符顺序，看上去十分完美，然而同一个句子的不同翻译结果可以有不同的语序，这就会使得编辑距离异常地大。</p>
+<h1 id="2-Jeccard距离"><a href="#2-Jeccard距离" class="headerlink" title="2.Jeccard距离"></a>2.Jeccard距离</h1><p>原理十分简单，就是将两个句子中字符的交集大小除以并集大小，即“共有的字符越多越相似”。</p>
+<p>当然这个东西本来就是简单粗暴地衡量两个无序集合的相似程度的，不过在这里的情况下非常适合把那些语义明显对不上的筛掉。</p>
+<p>缺点是完全无序，有可能把语义错误的误判为语义相似的，例如“二中”和“中二”就会被判为相等。（其实在这里的把英语句子的翻译结果和汉语句子比较的情况下，这种缺点倒不是很突出）</p>
+<h1 id="3-BLEU值"><a href="#3-BLEU值" class="headerlink" title="3.BLEU值"></a>3.BLEU值</h1><p>这个是基于N-gram的，既有无序的特点，又可以一定程度上考虑语序。</p>
+<p>对于每个$i=1…N$，提取出两个句子的每个长度为$i$的子串$s_k$，统计其在两个句子中出现的次数（这个就跟语序没关了）$cnt_A(s_k),cnt_B(s_k)$，那么$i$为分数提供的贡献为$f_i=\frac{\sum\min(cnt_A,cnt_B)}{\sum\max(cnt_A,cnt_B)}$，取$min$与$max$作比正是为了反映差异。对于每个长度i赋予一个权重（一般可以让权重都相等），最终$BLEU=\exp(\sum w_i\ln f_i)$。在这里我取的是$N=3$的3-gram。</p>
+<p>更加广义的BLEU是（这个专门用来训练NMT模型），有一个待确定翻译结果$S$和若干个标准翻译结果${T_i}$，要判断$S$是否被翻译地满足要求（即求它与一个句子集的相似程度），那么这里的$f_i=\frac{\sum \min(cnt_S,cnt_{T_i})}{\sum cnt_S}$，这样在S很短但标准句很长时会造成BLEU虚高（分母上下都是$cnt_S$），需要在最外面再乘一个$\min(1,exp(1-\frac{\max |T|}{|S|}))$作为惩罚因子。</p>
+<p>这个比较适合筛选语义匹配程度高的句对，不过缺点还是比较容易把语义相似的句对判为不相似。</p>
+<h1 id="4-Simhash"><a href="#4-Simhash" class="headerlink" title="4.Simhash"></a>4.Simhash</h1><p>比较玄学的一种做法，思想是把一个句子做字符串哈希，并且这个哈希有<strong>相似的句子有相似的哈希值</strong>的特点。</p>
+<p>做法是把句子中的每个字或词（并不涉及语序）求一个64位hash值，将其中的0视作-1，就变成了一个纯粹的64维向量。将这些字或词的向量按权重（可以是出现频率）按位相加，把结果向量中的正数视作1，负数视作0，这个01向量就是Simhash值。两个Simhash值对应相等的位越多越相似。</p>
+<p>本质上其实是把句子当做字词的无序集合，用一个下标对应字词的n维向量表示一个句子，然后随机降维（字词的hash函数可看做一个随机函数）成64维向量。更为一般的问题是将n维空间中较为临近的一团点设一个较为接近的hash值，例如平面上的点，我可以随机取较少的几条直线，让这直线一侧的点设为1，另一侧设为0，本质上就是把这些二维向量与直线的垂线做点积（<strong>点积就是用来降维的</strong>）判断正负，由于穿过临近点的直线的概率较低，所以还是比较靠谱的。这里就相当于随机了64个n维向量做点积。</p>
+<p>这玩意对于长句子甚至文章是非常好用的，一般用来快速去重（不超过3个位有差异即相似，可以搜索剪枝），但是稍微短点的句子就比较差劲……</p>
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="http://www.ywy-c-asm.cn/2021/03/07/%E8%A1%A1%E9%87%8F%E4%B8%A4%E4%B8%AA%E6%B1%89%E8%AF%AD%E5%8F%A5%E5%AD%90%E7%9A%84%E7%9B%B8%E4%BC%BC%E5%BA%A6/" data-id="ckm6d6std000a00t20t7abjm5" data-title="衡量两个汉语句子的相似度"></a>
+      
+      
+      
+  <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/NLP/" rel="tag">NLP</a></li></ul>
+
+    </footer>
+  </div>
+  
+</article>
+
+
+
   
 
 
