@@ -1,4 +1,4 @@
-var canvas=document.getElementById('canvas');
+var canvas=document.getElementById('balls2');
 var hdc=canvas.getContext('2d');
 var pos=70;
 function rand(){
