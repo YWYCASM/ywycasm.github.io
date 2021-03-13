@@ -5,42 +5,38 @@
 
 <head>
   <meta charset="utf-8">
-  <%- partial('google-analytics') %>
-  <%
-  var title = page.title;
-
-  if (is_archive()){
-    title = __('archive_a');
-
-    if (is_month()){
-      title += ': ' + page.year + '/' + page.month;
-    } else if (is_year()){
-      title += ': ' + page.year;
-    }
-  } else if (is_category()){
-    title = __('category') + ': ' + page.category;
-  } else if (is_tag()){
-    title = __('tag') + ': ' + page.tag;
-  }
-  %>
-  <title><% if (title){ %><%= title %> | <% } %><%= config.title %></title>
+  
+  
+  <title>ywy_c_asm</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-  <%- open_graph({twitter_id: theme.twitter, fb_admins: theme.fb_admins, fb_app_id: theme.fb_app_id}) %>
-  <% if (config.feed) { %>
-    <%- feed_tag() %>
-  <% } else if (theme.rss) { %>
-    <%- feed_tag(theme.rss) %>
-  <% } %>
-  <% if (theme.favicon){ %>
-    <%- favicon_tag(theme.favicon) %>
-  <% } %>
-  <% if (config.highlight.enable){ %>
-    <%- css('https://cdn.jsdelivr.net/npm/typeface-source-code-pro@0.0.71/index.min.css') %>
-  <% } %>
-  <%- css('css/style') %>
-  <% if (theme.fancybox){ %>
-    <%- css('fancybox/jquery.fancybox.min.css') %>
-  <% } %>
+  <meta name="description" content="html { 				width: 100%; 				height: 100%; 			} 			body { 				width: 100%; 				height: 100%; 				margin: 0; 			} 			#canvasContainer { 				width: 100%; 				height: 100%; 			} 			#myCanvas {">
+<meta property="og:type" content="website">
+<meta property="og:title" content="ywy_c_asm">
+<meta property="og:url" content="http://www.ywy-c-asm.cn/test.html">
+<meta property="og:site_name" content="ywy_c_asm">
+<meta property="og:description" content="html { 				width: 100%; 				height: 100%; 			} 			body { 				width: 100%; 				height: 100%; 				margin: 0; 			} 			#canvasContainer { 				width: 100%; 				height: 100%; 			} 			#myCanvas {">
+<meta property="og:locale" content="en_US">
+<meta property="article:published_time" content="2021-03-13T07:39:19.362Z">
+<meta property="article:modified_time" content="2021-03-13T07:39:19.331Z">
+<meta property="article:author" content="ywy_c_asm">
+<meta name="twitter:card" content="summary">
+  
+  
+    <link rel="icon" href="/images/ico.ico">
+  
+  
+    
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/typeface-source-code-pro@0.0.71/index.min.css">
+
+  
+  
+<link rel="stylesheet" href="/css/style.css">
+
+  
+    
+<link rel="stylesheet" href="/fancybox/jquery.fancybox.min.css">
+
+  
 <meta name="generator" content="Hexo 5.4.0"></head>
 
 <body>
@@ -130,7 +126,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://www.ywy-c-asm.cn/test.html" data-id="ckm7wkocb000gmkt2axzr92vw" data-title=""></a>
+      <a data-url="http://www.ywy-c-asm.cn/test.html" data-id="ckm7wo6nq000icgt2e37eh1yc" data-title=""></a>
       
       
       
