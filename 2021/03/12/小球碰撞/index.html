@@ -5,39 +5,42 @@
 
 <head>
   <meta charset="utf-8">
-  
-  
-  <title>小球碰撞 | ywy_c_asm</title>
+  <%- partial('google-analytics') %>
+  <%
+  var title = page.title;
+
+  if (is_archive()){
+    title = __('archive_a');
+
+    if (is_month()){
+      title += ': ' + page.year + '/' + page.month;
+    } else if (is_year()){
+      title += ': ' + page.year;
+    }
+  } else if (is_category()){
+    title = __('category') + ': ' + page.category;
+  } else if (is_tag()){
+    title = __('tag') + ': ' + page.tag;
+  }
+  %>
+  <title><% if (title){ %><%= title %> | <% } %><%= config.title %></title>
   <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-  <meta name="description" content="最近看到了一篇用JavaScript写物理引擎的文章，就先因此而入坑了JS之后去模仿实现了一下小球碰撞。原理是用windows.requestAnimationFrame()实现每毫秒调用一次基于canvas的绘图函数，碰撞时将速度沿两球的公切线正交分解，在球心连线的分量上用对心正碰求解新速度。并且在碰撞时设置速度的恢复系数以模拟实际中碰撞时的能量损失。再加上重力（每时每刻令竖直速度加上向下的分量">
-<meta property="og:type" content="article">
-<meta property="og:title" content="小球碰撞">
-<meta property="og:url" content="http://www.ywy-c-asm.cn/2021/03/12/%E5%B0%8F%E7%90%83%E7%A2%B0%E6%92%9E/index.html">
-<meta property="og:site_name" content="ywy_c_asm">
-<meta property="og:description" content="最近看到了一篇用JavaScript写物理引擎的文章，就先因此而入坑了JS之后去模仿实现了一下小球碰撞。原理是用windows.requestAnimationFrame()实现每毫秒调用一次基于canvas的绘图函数，碰撞时将速度沿两球的公切线正交分解，在球心连线的分量上用对心正碰求解新速度。并且在碰撞时设置速度的恢复系数以模拟实际中碰撞时的能量损失。再加上重力（每时每刻令竖直速度加上向下的分量">
-<meta property="og:locale" content="en_US">
-<meta property="article:published_time" content="2021-03-12T13:24:00.000Z">
-<meta property="article:modified_time" content="2021-03-13T15:34:28.026Z">
-<meta property="article:author" content="ywy_c_asm">
-<meta property="article:tag" content="JavaScript">
-<meta name="twitter:card" content="summary">
-  
-  
-    <link rel="icon" href="/images/ico.ico">
-  
-  
-    
-<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/typeface-source-code-pro@0.0.71/index.min.css">
-
-  
-  
-<link rel="stylesheet" href="/css/style.css">
-
-  
-    
-<link rel="stylesheet" href="/fancybox/jquery.fancybox.min.css">
-
-  
+  <%- open_graph({twitter_id: theme.twitter, fb_admins: theme.fb_admins, fb_app_id: theme.fb_app_id}) %>
+  <% if (config.feed) { %>
+    <%- feed_tag() %>
+  <% } else if (theme.rss) { %>
+    <%- feed_tag(theme.rss) %>
+  <% } %>
+  <% if (theme.favicon){ %>
+    <%- favicon_tag(theme.favicon) %>
+  <% } %>
+  <% if (config.highlight.enable){ %>
+    <%- css('https://cdn.jsdelivr.net/npm/typeface-source-code-pro@0.0.71/index.min.css') %>
+  <% } %>
+  <%- css('css/style') %>
+  <% if (theme.fancybox){ %>
+    <%- css('fancybox/jquery.fancybox.min.css') %>
+  <% } %>
 <meta name="generator" content="Hexo 5.4.0"></head>
 
 <body>
@@ -124,7 +127,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://www.ywy-c-asm.cn/2021/03/12/%E5%B0%8F%E7%90%83%E7%A2%B0%E6%92%9E/" data-id="ckm7w7it90008fkt2cdaxcher" data-title="小球碰撞"></a>
+      <a data-url="http://www.ywy-c-asm.cn/2021/03/12/%E5%B0%8F%E7%90%83%E7%A2%B0%E6%92%9E/" data-id="ckm7wkoc50006mkt24h38h0co" data-title="小球碰撞"></a>
       
       
       
@@ -223,7 +226,7 @@
         
 		
 		
-<iframe id="iframe1" src="/balls3.htmi" style="height:500px;width:1500px;position:absolute;top:500px;left:0px;z-index:-1" scrolling="no" frameborder="0"></iframe>
+<iframe id="iframe1" src="/balls3.html" style="height:500px;width:1500px;position:absolute;top:500px;left:0px;z-index:-1" scrolling="no" frameborder="0"></iframe>
 		<script>
 			var height=document.body.scrollHeight;
 			var width=document.body.scrollWidth;
