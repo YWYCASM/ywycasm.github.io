@@ -1,0 +1,9 @@
+<html>
+	<head></head>
+	<body>
+		<main>
+			<canvas id="balls3" height="500" width="1500"></canvas>
+		</main>
+		<script src="balls3.js"></script>
+	</body>
+</html>

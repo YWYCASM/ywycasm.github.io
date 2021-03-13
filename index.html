@@ -1,5 +1,8 @@
 <!DOCTYPE html>
 <html>
+
+
+
 <head>
   <meta charset="utf-8">
   
@@ -35,8 +38,14 @@
 <meta name="generator" content="Hexo 5.4.0"></head>
 
 <body>
+
+
+
   <div id="container">
     <div id="wrap">
+
+	
+		
       <header id="header">
   <div id="banner"></div>
   <div id="header-outer" class="outer">
@@ -70,7 +79,7 @@
   </div>
 </header>
 
-      <div class="outer">
+      <div class="outer" style="padding:0 0px">
         <section id="main">
   
     <article id="post-[置顶]About Me" class="h-entry article article-type-post" itemprop="blogPost" itemscope itemtype="https://schema.org/BlogPosting">
@@ -103,7 +112,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://www.ywy-c-asm.cn/2021/02/27/[%E7%BD%AE%E9%A1%B6]About%20Me/" data-id="ckm756vur00016ot278089i0h" data-title="（置顶）About Me"></a>
+      <a data-url="http://www.ywy-c-asm.cn/2021/02/27/[%E7%BD%AE%E9%A1%B6]About%20Me/" data-id="ckm7w7isz0001fkt24rxn068p" data-title="（置顶）About Me"></a>
       
       
       
@@ -141,20 +150,11 @@
       
         <p>最近看到了一篇用JavaScript写物理引擎的文章，就<del>先因此而入坑了JS之后</del>去模仿实现了一下小球碰撞。原理是用windows.requestAnimationFrame()实现每毫秒调用一次基于canvas的绘图函数，碰撞时将速度沿两球的公切线正交分解，在球心连线的分量上用对心正碰求解新速度。并且在碰撞时设置速度的恢复系数以模拟实际中碰撞时的能量损失。再加上重力（每时每刻令竖直速度加上向下的分量）就行了。</p>
 <p>（upd：现在突然惊奇的发现JavaScript和HTML代码可以完美地嵌在markdown里（是的，直接放代码就行了！），于是就把效果直接做到了这里）</p>
+<p>（再次upd：经过探索，发现这个甚至可以嵌入到landscape的主题里，即在layout.ejs里使用iframe把这个动画作为一个子页面嵌入（在同一个页面上的多个使用requestAnimationFrame的js程序并不能同时运行，因为单个页面上的程序貌似只能单线程运行，但父子页面可以同时运行），于是就顺理成章地把这个做了这个blog的背景……）</p>
 <p>以下是效果：</p>
 <html>
-    <head></head>
-​    <body>
-        <main>
-            <canvas id="balls3" height="700" width="700"></canvas>
-            <p>失重状态下无能量损失的版本</p>
-            <canvas id="balls2" height="700" width="700"></canvas>
-            <p>失重状态下有能量损失的版本</p>
-            <canvas id="balls1" height="700" width="700"></canvas>
-            <p>有重力有能量损失的版本</p>
-        </main>
-        <script src="/ball.js"></script>
-​    </body>
+
+<p>​    <body><br>        <main><br>            <canvas id="balls3" height="700" width="700"></canvas><br>            <p>失重状态下无能量损失的版本</p><br>            <canvas id="balls2" height="700" width="700"></canvas><br>            <p>失重状态下有能量损失的版本</p><br>            <canvas id="balls1" height="700" width="700"></canvas><br>            <p>有重力有能量损失的版本</p><br>        </main><br>        <script src="/ball.js"></script><br>​    </body></p>
 </html>
 
 
@@ -167,7 +167,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://www.ywy-c-asm.cn/2021/03/12/%E5%B0%8F%E7%90%83%E7%A2%B0%E6%92%9E/" data-id="ckm756vvi000b6ot2e9x04cu0" data-title="小球碰撞"></a>
+      <a data-url="http://www.ywy-c-asm.cn/2021/03/12/%E5%B0%8F%E7%90%83%E7%A2%B0%E6%92%9E/" data-id="ckm7w7it90008fkt2cdaxcher" data-title="小球碰撞"></a>
       
       
       
@@ -219,7 +219,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://www.ywy-c-asm.cn/2021/03/09/%E5%85%B3%E4%BA%8E%E6%88%91%E4%B8%BA%E4%BB%80%E4%B9%88%E4%BB%A5%E6%9C%80%E4%B8%BA%E6%9E%81%E7%AB%AF%E7%9A%84%E6%80%81%E5%BA%A6%E5%8F%8D%E5%AF%B9%E6%B8%B8%E6%88%8F%E8%BF%99%E4%BB%B6%E4%BA%8B/" data-id="ckm756vuw00036ot216hz1uzu" data-title="关于我为什么以最为极端的态度反对游戏这件事"></a>
+      <a data-url="http://www.ywy-c-asm.cn/2021/03/09/%E5%85%B3%E4%BA%8E%E6%88%91%E4%B8%BA%E4%BB%80%E4%B9%88%E4%BB%A5%E6%9C%80%E4%B8%BA%E6%9E%81%E7%AB%AF%E7%9A%84%E6%80%81%E5%BA%A6%E5%8F%8D%E5%AF%B9%E6%B8%B8%E6%88%8F%E8%BF%99%E4%BB%B6%E4%BA%8B/" data-id="ckm7w7it30003fkt2fn9jfy4z" data-title="关于我为什么以最为极端的态度反对游戏这件事"></a>
       
       
       
@@ -264,7 +264,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://www.ywy-c-asm.cn/2021/03/08/%E5%BF%AB%E9%80%9F%E8%8E%B7%E5%8F%96%E6%95%B4%E6%95%B0%E6%9C%80%E9%AB%98%E4%BA%8C%E8%BF%9B%E5%88%B6%E4%BD%8D/" data-id="ckm756vvj000c6ot27aji8goz" data-title="快速获取整数最高二进制位"></a>
+      <a data-url="http://www.ywy-c-asm.cn/2021/03/08/%E5%BF%AB%E9%80%9F%E8%8E%B7%E5%8F%96%E6%95%B4%E6%95%B0%E6%9C%80%E9%AB%98%E4%BA%8C%E8%BF%9B%E5%88%B6%E4%BD%8D/" data-id="ckm7w7it70006fkt2hkx41961" data-title="快速获取整数最高二进制位"></a>
       
       
       
@@ -319,7 +319,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://www.ywy-c-asm.cn/2021/03/07/%E8%A1%A1%E9%87%8F%E4%B8%A4%E4%B8%AA%E6%B1%89%E8%AF%AD%E5%8F%A5%E5%AD%90%E7%9A%84%E7%9B%B8%E4%BC%BC%E5%BA%A6/" data-id="ckm756vvm000e6ot2gqe098b5" data-title="衡量两个汉语句子的相似度"></a>
+      <a data-url="http://www.ywy-c-asm.cn/2021/03/07/%E8%A1%A1%E9%87%8F%E4%B8%A4%E4%B8%AA%E6%B1%89%E8%AF%AD%E5%8F%A5%E5%AD%90%E7%9A%84%E7%9B%B8%E4%BC%BC%E5%BA%A6/" data-id="ckm7w7itb000afkt2f97xdlu5" data-title="衡量两个汉语句子的相似度"></a>
       
       
       
@@ -408,6 +408,16 @@
   
 </aside>
         
+		
+		
+<iframe id="iframe1" src="/balls3.htmi" style="height:500px;width:1500px;position:absolute;top:500px;left:0px;z-index:-1" scrolling="no" frameborder="0"></iframe>
+		<script>
+			var height=document.body.scrollHeight;
+			var width=document.body.scrollWidth;
+			iframe1.style='height:'+height+'px;width:'+width+'px;position:absolute;top:0px;left:0px;z-index:-1';
+		</script>
+
+
       </div>
       <footer id="footer">
   <!-- MathJax配置，可通过单美元符号书写行内公式等 -->
@@ -456,6 +466,12 @@
   </div>
 </footer>
 
+
+
+
+
+
+
     </div>
     <nav id="mobile-nav">
   
@@ -484,5 +500,9 @@
 
 
   </div>
+
+
+
+
 </body>
 </html>

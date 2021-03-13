@@ -1,5 +1,8 @@
 <!DOCTYPE html>
 <html>
+
+
+
 <head>
   <meta charset="utf-8">
   
@@ -14,7 +17,7 @@
 <meta property="og:description" content="最近看到了一篇用JavaScript写物理引擎的文章，就先因此而入坑了JS之后去模仿实现了一下小球碰撞。原理是用windows.requestAnimationFrame()实现每毫秒调用一次基于canvas的绘图函数，碰撞时将速度沿两球的公切线正交分解，在球心连线的分量上用对心正碰求解新速度。并且在碰撞时设置速度的恢复系数以模拟实际中碰撞时的能量损失。再加上重力（每时每刻令竖直速度加上向下的分量">
 <meta property="og:locale" content="en_US">
 <meta property="article:published_time" content="2021-03-12T13:24:00.000Z">
-<meta property="article:modified_time" content="2021-03-13T03:00:49.187Z">
+<meta property="article:modified_time" content="2021-03-13T15:34:28.026Z">
 <meta property="article:author" content="ywy_c_asm">
 <meta property="article:tag" content="JavaScript">
 <meta name="twitter:card" content="summary">
@@ -38,8 +41,14 @@
 <meta name="generator" content="Hexo 5.4.0"></head>
 
 <body>
+
+
+
   <div id="container">
     <div id="wrap">
+
+	
+		
       <header id="header">
   <div id="banner"></div>
   <div id="header-outer" class="outer">
@@ -73,7 +82,7 @@
   </div>
 </header>
 
-      <div class="outer">
+      <div class="outer" style="padding:0 0px">
         <section id="main"><article id="post-小球碰撞" class="h-entry article article-type-post" itemprop="blogPost" itemscope itemtype="https://schema.org/BlogPosting">
   <div class="article-meta">
     <a href="/2021/03/12/%E5%B0%8F%E7%90%83%E7%A2%B0%E6%92%9E/" class="article-date">
@@ -98,20 +107,11 @@
       
         <p>最近看到了一篇用JavaScript写物理引擎的文章，就<del>先因此而入坑了JS之后</del>去模仿实现了一下小球碰撞。原理是用windows.requestAnimationFrame()实现每毫秒调用一次基于canvas的绘图函数，碰撞时将速度沿两球的公切线正交分解，在球心连线的分量上用对心正碰求解新速度。并且在碰撞时设置速度的恢复系数以模拟实际中碰撞时的能量损失。再加上重力（每时每刻令竖直速度加上向下的分量）就行了。</p>
 <p>（upd：现在突然惊奇的发现JavaScript和HTML代码可以完美地嵌在markdown里（是的，直接放代码就行了！），于是就把效果直接做到了这里）</p>
+<p>（再次upd：经过探索，发现这个甚至可以嵌入到landscape的主题里，即在layout.ejs里使用iframe把这个动画作为一个子页面嵌入（在同一个页面上的多个使用requestAnimationFrame的js程序并不能同时运行，因为单个页面上的程序貌似只能单线程运行，但父子页面可以同时运行），于是就顺理成章地把这个做了这个blog的背景……）</p>
 <p>以下是效果：</p>
 <html>
-    <head></head>
-​    <body>
-        <main>
-            <canvas id="balls3" height="700" width="700"></canvas>
-            <p>失重状态下无能量损失的版本</p>
-            <canvas id="balls2" height="700" width="700"></canvas>
-            <p>失重状态下有能量损失的版本</p>
-            <canvas id="balls1" height="700" width="700"></canvas>
-            <p>有重力有能量损失的版本</p>
-        </main>
-        <script src="/ball.js"></script>
-​    </body>
+
+<p>​    <body><br>        <main><br>            <canvas id="balls3" height="700" width="700"></canvas><br>            <p>失重状态下无能量损失的版本</p><br>            <canvas id="balls2" height="700" width="700"></canvas><br>            <p>失重状态下有能量损失的版本</p><br>            <canvas id="balls1" height="700" width="700"></canvas><br>            <p>有重力有能量损失的版本</p><br>        </main><br>        <script src="/ball.js"></script><br>​    </body></p>
 </html>
 
 
@@ -124,7 +124,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://www.ywy-c-asm.cn/2021/03/12/%E5%B0%8F%E7%90%83%E7%A2%B0%E6%92%9E/" data-id="ckm756vvi000b6ot2e9x04cu0" data-title="小球碰撞"></a>
+      <a data-url="http://www.ywy-c-asm.cn/2021/03/12/%E5%B0%8F%E7%90%83%E7%A2%B0%E6%92%9E/" data-id="ckm7w7it90008fkt2cdaxcher" data-title="小球碰撞"></a>
       
       
       
@@ -221,6 +221,16 @@
   
 </aside>
         
+		
+		
+<iframe id="iframe1" src="/balls3.htmi" style="height:500px;width:1500px;position:absolute;top:500px;left:0px;z-index:-1" scrolling="no" frameborder="0"></iframe>
+		<script>
+			var height=document.body.scrollHeight;
+			var width=document.body.scrollWidth;
+			iframe1.style='height:'+height+'px;width:'+width+'px;position:absolute;top:0px;left:0px;z-index:-1';
+		</script>
+
+
       </div>
       <footer id="footer">
   <!-- MathJax配置，可通过单美元符号书写行内公式等 -->
@@ -269,6 +279,12 @@
   </div>
 </footer>
 
+
+
+
+
+
+
     </div>
     <nav id="mobile-nav">
   
@@ -297,5 +313,9 @@
 
 
   </div>
+
+
+
+
 </body>
 </html>

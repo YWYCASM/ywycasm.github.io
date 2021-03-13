@@ -1,6 +1,11 @@
 var canvas=document.getElementById('balls3');
 var hdc=canvas.getContext('2d');
 var pos=70;
+var width=document.body.scrollWidth;
+var height=document.body.scrollHeight;
+canvas.height=height;
+canvas.width=width;
+var cnt=100;
 function rand(){
 	return(Math.random());
 }
@@ -29,11 +34,11 @@ class circle{
 		//this.vy+=0.3;
 		//this.vy*=0.98;
 		//this.vx*=0.98;
-		if(this.x+this.r>=700||this.x-this.r<=0){this.vx=-this.vx;this.vy=this.vy;}
-		if(this.y+this.r>=700||this.y-this.r<=0){this.vy=-this.vy;this.vx=this.vx;}
-		this.x=min(this.x,699.99-this.r);
+		if(this.x+this.r>=width||this.x-this.r<=0){this.vx=-this.vx;this.vy=this.vy;}
+		if(this.y+this.r>height||this.y-this.r<=0){this.vy=-this.vy;this.vx=this.vx;}
+		this.x=min(this.x,width-0.01-this.r);
 		this.x=max(this.x,0.01+this.r);
-		this.y=min(this.y,699.99-this.r);
+		this.y=min(this.y,height-0.01-this.r);
 		this.y=max(this.y,0.01+this.r);
 	}
 }
@@ -46,11 +51,11 @@ function cross(a,b){
 }
 var colors=['#00FFFF','#0000FF','#ADFF2F','#B030AD','#F0E68C','#20B2AA','#FF00FF','#000080','#FF0000','#FFFF00'];
 var array=[];
-for(let i=0;i<40;i++){
+for(let i=0;i<cnt;i++){
 	var x=0,y=0,r=0;
 	while(1){
-		x=rand()*700;y=rand()*700;r=rand()*30+10;
-		if(x-r<=0||x+r>=700||y-r<=0||y+r>=700)continue;
+		x=rand()*width;y=rand()*height;r=rand()*20+5;
+		if(x-r<=0||x+r>=width||y-r<=0||y+r>=height)continue;
 		var flag=0;
 		for(let j=0;j<i;j++){
 			if(dis(x,y,array[j].x,array[j].y)<=r+array[j].r){
@@ -58,18 +63,15 @@ for(let i=0;i<40;i++){
 			}				
 		}
 		if(flag===1)continue;
-		array.push(new circle(x,y,r,randsign()*(rand()*5+1),randsign()*(rand()*5+1),Math.floor(10*rand())));
+		array.push(new circle(x,y,r,randsign()*(rand()*10+1),randsign()*(rand()*10+1),Math.floor(10*rand())));
 		break;
 	}
 }
 var tot=0;
 function process(){
-	hdc.clearRect(0,0,700,700);
-	hdc.strokeStyle='black'
-	hdc.strokeRect(0,0,700,700);
-	hdc.fillStyle='#00FFFF';
+	hdc.clearRect(0,0,width,height);
 	var path=new Path2D();
-	for(let i=0;i<40;i++){
+	for(let i=0;i<cnt;i++){
 		let path=new Path2D();
 		path.arc(array[i].x,array[i].y,array[i].r,0,2*Math.PI);
 		hdc.fillStyle=colors[array[i].color];
@@ -96,7 +98,7 @@ function process(){
 			}
 		}
 	}
-	for(let i=0;i<40;i++){
+	for(let i=0;i<cnt;i++){
 		array[i].run();
 	}
 	//tot++;
