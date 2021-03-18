@@ -82,63 +82,61 @@
 </header>
 
       <div class="outer" style="padding:0 0px">
-        <section id="main"><article id="page-" class="h-entry article article-type-page" itemprop="blogPost" itemscope itemtype="https://schema.org/BlogPosting">
+        <section id="main"><article id="<%= post.layout %>-<%= post.slug %>" class="h-entry article article-type-<%= post.layout %>" itemprop="blogPost" itemscope itemtype="https://schema.org/BlogPosting">
   <div class="article-meta">
-    <a href="/test.html" class="article-date">
-  <time class="dt-published" datetime="2021-03-13T07:39:19.362Z" itemprop="datePublished">2021-03-13</time>
-</a>
-    
+    <%- partial('post/date', {class_name: 'article-date', date_format: null}) %>
+    <%- partial('post/category') %>
   </div>
   <div class="article-inner">
-    
-    
+    <%- partial('post/gallery') %>
+    <% if (post.link || post.title){ %>
+      <header class="article-header">
+        <%- partial('post/title', {class_name: 'p-name article-title'}) %>
+      </header>
+    <% } %>
     <div class="e-content article-entry" itemprop="articleBody">
-      
-        <html>
-	<head>
-		<style type="text/css">
-			html {
-				width: 100%;
-				height: 100%;
-			}
-			body {
-				width: 100%;
-				height: 100%;
-				margin: 0;
-			}
-			#canvasContainer {
-				width: 100%;
-				height: 100%;
-			}
-			#myCanvas {
-				width: 100%;
-				height: 100%;
-			}
-		</style>
-	</head>
-	<body style="height:100%">
-		<div id="canvasContainer" style="height:100%">
-			<canvas id="canvas" style="position:absolute;top:0;left:0;z-index:-2;height:100%;width:100%"></canvas>
-		</div>
-		<script src="/back.js"></script>
-	</body>
-</html>
-      
+      <% if (post.excerpt && index){ %>
+        <%- post.excerpt %>
+        <% if (theme.excerpt_link){ %>
+          <p class="article-more-link">
+            <a href="<%- url_for(post.path) %>#more"><%= theme.excerpt_link %></a>
+          </p>
+        <% } %>
+      <% } else { %>
+        <%- post.content %>
+      <% } %>
     </div>
     <footer class="article-footer">
-      <a data-url="http://www.ywy-c-asm.cn/test.html" data-id="ckmaqnmh4000ciwt2hchzhvwl" data-title=""></a>
-      
-      
-      
+      <a data-url="<%- post.permalink %>" data-id="<%= post._id %>" data-title="<%= post.title %>" class="article-share-link"><%= __('share') %></a>
+      <% if (post.comments && config.disqus_shortname){ %>
+        <a href="<%- post.permalink %>#disqus_thread" class="article-comment-link"><%= __('comment') %></a>
+      <% } %>
+      <% if (post.comments && theme.valine.enable && theme.valine.appId && theme.valine.appKey ){ %>
+        <a href="<%- url_for(post.path) %>#comments" class="article-comment-link">
+          <span class="post-comments-count valine-comment-count" data-xid="<%- url_for(post.path) %>" itemprop="commentCount"></span>
+          <%= __('comment') %>
+        </a>
+      <% } %>
+      <%- partial('post/tag') %>
     </footer>
   </div>
-  
-    
-  
+  <% if (!index){ %>
+    <%- partial('post/nav') %>
+  <% } %>
 </article>
 
-
+<% if (!index && post.comments && config.disqus_shortname){ %>
+<section id="comments">
+  <div id="disqus_thread">
+    <noscript>Please enable JavaScript to view the <a target="_blank" rel="noopener" href="//disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+  </div>
 </section>
+<% } %>
+<% if (!index && post.comments && theme.valine.enable && theme.valine.appId && theme.valine.appKey){ %>
+  <section id="comments" class="vcomment">
+
+  </section>
+<% } %></section>
         
           <aside id="sidebar">
   
@@ -149,7 +147,7 @@
   <div class="widget-wrap">
     <h3 class="widget-title">Tags</h3>
     <div class="widget">
-      <ul class="tag-list" itemprop="keywords"><li class="tag-list-item"><a class="tag-list-link" href="/tags/ACM/" rel="tag">ACM</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/JavaScript/" rel="tag">JavaScript</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/NLP/" rel="tag">NLP</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E4%B8%AA%E4%BA%BA%E4%BB%8B%E7%BB%8D/" rel="tag">个人介绍</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E4%BD%8D%E8%BF%90%E7%AE%97/" rel="tag">位运算</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E6%83%B3%E6%B3%95/" rel="tag">想法</a></li></ul>
+      <ul class="tag-list" itemprop="keywords"><li class="tag-list-item"><a class="tag-list-link" href="/tags/ACM/" rel="tag">ACM</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/C/" rel="tag">C++</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/JavaScript/" rel="tag">JavaScript</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/NLP/" rel="tag">NLP</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E4%B8%AA%E4%BA%BA%E4%BB%8B%E7%BB%8D/" rel="tag">个人介绍</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E4%BD%8D%E8%BF%90%E7%AE%97/" rel="tag">位运算</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E6%83%B3%E6%B3%95/" rel="tag">想法</a></li></ul>
     </div>
   </div>
 
@@ -185,6 +183,10 @@
       <ul>
         
           <li>
+            <a href="/2021/03/17/%E3%80%8AC++Primer%E3%80%8B%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/">《C++Primer》学习笔记</a>
+          </li>
+        
+          <li>
             <a href="/2021/03/15/Codeforces%E9%97%B2%E6%9D%82%E9%A2%98%E8%AE%B0%E5%BD%95/">Codeforces闲杂题记录</a>
           </li>
         
@@ -198,10 +200,6 @@
         
           <li>
             <a href="/2021/03/08/%E5%BF%AB%E9%80%9F%E8%8E%B7%E5%8F%96%E6%95%B4%E6%95%B0%E6%9C%80%E9%AB%98%E4%BA%8C%E8%BF%9B%E5%88%B6%E4%BD%8D/">快速获取整数最高二进制位</a>
-          </li>
-        
-          <li>
-            <a href="/2021/03/07/%E8%A1%A1%E9%87%8F%E4%B8%A4%E4%B8%AA%E6%B1%89%E8%AF%AD%E5%8F%A5%E5%AD%90%E7%9A%84%E7%9B%B8%E4%BC%BC%E5%BA%A6/">衡量两个汉语句子的相似度</a>
           </li>
         
       </ul>
