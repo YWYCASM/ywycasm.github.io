@@ -5,36 +5,42 @@
 
 <head>
   <meta charset="utf-8">
-  
-  
-  <title>ywy_c_asm</title>
+  <%- partial('google-analytics') %>
+  <%
+  var title = page.title;
+
+  if (is_archive()){
+    title = __('archive_a');
+
+    if (is_month()){
+      title += ': ' + page.year + '/' + page.month;
+    } else if (is_year()){
+      title += ': ' + page.year;
+    }
+  } else if (is_category()){
+    title = __('category') + ': ' + page.category;
+  } else if (is_tag()){
+    title = __('tag') + ': ' + page.tag;
+  }
+  %>
+  <title><% if (title){ %><%= title %> | <% } %><%= config.title %></title>
   <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-  <meta name="description" content="前HEOIer，现HIT ACMer">
-<meta property="og:type" content="website">
-<meta property="og:title" content="ywy_c_asm">
-<meta property="og:url" content="http://www.ywy-c-asm.cn/index.html">
-<meta property="og:site_name" content="ywy_c_asm">
-<meta property="og:description" content="前HEOIer，现HIT ACMer">
-<meta property="og:locale" content="en_US">
-<meta property="article:author" content="ywy_c_asm">
-<meta name="twitter:card" content="summary">
-  
-  
-    <link rel="icon" href="/images/ico.ico">
-  
-  
-    
-<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/typeface-source-code-pro@0.0.71/index.min.css">
-
-  
-  
-<link rel="stylesheet" href="/css/style.css">
-
-  
-    
-<link rel="stylesheet" href="/fancybox/jquery.fancybox.min.css">
-
-  
+  <%- open_graph({twitter_id: theme.twitter, fb_admins: theme.fb_admins, fb_app_id: theme.fb_app_id}) %>
+  <% if (config.feed) { %>
+    <%- feed_tag() %>
+  <% } else if (theme.rss) { %>
+    <%- feed_tag(theme.rss) %>
+  <% } %>
+  <% if (theme.favicon){ %>
+    <%- favicon_tag(theme.favicon) %>
+  <% } %>
+  <% if (config.highlight.enable){ %>
+    <%- css('https://cdn.jsdelivr.net/npm/typeface-source-code-pro@0.0.71/index.min.css') %>
+  <% } %>
+  <%- css('css/style') %>
+  <% if (theme.fancybox){ %>
+    <%- css('fancybox/jquery.fancybox.min.css') %>
+  <% } %>
 <meta name="generator" content="Hexo 5.4.0"></head>
 
 <body>
@@ -112,7 +118,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://www.ywy-c-asm.cn/2021/02/27/[%E7%BD%AE%E9%A1%B6]About%20Me/" data-id="ckmes6cu20003skt2g6pb4z5j" data-title="（置顶）About Me"></a>
+      <a data-url="http://www.ywy-c-asm.cn/2021/02/27/[%E7%BD%AE%E9%A1%B6]About%20Me/" data-id="ckmes8ole0003gct22m400pnf" data-title="（置顶）About Me"></a>
       
       
       
@@ -148,7 +154,7 @@
     
     <div class="e-content article-entry" itemprop="articleBody">
       
-        <p>最近意识到一个很严重的问题——我虽然理论上会写C++代码，然而由于OI的原因却从未真正系统地学习过它（<del><strong>事实上，除了一些STL以外，我一直以来写的基本都是C风格的C++</strong></del>），导致很多很多的特性并不了解，遂找了本《C++ Primer》学习之。</p>
+        <p>最近意识到一个十分严重的问题——我虽然理论上会写C++代码，然而由于OI的原因却从未真正系统地学习过它（<del><strong>事实上，除了一些STL以外，我一直以来写的基本都是C风格的C++</strong></del>），导致很多很多的特性并不了解，遂找了本《C++ Primer》学习之。</p>
         
           <p class="article-more-link">
             <a href="/2021/03/17/%E3%80%8AC++Primer%E3%80%8B%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/#more">Read More</a>
@@ -157,7 +163,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://www.ywy-c-asm.cn/2021/03/17/%E3%80%8AC++Primer%E3%80%8B%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/" data-id="ckmes6cu60006skt25t7gh33m" data-title="《C++Primer》学习笔记"></a>
+      <a data-url="http://www.ywy-c-asm.cn/2021/03/17/%E3%80%8AC++Primer%E3%80%8B%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/" data-id="ckmes8olh0006gct280nm7hmh" data-title="《C++Primer》学习笔记"></a>
       
       
       
@@ -202,7 +208,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://www.ywy-c-asm.cn/2021/03/15/Codeforces%E9%97%B2%E6%9D%82%E9%A2%98%E8%AE%B0%E5%BD%95/" data-id="ckmes6ctz0001skt278410bxv" data-title="Codeforces闲杂题记录"></a>
+      <a data-url="http://www.ywy-c-asm.cn/2021/03/15/Codeforces%E9%97%B2%E6%9D%82%E9%A2%98%E8%AE%B0%E5%BD%95/" data-id="ckmes8ola0001gct20yrt4gm4" data-title="Codeforces闲杂题记录"></a>
       
       
       
@@ -247,7 +253,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://www.ywy-c-asm.cn/2021/03/12/%E5%B0%8F%E7%90%83%E7%A2%B0%E6%92%9E/" data-id="ckmes6cui000mskt22f246h7t" data-title="小球碰撞"></a>
+      <a data-url="http://www.ywy-c-asm.cn/2021/03/12/%E5%B0%8F%E7%90%83%E7%A2%B0%E6%92%9E/" data-id="ckmes8oll000agct283wy8ag0" data-title="小球碰撞"></a>
       
       
       
@@ -292,7 +298,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://www.ywy-c-asm.cn/2021/03/09/%E5%85%B3%E4%BA%8E%E6%88%91%E4%B8%BA%E4%BB%80%E4%B9%88%E4%BB%A5%E6%9C%80%E4%B8%BA%E6%9E%81%E7%AB%AF%E7%9A%84%E6%80%81%E5%BA%A6%E5%8F%8D%E5%AF%B9%E6%B8%B8%E6%88%8F%E8%BF%99%E4%BB%B6%E4%BA%8B/" data-id="ckmes6cu70008skt25ntb5llr" data-title="关于我为什么以最为极端的态度反对游戏这件事"></a>
+      <a data-url="http://www.ywy-c-asm.cn/2021/03/09/%E5%85%B3%E4%BA%8E%E6%88%91%E4%B8%BA%E4%BB%80%E4%B9%88%E4%BB%A5%E6%9C%80%E4%B8%BA%E6%9E%81%E7%AB%AF%E7%9A%84%E6%80%81%E5%BA%A6%E5%8F%8D%E5%AF%B9%E6%B8%B8%E6%88%8F%E8%BF%99%E4%BB%B6%E4%BA%8B/" data-id="ckmes8olj0008gct25mli9nu6" data-title="关于我为什么以最为极端的态度反对游戏这件事"></a>
       
       
       
@@ -337,7 +343,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://www.ywy-c-asm.cn/2021/03/08/%E5%BF%AB%E9%80%9F%E8%8E%B7%E5%8F%96%E6%95%B4%E6%95%B0%E6%9C%80%E9%AB%98%E4%BA%8C%E8%BF%9B%E5%88%B6%E4%BD%8D/" data-id="ckmes6cug000lskt28k8fhz8o" data-title="快速获取整数最高二进制位"></a>
+      <a data-url="http://www.ywy-c-asm.cn/2021/03/08/%E5%BF%AB%E9%80%9F%E8%8E%B7%E5%8F%96%E6%95%B4%E6%95%B0%E6%9C%80%E9%AB%98%E4%BA%8C%E8%BF%9B%E5%88%B6%E4%BD%8D/" data-id="ckmes8oln000egct21dyjeqm5" data-title="快速获取整数最高二进制位"></a>
       
       
       
@@ -383,7 +389,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://www.ywy-c-asm.cn/2021/03/07/%E8%A1%A1%E9%87%8F%E4%B8%A4%E4%B8%AA%E6%B1%89%E8%AF%AD%E5%8F%A5%E5%AD%90%E7%9A%84%E7%9B%B8%E4%BC%BC%E5%BA%A6/" data-id="ckmes6cuj000oskt2gmrifjv8" data-title="衡量两个汉语句子的相似度"></a>
+      <a data-url="http://www.ywy-c-asm.cn/2021/03/07/%E8%A1%A1%E9%87%8F%E4%B8%A4%E4%B8%AA%E6%B1%89%E8%AF%AD%E5%8F%A5%E5%AD%90%E7%9A%84%E7%9B%B8%E4%BC%BC%E5%BA%A6/" data-id="ckmes8olp000ggct209f75c9x" data-title="衡量两个汉语句子的相似度"></a>
       
       
       
