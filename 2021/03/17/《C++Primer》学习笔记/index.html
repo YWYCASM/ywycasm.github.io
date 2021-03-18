@@ -5,42 +5,39 @@
 
 <head>
   <meta charset="utf-8">
-  <%- partial('google-analytics') %>
-  <%
-  var title = page.title;
-
-  if (is_archive()){
-    title = __('archive_a');
-
-    if (is_month()){
-      title += ': ' + page.year + '/' + page.month;
-    } else if (is_year()){
-      title += ': ' + page.year;
-    }
-  } else if (is_category()){
-    title = __('category') + ': ' + page.category;
-  } else if (is_tag()){
-    title = __('tag') + ': ' + page.tag;
-  }
-  %>
-  <title><% if (title){ %><%= title %> | <% } %><%= config.title %></title>
+  
+  
+  <title>《C++Primer》学习笔记 | ywy_c_asm</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-  <%- open_graph({twitter_id: theme.twitter, fb_admins: theme.fb_admins, fb_app_id: theme.fb_app_id}) %>
-  <% if (config.feed) { %>
-    <%- feed_tag() %>
-  <% } else if (theme.rss) { %>
-    <%- feed_tag(theme.rss) %>
-  <% } %>
-  <% if (theme.favicon){ %>
-    <%- favicon_tag(theme.favicon) %>
-  <% } %>
-  <% if (config.highlight.enable){ %>
-    <%- css('https://cdn.jsdelivr.net/npm/typeface-source-code-pro@0.0.71/index.min.css') %>
-  <% } %>
-  <%- css('css/style') %>
-  <% if (theme.fancybox){ %>
-    <%- css('fancybox/jquery.fancybox.min.css') %>
-  <% } %>
+  <meta name="description" content="最近意识到一个很严重的问题——我虽然理论上会写C++代码，然而由于OI的原因却从未真正系统地学习过它（事实上，除了一些STL以外，我一直以来写的基本都是C风格的C++），导致很多很多的特性并不了解，遂找了本《C++ Primer》学习之。">
+<meta property="og:type" content="article">
+<meta property="og:title" content="《C++Primer》学习笔记">
+<meta property="og:url" content="http://www.ywy-c-asm.cn/2021/03/17/%E3%80%8AC++Primer%E3%80%8B%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/index.html">
+<meta property="og:site_name" content="ywy_c_asm">
+<meta property="og:description" content="最近意识到一个很严重的问题——我虽然理论上会写C++代码，然而由于OI的原因却从未真正系统地学习过它（事实上，除了一些STL以外，我一直以来写的基本都是C风格的C++），导致很多很多的特性并不了解，遂找了本《C++ Primer》学习之。">
+<meta property="og:locale" content="en_US">
+<meta property="article:published_time" content="2021-03-17T12:12:00.000Z">
+<meta property="article:modified_time" content="2021-03-18T11:22:08.830Z">
+<meta property="article:author" content="ywy_c_asm">
+<meta property="article:tag" content="C++">
+<meta name="twitter:card" content="summary">
+  
+  
+    <link rel="icon" href="/images/ico.ico">
+  
+  
+    
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/typeface-source-code-pro@0.0.71/index.min.css">
+
+  
+  
+<link rel="stylesheet" href="/css/style.css">
+
+  
+    
+<link rel="stylesheet" href="/fancybox/jquery.fancybox.min.css">
+
+  
 <meta name="generator" content="Hexo 5.4.0"></head>
 
 <body>
@@ -108,7 +105,7 @@
     
     <div class="e-content article-entry" itemprop="articleBody">
       
-        <p>最近意识到一个十分严重的问题——我虽然理论上会写C++代码，然而由于OI的原因却从未真正系统地学习过它（<del><strong>事实上，除了一些STL以外，我一直以来写的基本都是C风格的C++</strong></del>），导致很多很多的特性并不了解，遂找了本《C++ Primer》学习之。</p>
+        <p>最近意识到一个很严重的问题——我虽然理论上会写C++代码，然而由于OI的原因却从未真正系统地学习过它（<del><strong>事实上，除了一些STL以外，我一直以来写的基本都是C风格的C++</strong></del>），导致很多很多的特性并不了解，遂找了本《C++ Primer》学习之。</p>
 <span id="more"></span>
 
 <hr>
