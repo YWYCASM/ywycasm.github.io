@@ -12,7 +12,7 @@
   <meta name="description" content="（其实这里的原始问题是，给一个英语句子和汉语句子，求一个衡量它们语义相似程度的分数，这里直接用一个transformer模型翻译了英语句子，转化为单语句子的相似度问题） 需要说明的是，以下3种思路都是基于“字符相等”（这里的粒度是字符而不是词，如果基于“词相等”的话，两个词只要有一个字符不相等就会被判为完全不相等，从而会错判很多近义词），而不是“字符或词的相似”，后者大概需要词向量之类的东西处理。">
 <meta property="og:type" content="article">
 <meta property="og:title" content="衡量两个汉语句子的相似度">
-<meta property="og:url" content="http://www.ywy-c-asm.cn/2021/03/07/%E8%A1%A1%E9%87%8F%E4%B8%A4%E4%B8%AA%E6%B1%89%E8%AF%AD%E5%8F%A5%E5%AD%90%E7%9A%84%E7%9B%B8%E4%BC%BC%E5%BA%A6/index.html">
+<meta property="og:url" content="https://www.ywy-c-asm.cn/2021/03/07/%E8%A1%A1%E9%87%8F%E4%B8%A4%E4%B8%AA%E6%B1%89%E8%AF%AD%E5%8F%A5%E5%AD%90%E7%9A%84%E7%9B%B8%E4%BC%BC%E5%BA%A6/index.html">
 <meta property="og:site_name" content="ywy_c_asm">
 <meta property="og:description" content="（其实这里的原始问题是，给一个英语句子和汉语句子，求一个衡量它们语义相似程度的分数，这里直接用一个transformer模型翻译了英语句子，转化为单语句子的相似度问题） 需要说明的是，以下3种思路都是基于“字符相等”（这里的粒度是字符而不是词，如果基于“词相等”的话，两个词只要有一个字符不相等就会被判为完全不相等，从而会错判很多近义词），而不是“字符或词的相似”，后者大概需要词向量之类的东西处理。">
 <meta property="og:locale" content="en_US">
@@ -76,90 +76,68 @@
         <a id="nav-search-btn" class="nav-icon" title="Search"></a>
       </nav>
       <div id="search-form-wrap">
-        <form action="//google.com/search" method="get" accept-charset="UTF-8" class="search-form"><input type="search" name="q" class="search-form-input" placeholder="Search"><button type="submit" class="search-form-submit">&#xF002;</button><input type="hidden" name="sitesearch" value="http://www.ywy-c-asm.cn"></form>
+        <form action="//google.com/search" method="get" accept-charset="UTF-8" class="search-form"><input type="search" name="q" class="search-form-input" placeholder="Search"><button type="submit" class="search-form-submit">&#xF002;</button><input type="hidden" name="sitesearch" value="https://www.ywy-c-asm.cn"></form>
       </div>
     </div>
   </div>
 </header>
 
       <div class="outer" style="padding:0 0px">
-        <section id="main"><article id="post-衡量两个汉语句子的相似度" class="h-entry article article-type-post" itemprop="blogPost" itemscope itemtype="https://schema.org/BlogPosting">
+        <section id="main"><article id="<%= post.layout %>-<%= post.slug %>" class="h-entry article article-type-<%= post.layout %>" itemprop="blogPost" itemscope itemtype="https://schema.org/BlogPosting">
   <div class="article-meta">
-    <a href="/2021/03/07/%E8%A1%A1%E9%87%8F%E4%B8%A4%E4%B8%AA%E6%B1%89%E8%AF%AD%E5%8F%A5%E5%AD%90%E7%9A%84%E7%9B%B8%E4%BC%BC%E5%BA%A6/" class="article-date">
-  <time class="dt-published" datetime="2021-03-07T11:44:00.000Z" itemprop="datePublished">2021-03-07</time>
-</a>
-    
+    <%- partial('post/date', {class_name: 'article-date', date_format: null}) %>
+    <%- partial('post/category') %>
   </div>
   <div class="article-inner">
-    
-    
+    <%- partial('post/gallery') %>
+    <% if (post.link || post.title){ %>
       <header class="article-header">
-        
-  
-    <h1 class="p-name article-title" itemprop="headline name">
-      衡量两个汉语句子的相似度
-    </h1>
-  
-
+        <%- partial('post/title', {class_name: 'p-name article-title'}) %>
       </header>
-    
+    <% } %>
     <div class="e-content article-entry" itemprop="articleBody">
-      
-        <p>（其实这里的原始问题是，给一个英语句子和汉语句子，求一个衡量它们语义相似程度的分数，这里直接用一个transformer模型翻译了英语句子，转化为单语句子的相似度问题）</p>
-<p>需要说明的是，以下3种思路都是基于“字符相等”（这里的粒度是<strong>字符</strong>而不是<strong>词</strong>，如果基于“词相等”的话，两个词只要有一个字符不相等就会被判为<strong>完全不</strong>相等，从而会错判很多近义词），而不是“字符或词的相似”，后者大概需要词向量之类的东西处理。并且，就像大多数NLP工具一样，它们更加适合长句的处理，对于短句可能会出现奇怪的情况。</p>
-<span id="more"></span>
-
-<h1 id="1-编辑距离"><a href="#1-编辑距离" class="headerlink" title="1.编辑距离"></a>1.编辑距离</h1><p>给两个字符串$A$和$B$，每次把其中一个插个字符、删个字符、改个字符，变成另一个串的最小操作次数，简单dp即可。这样的话短句子的编辑距离显然更倾向于远小于长句子，为消除这种偏好将其除以$max(|A|,|B|)$。</p>
-<p>它确实完全考虑了字符顺序，看上去十分完美，然而同一个句子的不同翻译结果可以有不同的语序，这就会使得编辑距离异常地大。</p>
-<h1 id="2-Jeccard距离"><a href="#2-Jeccard距离" class="headerlink" title="2.Jeccard距离"></a>2.Jeccard距离</h1><p>原理十分简单，就是将两个句子中字符的交集大小除以并集大小，即“共有的字符越多越相似”。</p>
-<p>当然这个东西本来就是简单粗暴地衡量两个无序集合的相似程度的，不过在这里的情况下非常适合把那些语义明显对不上的筛掉。</p>
-<p>缺点是完全无序，有可能把语义错误的误判为语义相似的，例如“二中”和“中二”就会被判为相等。（其实在这里的把英语句子的翻译结果和汉语句子比较的情况下，这种缺点倒不是很突出）</p>
-<h1 id="3-BLEU值"><a href="#3-BLEU值" class="headerlink" title="3.BLEU值"></a>3.BLEU值</h1><p>这个是基于N-gram的，既有无序的特点，又可以一定程度上考虑语序。</p>
-<p>对于每个$i=1…N$，提取出两个句子的每个长度为$i$的子串$s_k$，统计其在两个句子中出现的次数（这个就跟语序没关了）$cnt_A(s_k),cnt_B(s_k)$，那么$i$为分数提供的贡献为$f_i=\frac{\sum\min(cnt_A,cnt_B)}{\sum\max(cnt_A,cnt_B)}$，取$min$与$max$作比正是为了反映差异。对于每个长度i赋予一个权重（一般可以让权重都相等），最终$BLEU=\exp(\sum w_i\ln f_i)$。在这里我取的是$N=3$的3-gram。</p>
-<p>更加广义的BLEU是（这个专门用来训练NMT模型），有一个待确定翻译结果$S$和若干个标准翻译结果${T_i}$，要判断$S$是否被翻译地满足要求（即求它与一个句子集的相似程度），那么这里的$f_i=\frac{\sum \min(cnt_S,cnt_{T_i})}{\sum cnt_S}$，这样在S很短但标准句很长时会造成BLEU虚高（分母上下都是$cnt_S$），需要在最外面再乘一个$\min(1,exp(1-\frac{\max |T|}{|S|}))$作为惩罚因子。</p>
-<p>这个比较适合筛选语义匹配程度高的句对，不过缺点还是比较容易把语义相似的句对判为不相似。</p>
-<h1 id="4-Simhash"><a href="#4-Simhash" class="headerlink" title="4.Simhash"></a>4.Simhash</h1><p>比较玄学的一种做法，思想是把一个句子做字符串哈希，并且这个哈希有<strong>相似的句子有相似的哈希值</strong>的特点。</p>
-<p>做法是把句子中的每个字或词（并不涉及语序）求一个64位hash值，将其中的0视作-1，就变成了一个纯粹的64维向量。将这些字或词的向量按权重（可以是出现频率）按位相加，把结果向量中的正数视作1，负数视作0，这个01向量就是Simhash值。两个Simhash值对应相等的位越多越相似。</p>
-<p>本质上其实是把句子当做字词的无序集合，用一个下标对应字词的n维向量表示一个句子，然后随机降维（字词的hash函数可看做一个随机函数）成64维向量。更为一般的问题是将n维空间中较为临近的一团点设一个较为接近的hash值，例如平面上的点，我可以随机取较少的几条直线，让这直线一侧的点设为1，另一侧设为0，本质上就是把这些二维向量与直线的垂线做点积（<strong>点积就是用来降维的</strong>）判断正负，由于穿过临近点的直线的概率较低，所以还是比较靠谱的。这里就相当于随机了64个n维向量做点积。</p>
-<p>这玩意对于长句子甚至文章是非常好用的，一般用来快速去重（不超过3个位有差异即相似，可以搜索剪枝），但是稍微短点的句子就比较差劲……</p>
-
-      
+      <% if (post.excerpt && index){ %>
+        <%- post.excerpt %>
+        <% if (theme.excerpt_link){ %>
+          <p class="article-more-link">
+            <a href="<%- url_for(post.path) %>#more"><%= theme.excerpt_link %></a>
+          </p>
+        <% } %>
+      <% } else { %>
+        <%- post.content %>
+      <% } %>
     </div>
     <footer class="article-footer">
-      <a data-url="http://www.ywy-c-asm.cn/2021/03/07/%E8%A1%A1%E9%87%8F%E4%B8%A4%E4%B8%AA%E6%B1%89%E8%AF%AD%E5%8F%A5%E5%AD%90%E7%9A%84%E7%9B%B8%E4%BC%BC%E5%BA%A6/" data-id="ckmgfkoet000kkwt2awbo5mxn" data-title="衡量两个汉语句子的相似度"></a>
-      
-      
-      
-  <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/NLP/" rel="tag">NLP</a></li></ul>
-
+      <a data-url="<%- post.permalink %>" data-id="<%= post._id %>" data-title="<%= post.title %>" class="article-share-link"><%= __('share') %></a>
+      <% if (post.comments && config.disqus_shortname){ %>
+        <a href="<%- post.permalink %>#disqus_thread" class="article-comment-link"><%= __('comment') %></a>
+      <% } %>
+      <% if (post.comments && theme.valine.enable && theme.valine.appId && theme.valine.appKey ){ %>
+        <a href="<%- url_for(post.path) %>#comments" class="article-comment-link">
+          <span class="post-comments-count valine-comment-count" data-xid="<%- url_for(post.path) %>" itemprop="commentCount"></span>
+          <%= __('comment') %>
+        </a>
+      <% } %>
+      <%- partial('post/tag') %>
     </footer>
   </div>
-  
-    
-<nav id="article-nav">
-  
-    <a href="/2021/03/08/%E5%BF%AB%E9%80%9F%E8%8E%B7%E5%8F%96%E6%95%B4%E6%95%B0%E6%9C%80%E9%AB%98%E4%BA%8C%E8%BF%9B%E5%88%B6%E4%BD%8D/" id="article-nav-newer" class="article-nav-link-wrap">
-      <strong class="article-nav-caption">Newer</strong>
-      <div class="article-nav-title">
-        
-          快速获取整数最高二进制位
-        
-      </div>
-    </a>
-  
-  
-    <a href="/2021/02/27/%5B%E7%BD%AE%E9%A1%B6%5DAbout%20Me/" id="article-nav-older" class="article-nav-link-wrap">
-      <strong class="article-nav-caption">Older</strong>
-      <div class="article-nav-title">（置顶）About Me</div>
-    </a>
-  
-</nav>
-
-  
+  <% if (!index){ %>
+    <%- partial('post/nav') %>
+  <% } %>
 </article>
 
-
+<% if (!index && post.comments && config.disqus_shortname){ %>
+<section id="comments">
+  <div id="disqus_thread">
+    <noscript>Please enable JavaScript to view the <a target="_blank" rel="noopener" href="//disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+  </div>
 </section>
+<% } %>
+<% if (!index && post.comments && theme.valine.enable && theme.valine.appId && theme.valine.appKey){ %>
+  <section id="comments" class="vcomment">
+
+  </section>
+<% } %></section>
         
           <aside id="sidebar">
   

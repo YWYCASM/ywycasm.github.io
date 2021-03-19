@@ -12,7 +12,7 @@
   <meta name="description" content="从这里开始就是关于面向对象的内容了，说来惭愧我这辈子学的第一门语言就是支持面向对象的Visual Basic，当时也掌握了关于面向对象的不少知识某些包括抽象封装继承在内的思想直到今天仍然在我头脑里根深蒂固，不过从来没在C++里用过……">
 <meta property="og:type" content="article">
 <meta property="og:title" content="《C++Primer》学习笔记（二）">
-<meta property="og:url" content="http://www.ywy-c-asm.cn/2021/03/19/%E3%80%8AC++Primer%E3%80%8B%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0%EF%BC%88%E4%BA%8C%EF%BC%89/index.html">
+<meta property="og:url" content="https://www.ywy-c-asm.cn/2021/03/19/%E3%80%8AC++Primer%E3%80%8B%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0%EF%BC%88%E4%BA%8C%EF%BC%89/index.html">
 <meta property="og:site_name" content="ywy_c_asm">
 <meta property="og:description" content="从这里开始就是关于面向对象的内容了，说来惭愧我这辈子学的第一门语言就是支持面向对象的Visual Basic，当时也掌握了关于面向对象的不少知识某些包括抽象封装继承在内的思想直到今天仍然在我头脑里根深蒂固，不过从来没在C++里用过……">
 <meta property="og:locale" content="en_US">
@@ -76,115 +76,68 @@
         <a id="nav-search-btn" class="nav-icon" title="Search"></a>
       </nav>
       <div id="search-form-wrap">
-        <form action="//google.com/search" method="get" accept-charset="UTF-8" class="search-form"><input type="search" name="q" class="search-form-input" placeholder="Search"><button type="submit" class="search-form-submit">&#xF002;</button><input type="hidden" name="sitesearch" value="http://www.ywy-c-asm.cn"></form>
+        <form action="//google.com/search" method="get" accept-charset="UTF-8" class="search-form"><input type="search" name="q" class="search-form-input" placeholder="Search"><button type="submit" class="search-form-submit">&#xF002;</button><input type="hidden" name="sitesearch" value="https://www.ywy-c-asm.cn"></form>
       </div>
     </div>
   </div>
 </header>
 
       <div class="outer" style="padding:0 0px">
-        <section id="main"><article id="post-《C++Primer》学习笔记（二）" class="h-entry article article-type-post" itemprop="blogPost" itemscope itemtype="https://schema.org/BlogPosting">
+        <section id="main"><article id="<%= post.layout %>-<%= post.slug %>" class="h-entry article article-type-<%= post.layout %>" itemprop="blogPost" itemscope itemtype="https://schema.org/BlogPosting">
   <div class="article-meta">
-    <a href="/2021/03/19/%E3%80%8AC++Primer%E3%80%8B%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0%EF%BC%88%E4%BA%8C%EF%BC%89/" class="article-date">
-  <time class="dt-published" datetime="2021-03-19T08:31:00.000Z" itemprop="datePublished">2021-03-19</time>
-</a>
-    
+    <%- partial('post/date', {class_name: 'article-date', date_format: null}) %>
+    <%- partial('post/category') %>
   </div>
   <div class="article-inner">
-    
-    
+    <%- partial('post/gallery') %>
+    <% if (post.link || post.title){ %>
       <header class="article-header">
-        
-  
-    <h1 class="p-name article-title" itemprop="headline name">
-      《C++Primer》学习笔记（二）
-    </h1>
-  
-
+        <%- partial('post/title', {class_name: 'p-name article-title'}) %>
       </header>
-    
+    <% } %>
     <div class="e-content article-entry" itemprop="articleBody">
-      
-        <p>从这里开始就是关于面向对象的内容了，说来惭愧我这辈子学的第一门语言就是支持面向对象的Visual Basic，当时也掌握了关于面向对象的不少知识<del>某些包括抽象封装继承在内的思想直到今天仍然在我头脑里根深蒂固</del>，不过从来没在C++里用过……</p>
-<span id="more"></span>
-
-<hr>
-<p><strong>关于class与struct的异同</strong></p>
-<p>C++中的<code>struct</code>相对于C而言简直是飞跃，可以说它现在就是类也没啥问题，事实上二者的差别很小，都可以继承，都可以有构造函数和析构函数啥的。不同点在于，<code>class</code>可以用模板类参数（<code>struct</code>不可以），<code>class</code>的成员和继承方式默认<code>private</code>，而<code>struct</code>都是默认<code>public</code>的（这个可以改）。如果一个<code>struct</code><strong>没有构造函数</strong>，它可以用列表<code>&#123;&#125;</code>的方式按顺序初始化所有成员变量，而<code>class</code>不能。</p>
-<p>所以以下的内容基本上对<code>class</code>和<code>struct</code>是等效的。</p>
-<hr>
-<p><strong>关于成员函数</strong></p>
-<p>对于一个类中的成员函数，编译时会额外引入一个该类型的引用参数，实际上就是指针<code>this</code>，事实上这个可以不显示地写出来（也正是这个原因，我们<strong>并不需要考虑类内各个成员或函数的顺序</strong>，前面的也可以使用后面的）。值得注意的是，如果函数被像这样地被声明为<code>const</code>，那么“传入的这个引用参数”将会被处理为<code>const</code>，换句话说，不能在该函数里修改成员变量。并且，常量成员函数显然也只能调用自身的常量成员函数。</p>
-<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">typedef</span> <span class="class"><span class="keyword">struct</span> _<span class="title">n</span>&#123;</span></span><br><span class="line">    <span class="keyword">int</span> a;</span><br><span class="line">    <span class="function"><span class="keyword">void</span> <span class="title">f</span><span class="params">()</span><span class="keyword">const</span></span>&#123; <span class="comment">//const成员函数</span></span><br><span class="line">        <span class="keyword">this</span>-&gt;a=<span class="number">0</span>; <span class="comment">//错误，不可修改！</span></span><br><span class="line">    &#125;</span><br><span class="line">&#125;node;</span><br></pre></td></tr></table></figure>
-
-<p><strong>所以</strong>，常量对象或指针都只能调用常量成员函数！（不然编译器会报错）</p>
-<p>如果两个成员函数类型完全一致，但其中一个是<code>const</code>，那么这是可重载的——非<code>const</code>对象重载决策非<code>const</code>方法，<code>const</code>对象重载决策（事实上也只能如此）<code>const</code>方法。</p>
-<p>然而就像<code>const_cast</code>一样，这种情况也是有例外的，如果某个成员用关键字<code>mutable</code>修饰，那么即便这个对象或者这个成员函数是<code>const</code>，<strong>这成员仍然可以被修改</strong>。这大概就是为了不让<code>const</code>过于死板，增加它的灵活度。</p>
-<p>此外，就像全局函数的定义与声明可以分开一样，成员函数亦可如此，例如：</p>
-<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">typedef</span> <span class="class"><span class="keyword">struct</span> _<span class="title">n</span>&#123;</span></span><br><span class="line">    <span class="function"><span class="keyword">int</span> <span class="title">fx</span><span class="params">(<span class="keyword">int</span>)</span></span>;</span><br><span class="line">&#125;node;</span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">node::fx</span><span class="params">(<span class="keyword">int</span> x)</span></span>&#123; <span class="comment">//在类的外部定义成员函数</span></span><br><span class="line">    <span class="comment">//这里虽然是类外，但就像在类内一样，能使用内部的一切成员</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
-<p>很多情况下，成员函数会以引用的方式返回对象自身，例如：</p>
-<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">typedef</span> <span class="class"><span class="keyword">struct</span> _<span class="title">n</span>&#123;</span></span><br><span class="line">    <span class="keyword">int</span> a;</span><br><span class="line">    <span class="function">_n&amp; <span class="title">add</span><span class="params">(<span class="keyword">int</span> x)</span></span>&#123;</span><br><span class="line">        a+=x;</span><br><span class="line">        <span class="keyword">return</span>(*<span class="keyword">this</span>); <span class="comment">//注意这里需要对this解引用</span></span><br><span class="line">    &#125;</span><br><span class="line">&#125;node;</span><br><span class="line">node me;me.a=<span class="number">0</span>;</span><br><span class="line">me.add(<span class="number">1</span>).add(<span class="number">2</span>).add(<span class="number">3</span>).add(<span class="number">4</span>).add(<span class="number">5</span>);  <span class="comment">//骚写法，每次都会修改me.a</span></span><br></pre></td></tr></table></figure>
-
-<p>注意，若这成员函数为<code>const</code>，那么返回的也是一个<code>const</code>引用。（也正是因为成员函数的实现原理）</p>
-<hr>
-<p><strong>关于构造函数</strong></p>
-<p>类的构造函数的名称是类名称（<strong>注意，不能是<code>typedef</code>定义的类型别名！</strong>），没有返回类型。</p>
-<p>如果一个类没有构造函数，则使用默认初始化，类中的成员要么被默认初始化，要么为类中定义的初始值。C++11引入了<code>default</code>构造函数，用于有多个参数的构造函数但又想有默认初始化版本的情况。（实际上写一个空参数空函数体的构造函数是等效的……）</p>
-<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">typedef</span> <span class="class"><span class="keyword">struct</span> _<span class="title">n</span>&#123;</span></span><br><span class="line">    <span class="keyword">int</span> a=<span class="number">233</span>,b,c;</span><br><span class="line">    _n()=<span class="keyword">default</span>; <span class="comment">//默认构造函数</span></span><br><span class="line">    _n(<span class="keyword">int</span> i);</span><br><span class="line">&#125;node;</span><br><span class="line">node::_n(<span class="keyword">int</span> i)&#123; <span class="comment">//与成员函数一样，构造函数也可被定义于类外</span></span><br><span class="line">    a=i;b=i;c=i;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
-<p>构造函数可以支持一种特殊的成员初始化方式，就像这样：</p>
-<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">typedef</span> <span class="class"><span class="keyword">struct</span> _<span class="title">n</span>&#123;</span></span><br><span class="line">    <span class="keyword">int</span> a,b,c;</span><br><span class="line">    _n(<span class="keyword">int</span> i,<span class="keyword">int</span> j):a(i),b(j)&#123; <span class="comment">//这里不能用=赋值</span></span><br><span class="line">        c=i+j;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;node;</span><br></pre></td></tr></table></figure>
-
-<hr>
-<p><strong>关于友元函数</strong></p>
-<p>（感觉C++中的<code>friend</code>相当于Visual Basic里<code>Friend Shared</code>的结合体……）</p>
-<p>友元函数不是类的成员函数，是参数为类对象的公开函数，按理说公开函数应该被声明和定义在全局，但开发者可能希望让公开函数使用参数对象内部的<code>private</code>成员，那么这就需要在类的<strong>内部</strong>（不能在外面定义）定义友元函数。</p>
-<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">typedef</span> <span class="class"><span class="keyword">class</span> _<span class="title">n</span>&#123;</span> <span class="comment">//注意typedef class和typedef struct是一样的……</span></span><br><span class="line">    <span class="keyword">private</span>:</span><br><span class="line">    	<span class="keyword">int</span> x;</span><br><span class="line">    <span class="function"><span class="keyword">friend</span> <span class="keyword">int</span> <span class="title">getdata</span><span class="params">(_n &amp;n)</span></span>&#123;<span class="keyword">return</span>(n.x);&#125;</span><br><span class="line">&#125;node;</span><br></pre></td></tr></table></figure>
-
-<hr>
-<p><strong>不完全类型</strong></p>
-<p>就像函数一样，类的定义与声明也是可以分开的。如果只有一个空的声明，不知道类的方法和成员变量（这一点尤为重要），那么就无法知道这类的存储结构，是不能定义实体对象的，但是可以定义指针或引用。用这个方法可以让两个类互相包含对方类型引用的成员（貌似无法做到包含对方实体类型）：</p>
-<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">x</span>;</span></span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">y</span>;</span></span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">x</span>&#123;</span></span><br><span class="line">    y&amp; val;</span><br><span class="line">&#125;;</span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">y</span>&#123;</span></span><br><span class="line">    x&amp; val;</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
-
-
-      
+      <% if (post.excerpt && index){ %>
+        <%- post.excerpt %>
+        <% if (theme.excerpt_link){ %>
+          <p class="article-more-link">
+            <a href="<%- url_for(post.path) %>#more"><%= theme.excerpt_link %></a>
+          </p>
+        <% } %>
+      <% } else { %>
+        <%- post.content %>
+      <% } %>
     </div>
     <footer class="article-footer">
-      <a data-url="http://www.ywy-c-asm.cn/2021/03/19/%E3%80%8AC++Primer%E3%80%8B%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0%EF%BC%88%E4%BA%8C%EF%BC%89/" data-id="ckmgfkoed000dkwt2a53x17h6" data-title="《C++Primer》学习笔记（二）"></a>
-      
-      
-      
-  <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/C/" rel="tag">C++</a></li></ul>
-
+      <a data-url="<%- post.permalink %>" data-id="<%= post._id %>" data-title="<%= post.title %>" class="article-share-link"><%= __('share') %></a>
+      <% if (post.comments && config.disqus_shortname){ %>
+        <a href="<%- post.permalink %>#disqus_thread" class="article-comment-link"><%= __('comment') %></a>
+      <% } %>
+      <% if (post.comments && theme.valine.enable && theme.valine.appId && theme.valine.appKey ){ %>
+        <a href="<%- url_for(post.path) %>#comments" class="article-comment-link">
+          <span class="post-comments-count valine-comment-count" data-xid="<%- url_for(post.path) %>" itemprop="commentCount"></span>
+          <%= __('comment') %>
+        </a>
+      <% } %>
+      <%- partial('post/tag') %>
     </footer>
   </div>
-  
-    
-<nav id="article-nav">
-  
-    <a href="/2021/03/19/%E3%80%8A%E7%A6%BB%E6%95%A3%E6%95%B0%E5%AD%A6%E5%BC%95%E8%AE%BA%E3%80%8B%E8%B6%A3%E9%A2%98%E8%AF%81%E6%98%8E/" id="article-nav-newer" class="article-nav-link-wrap">
-      <strong class="article-nav-caption">Newer</strong>
-      <div class="article-nav-title">
-        
-          《离散数学引论》趣题证明
-        
-      </div>
-    </a>
-  
-  
-    <a href="/2021/03/17/%E3%80%8AC++Primer%E3%80%8B%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/" id="article-nav-older" class="article-nav-link-wrap">
-      <strong class="article-nav-caption">Older</strong>
-      <div class="article-nav-title">《C++Primer》学习笔记（一）</div>
-    </a>
-  
-</nav>
-
-  
+  <% if (!index){ %>
+    <%- partial('post/nav') %>
+  <% } %>
 </article>
 
-
+<% if (!index && post.comments && config.disqus_shortname){ %>
+<section id="comments">
+  <div id="disqus_thread">
+    <noscript>Please enable JavaScript to view the <a target="_blank" rel="noopener" href="//disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+  </div>
 </section>
+<% } %>
+<% if (!index && post.comments && theme.valine.enable && theme.valine.appId && theme.valine.appKey){ %>
+  <section id="comments" class="vcomment">
+
+  </section>
+<% } %></section>
         
           <aside id="sidebar">
   
