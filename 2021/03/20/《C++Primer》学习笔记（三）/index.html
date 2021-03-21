@@ -1,0 +1,378 @@
+<!DOCTYPE html>
+<html>
+
+
+
+<head>
+  <meta charset="utf-8">
+  
+  
+  <title>《C++Primer》学习笔记（三） | ywy_c_asm</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+  <meta name="description" content=".">
+<meta property="og:type" content="article">
+<meta property="og:title" content="《C++Primer》学习笔记（三）">
+<meta property="og:url" content="https://www.ywy-c-asm.cn/2021/03/20/%E3%80%8AC++Primer%E3%80%8B%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0%EF%BC%88%E4%B8%89%EF%BC%89/index.html">
+<meta property="og:site_name" content="ywy_c_asm">
+<meta property="og:description" content=".">
+<meta property="og:locale" content="en_US">
+<meta property="article:published_time" content="2021-03-20T10:32:00.000Z">
+<meta property="article:modified_time" content="2021-03-21T03:11:47.170Z">
+<meta property="article:author" content="ywy_c_asm">
+<meta property="article:tag" content="C++">
+<meta name="twitter:card" content="summary">
+  
+  
+    <link rel="icon" href="/images/ico.ico">
+  
+  
+    
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/typeface-source-code-pro@0.0.71/index.min.css">
+
+  
+  
+<link rel="stylesheet" href="/css/style.css">
+
+  
+    
+<link rel="stylesheet" href="/fancybox/jquery.fancybox.min.css">
+
+  
+<meta name="generator" content="Hexo 5.4.0"></head>
+
+<body>
+
+
+
+  <div id="container">
+    <div id="wrap">
+
+	
+		
+      <header id="header">
+  <div id="banner"></div>
+  <div id="header-outer" class="outer">
+    <div id="header-title" class="inner">
+      <h1 id="logo-wrap">
+        <a href="/" id="logo">ywy_c_asm</a>
+      </h1>
+      
+        <h2 id="subtitle-wrap">
+          <a href="/" id="subtitle">菜 是 原 罪 | 罪 原 是 菜</a>
+        </h2>
+      
+    </div>
+    <div id="header-inner" class="inner">
+      <nav id="main-nav">
+        <a id="main-nav-toggle" class="nav-icon"></a>
+        
+          <a class="main-nav-link" href="/">Home</a>
+        
+          <a class="main-nav-link" href="/archives">Archives</a>
+        
+      </nav>
+      <nav id="sub-nav">
+        
+        <a id="nav-search-btn" class="nav-icon" title="Search"></a>
+      </nav>
+      <div id="search-form-wrap">
+        <form action="//google.com/search" method="get" accept-charset="UTF-8" class="search-form"><input type="search" name="q" class="search-form-input" placeholder="Search"><button type="submit" class="search-form-submit">&#xF002;</button><input type="hidden" name="sitesearch" value="https://www.ywy-c-asm.cn"></form>
+      </div>
+    </div>
+  </div>
+</header>
+
+      <div class="outer" style="padding:0 0px">
+        <section id="main"><article id="post-《C++Primer》学习笔记（三）" class="h-entry article article-type-post" itemprop="blogPost" itemscope itemtype="https://schema.org/BlogPosting">
+  <div class="article-meta">
+    <a href="/2021/03/20/%E3%80%8AC++Primer%E3%80%8B%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0%EF%BC%88%E4%B8%89%EF%BC%89/" class="article-date">
+  <time class="dt-published" datetime="2021-03-20T10:32:00.000Z" itemprop="datePublished">2021-03-20</time>
+</a>
+    
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 class="p-name article-title" itemprop="headline name">
+      《C++Primer》学习笔记（三）
+    </h1>
+  
+
+      </header>
+    
+    <div class="e-content article-entry" itemprop="articleBody">
+      
+        <p>.</p>
+<span id="more"></span>
+
+<hr>
+<p><strong>lambda表达式</strong></p>
+<p>与函数指针类似，C++11引入了这个提供了一种方式定义调用对象，它的结构长这样：</p>
+<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">[<span class="comment">/*capture list*/</span>](<span class="comment">/*param list*/</span>)-&gt;<span class="comment">/*type*/</span>&#123;<span class="comment">/*function block*/</span>&#125;;</span><br></pre></td></tr></table></figure>
+
+<p>常用于动态地提供<strong>谓词</strong>（例如<code>sort</code>的<code>cmp</code>参数就是谓词，就是向STL函数传入的动作方法）。举个例子，你现在有一堆$n$维向量，你希望写一个函数，传入一个维度为参数，用<code>std::sort</code>对它们以这个维度排序。如果没有<code>lambda</code>，你只能自己手写$n$个比较函数，这不现实。于是你可以用<code>lambda</code>动态地定义比较函数，例如：</p>
+<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">sort_k</span><span class="params">(<span class="built_in">vector</span>&lt;<span class="built_in">vector</span>&lt;<span class="keyword">int</span>&gt; &gt; &amp;vec,<span class="keyword">int</span> k)</span></span>&#123;</span><br><span class="line">	<span class="keyword">auto</span> f=[k](<span class="keyword">const</span> <span class="built_in">vector</span>&lt;<span class="keyword">int</span>&gt; &amp;a,<span class="keyword">const</span> <span class="built_in">vector</span>&lt;<span class="keyword">int</span>&gt; &amp;b)-&gt;<span class="keyword">int</span>&#123;</span><br><span class="line">		<span class="keyword">return</span>(a[k]&lt;b[k]);</span><br><span class="line">	&#125;;  <span class="comment">//f是一个调用对象</span></span><br><span class="line">	sort(vec.begin(),vec.end(),f);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>其中，“捕获列表”是<code>lambda</code>函数体要用到的局部变量列表，在调用对象执行时，局部变量将会当做“参数”传递进去，所以，上面的$f$ <strong>并不能</strong>被简简单单的当成有两个<code>vector</code>参数的函数指针（当然，如果捕获列表为空，是可以的），也不能当成有3个参数的函数指针。</p>
+<p>为了探究<code>lambda</code>的行为，我将以下代码做了反汇编：</p>
+<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">main</span><span class="params">()</span></span>&#123;</span><br><span class="line">	<span class="keyword">int</span> k=<span class="number">0xE9</span>;</span><br><span class="line">	<span class="keyword">auto</span> f=[k](<span class="keyword">int</span> a)-&gt;<span class="keyword">int</span>&#123;</span><br><span class="line">		<span class="built_in">cout</span>&lt;&lt;<span class="number">0x22</span>&lt;&lt;<span class="built_in">endl</span>;</span><br><span class="line">		<span class="keyword">return</span>(a*k);</span><br><span class="line">	&#125;;</span><br><span class="line">	<span class="built_in">cout</span>&lt;&lt;f(<span class="number">0x456</span>)&lt;&lt;<span class="built_in">endl</span>;</span><br><span class="line">	<span class="keyword">return</span>(<span class="number">0</span>);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>然后发现编译器确实额外生成了个函数，这函数的汇编代码：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br></pre></td><td class="code"><pre><span class="line">; main::&#123;lambda(int)#1&#125;::operator() const(int)</span><br><span class="line">__ZZ4mainENKUliE_clEi proc near</span><br><span class="line">var_4&#x3D; dword ptr -4</span><br><span class="line">arg_0&#x3D; dword ptr  8</span><br><span class="line">push    ebp</span><br><span class="line">mov     ebp, esp</span><br><span class="line">push    ebx</span><br><span class="line">sub     esp, 14h</span><br><span class="line">call    _mcount</span><br><span class="line"></span><br><span class="line">mov     ebx, ecx                            ;注意这里！！！！！！！！！！ecx传递一个“参数”！！！</span><br><span class="line"></span><br><span class="line">mov     ecx, offset __ZSt4cout ; std::cout</span><br><span class="line">mov     dword ptr [esp], 22h ; &#39;&quot;&#39;</span><br><span class="line">call    __ZNSolsEi      ; std::ostream::operator&lt;&lt;(int)</span><br><span class="line">sub     esp, 4</span><br><span class="line">mov     ecx, eax</span><br><span class="line">mov     dword ptr [esp], offset __ZSt4endlIcSt11char_traitsIcEERSt13basic_ostreamIT_T0_ES6_ ; std::endl&lt;char,std::char_traits&lt;char&gt;&gt;(std::basic_ostream&lt;char,std::char_traits&lt;char&gt;&gt; &amp;)</span><br><span class="line">call    __ZNSolsEPFRSoS_E ; std::ostream::operator&lt;&lt;(std::ostream &amp; (*)(std::ostream &amp;))</span><br><span class="line"></span><br><span class="line">mov     eax, [ebp+arg_0]</span><br><span class="line">imul    eax, [ebx]                          ;注意这里！！！！！！！！！imul把栈中的一个参数与原来ecx指向的东西相乘</span><br><span class="line"></span><br><span class="line">mov     ebx, [ebp+var_4]</span><br><span class="line">sub     esp, 4</span><br><span class="line">leave</span><br><span class="line">retn    4</span><br><span class="line">__ZZ4mainENKUliE_clEi endp</span><br></pre></td></tr></table></figure>
+
+<p>而在<code>main</code>中调用<code>lambda</code>的汇编代码：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">lea     ecx, [ebp+var_18]      ;注意这里！！！此时ecx为值为0xE9的变量k的地址</span><br><span class="line">mov     dword ptr [esp], 456h</span><br><span class="line">mov     [ebp+var_18], 0E9h</span><br><span class="line">call    __ZZ4mainENKUliE_clEi ; main::&#123;lambda(int)#1&#125;::operator() const(int)</span><br></pre></td></tr></table></figure>
+
+<p>哈哈，这样我们就清楚啦，<code>lambda</code>的显式参数正常传递，捕获列表则按引用传递变量地址。</p>
+<p>然而虽然如此，如果k不是<strong>按引用捕获</strong>的，即便真的传进去引用，编译器也不会让你修改k的值（会报错<code>k is readonly</code>），如果要修改捕获变量的话要捕获<code>&amp;k</code>。</p>
+<p>捕获列表也可采取自动推断的方式，我们可以在最前面使用<code>=</code>（表示所有用到的变量默认按值捕获）或<code>&amp;</code>（默认引用捕获），如果想设置一些例外，可在后面按照不同的捕获方式传入变量名。</p>
+<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">int</span> k,j;</span><br><span class="line"><span class="keyword">auto</span> f1=[&amp;](<span class="keyword">int</span> a)-&gt;<span class="keyword">void</span>&#123;</span><br><span class="line">    k=a;</span><br><span class="line">&#125;;</span><br><span class="line"><span class="keyword">auto</span> f2=[=](<span class="keyword">int</span> a)-&gt;<span class="keyword">void</span>&#123;</span><br><span class="line">    <span class="built_in">cout</span>&lt;&lt;k+a&lt;&lt;<span class="built_in">endl</span>;</span><br><span class="line">&#125;;</span><br><span class="line"><span class="keyword">auto</span> f3=[&amp;,j]()-&gt;<span class="keyword">void</span>&#123;</span><br><span class="line">    k=j;</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
+
+<p>如果我们希望让<code>lambda</code>像普通的按值传参函数一样，就算捕获变量是按值捕获的，也可以“暂时”修改它的值，那么可以使用<code>mutable</code>修饰：</p>
+<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">int</span> k=<span class="number">233</span>;</span><br><span class="line"><span class="keyword">auto</span> f=[k](<span class="keyword">int</span> a)<span class="keyword">mutable</span>-&gt;<span class="keyword">void</span>&#123;</span><br><span class="line">    k=a;</span><br><span class="line">&#125;;</span><br><span class="line">f(<span class="number">2</span>);</span><br><span class="line"><span class="comment">//执行完后，k还是233</span></span><br></pre></td></tr></table></figure>
+
+<p>其实并不需要显式指定<code>lambda</code>的返回值类型，可以由编译器自动推断：</p>
+<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">auto</span> f=[k](<span class="keyword">int</span> a)&#123;</span><br><span class="line">    <span class="built_in">cout</span>&lt;&lt;<span class="number">0x22</span>&lt;&lt;<span class="built_in">endl</span>;</span><br><span class="line">    <span class="keyword">return</span>(a*k);</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
+
+<hr>
+<p><strong>参数绑定</strong></p>
+<p>对于我们上面的那个向量排序问题，除了<code>lambda</code>的另一种方法是使用头文件<code>functional</code>中的<code>bind</code>函数（这也是C++11的），它相当于充当了一个“参数适配器”，将原来的函数改造为一个新的函数，例如：</p>
+<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">cmp</span><span class="params">(<span class="keyword">const</span> <span class="built_in">vector</span>&lt;<span class="keyword">int</span>&gt; &amp;a,<span class="keyword">const</span> <span class="built_in">vector</span>&lt;<span class="keyword">int</span>&gt; &amp;b,<span class="keyword">int</span> k)</span></span>&#123;</span><br><span class="line">    <span class="keyword">return</span>(a[k]&lt;b[k]);	</span><br><span class="line">&#125;</span><br><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">sort_k</span><span class="params">(<span class="built_in">vector</span>&lt;<span class="built_in">vector</span>&lt;<span class="keyword">int</span>&gt; &gt; &amp;vec,<span class="keyword">int</span> k)</span></span>&#123;</span><br><span class="line">    <span class="keyword">auto</span> f=bind(cmp,_1,_2,k);  <span class="comment">//cmp被改造为f</span></span><br><span class="line">    sort(vec.begin(),vec.end(),f);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>在这个例子里，我们把三元函数<code>cmp</code>改造为了二元函数<code>f</code>，<code>_1,_2</code>为占位符，表示这两个参数保留不变（占位符的顺序<strong>决定了最终参数被传入的顺序</strong>，因此，<code>bind</code>甚至可以用来重排参数！），注意，占位符定义在命名空间<code>std::placeholders</code>中，这比较蛋疼。</p>
+<p>最终，k将被先行一步传入<code>cmp</code>中。但如果我们希望在函数中改变k的值，显然需要按引用传递，<strong>但是</strong>，<code>bind</code>默认所有参数按值传递，也就是说，就算函数里定义的参数是<code>int &amp;k</code>，可是<code>bind</code>把传入的k按值传递，最终真正的k并不会被改变。解决方法是使用<code>ref</code>函数，这玩意是专门用于向像这样的按值传递的模板函数传递引用的，例如：</p>
+<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">f</span><span class="params">(<span class="keyword">int</span> a,<span class="keyword">int</span> &amp;b)</span></span>&#123;</span><br><span class="line">	b=a;</span><br><span class="line">&#125;</span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">main</span><span class="params">()</span></span>&#123;</span><br><span class="line">	<span class="keyword">int</span> a=<span class="number">233</span>,b=<span class="number">0</span>;</span><br><span class="line">	<span class="keyword">auto</span> func=bind(f,_1,ref(b)); <span class="comment">//b传递引用</span></span><br><span class="line">	func(a);</span><br><span class="line">	<span class="built_in">cout</span>&lt;&lt;b&lt;&lt;<span class="built_in">endl</span>;</span><br><span class="line">	<span class="keyword">return</span>(<span class="number">0</span>);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>这个的工作原理大致是，<code>ref</code>的返回类型是一个封装了指针与自定义赋值运算符的类，所以基本上只能用于模板。</p>
+<hr>
+<p><strong>流迭代器</strong></p>
+<p>头文件<code>iterator</code>定义了输入流迭代器<code>istream_iterator&lt;T&gt;</code>和输出流迭代器<code>ostream_iterator&lt;T&gt;</code>，这可以用迭代器操纵输入输出流。</p>
+<p>输入流迭代器的定义如下：</p>
+<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="function">istream_iterator&lt;<span class="keyword">int</span>&gt; <span class="title">it</span><span class="params">(<span class="built_in">cin</span>)</span></span>; <span class="comment">//it与cin绑定</span></span><br><span class="line">istream_iterator&lt;<span class="keyword">int</span>&gt; eof; <span class="comment">//默认构造函数会把迭代器定义为尾后迭代器，这可以表示流的终结</span></span><br></pre></td></tr></table></figure>
+
+<p>这个支持<code>++</code>与<code>*</code>，前者为读取下一个，后者是获得上一个读取的对象。这里比较有意思，构造函数并不会立刻让它读取对象，但是<strong>第一次使用解引用</strong>时，会自动读取一个对象。例如这样一个奇怪的程序：</p>
+<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">main</span><span class="params">()</span></span>&#123;</span><br><span class="line">    <span class="function">istream_iterator&lt;<span class="keyword">int</span>&gt; <span class="title">it1</span><span class="params">(<span class="built_in">cin</span>)</span></span>;</span><br><span class="line">    <span class="built_in">cout</span>&lt;&lt;*it1++&lt;&lt;<span class="built_in">endl</span>;</span><br><span class="line">    <span class="built_in">cout</span>&lt;&lt;*it1++&lt;&lt;<span class="built_in">endl</span>;</span><br><span class="line">    <span class="built_in">cout</span>&lt;&lt;*it1&lt;&lt;<span class="built_in">endl</span>;</span><br><span class="line">    <span class="keyword">return</span>(<span class="number">0</span>);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>这玩意直观看上去，似乎是输入一个数，然后把它输出，如此重复3次。然而实际效果并非如此，我先输入一个数1按回车，它不会输出任何东西，再输入2按回车，它会输出1，再输入3按回车，它会把2和3都输出然后程序结束。原因是，第一句<code>*it1++</code>实际上隐含了两次输入（第一次解引用，递增），把两次输入执行完才会执行第一个<code>cout</code>，接着第二个<code>*it1</code>已经通过解引用获得了上一个输入的2，然后执行<code>++</code>进行输入，再输入一个数后执行对2的<code>cout</code>，第3个<code>cout</code>不需要再输入，直接输出即可。</p>
+<p>输入流迭代器可以利用STL标准的迭代器范围形式来进行一系列骚操作，例如：</p>
+<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="function">istream_iterator&lt;<span class="keyword">int</span>&gt; <span class="title">it</span><span class="params">(<span class="built_in">cin</span>)</span></span>;</span><br><span class="line">istream_iterator&lt;<span class="keyword">int</span>&gt; eof;</span><br><span class="line"><span class="function"><span class="built_in">vector</span>&lt;<span class="keyword">int</span>&gt; <span class="title">vec</span><span class="params">(it,eof)</span></span>;  <span class="comment">//使用[it,eof)构造一个vector，这就相当于是vector的构造函数在使用it时进行了读入！</span></span><br><span class="line"><span class="keyword">for</span>(<span class="keyword">int</span> i:vec)<span class="built_in">cout</span>&lt;&lt;i&lt;&lt;<span class="built_in">endl</span>;</span><br></pre></td></tr></table></figure>
+
+<p>输出流迭代器的定义如下：</p>
+<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="function">ostream_iterator&lt;<span class="keyword">int</span>&gt; <span class="title">it</span><span class="params">(<span class="built_in">cout</span>)</span></span>; <span class="comment">//与cout绑定</span></span><br><span class="line"><span class="function">ostream_iterator&lt;<span class="keyword">int</span>&gt; <span class="title">it</span><span class="params">(<span class="built_in">cout</span>,<span class="string">&quot; &quot;</span>)</span></span>; <span class="comment">//每次输出都跟着一个给定的字符串</span></span><br></pre></td></tr></table></figure>
+
+<p>输出流迭代器虽然定义了解引用和自增运算符，但是它们没有实际效果。以下几种写法均能输出一个数：</p>
+<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">it=<span class="number">233</span>;</span><br><span class="line">*it=<span class="number">233</span>;</span><br><span class="line">it++=<span class="number">233</span>;</span><br><span class="line">*it++=<span class="number">233</span>;</span><br></pre></td></tr></table></figure>
+
+<p>这两种迭代器可以使用任何定义了输入输出运算符的类。</p>
+<hr>
+<p><strong>文件流</strong></p>
+<p>头文件<code>fstream</code>里提供了文件流<code>ifstream</code>和<code>ofstream</code>，可以用于文件读写。以<code>ifstream</code>为例：</p>
+<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="function">ifstream <span class="title">f</span><span class="params">(<span class="string">&quot;filename&quot;</span>)</span></span>;</span><br><span class="line"><span class="function">ifstream <span class="title">f1</span><span class="params">(<span class="string">&quot;filename&quot;</span>,mode)</span></span>;</span><br></pre></td></tr></table></figure>
+
+<p>其中，<code>mode</code>有如下几种取值，可以取它们的按位或组合：</p>
+<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">ios::app：　　　 <span class="comment">//以追加的方式打开文件  </span></span><br><span class="line">ios::ate：　　　 <span class="comment">//文件打开后定位到文件尾，ios:app就包含有此属性  </span></span><br><span class="line">ios::binary：　 <span class="comment">//以二进制方式打开文件，缺省的方式是文本方式。两种方式的区别见前文  </span></span><br><span class="line">ios::in：　　　  <span class="comment">//文件以输入方式打开（文件数据输入到内存）  </span></span><br><span class="line">ios::out：　　　 <span class="comment">//文件以输出方式打开（内存数据输出到文件）  </span></span><br><span class="line">ios::nocreate： <span class="comment">//不建立文件，所以文件不存在时打开失败  </span></span><br><span class="line">ios::noreplace：<span class="comment">//不覆盖文件，所以打开文件时如果文件存在失败  </span></span><br><span class="line">ios::trunc：　  <span class="comment">//如果文件存在，把文件长度设为0</span></span><br></pre></td></tr></table></figure>
+
+<p>使用<code>&lt;&lt;</code>和<code>&gt;&gt;</code>进行输入输出，成员函数<code>eof()</code>判断是否到达文件末尾，<code>close()</code>关闭。</p>
+<hr>
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="https://www.ywy-c-asm.cn/2021/03/20/%E3%80%8AC++Primer%E3%80%8B%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0%EF%BC%88%E4%B8%89%EF%BC%89/" data-id="ckmj88fdp000dfkt28amh4dyl" data-title="《C++Primer》学习笔记（三）"></a>
+      
+      
+      
+  <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/C/" rel="tag">C++</a></li></ul>
+
+    </footer>
+  </div>
+  
+    
+<nav id="article-nav">
+  
+  
+    <a href="/2021/03/19/%E3%80%8A%E7%A6%BB%E6%95%A3%E6%95%B0%E5%AD%A6%E5%BC%95%E8%AE%BA%E3%80%8B%E8%B6%A3%E9%A2%98%E8%AF%81%E6%98%8E/" id="article-nav-older" class="article-nav-link-wrap">
+      <strong class="article-nav-caption">Older</strong>
+      <div class="article-nav-title">《离散数学引论》趣题证明</div>
+    </a>
+  
+</nav>
+
+  
+</article>
+
+
+</section>
+        
+          <aside id="sidebar">
+  
+    
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Tags</h3>
+    <div class="widget">
+      <ul class="tag-list" itemprop="keywords"><li class="tag-list-item"><a class="tag-list-link" href="/tags/ACM/" rel="tag">ACM</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/C/" rel="tag">C++</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/JavaScript/" rel="tag">JavaScript</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/NLP/" rel="tag">NLP</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E4%B8%AA%E4%BA%BA%E4%BB%8B%E7%BB%8D/" rel="tag">个人介绍</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E4%BD%8D%E8%BF%90%E7%AE%97/" rel="tag">位运算</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E6%83%B3%E6%B3%95/" rel="tag">想法</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E6%95%B0%E5%AD%A6/" rel="tag">数学</a></li></ul>
+    </div>
+  </div>
+
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">friends</h3>
+    <div class="widget">
+      <li><a target="_blank" rel="noopener" href="https://blog.i207m.top/" title="i207M">i207M</a></li>
+      <li><a target="_blank" rel="noopener" href="https://www.luogu.com.cn/blog/ywycasm/" title="Old ywy_c_asm">Old ywy_c_asm</a></li>
+      <li><a target="_blank" rel="noopener" href="https://blog.csdn.net/lyd_7_29" title="lyd729">lyd729</a></li>
+      <li><a target="_blank" rel="noopener" href="https://www.shadowice1984.xyz/" title="shadowice1984">shadowice1984</a></li>
+      <li><a target="_blank" rel="noopener" href="https://www.cnblogs.com/Miracevin" title="Miracle">Miracle</a></li>
+    </div>
+  </div>
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Archives</h3>
+    <div class="widget">
+      <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2021/03/">March 2021</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2021/02/">February 2021</a></li></ul>
+    </div>
+  </div>
+
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Recent Posts</h3>
+    <div class="widget">
+      <ul>
+        
+          <li>
+            <a href="/2021/03/20/%E3%80%8AC++Primer%E3%80%8B%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0%EF%BC%88%E4%B8%89%EF%BC%89/">《C++Primer》学习笔记（三）</a>
+          </li>
+        
+          <li>
+            <a href="/2021/03/19/%E3%80%8A%E7%A6%BB%E6%95%A3%E6%95%B0%E5%AD%A6%E5%BC%95%E8%AE%BA%E3%80%8B%E8%B6%A3%E9%A2%98%E8%AF%81%E6%98%8E/">《离散数学引论》趣题证明</a>
+          </li>
+        
+          <li>
+            <a href="/2021/03/19/%E3%80%8AC++Primer%E3%80%8B%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0%EF%BC%88%E4%BA%8C%EF%BC%89/">《C++Primer》学习笔记（二）</a>
+          </li>
+        
+          <li>
+            <a href="/2021/03/17/%E3%80%8AC++Primer%E3%80%8B%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/">《C++Primer》学习笔记（一）</a>
+          </li>
+        
+          <li>
+            <a href="/2021/03/15/Codeforces%E9%97%B2%E6%9D%82%E9%A2%98%E8%AE%B0%E5%BD%95/">Codeforces闲杂题记录</a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+
+  
+</aside>
+        
+		
+		
+<iframe id="iframe1" src="/balls3.html" style="height:500px;width:1500px;position:absolute;top:500px;left:0px;z-index:-1" scrolling="no" frameborder="0"></iframe>
+		<script>
+			var height=document.body.scrollHeight;
+			var width=document.body.scrollWidth;
+			iframe1.style='height:'+height+'px;width:'+width+'px;position:absolute;top:0px;left:0px;z-index:-1';
+		</script>
+
+
+      </div>
+      <footer id="footer">
+  <!-- MathJax配置，可通过单美元符号书写行内公式等 -->
+<script type="text/x-mathjax-config">
+    MathJax.Hub.Config({
+    "HTML-CSS": { 
+        preferredFont: "TeX", 
+        availableFonts: ["STIX","TeX"], 
+        linebreaks: { automatic:true }, 
+        EqnChunk: (MathJax.Hub.Browser.isMobile ? 10 : 50) 
+    },
+    tex2jax: { 
+        inlineMath: [ ["$", "$"], ["\\(","\\)"] ], 
+        processEscapes: true, 
+        ignoreClass: "tex2jax_ignore|dno",
+        skipTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code']
+    },
+    TeX: {  
+        equationNumbers: { autoNumber: "AMS" },
+        noUndefined: { attributes: { mathcolor: "red", mathbackground: "#FFEEEE", mathsize: "90%" } }, 
+        Macros: { href: "{}" } 
+    },
+    messageStyle: "none"
+    }); 
+</script>
+<!-- 给MathJax元素添加has-jax class -->
+<script type="text/x-mathjax-config">
+    MathJax.Hub.Queue(function() {
+        var all = MathJax.Hub.getAllJax(), i;
+        for(i=0; i < all.length; i += 1) {
+            all[i].SourceElement().parentNode.className += ' has-jax';
+        }
+    });
+</script>
+<!-- 通过连接CDN加载MathJax的js代码 -->
+<script type="text/javascript" async
+  src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.1/MathJax.js?config=TeX-MML-AM_CHTML">
+</script>
+  
+  <div class="outer">
+    <div id="footer-info" class="inner">
+      
+      &copy; 2021 ywy_c_asm<br>
+      Powered by <a href="https://hexo.io/" target="_blank">Hexo</a>
+    </div>
+  </div>
+</footer>
+
+
+
+
+
+
+
+    </div>
+    <nav id="mobile-nav">
+  
+    <a href="/" class="mobile-nav-link">Home</a>
+  
+    <a href="/archives" class="mobile-nav-link">Archives</a>
+  
+</nav>
+    
+
+
+<script src="/js/jquery-3.4.1.min.js"></script>
+
+
+
+  
+<script src="/fancybox/jquery.fancybox.min.js"></script>
+
+
+
+
+<script src="/js/script.js"></script>
+
+
+
+
+
+  </div>
+
+
+
+
+</body>
+</html>
