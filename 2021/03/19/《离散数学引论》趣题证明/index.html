@@ -83,61 +83,114 @@
 </header>
 
       <div class="outer" style="padding:0 0px">
-        <section id="main"><article id="<%= post.layout %>-<%= post.slug %>" class="h-entry article article-type-<%= post.layout %>" itemprop="blogPost" itemscope itemtype="https://schema.org/BlogPosting">
+        <section id="main"><article id="post-《离散数学引论》趣题证明" class="h-entry article article-type-post" itemprop="blogPost" itemscope itemtype="https://schema.org/BlogPosting">
   <div class="article-meta">
-    <%- partial('post/date', {class_name: 'article-date', date_format: null}) %>
-    <%- partial('post/category') %>
+    <a href="/2021/03/19/%E3%80%8A%E7%A6%BB%E6%95%A3%E6%95%B0%E5%AD%A6%E5%BC%95%E8%AE%BA%E3%80%8B%E8%B6%A3%E9%A2%98%E8%AF%81%E6%98%8E/" class="article-date">
+  <time class="dt-published" datetime="2021-03-19T13:24:00.000Z" itemprop="datePublished">2021-03-19</time>
+</a>
+    
   </div>
   <div class="article-inner">
-    <%- partial('post/gallery') %>
-    <% if (post.link || post.title){ %>
+    
+    
       <header class="article-header">
-        <%- partial('post/title', {class_name: 'p-name article-title'}) %>
+        
+  
+    <h1 class="p-name article-title" itemprop="headline name">
+      《离散数学引论》趣题证明
+    </h1>
+  
+
       </header>
-    <% } %>
+    
     <div class="e-content article-entry" itemprop="articleBody">
-      <% if (post.excerpt && index){ %>
-        <%- post.excerpt %>
-        <% if (theme.excerpt_link){ %>
-          <p class="article-more-link">
-            <a href="<%- url_for(post.path) %>#more"><%= theme.excerpt_link %></a>
-          </p>
-        <% } %>
-      <% } else { %>
-        <%- post.content %>
-      <% } %>
+      
+        <p>（本文将持续更新~）</p>
+<p><del>这些证明都是我想多少年都想不出来的，以后说不定能出成题坑小孩</del></p>
+<span id="more"></span>
+
+<h1 id="1-小伙跳舞问题"><a href="#1-小伙跳舞问题" class="headerlink" title="1.小伙跳舞问题"></a>1.小伙跳舞问题</h1><p><strong>背景</strong>：有$n$个小伙和$m$个姑娘互相跳舞，每个小伙都至少和一个姑娘跳舞，但未和所有姑娘跳过舞，每个姑娘也是如此。</p>
+<p><strong>证明</strong>：一定能找出两个小伙和两个姑娘，使得每个小伙只和其中一个姑娘跳过舞，每个姑娘也只和其中一个小伙跳过舞。</p>
+<p><strong>Solution</strong>：</p>
+<h4 id="方法1-构造有向图"><a href="#方法1-构造有向图" class="headerlink" title="方法1.构造有向图"></a>方法1.构造有向图</h4><p><del>这方法是我用OI的套路yy的</del></p>
+<p>对于每个姑娘$x$，令$T_x$为<strong>没有</strong>和她跳过舞的小伙集合。对于每个小伙$i$，令$S_i$为与其跳过舞的姑娘集合，令$C_i=\cup_{x\in S_i}T_x$,。也就是说，如果一个小伙$j$没有和  某个和$i$跳过舞的姑娘  跳过舞，那么$j\in C_i$。</p>
+<p>题意让我们证的东西可以转化为存在小伙$i,j$，$j\in C_i$且$i\in C_j$，这样一定能从$S_i$和$S_j$中分别找出一个未和对方跳过舞的姑娘。</p>
+<p>假设其不成立，那么对于任意小伙$i$，$\forall j\in C_i$，$i\not\in C_j$。我们对于每个小伙$i$，以$C_i$为出边集合，构造一个小伙之间的有向图$G$。</p>
+<p>那个奇怪的题目条件告诉我们，任意$S_i,T_j$都是非空的，因此$\forall C_i\not=\empty$，每个点都有出边，所以$G$一定有环。（<strong>关键</strong>）</p>
+<p>考虑一个环上的点按顺序排列为$[x_1,x_2…x_k]$，$x_{i+1}\in C_{x_i}$，$x_i\not\in C_{x_{i+1}}$，那么说明与$x_{i+1}$跳过舞的姑娘一定都和$x_i$跳过舞，亦即$S_{x_{i+1}}\subset S_{x_i}$，所以$C_{x_{i+1}}\subset C_{x_i}$，由于这个环的$C$从前到后都有包含关系，显然<strong>它们的$C$都相等</strong>，而$x_i\in C_{x_{i-1}},x_i\not\in C_{x_{i+1}}$，一个小伙同时属于或不属于一个相同集合，矛盾。证毕。</p>
+<h4 id="方法2-集合排序"><a href="#方法2-集合排序" class="headerlink" title="方法2.集合排序"></a>方法2.集合排序</h4><p>（这方法在本质上跟我那个有些相似，不过没有直接构造有向图，而是隐式构造一个两两都有关系的竞赛图，再通过集合排序推出一个整体的关系）</p>
+<p>这个要证的东西其实可以直接转化为，存在两个小伙$i,j$，$S_i\not\subset S_j$且$S_j\not\subset S_i$。</p>
+<p>假设其不成立，则对于任意两个小伙$i,j$，要么$S_i\subset S_j$，要么$S_j\subset S_i$。我们把这$n$个集合按照元素个数从小到大排序，因为小集合一定被包含在大集合内，而元素个数相等的集合显然都相等，因此有$S_1\subset S_2\subset…\subset S_n$。</p>
+<p>根据这个题意，$\forall S_i\not=\empty$，$\cap_{i=1}^n S_i=\empty$，但是由上述结论，$\cap_{i=1}^n S_i=S_1\not=\empty$，矛盾。证毕。</p>
+<h1 id="2-两两作差问题"><a href="#2-两两作差问题" class="headerlink" title="2.两两作差问题"></a>2.两两作差问题</h1><p><strong>背景</strong>：定义集合运算$A-B={a-b|a\in A,b\in B}$，给定$A$和$B$，$A\cup B\subset{1,2,…,n}$，且$|A||B|&gt;=2n-1$，$n&gt;1$。</p>
+<p><strong>证明</strong>：$(A-A)\cap(B-B)$中必存在正整数。</p>
+<p><strong>Solution</strong>：</p>
+<h4 id="构造映射"><a href="#构造映射" class="headerlink" title="构造映射"></a>构造映射</h4><p>令映射$f:A×B\rightarrow {2,3,…,2n}$，$f((a,b))=a+b$，考虑以下两种情况：</p>
+<p>①$f$是满射，那么必存在$a_1\in A,b_1\in B,a_1+b_1=2$，即$a_1=b_1=1$。并且也有$a_2\in A,B_2\in B,a_2+b_2=2n$，即$a_2=b_2=n$。那么$a_2-a_1=b_2-b_1=n-1$，这就是$(A-A)\cap(B-B)$中的正整数。</p>
+<p>②$f$不是满射，由于$|A×B|&gt;=|{2,3,…,2n}|=2n-1$，$f$亦非单射（抽屉原理）。那么就存在$a_1,a_2\in A,b_1,b_2\in B$，$a_1+b_1=a_2+b_2\rightarrow|a_1-a_2|=|b_1-b_2|$，这就是$(A-A)\cap(B-B)$中的正整数。</p>
+<p>证毕。</p>
+<h1 id="3-单调子序列问题"><a href="#3-单调子序列问题" class="headerlink" title="3.单调子序列问题"></a>3.单调子序列问题</h1><p><strong>背景</strong>：有一个长度至少为$nm+1$的序列$[a_1,a_2,…,a_k]$，序列中数互不相同。</p>
+<p><strong>证明</strong>：这序列要么存在一个长度至少为$n+1$的上升子序列，要么存在一个长度至少为$m+1$的下降子序列（或者，要么存在一个长度至少为$n+1$的下降子序列，要么存在一个长度至少为$m+1$的上升子序列，其实本质是一样的）。</p>
+<p><strong>Solution</strong>：</p>
+<p>（两种方法都是基于抽屉原理的）</p>
+<h4 id="方法1"><a href="#方法1" class="headerlink" title="方法1."></a>方法1.</h4><p>令$f_i$为以$i$开头的最长上升子序列，$g_i$为以$i$开头的最长下降子序列，假设对任意$i$，$1&lt;=f_i&lt;=n,1&lt;=g_i&lt;=m$。</p>
+<p>对于每个$i$，构造二元组$P_i=(f_i,g_i)$，显然<strong>本质不同的$P_i$只有$nm$种，由抽屉原理</strong>，一定存在$P_i=P_j(i&lt;j)$，即$f_i=f_j=x,g_i=g_j=y$，现在考虑两种情况：</p>
+<p>①$a_i&lt;a_j$，那么可以在$j$开头的最长上升子序列前添个$a_i$，构造成一个以$i$开头的长度为$f_i+1$的上升子序列，矛盾。</p>
+<p>②$a_i&gt;a_j$，同理可构造以$i$开头长度为$g_i+1$的下降子序列，矛盾。</p>
+<p>证毕。</p>
+<h4 id="方法2-广义抽屉原理"><a href="#方法2-广义抽屉原理" class="headerlink" title="方法2.广义抽屉原理"></a>方法2.广义抽屉原理</h4><p>假设不存在长度至少为$n+1$的上升子序列，下面证明这样一定存在长度至少为$m+1$的下降子序列。</p>
+<p>令$f_i$为以$i$开头的上升子序列，$1&lt;=f_i&lt;=n$，而$i$总共有至少$nm+1$个，那么一定存在$x$，**满足$f_i=x$的$i$一定至少$m+1$个**，设这些位置从小到大依次为$<a href="k%3E=m+1">x_1,x_2,…,x_k</a>$。</p>
+<p>如果存在$1&lt;=i&lt;j&lt;=k$，$a_{x_i}&lt;a_{x_j}$，那么可以像方法1一样推出存在一个以$x_i$开头的长度为$f_{x_i}+1$的上升子序列，不成立。所以一定有$a_{x_1}&gt;a_{x_2}&gt;…&gt;a_{x_k}$，于是就构造出了一个长度至少为$m+1$的下降子序列！证毕。</p>
+<h1 id="4-图划分问题"><a href="#4-图划分问题" class="headerlink" title="4.图划分问题"></a>4.图划分问题</h1><p><strong>背景</strong>：随便给一个$n$点$m$边的图，无自环重边，把这些点随意黑白染色。</p>
+<p><strong>证明</strong>：一定存在一种染色方案，与每个点相连的同色点数目不超过它度数的一半。</p>
+<p><strong>Solution：</strong></p>
+<h4 id="构造答案"><a href="#构造答案" class="headerlink" title="构造答案"></a>构造答案</h4><p>我们取“黑-白”边最多的染色方案，假设它不是合法方案，那么就存在某个点，它连向的点中与其同色的更多，异色的更少，那么把这个点反色，<strong>一定会使“黑-白”边增加</strong>。所以这就是合法答案！ </p>
+<h1 id="5-约数问题"><a href="#5-约数问题" class="headerlink" title="5.约数问题"></a>5.约数问题</h1><p><strong>证明</strong>：从$1,2,…,2n$中任意选出$n+1$个数，必存在一个数是另一个数的约数。</p>
+<p><strong>Solution：</strong></p>
+<h4 id="抽屉原理"><a href="#抽屉原理" class="headerlink" title="抽屉原理"></a>抽屉原理</h4><p>奇数总共有$n$种，将所有整数拆分为$c_i2^{k_i}$（$c_i$奇数）的形式，那么这$n+1$个数里必然有两个数$c_i$相同，这样$k_i$较小的数就是另一个的约数！</p>
+<h1 id="6-三元环问题"><a href="#6-三元环问题" class="headerlink" title="6.三元环问题"></a>6.三元环问题</h1><p><strong>证明</strong>：对于任意的$n=6$的无向图，要么存在三元环，要么反图存在三元环。</p>
+<p><strong>Solution：</strong></p>
+<h4 id="暴力讨论"><a href="#暴力讨论" class="headerlink" title="暴力讨论"></a><del>暴力讨论</del></h4><p>我们不妨考虑除1之外的所有点，设$A={\text{与1相连的点}}$，$B={\text{不与1相连的点}}$，显然，其中必有一个大小至少为3，分情况讨论：</p>
+<p>①若$|A|&gt;=3$，如果$A$中点互不相连，则构成反图上的三元环；否则必有两个点相连，它们和1构成三元环。</p>
+<p>②若$|B|&gt;=3$，如果$B$中点互相相连，则构成三元环；否则必有两个点不相连，它们和1构成反图上的三元环。证毕。</p>
+
+      
     </div>
     <footer class="article-footer">
-      <a data-url="<%- post.permalink %>" data-id="<%= post._id %>" data-title="<%= post.title %>" class="article-share-link"><%= __('share') %></a>
-      <% if (post.comments && config.disqus_shortname){ %>
-        <a href="<%- post.permalink %>#disqus_thread" class="article-comment-link"><%= __('comment') %></a>
-      <% } %>
-      <% if (post.comments && theme.valine.enable && theme.valine.appId && theme.valine.appKey ){ %>
-        <a href="<%- url_for(post.path) %>#comments" class="article-comment-link">
-          <span class="post-comments-count valine-comment-count" data-xid="<%- url_for(post.path) %>" itemprop="commentCount"></span>
-          <%= __('comment') %>
-        </a>
-      <% } %>
-      <%- partial('post/tag') %>
+      <a data-url="https://www.ywy-c-asm.cn/2021/03/19/%E3%80%8A%E7%A6%BB%E6%95%A3%E6%95%B0%E5%AD%A6%E5%BC%95%E8%AE%BA%E3%80%8B%E8%B6%A3%E9%A2%98%E8%AF%81%E6%98%8E/" data-id="ckmozw5rc000mjgt2eopo9ez4" data-title="《离散数学引论》趣题证明"></a>
+      
+      
+      
+  <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/%E6%95%B0%E5%AD%A6/" rel="tag">数学</a></li></ul>
+
     </footer>
   </div>
-  <% if (!index){ %>
-    <%- partial('post/nav') %>
-  <% } %>
+  
+    
+<nav id="article-nav">
+  
+    <a href="/2021/03/20/%E3%80%8AC++Primer%E3%80%8B%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0%EF%BC%88%E4%B8%89%EF%BC%89/" id="article-nav-newer" class="article-nav-link-wrap">
+      <strong class="article-nav-caption">Newer</strong>
+      <div class="article-nav-title">
+        
+          《C++Primer》学习笔记（三）
+        
+      </div>
+    </a>
+  
+  
+    <a href="/2021/03/19/%E3%80%8AC++Primer%E3%80%8B%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0%EF%BC%88%E4%BA%8C%EF%BC%89/" id="article-nav-older" class="article-nav-link-wrap">
+      <strong class="article-nav-caption">Older</strong>
+      <div class="article-nav-title">《C++Primer》学习笔记（二）</div>
+    </a>
+  
+</nav>
+
+  
 </article>
 
-<% if (!index && post.comments && config.disqus_shortname){ %>
-<section id="comments">
-  <div id="disqus_thread">
-    <noscript>Please enable JavaScript to view the <a target="_blank" rel="noopener" href="//disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
-  </div>
-</section>
-<% } %>
-<% if (!index && post.comments && theme.valine.enable && theme.valine.appId && theme.valine.appKey){ %>
-  <section id="comments" class="vcomment">
 
-  </section>
-<% } %></section>
+</section>
         
           <aside id="sidebar">
   

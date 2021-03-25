@@ -83,61 +83,76 @@
 </header>
 
       <div class="outer" style="padding:0 0px">
-        <section id="main"><article id="<%= post.layout %>-<%= post.slug %>" class="h-entry article article-type-<%= post.layout %>" itemprop="blogPost" itemscope itemtype="https://schema.org/BlogPosting">
+        <section id="main"><article id="post-Codeforces闲杂题记录" class="h-entry article article-type-post" itemprop="blogPost" itemscope itemtype="https://schema.org/BlogPosting">
   <div class="article-meta">
-    <%- partial('post/date', {class_name: 'article-date', date_format: null}) %>
-    <%- partial('post/category') %>
+    <a href="/2021/03/15/Codeforces%E9%97%B2%E6%9D%82%E9%A2%98%E8%AE%B0%E5%BD%95/" class="article-date">
+  <time class="dt-published" datetime="2021-03-15T15:00:00.000Z" itemprop="datePublished">2021-03-15</time>
+</a>
+    
   </div>
   <div class="article-inner">
-    <%- partial('post/gallery') %>
-    <% if (post.link || post.title){ %>
+    
+    
       <header class="article-header">
-        <%- partial('post/title', {class_name: 'p-name article-title'}) %>
+        
+  
+    <h1 class="p-name article-title" itemprop="headline name">
+      Codeforces闲杂题记录
+    </h1>
+  
+
       </header>
-    <% } %>
+    
     <div class="e-content article-entry" itemprop="articleBody">
-      <% if (post.excerpt && index){ %>
-        <%- post.excerpt %>
-        <% if (theme.excerpt_link){ %>
-          <p class="article-more-link">
-            <a href="<%- url_for(post.path) %>#more"><%= theme.excerpt_link %></a>
-          </p>
-        <% } %>
-      <% } else { %>
-        <%- post.content %>
-      <% } %>
+      
+        <p><del>闲来无事刷点CF水题愉悦身心</del></p>
+<span id="more"></span>
+
+<h1 id="1500A-Going-Home"><a href="#1500A-Going-Home" class="headerlink" title="1500A Going Home"></a>1500A Going Home</h1><p><a target="_blank" rel="noopener" href="http://codeforces.com/problemset/problem/1500/A">题目链接</a></p>
+<p>题意：给一个长为$n$的序列，从中找出4个位置互不相同的数，使得其中两个之和等于另外两个之和，任意输出一组方案或说明无解。$n&lt;=2\cdot10^5,1&lt;=a_i&lt;=2.5\cdot10^6$。</p>
+<p>Solution：</p>
+<p>等价于这四个数中其中两个的差等于另外两个的差，如果是两两之间作差，会产生$O(n^2)$个对，但<strong>本质不同的差至多值域范围个</strong>，因此我们暴力二重枚举数对一定能在有效时间内找到重复的差。</p>
+<p>但这样是有问题的，题目要求4个数位置不同，也就是说不能把$i&lt;j&lt;k$且$|a_j-a_i|=|a_k-a_j|$这样的相同的差当成答案，因此需要做一些特殊考虑。</p>
+<p>首先，如果有两种数出现至少两次，或者有一种数至少出现4次，那它们可以直接被构造成答案。排除这种情况后，就至多仅有一种数$x$出现至少一次，我们先把形如$x+x=a+b$的答案简单特判出来，若没有，那么多个$x$是没用的，因此现在的情况就是所有数互不相同。</p>
+<p>然后我们二重循环暴力找差，对于每个差并不简单地记录它之前是否出现过，而是开个大小为2的桶。此时如果发现之前有差与当前的差相同，若桶内有2个对，其中至多有一个对的右端点等于当前对的左端点，必然存在一个对可以与当前对构成答案。若桶里只有一个对，要么输出答案，要么无法构成答案，把当前的对放到桶里。这样，每种差至多被扫描2次，复杂度仍然正确。</p>
+
+      
     </div>
     <footer class="article-footer">
-      <a data-url="<%- post.permalink %>" data-id="<%= post._id %>" data-title="<%= post.title %>" class="article-share-link"><%= __('share') %></a>
-      <% if (post.comments && config.disqus_shortname){ %>
-        <a href="<%- post.permalink %>#disqus_thread" class="article-comment-link"><%= __('comment') %></a>
-      <% } %>
-      <% if (post.comments && theme.valine.enable && theme.valine.appId && theme.valine.appKey ){ %>
-        <a href="<%- url_for(post.path) %>#comments" class="article-comment-link">
-          <span class="post-comments-count valine-comment-count" data-xid="<%- url_for(post.path) %>" itemprop="commentCount"></span>
-          <%= __('comment') %>
-        </a>
-      <% } %>
-      <%- partial('post/tag') %>
+      <a data-url="https://www.ywy-c-asm.cn/2021/03/15/Codeforces%E9%97%B2%E6%9D%82%E9%A2%98%E8%AE%B0%E5%BD%95/" data-id="ckmozw5qb0001jgt25newc5uq" data-title="Codeforces闲杂题记录"></a>
+      
+      
+      
+  <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/ACM/" rel="tag">ACM</a></li></ul>
+
     </footer>
   </div>
-  <% if (!index){ %>
-    <%- partial('post/nav') %>
-  <% } %>
+  
+    
+<nav id="article-nav">
+  
+    <a href="/2021/03/17/%E3%80%8AC++Primer%E3%80%8B%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/" id="article-nav-newer" class="article-nav-link-wrap">
+      <strong class="article-nav-caption">Newer</strong>
+      <div class="article-nav-title">
+        
+          《C++Primer》学习笔记（一）
+        
+      </div>
+    </a>
+  
+  
+    <a href="/2021/03/12/%E5%B0%8F%E7%90%83%E7%A2%B0%E6%92%9E/" id="article-nav-older" class="article-nav-link-wrap">
+      <strong class="article-nav-caption">Older</strong>
+      <div class="article-nav-title">小球碰撞</div>
+    </a>
+  
+</nav>
+
+  
 </article>
 
-<% if (!index && post.comments && config.disqus_shortname){ %>
-<section id="comments">
-  <div id="disqus_thread">
-    <noscript>Please enable JavaScript to view the <a target="_blank" rel="noopener" href="//disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
-  </div>
-</section>
-<% } %>
-<% if (!index && post.comments && theme.valine.enable && theme.valine.appId && theme.valine.appKey){ %>
-  <section id="comments" class="vcomment">
 
-  </section>
-<% } %></section>
+</section>
         
           <aside id="sidebar">
   
