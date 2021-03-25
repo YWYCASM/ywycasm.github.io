@@ -83,206 +83,61 @@
 </header>
 
       <div class="outer" style="padding:0 0px">
-        <section id="main"><article id="post-《C++Primer》学习笔记（三）" class="h-entry article article-type-post" itemprop="blogPost" itemscope itemtype="https://schema.org/BlogPosting">
+        <section id="main"><article id="<%= post.layout %>-<%= post.slug %>" class="h-entry article article-type-<%= post.layout %>" itemprop="blogPost" itemscope itemtype="https://schema.org/BlogPosting">
   <div class="article-meta">
-    <a href="/2021/03/20/%E3%80%8AC++Primer%E3%80%8B%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0%EF%BC%88%E4%B8%89%EF%BC%89/" class="article-date">
-  <time class="dt-published" datetime="2021-03-20T10:32:00.000Z" itemprop="datePublished">2021-03-20</time>
-</a>
-    
+    <%- partial('post/date', {class_name: 'article-date', date_format: null}) %>
+    <%- partial('post/category') %>
   </div>
   <div class="article-inner">
-    
-    
+    <%- partial('post/gallery') %>
+    <% if (post.link || post.title){ %>
       <header class="article-header">
-        
-  
-    <h1 class="p-name article-title" itemprop="headline name">
-      《C++Primer》学习笔记（三）
-    </h1>
-  
-
+        <%- partial('post/title', {class_name: 'p-name article-title'}) %>
       </header>
-    
+    <% } %>
     <div class="e-content article-entry" itemprop="articleBody">
-      
-        <p>.</p>
-<span id="more"></span>
-
-<hr>
-<p><strong>lambda表达式</strong></p>
-<p>与函数指针类似，C++11引入了这个提供了一种方式定义调用对象，它的结构长这样：</p>
-<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">[<span class="comment">/*capture list*/</span>](<span class="comment">/*param list*/</span>)-&gt;<span class="comment">/*type*/</span>&#123;<span class="comment">/*function block*/</span>&#125;;</span><br></pre></td></tr></table></figure>
-
-<p>常用于动态地提供<strong>谓词</strong>（例如<code>sort</code>的<code>cmp</code>参数就是谓词，就是向STL函数传入的动作方法）。举个例子，你现在有一堆$n$维向量，你希望写一个函数，传入一个维度为参数，用<code>std::sort</code>对它们以这个维度排序。如果没有<code>lambda</code>，你只能自己手写$n$个比较函数，这不现实。于是你可以用<code>lambda</code>动态地定义比较函数，例如：</p>
-<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">sort_k</span><span class="params">(<span class="built_in">vector</span>&lt;<span class="built_in">vector</span>&lt;<span class="keyword">int</span>&gt; &gt; &amp;vec,<span class="keyword">int</span> k)</span></span>&#123;</span><br><span class="line">	<span class="keyword">auto</span> f=[k](<span class="keyword">const</span> <span class="built_in">vector</span>&lt;<span class="keyword">int</span>&gt; &amp;a,<span class="keyword">const</span> <span class="built_in">vector</span>&lt;<span class="keyword">int</span>&gt; &amp;b)-&gt;<span class="keyword">int</span>&#123;</span><br><span class="line">		<span class="keyword">return</span>(a[k]&lt;b[k]);</span><br><span class="line">	&#125;;  <span class="comment">//f是一个调用对象</span></span><br><span class="line">	sort(vec.begin(),vec.end(),f);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
-<p>其中，“捕获列表”是<code>lambda</code>函数体要用到的局部变量列表，在调用对象执行时，局部变量将会当做“参数”传递进去，所以，上面的$f$ <strong>并不能</strong>被简简单单的当成有两个<code>vector</code>参数的函数指针（当然，如果捕获列表为空，是可以的），也不能当成有3个参数的函数指针。</p>
-<p>为了探究<code>lambda</code>的行为，我将以下代码做了反汇编：</p>
-<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">main</span><span class="params">()</span></span>&#123;</span><br><span class="line">	<span class="keyword">int</span> k=<span class="number">0xE9</span>;</span><br><span class="line">	<span class="keyword">auto</span> f=[k](<span class="keyword">int</span> a)-&gt;<span class="keyword">int</span>&#123;</span><br><span class="line">		<span class="built_in">cout</span>&lt;&lt;<span class="number">0x22</span>&lt;&lt;<span class="built_in">endl</span>;</span><br><span class="line">		<span class="keyword">return</span>(a*k);</span><br><span class="line">	&#125;;</span><br><span class="line">	<span class="built_in">cout</span>&lt;&lt;f(<span class="number">0x456</span>)&lt;&lt;<span class="built_in">endl</span>;</span><br><span class="line">	<span class="keyword">return</span>(<span class="number">0</span>);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
-<p>然后发现编译器确实额外生成了个函数，这函数的汇编代码：</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br></pre></td><td class="code"><pre><span class="line">; main::&#123;lambda(int)#1&#125;::operator() const(int)</span><br><span class="line">__ZZ4mainENKUliE_clEi proc near</span><br><span class="line">var_4&#x3D; dword ptr -4</span><br><span class="line">arg_0&#x3D; dword ptr  8</span><br><span class="line">push    ebp</span><br><span class="line">mov     ebp, esp</span><br><span class="line">push    ebx</span><br><span class="line">sub     esp, 14h</span><br><span class="line">call    _mcount</span><br><span class="line"></span><br><span class="line">mov     ebx, ecx                            ;注意这里！！！！！！！！！！ecx传递一个“参数”！！！</span><br><span class="line"></span><br><span class="line">mov     ecx, offset __ZSt4cout ; std::cout</span><br><span class="line">mov     dword ptr [esp], 22h ; &#39;&quot;&#39;</span><br><span class="line">call    __ZNSolsEi      ; std::ostream::operator&lt;&lt;(int)</span><br><span class="line">sub     esp, 4</span><br><span class="line">mov     ecx, eax</span><br><span class="line">mov     dword ptr [esp], offset __ZSt4endlIcSt11char_traitsIcEERSt13basic_ostreamIT_T0_ES6_ ; std::endl&lt;char,std::char_traits&lt;char&gt;&gt;(std::basic_ostream&lt;char,std::char_traits&lt;char&gt;&gt; &amp;)</span><br><span class="line">call    __ZNSolsEPFRSoS_E ; std::ostream::operator&lt;&lt;(std::ostream &amp; (*)(std::ostream &amp;))</span><br><span class="line"></span><br><span class="line">mov     eax, [ebp+arg_0]</span><br><span class="line">imul    eax, [ebx]                          ;注意这里！！！！！！！！！imul把栈中的一个参数与原来ecx指向的东西相乘</span><br><span class="line"></span><br><span class="line">mov     ebx, [ebp+var_4]</span><br><span class="line">sub     esp, 4</span><br><span class="line">leave</span><br><span class="line">retn    4</span><br><span class="line">__ZZ4mainENKUliE_clEi endp</span><br></pre></td></tr></table></figure>
-
-<p>而在<code>main</code>中调用<code>lambda</code>的汇编代码：</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">lea     ecx, [ebp+var_18]      ;注意这里！！！此时ecx为值为0xE9的变量k的地址</span><br><span class="line">mov     dword ptr [esp], 456h</span><br><span class="line">mov     [ebp+var_18], 0E9h</span><br><span class="line">call    __ZZ4mainENKUliE_clEi ; main::&#123;lambda(int)#1&#125;::operator() const(int)</span><br></pre></td></tr></table></figure>
-
-<p>哈哈，这样我们就清楚啦，<code>lambda</code>的显式参数正常传递，捕获列表则按引用传递变量地址。</p>
-<p>然而虽然如此，如果k不是<strong>按引用捕获</strong>的，即便真的传进去引用，编译器也不会让你修改k的值（会报错<code>k is readonly</code>），如果要修改捕获变量的话要捕获<code>&amp;k</code>。</p>
-<p>捕获列表也可采取自动推断的方式，我们可以在最前面使用<code>=</code>（表示所有用到的变量默认按值捕获）或<code>&amp;</code>（默认引用捕获），如果想设置一些例外，可在后面按照不同的捕获方式传入变量名。</p>
-<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">int</span> k,j;</span><br><span class="line"><span class="keyword">auto</span> f1=[&amp;](<span class="keyword">int</span> a)-&gt;<span class="keyword">void</span>&#123;</span><br><span class="line">    k=a;</span><br><span class="line">&#125;;</span><br><span class="line"><span class="keyword">auto</span> f2=[=](<span class="keyword">int</span> a)-&gt;<span class="keyword">void</span>&#123;</span><br><span class="line">    <span class="built_in">cout</span>&lt;&lt;k+a&lt;&lt;<span class="built_in">endl</span>;</span><br><span class="line">&#125;;</span><br><span class="line"><span class="keyword">auto</span> f3=[&amp;,j]()-&gt;<span class="keyword">void</span>&#123;</span><br><span class="line">    k=j;</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
-
-<p>如果我们希望让<code>lambda</code>像普通的按值传参函数一样，就算捕获变量是按值捕获的，也可以“暂时”修改它的值，那么可以使用<code>mutable</code>修饰：</p>
-<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">int</span> k=<span class="number">233</span>;</span><br><span class="line"><span class="keyword">auto</span> f=[k](<span class="keyword">int</span> a)<span class="keyword">mutable</span>-&gt;<span class="keyword">void</span>&#123;</span><br><span class="line">    k=a;</span><br><span class="line">&#125;;</span><br><span class="line">f(<span class="number">2</span>);</span><br><span class="line"><span class="comment">//执行完后，k还是233</span></span><br></pre></td></tr></table></figure>
-
-<p>其实并不需要显式指定<code>lambda</code>的返回值类型，可以由编译器自动推断：</p>
-<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">auto</span> f=[k](<span class="keyword">int</span> a)&#123;</span><br><span class="line">    <span class="built_in">cout</span>&lt;&lt;<span class="number">0x22</span>&lt;&lt;<span class="built_in">endl</span>;</span><br><span class="line">    <span class="keyword">return</span>(a*k);</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
-
-<hr>
-<p><strong>参数绑定</strong></p>
-<p>对于我们上面的那个向量排序问题，除了<code>lambda</code>的另一种方法是使用头文件<code>functional</code>中的<code>bind</code>函数（这也是C++11的），它相当于充当了一个“参数适配器”，将原来的函数改造为一个新的函数，例如：</p>
-<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">cmp</span><span class="params">(<span class="keyword">const</span> <span class="built_in">vector</span>&lt;<span class="keyword">int</span>&gt; &amp;a,<span class="keyword">const</span> <span class="built_in">vector</span>&lt;<span class="keyword">int</span>&gt; &amp;b,<span class="keyword">int</span> k)</span></span>&#123;</span><br><span class="line">    <span class="keyword">return</span>(a[k]&lt;b[k]);	</span><br><span class="line">&#125;</span><br><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">sort_k</span><span class="params">(<span class="built_in">vector</span>&lt;<span class="built_in">vector</span>&lt;<span class="keyword">int</span>&gt; &gt; &amp;vec,<span class="keyword">int</span> k)</span></span>&#123;</span><br><span class="line">    <span class="keyword">auto</span> f=bind(cmp,_1,_2,k);  <span class="comment">//cmp被改造为f</span></span><br><span class="line">    sort(vec.begin(),vec.end(),f);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
-<p>在这个例子里，我们把三元函数<code>cmp</code>改造为了二元函数<code>f</code>，<code>_1,_2</code>为占位符，表示这两个参数保留不变（占位符的顺序<strong>决定了最终参数被传入的顺序</strong>，因此，<code>bind</code>甚至可以用来重排参数！），注意，占位符定义在命名空间<code>std::placeholders</code>中，这比较蛋疼。</p>
-<p>最终，k将被先行一步传入<code>cmp</code>中。但如果我们希望在函数中改变k的值，显然需要按引用传递，<strong>但是</strong>，<code>bind</code>默认所有参数按值传递，也就是说，就算函数里定义的参数是<code>int &amp;k</code>，可是<code>bind</code>把传入的k按值传递，最终真正的k并不会被改变。解决方法是使用<code>ref</code>函数，这玩意是专门用于向像这样的按值传递的模板函数传递引用的，例如：</p>
-<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">f</span><span class="params">(<span class="keyword">int</span> a,<span class="keyword">int</span> &amp;b)</span></span>&#123;</span><br><span class="line">	b=a;</span><br><span class="line">&#125;</span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">main</span><span class="params">()</span></span>&#123;</span><br><span class="line">	<span class="keyword">int</span> a=<span class="number">233</span>,b=<span class="number">0</span>;</span><br><span class="line">	<span class="keyword">auto</span> func=bind(f,_1,ref(b)); <span class="comment">//b传递引用</span></span><br><span class="line">	func(a);</span><br><span class="line">	<span class="built_in">cout</span>&lt;&lt;b&lt;&lt;<span class="built_in">endl</span>;</span><br><span class="line">	<span class="keyword">return</span>(<span class="number">0</span>);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
-<p>这个的工作原理大致是，<code>ref</code>的返回类型是一个封装了指针与自定义赋值运算符的类，所以基本上只能用于模板。</p>
-<hr>
-<p><strong>流迭代器</strong></p>
-<p>头文件<code>iterator</code>定义了输入流迭代器<code>istream_iterator&lt;T&gt;</code>和输出流迭代器<code>ostream_iterator&lt;T&gt;</code>，这可以用迭代器操纵输入输出流。</p>
-<p>输入流迭代器的定义如下：</p>
-<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="function">istream_iterator&lt;<span class="keyword">int</span>&gt; <span class="title">it</span><span class="params">(<span class="built_in">cin</span>)</span></span>; <span class="comment">//it与cin绑定</span></span><br><span class="line">istream_iterator&lt;<span class="keyword">int</span>&gt; eof; <span class="comment">//默认构造函数会把迭代器定义为尾后迭代器，这可以表示流的终结</span></span><br></pre></td></tr></table></figure>
-
-<p>这个支持<code>++</code>与<code>*</code>，前者为读取下一个，后者是获得上一个读取的对象。这里比较有意思，构造函数并不会立刻让它读取对象，但是<strong>第一次使用解引用</strong>时，会自动读取一个对象。例如这样一个奇怪的程序：</p>
-<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">main</span><span class="params">()</span></span>&#123;</span><br><span class="line">    <span class="function">istream_iterator&lt;<span class="keyword">int</span>&gt; <span class="title">it1</span><span class="params">(<span class="built_in">cin</span>)</span></span>;</span><br><span class="line">    <span class="built_in">cout</span>&lt;&lt;*it1++&lt;&lt;<span class="built_in">endl</span>;</span><br><span class="line">    <span class="built_in">cout</span>&lt;&lt;*it1++&lt;&lt;<span class="built_in">endl</span>;</span><br><span class="line">    <span class="built_in">cout</span>&lt;&lt;*it1&lt;&lt;<span class="built_in">endl</span>;</span><br><span class="line">    <span class="keyword">return</span>(<span class="number">0</span>);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
-<p>这玩意直观看上去，似乎是输入一个数，然后把它输出，如此重复3次。然而实际效果并非如此，我先输入一个数1按回车，它不会输出任何东西，再输入2按回车，它会输出1，再输入3按回车，它会把2和3都输出然后程序结束。原因是，第一句<code>*it1++</code>实际上隐含了两次输入（第一次解引用，递增），把两次输入执行完才会执行第一个<code>cout</code>，接着第二个<code>*it1</code>已经通过解引用获得了上一个输入的2，然后执行<code>++</code>进行输入，再输入一个数后执行对2的<code>cout</code>，第3个<code>cout</code>不需要再输入，直接输出即可。</p>
-<p>输入流迭代器可以利用STL标准的迭代器范围形式来进行一系列骚操作，例如：</p>
-<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="function">istream_iterator&lt;<span class="keyword">int</span>&gt; <span class="title">it</span><span class="params">(<span class="built_in">cin</span>)</span></span>;</span><br><span class="line">istream_iterator&lt;<span class="keyword">int</span>&gt; eof;</span><br><span class="line"><span class="function"><span class="built_in">vector</span>&lt;<span class="keyword">int</span>&gt; <span class="title">vec</span><span class="params">(it,eof)</span></span>;  <span class="comment">//使用[it,eof)构造一个vector，这就相当于是vector的构造函数在使用it时进行了读入！</span></span><br><span class="line"><span class="keyword">for</span>(<span class="keyword">int</span> i:vec)<span class="built_in">cout</span>&lt;&lt;i&lt;&lt;<span class="built_in">endl</span>;</span><br></pre></td></tr></table></figure>
-
-<p>输出流迭代器的定义如下：</p>
-<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="function">ostream_iterator&lt;<span class="keyword">int</span>&gt; <span class="title">it</span><span class="params">(<span class="built_in">cout</span>)</span></span>; <span class="comment">//与cout绑定</span></span><br><span class="line"><span class="function">ostream_iterator&lt;<span class="keyword">int</span>&gt; <span class="title">it</span><span class="params">(<span class="built_in">cout</span>,<span class="string">&quot; &quot;</span>)</span></span>; <span class="comment">//每次输出都跟着一个给定的字符串</span></span><br></pre></td></tr></table></figure>
-
-<p>输出流迭代器虽然定义了解引用和自增运算符，但是它们没有实际效果。以下几种写法均能输出一个数：</p>
-<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">it=<span class="number">233</span>;</span><br><span class="line">*it=<span class="number">233</span>;</span><br><span class="line">it++=<span class="number">233</span>;</span><br><span class="line">*it++=<span class="number">233</span>;</span><br></pre></td></tr></table></figure>
-
-<p>这两种迭代器可以使用任何定义了输入输出运算符的类。</p>
-<hr>
-<p><strong>文件流</strong></p>
-<p>头文件<code>fstream</code>里提供了文件流<code>ifstream</code>和<code>ofstream</code>，可以用于文件读写。以<code>ifstream</code>为例：</p>
-<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="function">ifstream <span class="title">f</span><span class="params">(<span class="string">&quot;filename&quot;</span>)</span></span>;</span><br><span class="line"><span class="function">ifstream <span class="title">f1</span><span class="params">(<span class="string">&quot;filename&quot;</span>,mode)</span></span>;</span><br></pre></td></tr></table></figure>
-
-<p>其中，<code>mode</code>有如下几种取值，可以取它们的按位或组合：</p>
-<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">ios::app：　　　 <span class="comment">//以追加的方式打开文件  </span></span><br><span class="line">ios::ate：　　　 <span class="comment">//文件打开后定位到文件尾，ios:app就包含有此属性  </span></span><br><span class="line">ios::binary：　 <span class="comment">//以二进制方式打开文件，缺省的方式是文本方式。两种方式的区别见前文  </span></span><br><span class="line">ios::in：　　　  <span class="comment">//文件以输入方式打开（文件数据输入到内存）  </span></span><br><span class="line">ios::out：　　　 <span class="comment">//文件以输出方式打开（内存数据输出到文件）  </span></span><br><span class="line">ios::nocreate： <span class="comment">//不建立文件，所以文件不存在时打开失败  </span></span><br><span class="line">ios::noreplace：<span class="comment">//不覆盖文件，所以打开文件时如果文件存在失败  </span></span><br><span class="line">ios::trunc：　  <span class="comment">//如果文件存在，把文件长度设为0</span></span><br></pre></td></tr></table></figure>
-
-<p>使用<code>&lt;&lt;</code>和<code>&gt;&gt;</code>进行输入输出，成员函数<code>eof()</code>判断是否到达文件末尾，<code>close()</code>关闭。</p>
-<hr>
-<p><strong>动态内存分配</strong></p>
-<p>使用<code>new</code>进行内存分配既可以进行默认初始化，也可以进行值初始化，对于类类型基本上都是调用默认构造函数，但对于内置类型这就比较重要，例如：</p>
-<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">int</span> *a=<span class="keyword">new</span> <span class="keyword">int</span>; <span class="comment">//默认初始化，值是未定义的</span></span><br><span class="line"><span class="keyword">int</span> *b=<span class="keyword">new</span> <span class="keyword">int</span>(); <span class="comment">//值初始化，为0</span></span><br></pre></td></tr></table></figure>
-
-<p>此外，用<code>new</code>定义<code>const</code>对象是合法的，在这种情况下构造函数初始化就显得很重要。（当然咱们有<code>const_cast</code>这种东西……）</p>
-<p>内存耗尽无法被分配，将会抛出异常<code>bad_alloc</code>，如果想规避这种情况，可以采用另一种称为<strong>定位new</strong>的写法：</p>
-<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">int</span> *a=<span class="keyword">new</span> <span class="keyword">int</span>(<span class="number">233</span>); <span class="comment">//若无法分配将bad_alloc</span></span><br><span class="line"><span class="keyword">int</span> *b=<span class="keyword">new</span>(nothrow) <span class="keyword">int</span>(<span class="number">233</span>); <span class="comment">//若无法分配则返回空指针</span></span><br></pre></td></tr></table></figure>
-
-<p>注意，<code>nothrow</code>是定义于头文件<code>new</code>中的特殊对象（<code>bad_alloc</code>也是这里面的），并非关键字。</p>
-<p>关键字<code>delete</code>作用于一个指针对象时，会先调用其析构函数销毁，再释放内存。注意：如果让<code>delete</code>作用于一个非<code>new</code>指针，它<strong>居然</strong>也会调用析构函数，这就未定义行为了……</p>
-<p>使用<code>new</code>也可以定义动态数组，有这么几种方法：</p>
-<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">int</span> *p1=<span class="keyword">new</span> <span class="keyword">int</span>[<span class="number">10</span>]; <span class="comment">//值未定义</span></span><br><span class="line"><span class="keyword">int</span> *p2=<span class="keyword">new</span> <span class="keyword">int</span>[<span class="number">10</span>](); <span class="comment">//值都初始化为0</span></span><br><span class="line"><span class="keyword">int</span> *p3=<span class="keyword">new</span> <span class="keyword">int</span>[<span class="number">10</span>]&#123;<span class="number">0</span>,<span class="number">1</span>,<span class="number">2</span>,<span class="number">3</span>,<span class="number">4</span>,<span class="number">5</span>,<span class="number">6</span>,<span class="number">7</span>,<span class="number">8</span>,<span class="number">9</span>&#125;; <span class="comment">//列表初始化</span></span><br><span class="line"><span class="keyword">int</span> *p4=<span class="keyword">new</span> <span class="keyword">int</span>[<span class="number">10</span>]&#123;<span class="number">0</span>,<span class="number">1</span>,<span class="number">2</span>&#125;; <span class="comment">//剩下的值未定义</span></span><br></pre></td></tr></table></figure>
-
-<p>动态数组的释放很有意思，需要使用<code>delete[]</code>作用于首地址，并且它居然是倒着销毁的，例如：</p>
-<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">x</span>&#123;</span></span><br><span class="line">    <span class="keyword">public</span>:</span><br><span class="line">    	<span class="keyword">int</span> val;</span><br><span class="line">    	x(<span class="keyword">int</span> a):val(a)&#123;&#125;</span><br><span class="line">    	~x()&#123;<span class="built_in">cout</span>&lt;&lt;val&lt;&lt;<span class="built_in">endl</span>;&#125;	</span><br><span class="line">&#125;;</span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">main</span><span class="params">()</span></span>&#123;</span><br><span class="line">    x* p=<span class="keyword">new</span> x[<span class="number">3</span>]&#123;<span class="number">0</span>,<span class="number">1</span>,<span class="number">2</span>&#125;;</span><br><span class="line">    <span class="keyword">delete</span>[](p); <span class="comment">//输出2 1 0</span></span><br><span class="line">    <span class="keyword">return</span>(<span class="number">0</span>);	</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
-<p><strong>注意</strong>：如果不加方括号，那么<code>delete</code>仅会销毁单个元素（不管它是不是数组第一个元素），如果把<code>delete[]</code>作用于数组的中间某个位置，那么它什么都不会做！</p>
-<p>C++的另一种更为灵活的动态数组分配方式是头文件<code>memory</code>中的<code>allocator&lt;T&gt;</code>，它十分类似于<code>malloc</code>，与<code>new</code>不同的是<strong>allocator把内存分配/释放与构造/析构分离开来</strong>，这样的好处是我可以用它先搞到一块地方，不一定要用对象把它填满，没必要把所有地方都用构造函数初始化。</p>
-<table>
-<thead>
-<tr>
-<th><code>allocator</code>的成员函数</th>
-<th>作用</th>
-</tr>
-</thead>
-<tbody><tr>
-<td><code>allocate(n)</code></td>
-<td>为n个对象分配未初始化的空间，返回指针</td>
-</tr>
-<tr>
-<td><code>deallocate(p,n)</code></td>
-<td>释放长度为n的动态数组p（但不析构），这里的p必须是之前的<code>p=a.allocate(n)</code></td>
-</tr>
-<tr>
-<td><code>construct(p,args...)</code></td>
-<td>将<strong>单个对象</strong>p用构造函数初始化</td>
-</tr>
-<tr>
-<td><code>destroy(p)</code></td>
-<td>执行<strong>单个对象</strong>p的析构函数</td>
-</tr>
-</tbody></table>
-<p>单个<code>allocator</code>对象只能维护自己<code>allocate</code>的内存，一个对象可以多次分配多个数组。</p>
-<hr>
-<p><strong>智能指针</strong></p>
-<p>C++11引入了<code>shared_ptr&lt;T&gt;</code>作为可共享可自动销毁的智能指针（比<code>new</code>更加安全方便），在头文件<code>memory</code>中。</p>
-<p>使用<code>make_shared&lt;T&gt;</code>初始化共享指针，可传入构造函数参数，或者按值传递的对象，它将在堆中分配内存空间，得到一个新指针。</p>
-<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">shared_ptr</span>&lt;<span class="built_in">vector</span>&lt;<span class="keyword">int</span>&gt; &gt; me=make_shared&lt;<span class="built_in">vector</span>&lt;<span class="keyword">int</span>&gt; &gt;(<span class="number">233</span>); <span class="comment">//自动调用vector的构造函数</span></span><br><span class="line"><span class="built_in">shared_ptr</span>&lt;<span class="built_in">vector</span>&lt;<span class="keyword">int</span>&gt; &gt; me=make_shared&lt;<span class="built_in">vector</span>&lt;<span class="keyword">int</span>&gt; &gt;(<span class="built_in">vector</span>&lt;<span class="keyword">int</span>&gt;(<span class="number">233</span>));</span><br></pre></td></tr></table></figure>
-
-<p>它的特点是可以多个指针共享同一块内存区域，能够维护与之共享内存的指针数目，用<code>p.use_count()</code>处理。当数目减为0时，<strong>将会自动把内存释放</strong>（这时p在条件判断中的值为<code>false</code>）。在使用指针赋值<code>p=q</code>时，会把<code>cnt(p)--,cnt(q)++</code>。</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line">我们可以用&#96;&#96;&#96;new&#96;&#96;&#96;创建的指针来初始化&#96;&#96;&#96;shared_ptr&#96;&#96;&#96;，但这可能会导致奇怪的问题：</span><br><span class="line"></span><br><span class="line">&#96;&#96;&#96;cpp</span><br><span class="line">void f(shared_ptr&lt;int&gt; p)&#123;</span><br><span class="line">    cout&lt;&lt;*p&lt;&lt;endl;	</span><br><span class="line">&#125;</span><br><span class="line">int main()&#123;</span><br><span class="line">    int *a&#x3D;new int(233);</span><br><span class="line">    f(shared_ptr&lt;int&gt;(a)); &#x2F;&#x2F;用a初始化shared_ptr传入</span><br><span class="line">    cout&lt;&lt;*a&lt;&lt;endl; &#x2F;&#x2F;未定义行为，a已被销毁</span><br><span class="line">    return(0);	</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
-<p>这样初始化的<code>shared_ptr</code>在析构时会使用<code>delete</code>释放维护的指针，在这个例子中，仅有一个生存期在f中的<code>shared_ptr</code>对象p，一旦f执行完毕，p就会销毁释放内存，<strong>导致a成为空悬指针</strong>！</p>
-<p>成员函数<code>get()</code>用于获得维护的真正指针，但这是十分危险的！绝对禁止把它<code>delete</code>掉，或者用来初始化新的<code>shared_ptr</code>。</p>
-<p>我们也可以使用普通指针初始化<code>shared_ptr</code>，需要传入一个删除器，当销毁时会调用这个删除器，这适用于没有定义析构函数的类（据说，有些库为了兼容C语言，都使用没有析构函数的垃圾结构体……）。</p>
-<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">file</span>&#123;</span></span><br><span class="line">    <span class="keyword">public</span>:</span><br><span class="line">    	FILE *p;</span><br><span class="line">    	file(<span class="keyword">const</span> <span class="keyword">char</span>* str)&#123;</span><br><span class="line">            p=fopen(str,<span class="string">&quot;rb&quot;</span>);</span><br><span class="line">        &#125;</span><br><span class="line">&#125;;</span><br><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">close</span><span class="params">(file *f)</span></span>&#123;</span><br><span class="line">    fclose(f-&gt;p);	</span><br><span class="line">    <span class="built_in">cout</span>&lt;&lt;<span class="string">&quot;closed&quot;</span>&lt;&lt;<span class="built_in">endl</span>;</span><br><span class="line">&#125;</span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">main</span><span class="params">()</span></span>&#123;</span><br><span class="line">    <span class="function"><span class="built_in">shared_ptr</span>&lt;file&gt; <span class="title">f</span><span class="params">(<span class="keyword">new</span> file(<span class="string">&quot;test.in&quot;</span>),close)</span></span>;</span><br><span class="line">    <span class="keyword">return</span>(<span class="number">0</span>);	</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
-<p>另一种智能指针是<code>unique_ptr&lt;T&gt;</code>，同一个动态对象只能由一个<code>unique_ptr</code>维护，因此，它不能进行赋值、拷贝（有一种例外是把它作为值返回，这时编译器知道它将在这函数体内销毁，执行一种特殊的值传递），只能使用成员函数<code>release()</code>放弃控制权返回原指针（并不销毁）以及<code>reset(p)</code>销毁当前对象重新维护另一个对象。</p>
-<p>关于这玩意甚至连同类都不能赋值的原因，我从<code>memory</code>头文件里找到了一段细思极恐的代码：</p>
-<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">unique_ptr</span>(<span class="keyword">const</span> <span class="built_in">unique_ptr</span>&amp;) = <span class="keyword">delete</span>;</span><br><span class="line"><span class="built_in">unique_ptr</span>&amp; <span class="keyword">operator</span>=(<span class="keyword">const</span> <span class="built_in">unique_ptr</span>&amp;) = <span class="keyword">delete</span>;</span><br></pre></td></tr></table></figure>
-
-<p>另一种智能指针是<code>weak_ptr&lt;T&gt;</code>，这玩意是作为<code>shared_ptr</code>的附庸使用的，它需要使用<code>shared_ptr</code>初始化，不能直接解引用，需要通过<code>lock()</code>返回维护的<code>shared_ptr</code>（<strong>如果作为它爸爸的shared_ptr被销毁了，则返回空指针，这一点很重要</strong>）。它并不会改变共享指针的共享个数，也不会因为其生存期的结束就可能把对象销毁。</p>
-<p>这玩意看上去没啥用，但实际上所有迭代器都可以用这玩意实现。例如<code>vector</code>，假设它的内存是由<code>shared_ptr</code>维护的，然后迭代器要和它共享内存，如果迭代器也用<code>shared_ptr</code>，那么如果这<code>vector</code>生存期结束了，可是外面还有个生存期没结束的迭代器（尽管这迭代器也随之没用了），那么内存就不会被释放，这是不合适的。因此可以将迭代器使用较弱的<code>weak_ptr</code>实现，这样内存就随着<code>vector</code>的析构销毁了，而迭代器再使用的话就只会得到空指针。</p>
-<p>关于动态数组，<code>unique_ptr</code>支持管理动态数组，需要定义为<code>unique_ptr&lt;int[]&gt;</code>的形式。<code>shared_ptr</code>不直接支持这样，需要为动态数组自定义删除器，使用<code>delete[]</code>销毁，例如：</p>
-<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="built_in">shared_ptr</span>&lt;x&gt; <span class="title">p</span><span class="params">(<span class="keyword">new</span> x[<span class="number">3</span>]&#123;<span class="number">1</span>,<span class="number">2</span>,<span class="number">3</span>&#125;,[](x* ptr)-&gt;<span class="keyword">void</span>&#123;<span class="keyword">delete</span>[]ptr;&#125;)</span></span>;</span><br></pre></td></tr></table></figure>
-
-
-
-
-      
+      <% if (post.excerpt && index){ %>
+        <%- post.excerpt %>
+        <% if (theme.excerpt_link){ %>
+          <p class="article-more-link">
+            <a href="<%- url_for(post.path) %>#more"><%= theme.excerpt_link %></a>
+          </p>
+        <% } %>
+      <% } else { %>
+        <%- post.content %>
+      <% } %>
     </div>
     <footer class="article-footer">
-      <a data-url="https://www.ywy-c-asm.cn/2021/03/20/%E3%80%8AC++Primer%E3%80%8B%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0%EF%BC%88%E4%B8%89%EF%BC%89/" data-id="ckmnl7m0u000vz0t24xop8s2g" data-title="《C++Primer》学习笔记（三）"></a>
-      
-      
-      
-  <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/C/" rel="tag">C++</a></li></ul>
-
+      <a data-url="<%- post.permalink %>" data-id="<%= post._id %>" data-title="<%= post.title %>" class="article-share-link"><%= __('share') %></a>
+      <% if (post.comments && config.disqus_shortname){ %>
+        <a href="<%- post.permalink %>#disqus_thread" class="article-comment-link"><%= __('comment') %></a>
+      <% } %>
+      <% if (post.comments && theme.valine.enable && theme.valine.appId && theme.valine.appKey ){ %>
+        <a href="<%- url_for(post.path) %>#comments" class="article-comment-link">
+          <span class="post-comments-count valine-comment-count" data-xid="<%- url_for(post.path) %>" itemprop="commentCount"></span>
+          <%= __('comment') %>
+        </a>
+      <% } %>
+      <%- partial('post/tag') %>
     </footer>
   </div>
-  
-    
-<nav id="article-nav">
-  
-    <a href="/2021/03/23/%E3%80%8AC++Primer%E3%80%8B%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0%EF%BC%88%E5%9B%9B%EF%BC%89/" id="article-nav-newer" class="article-nav-link-wrap">
-      <strong class="article-nav-caption">Newer</strong>
-      <div class="article-nav-title">
-        
-          《C++Primer》学习笔记（四）
-        
-      </div>
-    </a>
-  
-  
-    <a href="/2021/03/19/%E3%80%8A%E7%A6%BB%E6%95%A3%E6%95%B0%E5%AD%A6%E5%BC%95%E8%AE%BA%E3%80%8B%E8%B6%A3%E9%A2%98%E8%AF%81%E6%98%8E/" id="article-nav-older" class="article-nav-link-wrap">
-      <strong class="article-nav-caption">Older</strong>
-      <div class="article-nav-title">《离散数学引论》趣题证明</div>
-    </a>
-  
-</nav>
-
-  
+  <% if (!index){ %>
+    <%- partial('post/nav') %>
+  <% } %>
 </article>
 
-
+<% if (!index && post.comments && config.disqus_shortname){ %>
+<section id="comments">
+  <div id="disqus_thread">
+    <noscript>Please enable JavaScript to view the <a target="_blank" rel="noopener" href="//disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+  </div>
 </section>
+<% } %>
+<% if (!index && post.comments && theme.valine.enable && theme.valine.appId && theme.valine.appKey){ %>
+  <section id="comments" class="vcomment">
+
+  </section>
+<% } %></section>
         
           <aside id="sidebar">
   
