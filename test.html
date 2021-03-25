@@ -82,63 +82,61 @@
 </header>
 
       <div class="outer" style="padding:0 0px">
-        <section id="main"><article id="page-" class="h-entry article article-type-page" itemprop="blogPost" itemscope itemtype="https://schema.org/BlogPosting">
+        <section id="main"><article id="<%= post.layout %>-<%= post.slug %>" class="h-entry article article-type-<%= post.layout %>" itemprop="blogPost" itemscope itemtype="https://schema.org/BlogPosting">
   <div class="article-meta">
-    <a href="/test.html" class="article-date">
-  <time class="dt-published" datetime="2021-03-13T07:39:19.362Z" itemprop="datePublished">2021-03-13</time>
-</a>
-    
+    <%- partial('post/date', {class_name: 'article-date', date_format: null}) %>
+    <%- partial('post/category') %>
   </div>
   <div class="article-inner">
-    
-    
+    <%- partial('post/gallery') %>
+    <% if (post.link || post.title){ %>
+      <header class="article-header">
+        <%- partial('post/title', {class_name: 'p-name article-title'}) %>
+      </header>
+    <% } %>
     <div class="e-content article-entry" itemprop="articleBody">
-      
-        <html>
-	<head>
-		<style type="text/css">
-			html {
-				width: 100%;
-				height: 100%;
-			}
-			body {
-				width: 100%;
-				height: 100%;
-				margin: 0;
-			}
-			#canvasContainer {
-				width: 100%;
-				height: 100%;
-			}
-			#myCanvas {
-				width: 100%;
-				height: 100%;
-			}
-		</style>
-	</head>
-	<body style="height:100%">
-		<div id="canvasContainer" style="height:100%">
-			<canvas id="canvas" style="position:absolute;top:0;left:0;z-index:-2;height:100%;width:100%"></canvas>
-		</div>
-		<script src="/back.js"></script>
-	</body>
-</html>
-      
+      <% if (post.excerpt && index){ %>
+        <%- post.excerpt %>
+        <% if (theme.excerpt_link){ %>
+          <p class="article-more-link">
+            <a href="<%- url_for(post.path) %>#more"><%= theme.excerpt_link %></a>
+          </p>
+        <% } %>
+      <% } else { %>
+        <%- post.content %>
+      <% } %>
     </div>
     <footer class="article-footer">
-      <a data-url="https://www.ywy-c-asm.cn/test.html" data-id="ckmowu1to000lrot25pvsbm5s" data-title=""></a>
-      
-      
-      
+      <a data-url="<%- post.permalink %>" data-id="<%= post._id %>" data-title="<%= post.title %>" class="article-share-link"><%= __('share') %></a>
+      <% if (post.comments && config.disqus_shortname){ %>
+        <a href="<%- post.permalink %>#disqus_thread" class="article-comment-link"><%= __('comment') %></a>
+      <% } %>
+      <% if (post.comments && theme.valine.enable && theme.valine.appId && theme.valine.appKey ){ %>
+        <a href="<%- url_for(post.path) %>#comments" class="article-comment-link">
+          <span class="post-comments-count valine-comment-count" data-xid="<%- url_for(post.path) %>" itemprop="commentCount"></span>
+          <%= __('comment') %>
+        </a>
+      <% } %>
+      <%- partial('post/tag') %>
     </footer>
   </div>
-  
-    
-  
+  <% if (!index){ %>
+    <%- partial('post/nav') %>
+  <% } %>
 </article>
 
-
+<% if (!index && post.comments && config.disqus_shortname){ %>
+<section id="comments">
+  <div id="disqus_thread">
+    <noscript>Please enable JavaScript to view the <a target="_blank" rel="noopener" href="//disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+  </div>
 </section>
+<% } %>
+<% if (!index && post.comments && theme.valine.enable && theme.valine.appId && theme.valine.appKey){ %>
+  <section id="comments" class="vcomment">
+
+  </section>
+<% } %></section>
         
           <aside id="sidebar">
   
@@ -211,12 +209,11 @@
   
 </aside>
         
-		
-		
+	
 <iframe id="iframe1" src="/balls3.html" style="height:500px;width:1500px;position:absolute;top:500px;left:0px;z-index:-1" scrolling="no" frameborder="0"></iframe>
 		<script>
+			var width=parseInt(document.body.clientWidth.toString().replace("px", ""), 10);
 			var height=document.body.scrollHeight;
-			var width=document.body.scrollWidth;
 			iframe1.style='height:'+height+'px;width:'+width+'px;position:absolute;top:0px;left:0px;z-index:-1';
 		</script>
 
