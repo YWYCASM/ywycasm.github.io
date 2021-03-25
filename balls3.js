@@ -1,4 +1,4 @@
-if(!(/Android|webOS|iPhone|iPad|iPod|BlackBerry/i.test(navigator.userAgent))){
+
 	var canvas=document.getElementById('balls3');
 	var hdc=canvas.getContext('2d');
 	var pos=70;
@@ -11,6 +11,9 @@ if(!(/Android|webOS|iPhone|iPad|iPod|BlackBerry/i.test(navigator.userAgent))){
 	canvas.width=width;
 	
 	var cnt=100;
+	if((/Android|webOS|iPhone|iPad|iPod|BlackBerry/i.test(navigator.userAgent))){
+		cnt=40;
+	}
 	function rand(){
 		return(Math.random());
 	}
@@ -112,4 +115,3 @@ if(!(/Android|webOS|iPhone|iPad|iPod|BlackBerry/i.test(navigator.userAgent))){
 		//}
 	}
 	window.requestAnimationFrame(process);
-}
