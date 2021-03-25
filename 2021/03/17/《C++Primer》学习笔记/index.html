@@ -83,61 +83,274 @@
 </header>
 
       <div class="outer" style="padding:0 0px">
-        <section id="main"><article id="<%= post.layout %>-<%= post.slug %>" class="h-entry article article-type-<%= post.layout %>" itemprop="blogPost" itemscope itemtype="https://schema.org/BlogPosting">
+        <section id="main"><article id="post-《C++Primer》学习笔记" class="h-entry article article-type-post" itemprop="blogPost" itemscope itemtype="https://schema.org/BlogPosting">
   <div class="article-meta">
-    <%- partial('post/date', {class_name: 'article-date', date_format: null}) %>
-    <%- partial('post/category') %>
+    <a href="/2021/03/17/%E3%80%8AC++Primer%E3%80%8B%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/" class="article-date">
+  <time class="dt-published" datetime="2021-03-17T12:12:00.000Z" itemprop="datePublished">2021-03-17</time>
+</a>
+    
   </div>
   <div class="article-inner">
-    <%- partial('post/gallery') %>
-    <% if (post.link || post.title){ %>
+    
+    
       <header class="article-header">
-        <%- partial('post/title', {class_name: 'p-name article-title'}) %>
+        
+  
+    <h1 class="p-name article-title" itemprop="headline name">
+      《C++Primer》学习笔记（一）
+    </h1>
+  
+
       </header>
-    <% } %>
+    
     <div class="e-content article-entry" itemprop="articleBody">
-      <% if (post.excerpt && index){ %>
-        <%- post.excerpt %>
-        <% if (theme.excerpt_link){ %>
-          <p class="article-more-link">
-            <a href="<%- url_for(post.path) %>#more"><%= theme.excerpt_link %></a>
-          </p>
-        <% } %>
-      <% } else { %>
-        <%- post.content %>
-      <% } %>
+      
+        <p>最近意识到一个很严重的问题——我虽然理论上会写C++代码，然而由于OI的原因却从未真正系统地学习过它（<del><strong>事实上，除了一些STL以外，我一直以来写的基本都是C风格的C++</strong></del>），导致很多很多的特性并不了解，遂找了本《C++ Primer》学习之。</p>
+<span id="more"></span>
+
+<hr>
+<p>多个字符串常量仅用空白字符分隔，会被视作一个字符串（这表明一个字符串可写成多行），像这样：</p>
+<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">cout</span>&lt;&lt;<span class="string">&quot;ywy&quot;</span></span><br><span class="line">    <span class="string">&quot;casm&quot;</span>&lt;&lt;<span class="built_in">endl</span>;</span><br><span class="line"><span class="built_in">cout</span>&lt;&lt;<span class="string">&quot;ywy&quot;</span> <span class="string">&quot;c&quot;</span>	<span class="string">&quot;asm&quot;</span>&lt;&lt;<span class="built_in">endl</span>;  <span class="comment">//都会输出ywycasm</span></span><br></pre></td></tr></table></figure>
+
+<hr>
+<p>字符串常量的前缀：<code>L&quot;字符串&quot;</code>表示宽字符<code>wchar_t</code>型，编码使用编译命令<code>-finput-charset</code>指定的字符集。<code>u8&quot;字符串&quot;</code>表示utf-8编码的字符串（使用char），<code>u&quot;字符串&quot;</code>表示16位Unicode的<code>char16_t</code>型，<code>U&quot;字符串&quot;</code>表示32位Unicode的<code>char32_t</code>型。若不加前缀，字符串常量使用默认编码，Windows上会把汉字用GBK处理。</p>
+<p>（然而经过我试验发现在Windows平台上不管加不加u8，字符串居然都是GBK编码的？？？？也许和平台有关）</p>
+<hr>
+<p>C++11可以支持列表初始化：</p>
+<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">int</span> a=<span class="number">233</span>;</span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">b</span><span class="params">(<span class="number">233</span>)</span></span>;</span><br><span class="line"><span class="keyword">int</span> c&#123;<span class="number">233</span>&#125;;</span><br><span class="line"><span class="keyword">int</span> d=&#123;<span class="number">233</span>&#125;;</span><br><span class="line"><span class="built_in">vector</span>&lt;<span class="keyword">int</span>&gt; vec;</span><br><span class="line">vec=&#123;<span class="number">1</span>,<span class="number">2</span>,<span class="number">3</span>,<span class="number">4</span>,<span class="number">5</span>&#125;;</span><br><span class="line">vec&#123;<span class="number">1</span>,<span class="number">2</span>,<span class="number">3</span>,<span class="number">4</span>,<span class="number">5</span>&#125;; <span class="comment">//错误，不能这样写</span></span><br><span class="line"><span class="built_in">vector</span>&lt;<span class="keyword">int</span>&gt; vec1&#123;<span class="number">1</span>,<span class="number">2</span>,<span class="number">3</span>,<span class="number">4</span>,<span class="number">5</span>&#125;;</span><br></pre></td></tr></table></figure>
+
+<hr>
+<p><strong>关于extern</strong>：<code>extern</code>用于<strong>声明</strong>而非<strong>定义</strong>一个变量，前者并不真正地创建变量的实体，而是声明用于多个文件中的符号以用于用于连接时的符号重定位。例如下列代码虽然不会引起编译错误，但会引起连接错误（形如<code>(.text.startup+0x21): undefined reference to me</code>这样，因为只有一个空符号，没找到它的定义的实体）：</p>
+<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">extern</span> <span class="keyword">int</span> me;</span><br><span class="line"><span class="built_in">cout</span>&lt;&lt;me&lt;&lt;<span class="built_in">endl</span>;</span><br></pre></td></tr></table></figure>
+
+<p>如果用形如<code>extern int me=233;</code>这样同时用<code>extern</code>和赋值，那么这相当于一个普通的变量定义，没啥用，并且这个只能用于全局变量，用在函数体内会报错。</p>
+<p><strong>变量可以被声明多次，但只能定义一次。</strong></p>
+<hr>
+<p><strong>引用</strong></p>
+<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">int</span> a=<span class="number">233</span>;</span><br><span class="line"><span class="keyword">int</span> &amp;b=a; <span class="comment">//b是a的引用</span></span><br></pre></td></tr></table></figure>
+
+<p>之后b永远与a绑定在一起，改变哪个都会把a改变，访问哪个都访问a，类似于<code>#define</code>取别名（<strong>引用不是实际对象</strong>），并且b的值是不可修改的，引用必须有初始化。</p>
+<hr>
+<p><strong>关于nullptr</strong></p>
+<p>（这里参考了<a target="_blank" rel="noopener" href="https://blog.csdn.net/weixin_34372728/article/details/93370550">这篇文章</a> ）<code>NULL</code>是在原始的C的<code>stdlib.h</code>库中定义的，值为<code>(void*)0</code>，然而在C++中void指针并不能自动隐式转换为其他类型指针，因此<code>cstdlib</code>为了兼容，把<code>NULL</code>直接定义成了整数0。然而它本身是<code>int</code>型的，可能会在重载中产生歧义，因此C++11引入了<code>nullptr</code>作为可被所有类型指针使用的空值。</p>
+<hr>
+<p><strong>关于const</strong></p>
+<p>一个<code>const</code>变量只能在初始化时被赋值（可以是运行时的函数返回值），并且<strong>const对象在默认状态下只在当前文件中有效</strong>，若想让多个文件共享一个<code>const</code>对象，需要用<code>extern</code>定义和声明。</p>
+<p>并且，用<code>const</code>声明的指针将会有“歧义”，究竟是指针指向的东西不能被修改，还是指针变量本身不能被修改？于是引入顶层<code>const</code>解决这种歧义：</p>
+<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">const</span> <span class="keyword">int</span> *p1=&amp;a; <span class="comment">//底层const，不可改变p1指向的地方的值，可以让p1重新指向别的地方</span></span><br><span class="line"><span class="keyword">int</span> *<span class="keyword">const</span> p2=&amp;a; <span class="comment">//顶层const，可以改变p2指向的地方的值，不可让p2重新指向别的地方</span></span><br><span class="line"><span class="keyword">const</span> <span class="keyword">int</span> *<span class="keyword">const</span> p3=&amp;a; <span class="comment">//既不可修改变量本身，也不可间接修改指向对象</span></span><br></pre></td></tr></table></figure>
+
+<p>另外，用一个普通指针指向一个顶层<code>const</code>对象是非法的，因为“普通指针”有可能造成”常量被修改“。</p>
+<p><strong>但是</strong>，在<code>typedef</code>定义的类型别名的情况下，这会造成完全不同的结果，例如：</p>
+<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">typedef</span> <span class="keyword">char</span>* LPSTR;</span><br><span class="line"><span class="keyword">const</span> LPSTR ps=str; <span class="comment">//看上去是一个底层const，但实际上是一个顶层const，因为其类型为char*而非const char*！仅自身不可修改</span></span><br><span class="line"><span class="keyword">typedef</span> <span class="keyword">const</span> <span class="keyword">char</span>* LPCSTR;</span><br><span class="line">LPCSTR cps=str; <span class="comment">//底层const，不可修改指向位置的值</span></span><br><span class="line"><span class="keyword">const</span> LPCSTR ccps=str; <span class="comment">//既底又顶</span></span><br></pre></td></tr></table></figure>
+
+<p>值得注意的是<code>const</code>对象的值并非真正的<strong>在编译时就能确定</strong>的常量表达式，C++11引入了<code>constexpr</code>修饰符，若被赋的值不是真正的常量表达式，就会在编译时报错，例如：</p>
+<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">int</span> a=<span class="number">233</span>;</span><br><span class="line"><span class="keyword">constexpr</span> <span class="keyword">int</span> b=a; <span class="comment">//错误，a是变量，尽管它被赋值为常量</span></span><br><span class="line"><span class="keyword">const</span> <span class="keyword">int</span> c=<span class="number">233</span>;</span><br><span class="line"><span class="keyword">constexpr</span> <span class="keyword">int</span> d=c; <span class="comment">//正确</span></span><br><span class="line"><span class="keyword">const</span> <span class="keyword">int</span> e=a;</span><br><span class="line"><span class="keyword">constexpr</span> <span class="keyword">int</span> f=e; <span class="comment">//错误，e不能在编译时初始化</span></span><br></pre></td></tr></table></figure>
+
+<p>甚至，<code>constexpr</code>可以被用来修饰函数，如果这函数没有调用任何非<code>constexpr</code>函数，那么不会报错，认为是“简单的常量函数”。不过反汇编结果显示这个仅仅是给编译器看的，并不会产生类似于<code>inline</code>的效果。（<del>和<code>inline</code>一样，这取决于编译器心情</del>）</p>
+<hr>
+<p>在C++11中，以下两种写法是等效的：</p>
+<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">typedef</span> <span class="keyword">int</span> DWORD;</span><br><span class="line"><span class="keyword">using</span> DWORD=<span class="keyword">int</span>; <span class="comment">//别名声明，甚至，后面也可以是一个具体的struct定义</span></span><br></pre></td></tr></table></figure>
+
+<hr>
+<p>C++11引入的<code>auto</code>修饰符能够在定义变量时由编译器自动根据初始化的值给变量分配类型，这样甚至可以在不知道类型是啥的情况下定义变量，需要注意的是：</p>
+<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">auto</span> a=<span class="number">0</span>,b=<span class="number">3.14</span>; <span class="comment">//错误，a和b类型应该不同，一句auto只能有一个类型</span></span><br><span class="line"><span class="keyword">const</span> <span class="keyword">int</span> c=<span class="number">233</span>;</span><br><span class="line"><span class="keyword">auto</span> d=c; <span class="comment">//d的类型是int而非const int，auto并不会继承顶层const</span></span><br><span class="line"><span class="keyword">const</span> <span class="keyword">auto</span> e=c; <span class="comment">//e真正只读</span></span><br></pre></td></tr></table></figure>
+
+<p>与<code>auto</code>相似的是<code>decltype</code>修饰符，后者亦可用编译器推断出类型，并用此类型来定义对象（<strong>多加一层括号时为引用类型</strong>）：</p>
+<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">decltype</span>(<span class="number">1</span>+<span class="number">2</span>) a=<span class="number">233</span>; <span class="comment">//int type</span></span><br><span class="line"><span class="keyword">decltype</span>((<span class="number">0</span>)) b=a; <span class="comment">//等价于int &amp;b=a;</span></span><br></pre></td></tr></table></figure>
+
+<p>一个有趣的事实是，若这玩意是一个非变量的<strong>左值表达式</strong>，那么<code>decltype</code>会解析为一个引用类型，例如对一个<code>int *p</code>的解引用<code>decltype(*p)</code>就会解析为<code>int&amp;</code>。</p>
+<hr>
+<p><strong>关于迭代</strong></p>
+<p>C++11引入了可迭代的<code>for</code>循环：</p>
+<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">int</span> a[<span class="number">5</span>]=&#123;<span class="number">2</span>,<span class="number">3</span>,<span class="number">3</span>,<span class="number">4</span>,<span class="number">5</span>&#125;; <span class="comment">//注意：数组被特殊地看做是可迭代类型！</span></span><br><span class="line"><span class="keyword">for</span>(<span class="keyword">int</span> i:a)<span class="built_in">cout</span>&lt;&lt;i&lt;&lt;<span class="built_in">endl</span>;</span><br><span class="line"><span class="keyword">for</span>(<span class="keyword">auto</span> &amp;i:a)i=<span class="number">3</span>; <span class="comment">//需要带修改时用引用迭代</span></span><br><span class="line"><span class="built_in">map</span>&lt;<span class="keyword">int</span>,<span class="keyword">int</span>&gt; mp;</span><br><span class="line"><span class="keyword">for</span>(<span class="keyword">auto</span> i:mp)<span class="built_in">cout</span>&lt;&lt;i.second&lt;&lt;<span class="built_in">endl</span>; <span class="comment">//注意这里的i不是迭代器指针而是实体pair</span></span><br></pre></td></tr></table></figure>
+
+<p>注意：引用型迭代只会生成一个引用，<strong>并不会把元素复制一遍</strong>，这个更快。（因此有的场合会使用<code>const auto &amp;</code>这种奇怪的东西……事实上，<strong>一般情况下函数的参数都应用常量引用的形式传递</strong>）</p>
+<p>这东西甚至可以用于多维数组的迭代，但有些问题要注意：</p>
+<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">int</span> v[<span class="number">3</span>][<span class="number">3</span>][<span class="number">3</span>];</span><br><span class="line"><span class="keyword">for</span>(<span class="keyword">auto</span> &amp;i:v)&#123;</span><br><span class="line">    <span class="keyword">for</span>(<span class="keyword">auto</span> &amp;j:v)&#123;</span><br><span class="line">        <span class="keyword">for</span>(<span class="keyword">auto</span> k:v)<span class="built_in">cout</span>&lt;&lt;k&lt;&lt;<span class="built_in">endl</span>; <span class="comment">//正确</span></span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"><span class="keyword">for</span>(<span class="keyword">auto</span> i:v)&#123;</span><br><span class="line">    <span class="keyword">for</span>(<span class="keyword">auto</span> j:v)&#123;</span><br><span class="line">        <span class="keyword">for</span>(<span class="keyword">auto</span> k:v)<span class="built_in">cout</span>&lt;&lt;k&lt;&lt;<span class="built_in">endl</span>; <span class="comment">//错误</span></span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>第二个循环错误的原因是，若i和j不是引用，它们会被编译器认为是“指向子数组的指针”，而指针类型是不可被迭代的。</p>
+<p>另一种迭代数组及多维数组的方式是用C++11引入的<code>std::begin()</code>和<code>std::end()</code>，它们分别返回数组的开始位置指针和结束位置指针。对于多维数组，这指针将是类型为“子数组”的指针。例如：</p>
+<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">int</span> v[<span class="number">2</span>][<span class="number">2</span>];</span><br><span class="line"><span class="keyword">for</span>(<span class="keyword">auto</span> i=begin(v);i!=end(v);i++)&#123;</span><br><span class="line">    <span class="keyword">for</span>(<span class="keyword">auto</span> j=begin(*i);j!=end(*i);j++)<span class="built_in">cout</span>&lt;&lt;*j&lt;&lt;<span class="built_in">endl</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<hr>
+<p><strong>关于iterator</strong></p>
+<p>标准库中的可迭代类型除了内部的<code>iterator</code>类之外，还提供了<code>const_iterator</code>类，表示常量指针，用<code>cbegin()</code>和<code>cend()</code>方法访问。</p>
+<p>对于<code>vector</code>和<code>string</code>这样连续存储的结构，它们的<code>iterator</code>是可以像数一样进行算术运算的，例如加一个数，互相减，互相比较大小等。</p>
+<p>此外，在用迭代器进行迭代时，不能突然插入对象（尤其是<code>vector</code>，想一想它的实现原理就知道了），<strong>这会导致迭代器失效</strong>。</p>
+<hr>
+<p><strong>关于++</strong></p>
+<p>一般来说，<strong>后置的++效率相对较高</strong>，因为前置的++会返回自增之前的值，而这个需要在自增后才能返回，因此需要暂时保存，就带来了额外的开销。而后置++直接在自增后返回自己。</p>
+<p>相当多的情况下，会使用<code>*it++</code>或<code>a[i++]</code>这种写法，这会先访问当前值，再把指针后移一格。<del>我以前也从来没这么写过呀</del></p>
+<hr>
+<p><strong>关于强制转换</strong></p>
+<p>·<code>static_cast&lt;type&gt;(x)</code>是普通强制转换，它在把大类型转换为小类型（比如<code>double-&gt;float</code>）是比较危险的，会造成信息的损失。一定程度上会受限，基本上等效于C风格的强制转换。</p>
+<p>·<code>const_cast&lt;type&gt;(x)</code>是上面的扩展版本，对于一个底层<code>const</code>的常量指针，我们并不能直接把它强制转换为普通指针，因为后者可能造成“常量”数据的被修改。但一些情况下，某些库函数的参数是普通指针，但现在只有常量指针，所以就需要用这玩意把<code>const</code>去掉（事实上，如果把一个字符串字面值直接传入一个<code>char*</code>参数中，编译器会自动用<code>const_cast</code>对这种特殊情况进行转换，但会引起Warning）。在更为一般的情况下，这是非常危险的，这就<strong>真的</strong>可以修改常量的值了（这是未定义行为，经过反汇编试验发现确实是修改了）。</p>
+<p>·<code>reinterpret_cast&lt;type&gt;(x)</code>可以进行指针之间的自由转换，地址值不变，但指针的类型会改变。实际上C风格强制转换支持这种指针间的转换，但这在<code>static_cast</code>中是非法的。</p>
+<hr>
+<p><strong>关于try</strong></p>
+<p><del>似乎所有语言都有try+catch的玩意……</del></p>
+<p>流程和Visual Basic/Python基本上是一样的（但标准C++貌似并没有<code>finally</code>这种东西……），当异常发生时，优先使用最内层的<code>try</code>，不行的话就结束当前函数，返回调用方的<code>try</code>，还是不行，则调用<code>terminate</code>函数，暴力结束程序。</p>
+<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">try</span>&#123;</span><br><span class="line">    <span class="comment">//try block</span></span><br><span class="line">&#125;<span class="keyword">catch</span>(exception_type1 e1)&#123;</span><br><span class="line">    <span class="comment">//handle </span></span><br><span class="line">&#125;<span class="keyword">catch</span>(exception_type2 e2)&#123;</span><br><span class="line">    <span class="comment">//hadle</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>顺带一提，<code>try</code>的实现原理类似于<code>setjmp</code>（<a target="_blank" rel="noopener" href="https://zhuanlan.zhihu.com/p/245642367">这位大佬</a>用<code>setjmp</code>手动实现了一个<code>try</code>），在进入<code>try</code>块时把包括<code>eip</code>在内的所有寄存器都保存在一个结构内压栈，异常发生时就跳到栈中存的寄存器环境里。</p>
+<p>C++标准库中的异常类定义在头文件<code>stdexcept</code>中，它们都继承自<code>exception</code>类，内部方法<code>const char* what()</code>返回异常信息字符串。</p>
+<table>
+<thead>
+<tr>
+<th>异常类型</th>
+<th>用途</th>
+</tr>
+</thead>
+<tbody><tr>
+<td><code>exception</code></td>
+<td>所有异常的基类</td>
+</tr>
+<tr>
+<td><code>runtime_error</code></td>
+<td>运行时错误</td>
+</tr>
+<tr>
+<td><code>range_error</code></td>
+<td>运行时错误：生成的结果超出了有意义的值域范围</td>
+</tr>
+<tr>
+<td><code>overflow_error</code></td>
+<td>运行时错误：计算上溢</td>
+</tr>
+<tr>
+<td><code>underflow_error</code></td>
+<td>运行时错误：计算下溢</td>
+</tr>
+<tr>
+<td><code>logic_error</code></td>
+<td>程序逻辑错误</td>
+</tr>
+<tr>
+<td><code>domain_error</code></td>
+<td>逻辑错误：传入参数的范围不正确</td>
+</tr>
+<tr>
+<td><code>invalid_argument</code></td>
+<td>逻辑错误：无效参数</td>
+</tr>
+<tr>
+<td><code>length_error</code></td>
+<td>逻辑错误：试图创建一个超过最大长度的对象（例如<code>vector</code>和<code>string</code>过长）</td>
+</tr>
+<tr>
+<td><code>out_of_range</code></td>
+<td>逻辑错误：参数超出范围（常见于STL访问越界）</td>
+</tr>
+</tbody></table>
+<p><strong>但是！</strong>在C++中，<code>try</code>只能处理由<code>throw</code>引发的异常！如果是一般的除0、数组越界等系统级异常，那么用<code>try</code>是处理不了的……</p>
+<hr>
+<p><strong>关于main函数参数</strong></p>
+<p>我们可以把<code>main</code>的函数签名改为<code>int main(int argc,char *argv[])</code>，注意，向程序传入的字符串参数从<code>argv[1]</code>开始，<code>argv[0]</code>保存<strong>运行程序时的名称</strong>，例如，在cmd里输入命令<code>me.exe -o -a -s</code>，<code>argv[]=&#123;&quot;me.exe&quot;,&quot;-o&quot;,&quot;-a&quot;,&quot;-s&quot;&#125;</code>（<del>说白了就是把命令行完整地拆开</del>）</p>
+<hr>
+<p>可变长度的形参一般用<code>initializer_list&lt;T&gt;</code>表示，这个不需要头文件，相当于没有修改操作的<code>vector</code>（甚至它都不能使用下标访问）。<strong>但是</strong>，它可以直接用列表传入参数（一般的，这样的列表会被编译器解释为<code>initializer_list</code>的字面值）！例如：</p>
+<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">f</span><span class="params">(<span class="built_in">initializer_list</span>&lt;<span class="keyword">int</span>&gt; x)</span></span>&#123;</span><br><span class="line">	<span class="keyword">for</span>(<span class="keyword">auto</span> i:x)<span class="built_in">cout</span>&lt;&lt;i&lt;&lt;<span class="built_in">endl</span>;	</span><br><span class="line">&#125;</span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">main</span><span class="params">()</span></span>&#123;</span><br><span class="line">	f(&#123;<span class="number">1</span>,<span class="number">2</span>,<span class="number">3</span>,<span class="number">4</span>,<span class="number">5</span>&#125;);</span><br><span class="line">	<span class="keyword">return</span>(<span class="number">0</span>);	</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>emmm其实<code>vector</code>也是可以实现一样的效果的……</p>
+<hr>
+<p><strong>让函数返回值为数组的4种方法</strong></p>
+<p>首先数组本来是不能作为函数返回值的，函数只能返回一个指向数组<strong>整体</strong>的指针。</p>
+<p>方法1（类型别名）：</p>
+<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">typedef</span> <span class="keyword">int</span> LPDWORD[<span class="number">10</span>];</span><br><span class="line"><span class="keyword">using</span> LPDWORD1=<span class="keyword">int</span>[<span class="number">10</span>]; <span class="comment">//这句是等效的</span></span><br><span class="line"><span class="function">LPDWORD* <span class="title">f</span><span class="params">()</span></span>&#123;</span><br><span class="line">	<span class="keyword">int</span> a[<span class="number">10</span>];</span><br><span class="line">	<span class="keyword">return</span>(&amp;a);	</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>方法2（直接定义）：</p>
+<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">int</span> (*f())[<span class="number">10</span>]&#123;</span><br><span class="line">	<span class="keyword">int</span> a[<span class="number">10</span>];</span><br><span class="line">	<span class="keyword">return</span>(&amp;a);	</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>这个定义应该这么解释，最内层是f的参数列表，然后<code>*f()</code>表示可以对返回值解引用（指针），最外层才是数组的定义。</p>
+<p>方法3（自动类型）：</p>
+<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">auto</span> <span class="title">f</span><span class="params">()</span></span>&#123;</span><br><span class="line">	<span class="keyword">int</span> a[<span class="number">10</span>];</span><br><span class="line">	<span class="keyword">return</span>(&amp;a);	</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>值得注意的是一个函数内有两处<code>return</code>返回的是不同类型的值就会报错。</p>
+<p>方法4（类型解析）：</p>
+<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">int</span> b[<span class="number">10</span>];</span><br><span class="line"><span class="keyword">decltype</span>(b)* f()&#123; <span class="comment">//使用decltype将会得到一个真正的数组类型，而非指针</span></span><br><span class="line">	<span class="keyword">int</span> a[<span class="number">10</span>];</span><br><span class="line">	<span class="keyword">return</span>(&amp;a);	</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<hr>
+<p><strong>默认参数</strong></p>
+<p>C++的默认参数和Python的最大区别是<strong>参数必须严格按顺序传递</strong>，也就是说，所有默认参数都必须放到后面，并且传入的默认实参值必须是一个前缀，不能跳过。例如：</p>
+<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">f</span><span class="params">(<span class="keyword">int</span> a,<span class="keyword">int</span> b,<span class="keyword">int</span> c=<span class="number">233</span>,<span class="keyword">int</span> d=<span class="number">256</span>)</span></span>;</span><br><span class="line">f(<span class="number">1</span>,<span class="number">2</span>);</span><br><span class="line">f(<span class="number">1</span>,<span class="number">2</span>,<span class="number">3</span>);</span><br><span class="line">f(<span class="number">1</span>,<span class="number">2</span>,<span class="number">3</span>,<span class="number">4</span>);</span><br><span class="line">f(<span class="number">1</span>,<span class="number">2</span>,d=<span class="number">2</span>); <span class="comment">//不能这样写！</span></span><br></pre></td></tr></table></figure>
+
+<hr>
+<p><strong>Debug支持</strong></p>
+<p>头文件<code>cassert</code>提供了断言宏<code>assert(x)</code>，它首先会执行表达式x，若值为0，则输出信息并终止程序。这样可以找出“本来应该为真但玄学地突然变假了”的东西。</p>
+<p>如果在程序最前面定义一个<code>NDEBUG</code>宏，那么表明是非调试状态，<code>assert</code>将什么也不做。</p>
+<p>此外，编译器与预处理器还定义了几个特殊的宏字符串（都是字面值）：</p>
+<table>
+<thead>
+<tr>
+<th>宏字符串</th>
+<th>意义</th>
+</tr>
+</thead>
+<tbody><tr>
+<td><code>__func__</code></td>
+<td>当前函数名称</td>
+</tr>
+<tr>
+<td><code>__FILE__</code></td>
+<td>源代码文件名</td>
+</tr>
+<tr>
+<td><code>__DATE__</code></td>
+<td>编译日期</td>
+</tr>
+<tr>
+<td><code>__TIME__</code></td>
+<td>编译时间</td>
+</tr>
+<tr>
+<td><code>__LINE__</code></td>
+<td>行号（整型）</td>
+</tr>
+</tbody></table>
+<hr>
+<p><strong>关于函数指针</strong></p>
+<p>首先“函数指针”和“函数类型”<strong>不是一种东西</strong>！前者是后者的指针类型，实际上，也可以通过后者来定义前者，例如：</p>
+<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">f</span><span class="params">(<span class="keyword">int</span> a,<span class="keyword">int</span> b)</span></span>&#123;<span class="keyword">return</span>(a+b);&#125;</span><br><span class="line"><span class="function"><span class="keyword">typedef</span> <span class="keyword">int</span> <span class="title">Func</span><span class="params">(<span class="keyword">int</span>,<span class="keyword">int</span>)</span></span>;  <span class="comment">//Func为函数类型</span></span><br><span class="line">Func *p=f; <span class="comment">//函数指针</span></span><br><span class="line"><span class="function"><span class="keyword">typedef</span> <span class="title">int</span> <span class="params">(*Action)</span><span class="params">(<span class="keyword">int</span>,<span class="keyword">int</span>)</span></span>; <span class="comment">//Action为函数指针类型</span></span><br></pre></td></tr></table></figure>
+
+<p>不过，当函数指针作为参数传递时，如果把参数类型改为函数类型会有完全相同的效果，这个和数组类似，编译器会认为参数传递的本来就应该是函数指针。此时传入函数指针变量与函数名亦有完全相同的效果。</p>
+<p>另一种使用函数指针的trick是用<code>decltype</code>，你懂的。（但要注意这样做得到的是函数类型而非指针）</p>
+
+      
     </div>
     <footer class="article-footer">
-      <a data-url="<%- post.permalink %>" data-id="<%= post._id %>" data-title="<%= post.title %>" class="article-share-link"><%= __('share') %></a>
-      <% if (post.comments && config.disqus_shortname){ %>
-        <a href="<%- post.permalink %>#disqus_thread" class="article-comment-link"><%= __('comment') %></a>
-      <% } %>
-      <% if (post.comments && theme.valine.enable && theme.valine.appId && theme.valine.appKey ){ %>
-        <a href="<%- url_for(post.path) %>#comments" class="article-comment-link">
-          <span class="post-comments-count valine-comment-count" data-xid="<%- url_for(post.path) %>" itemprop="commentCount"></span>
-          <%= __('comment') %>
-        </a>
-      <% } %>
-      <%- partial('post/tag') %>
+      <a data-url="https://www.ywy-c-asm.cn/2021/03/17/%E3%80%8AC++Primer%E3%80%8B%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/" data-id="ckmowu1tv000xrot20opdh0qv" data-title="《C++Primer》学习笔记（一）"></a>
+      
+      
+      
+  <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/C/" rel="tag">C++</a></li></ul>
+
     </footer>
   </div>
-  <% if (!index){ %>
-    <%- partial('post/nav') %>
-  <% } %>
+  
+    
+<nav id="article-nav">
+  
+    <a href="/2021/03/19/%E3%80%8AC++Primer%E3%80%8B%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0%EF%BC%88%E4%BA%8C%EF%BC%89/" id="article-nav-newer" class="article-nav-link-wrap">
+      <strong class="article-nav-caption">Newer</strong>
+      <div class="article-nav-title">
+        
+          《C++Primer》学习笔记（二）
+        
+      </div>
+    </a>
+  
+  
+    <a href="/2021/03/15/Codeforces%E9%97%B2%E6%9D%82%E9%A2%98%E8%AE%B0%E5%BD%95/" id="article-nav-older" class="article-nav-link-wrap">
+      <strong class="article-nav-caption">Older</strong>
+      <div class="article-nav-title">Codeforces闲杂题记录</div>
+    </a>
+  
+</nav>
+
+  
 </article>
 
-<% if (!index && post.comments && config.disqus_shortname){ %>
-<section id="comments">
-  <div id="disqus_thread">
-    <noscript>Please enable JavaScript to view the <a target="_blank" rel="noopener" href="//disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
-  </div>
-</section>
-<% } %>
-<% if (!index && post.comments && theme.valine.enable && theme.valine.appId && theme.valine.appKey){ %>
-  <section id="comments" class="vcomment">
 
-  </section>
-<% } %></section>
+</section>
         
           <aside id="sidebar">
   
@@ -184,6 +397,10 @@
       <ul>
         
           <li>
+            <a href="/2021/03/25/%E3%80%8AC++Primer%E3%80%8B%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0%EF%BC%88%E4%BA%94%EF%BC%89/">《C++Primer》学习笔记（四）</a>
+          </li>
+        
+          <li>
             <a href="/2021/03/23/%E3%80%8AC++Primer%E3%80%8B%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0%EF%BC%88%E5%9B%9B%EF%BC%89/">《C++Primer》学习笔记（四）</a>
           </li>
         
@@ -197,10 +414,6 @@
         
           <li>
             <a href="/2021/03/19/%E3%80%8AC++Primer%E3%80%8B%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0%EF%BC%88%E4%BA%8C%EF%BC%89/">《C++Primer》学习笔记（二）</a>
-          </li>
-        
-          <li>
-            <a href="/2021/03/17/%E3%80%8AC++Primer%E3%80%8B%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/">《C++Primer》学习笔记（一）</a>
           </li>
         
       </ul>

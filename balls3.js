@@ -1,4 +1,5 @@
-var canvas=document.getElementById('balls3');
+if(!window.matchMedia("(max-width: 750px)").matches){
+	var canvas=document.getElementById('balls3');
 var hdc=canvas.getContext('2d');
 var pos=70;
 var width=document.body.scrollWidth;
@@ -107,3 +108,4 @@ function process(){
 	//}
 }
 window.requestAnimationFrame(process);
+}
