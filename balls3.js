@@ -1,4 +1,4 @@
-if(!window.matchMedia("(max-width: 750px)").matches){
+if(!(/Android|webOS|iPhone|iPad|iPod|BlackBerry/i.test(navigator.userAgent))){
 	var canvas=document.getElementById('balls3');
 var hdc=canvas.getContext('2d');
 var pos=70;
