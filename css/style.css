@@ -123,7 +123,7 @@ body,
   height: 100%;
 }
 body {
-  background: #cff;
+  background: #00bfff;
   font: 14px -apple-system, BlinkMacSystemFont, "Segoe UI", "Roboto", "Oxygen", "Ubuntu", "Cantarell", "Fira Sans", "Droid Sans", "Helvetica Neue", sans-serif;
   -webkit-text-size-adjust: 100%;
 }
@@ -174,7 +174,7 @@ body {
   -ms-transition: 0.2s ease-out;
   transition: 0.2s ease-out;
   z-index: 1;
-  background: #cff;
+  background: #00bfff;
 }
 .mobile-nav-on #wrap {
   left: 280px;
@@ -206,7 +206,7 @@ body {
   background: #fff;
   -webkit-box-shadow: 1px 2px 3px #ddd;
   box-shadow: 1px 2px 3px #ddd;
-  border: 1px solid #9ff;
+  border: 1px solid #000080;
   border-radius: 3px;
 }
 .article-entry h1,
@@ -236,7 +236,7 @@ body {
 }
 .article-entry hr,
 .widget hr {
-  border: 1px dashed #9ff;
+  border: 1px dashed #000080;
 }
 .article-entry strong,
 .widget strong {
@@ -310,7 +310,7 @@ body {
 #header {
   height: 500px;
   position: relative;
-  border-bottom: 1px solid #9ff;
+  border-bottom: 1px solid #000080;
 }
 #header:before,
 #header:after {
@@ -615,11 +615,11 @@ a.article-title:hover {
 }
 .article-entry th {
   font-weight: bold;
-  border-bottom: 3px solid #9ff;
+  border-bottom: 3px solid #000080;
   padding-bottom: 0.5em;
 }
 .article-entry td {
-  border-bottom: 1px solid #9ff;
+  border-bottom: 1px solid #000080;
   padding: 10px 0;
 }
 .article-entry blockquote {
@@ -679,7 +679,7 @@ a.article-title:hover {
   line-height: 1em;
   padding: 6px 15px;
   border-radius: 15px;
-  background: #cff;
+  background: #00bfff;
   color: #999;
   text-shadow: 0 1px #fff;
   text-decoration: none;
@@ -693,7 +693,7 @@ a.article-title:hover {
 .article-footer {
   font-size: 0.85em;
   line-height: 1.6em;
-  border-top: 1px solid #9ff;
+  border-top: 1px solid #000080;
   padding-top: 1.6em;
   margin: 0 20px 20px;
 }
@@ -762,7 +762,7 @@ a.article-title:hover {
     margin-left: -4px;
     content: "";
     border-radius: 50%;
-    background: #9ff;
+    background: #000080;
     -webkit-box-shadow: 0 1px 2px #fff;
     box-shadow: 0 1px 2px #fff;
   }
@@ -804,7 +804,7 @@ a.article-title:hover {
 .article-nav-caption {
   text-transform: uppercase;
   letter-spacing: 2px;
-  color: #9ff;
+  color: #000080;
   line-height: 1em;
   font-weight: bold;
 }
@@ -840,13 +840,13 @@ a.article-title:hover {
   padding: 0 15px;
   color: #555;
   outline: none;
-  border: 1px solid #9ff;
+  border: 1px solid #000080;
   border-radius: 3px 3px 0 0;
   height: 36px;
   line-height: 36px;
 }
 .article-share-links {
-  background: #cff;
+  background: #00bfff;
 }
 .article-share-links:before,
 .article-share-links:after {
@@ -946,7 +946,7 @@ a.article-title:hover {
   -webkit-box-shadow: 1px 2px 3px #ddd;
   box-shadow: 1px 2px 3px #ddd;
   padding: 20px;
-  border: 1px solid #9ff;
+  border: 1px solid #000080;
   border-radius: 3px;
   margin: 50px 0;
 }
@@ -1025,7 +1025,7 @@ a.article-title:hover {
   background: #fff;
   -webkit-box-shadow: 1px 2px 3px #ddd;
   box-shadow: 1px 2px 3px #ddd;
-  border: 1px solid #9ff;
+  border: 1px solid #000080;
   border-radius: 3px;
   text-align: center;
   color: #999;
@@ -1072,12 +1072,12 @@ a.article-title:hover {
   font-weight: bold;
 }
 #page-nav .space {
-  color: #9ff;
+  color: #000080;
 }
 #footer {
   background: #262a30;
   padding: 50px 0;
-  border-top: 1px solid #9ff;
+  border-top: 1px solid #000080;
   color: #999;
 }
 #footer a {
@@ -1097,7 +1097,7 @@ a.article-title:hover {
   margin: 0 -20px;
   padding: 15px 20px;
   border-style: solid;
-  border-color: #9ff;
+  border-color: #000080;
   border-width: 1px 0;
   overflow: auto;
   color: #ccc;
@@ -1113,8 +1113,8 @@ a.article-title:hover {
   font-family: "Source Code Pro", Consolas, Monaco, Menlo, Consolas, monospace;
 }
 .article-entry code {
-  background: #cff;
-  text-shadow: 0 1px #fff;
+  background: #fff;
+  text-shadow: 0 1px #555;
   padding: 0 0.3em;
 }
 .article-entry pre code {
@@ -1165,7 +1165,7 @@ a.article-title:hover {
 .article-entry .gist {
   margin: 0 -20px;
   border-style: solid;
-  border-color: #9ff;
+  border-color: #000080;
   border-width: 1px 0;
   background: #2d2d2d;
   padding: 15px 20px 15px 0;
