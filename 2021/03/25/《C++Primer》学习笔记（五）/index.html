@@ -83,169 +83,61 @@
 </header>
 
       <div class="outer" style="padding:0 0px">
-        <section id="main"><article id="post-《C++Primer》学习笔记（五）" class="h-entry article article-type-post" itemprop="blogPost" itemscope itemtype="https://schema.org/BlogPosting">
+        <section id="main"><article id="<%= post.layout %>-<%= post.slug %>" class="h-entry article article-type-<%= post.layout %>" itemprop="blogPost" itemscope itemtype="https://schema.org/BlogPosting">
   <div class="article-meta">
-    <a href="/2021/03/25/%E3%80%8AC++Primer%E3%80%8B%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0%EF%BC%88%E4%BA%94%EF%BC%89/" class="article-date">
-  <time class="dt-published" datetime="2021-03-25T12:04:00.000Z" itemprop="datePublished">2021-03-25</time>
-</a>
-    
+    <%- partial('post/date', {class_name: 'article-date', date_format: null}) %>
+    <%- partial('post/category') %>
   </div>
   <div class="article-inner">
-    
-    
+    <%- partial('post/gallery') %>
+    <% if (post.link || post.title){ %>
       <header class="article-header">
-        
-  
-    <h1 class="p-name article-title" itemprop="headline name">
-      《C++Primer》学习笔记（五）
-    </h1>
-  
-
+        <%- partial('post/title', {class_name: 'p-name article-title'}) %>
       </header>
-    
+    <% } %>
     <div class="e-content article-entry" itemprop="articleBody">
-      
-        <p>关于类的继承那一堆东西……</p>
-<span id="more"></span>
-
-<hr>
-<p><strong>类的继承</strong></p>
-<p>单类继承的形式是<code>class [classname] : public [baseclass]</code>，基类必须已经完整地定义在前面。</p>
-<p>基类中不希望外部访问但允许派生类访问的成员被声明为<code>protected</code>。</p>
-<p>派生类的构造函数需要重新定义，可通过列表的方式调用基类构造函数（需要注意的是派生类的构造函数只初始化它的直接基类，直接基类的构造函数又会初始化上一个基类。。。以此类推）：</p>
-<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">base</span>&#123;</span></span><br><span class="line">    <span class="keyword">public</span>:</span><br><span class="line">    	base(<span class="keyword">int</span> a):</span><br><span class="line">    		val(a) &#123;&#125;</span><br><span class="line">    <span class="keyword">protected</span>:</span><br><span class="line">    	<span class="keyword">int</span> val;</span><br><span class="line">&#125;;</span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">x</span> :</span> <span class="keyword">public</span> base&#123;</span><br><span class="line">    <span class="keyword">public</span>:</span><br><span class="line">    	x(<span class="keyword">int</span> a):</span><br><span class="line">    		base(a) &#123;&#125;</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
-
-
-
-<hr>
-<p><strong>虚函数</strong></p>
-<p>虚函数可以说是面向对象编程中最重要的东西。基类的虚函数可以被派生类重写，C++11专门引入了关键字<code>override</code>说明派生类的该函数重写自直接父类的虚函数（实际上这不是必须的，但这样的好处是，如果派生类中的某个函数声明为<code>override</code>，但基类中并没有这个虚函数，将会报错，防止进行了“以为的重写”）。如果一个派生类重写了某个虚函数，不希望让这个函数再被它的派生类重写，需要使用<code>final</code>声明。可以使用作用域运算符在派生类中调用父类的虚函数。</p>
-<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">base</span>&#123;</span></span><br><span class="line">    <span class="keyword">public</span>:</span><br><span class="line">    	<span class="function"><span class="keyword">virtual</span> <span class="title">setval</span><span class="params">(<span class="keyword">int</span> a)</span></span>&#123;</span><br><span class="line">            val=-a;</span><br><span class="line">        &#125;</span><br><span class="line">    	<span class="function"><span class="keyword">void</span> <span class="title">print</span><span class="params">()</span> <span class="keyword">final</span></span>&#123;</span><br><span class="line">            <span class="built_in">cout</span>&lt;&lt;val&lt;&lt;<span class="built_in">endl</span>;</span><br><span class="line">        &#125;</span><br><span class="line">    <span class="keyword">protected</span>:</span><br><span class="line">    	<span class="keyword">int</span> val;</span><br><span class="line">&#125;;</span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">x</span> :</span> <span class="keyword">public</span> base&#123;</span><br><span class="line">    <span class="keyword">public</span>:</span><br><span class="line">    	<span class="function"><span class="keyword">void</span> <span class="title">setval</span><span class="params">(<span class="keyword">int</span> a)</span> <span class="keyword">override</span> <span class="keyword">final</span></span>&#123; <span class="comment">//重写setval，并声明不可继承</span></span><br><span class="line">            base::setval(a);</span><br><span class="line">            val=a;</span><br><span class="line">        &#125;</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
-
-<p>让我们来干一件有趣的事情，如果把<code>base</code>中的<code>virtual</code>以及<code>x</code>中的<code>override final</code>去了，这程序编译仍能通过，是不是就说明编译器自动实现“虚函数”以及“重写”，那两个关键字是不是仅仅是摆设？看起来是这样，然而<strong>并非如此</strong>！具体原因下面会讲到。</p>
-<hr>
-<p><strong>派生类与基类的转换机制（动态绑定）</strong></p>
-<p>（不得不说的是，这种转换机制乍一看没法理解，好复杂，但多思考几遍便会发现这真的是一种很机智的机制……）</p>
-<p>这种转换经常见于函数参数中。派生类对象（或者引用、指针）可以隐式地转换为基类，但反过来不一定可以（这很显然，一般就会以偏概全）。这种转换的底层机制是，派生类对象从低地址到高地址分为若干层，依次存储继承自某个基类的对象。于是，<strong>指针</strong>和<strong>引用</strong>可以直接完美地转化为基类的地址或引用。如果是<strong>对象</strong>的类型转换，则会暴力地将派生类重写的所有东西都切掉，只剩下完全属于基类的部分。</p>
-<p>所以，就有这样一个极为重要的事实：<strong>一个类的对象实体绝对不可能包含它的派生类的部分</strong>。那么，言外之意就是，<strong>面向对象的基于基类的多态必须使用基于地址的引用和指针</strong>。</p>
-<p>如果是基类转化为派生类，对象显然是根本无法实现转化的，除非是指针或引用，它们表面上是一个基类型的指针/引用，但实际上它们指向一个派生类对象，那么这时就可以把它转化为派生类类型，使用<code>dynamic_cast&lt;T&gt;()</code>进行<strong>运行时转换</strong>，之所以是运行时而不是编译时的原因可以用以下的例子说明：</p>
-<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">f</span><span class="params">(base &amp;a)</span></span>&#123;</span><br><span class="line">    x&amp; me=<span class="keyword">dynamic_cast</span>&lt;x&amp;&gt;(a);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
-<p>根据我们最为直观的传统思维，编译器如果知道了一个对象的类型，就会直接在编译时把“这个对象的一切行为”等价于“这个<strong>类型的</strong>对象的一切行为”。然而，如果把这种观念放到继承上来，将是错误的。比如这个传入的<code>base &amp;a</code>，在编译时，编译器<strong>根本不知道</strong>实际情况下可能会传入哪个派生类型的参数，所以这种基类到派生类的转换必须在运行时完成。如果运行时发现这地址存的对象与这派生类并不匹配（<del>尽管它们继承于一个祖宗</del>），那么转换失败，在指针转换的情况下返回空指针，在引用转换的情况下抛出<code>bad_cast</code>异常（因为空指针能检测出来，但空引用难检测……）。</p>
-<p>虚函数的实现也与这种动态绑定机制紧密相关。以一个例子说明：</p>
-<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">base</span>&#123;</span></span><br><span class="line">    <span class="keyword">public</span>:</span><br><span class="line">    	<span class="function"><span class="keyword">virtual</span> <span class="keyword">void</span> <span class="title">f</span><span class="params">()</span></span>&#123;</span><br><span class="line">            <span class="built_in">cout</span>&lt;&lt;<span class="string">&quot;Call base::f()&quot;</span>&lt;&lt;<span class="built_in">endl</span>;</span><br><span class="line">        &#125;</span><br><span class="line">&#125;;</span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">x</span> :</span> <span class="keyword">public</span> base&#123;</span><br><span class="line">    <span class="keyword">public</span>:</span><br><span class="line">    	<span class="function"><span class="keyword">void</span> <span class="title">f</span><span class="params">()</span> <span class="keyword">override</span></span>&#123;</span><br><span class="line">            <span class="built_in">cout</span>&lt;&lt;<span class="string">&quot;Call x::f()&quot;</span>&lt;&lt;<span class="built_in">endl</span>;</span><br><span class="line">        &#125;</span><br><span class="line">&#125;;</span><br><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">handle1</span><span class="params">(base a)</span></span>&#123;</span><br><span class="line">    a.f();</span><br><span class="line">&#125;</span><br><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">handle2</span><span class="params">(base &amp;a)</span></span>&#123;</span><br><span class="line">    a.f();</span><br><span class="line">&#125;</span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">main</span><span class="params">()</span></span>&#123;</span><br><span class="line">    x me;</span><br><span class="line">    handle1(me); <span class="comment">//Call base::f()</span></span><br><span class="line">    handle2(me); <span class="comment">//Call x::f()</span></span><br><span class="line">    <span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
-<p>第一个函数由于调用的是<code>base</code>对象的<code>f()</code>，和传入的东西是不是派生类完全没有关系，在传入的时候进行隐式转换，专属于<code>x</code>的所有东西都会被直接扔掉。而<code>handle2</code>在<strong>运行时</strong>发现地址<code>a</code>处存的是一个派生类<code>x</code>类型的对象，会去调用属于<code>x</code>的重写函数。</p>
-<p>那么这是如何做到在运行时调用正确类型的重写函数呢？换句话讲，这是如何做到在运行时可以对于同一类型的地址调用未知的派生类型重写的函数呢？这个的实现机制是<strong>虚函数表</strong>。根据比较传统的思想，成员函数的实现是直接在外部定义带有<code>this</code>参数的公共函数，然后编译器自动把<code>a.f()</code>处理为<code>f(*a)</code>。另一种不那么显然的成员函数的实现方式是，把函数指针作为成员定义在类的内部，然后在外部定义完公共函数后，把它绑定到类内部的函数指针上。你也许会说，前者显然更好，它不需要额外内存空间啊。确实，但后者的好处是，<strong>函数指针可以支持动态绑定</strong>，也就是说，我可以在运行时进行这个函数指针成员的绑定过程，更加灵活。</p>
-<p>虚函数表就是这样的一种实现方式，如果一个类或者它的基类中有<code>virtual</code>声明的函数（这一点很重要），那么这个类的对象将会<strong>在开头的位置</strong>额外携带一个指向虚函数表的指针，而这个类的所有<code>virtual</code>函数的地址将会被放到属于这个类的虚函数表里。也就是说，每个对象都额外带一个指向虚函数表的指针，而属于（这里的“属于”是存放在内存中的对象意义上的真正属于）该类的所有对象都指向该类的唯一的虚函数表。对于类型<code>x</code>的对象<code>me</code>，它虚函数表中对应<code>f()</code>的地址指向派生类重写的<code>f()</code>，而<code>base</code>的对象的虚函数表则指向<code>base</code>的<code>f()</code>。在<code>handle2</code>中，对<code>a.f()</code>的调用将去虚函数表中找地址，调用派生类重写的函数。而对于<code>handle1</code>，由于a是一个<code>base</code>对象，它的虚函数表指向<code>base::f()</code>，和派生类没有半点关系。</p>
-<hr>
-<p><strong>关于非重写覆盖</strong></p>
-<p>根据以上的虚函数表的实现机理，如果把<code>virtual</code>和<code>override</code>去掉，就不会把<code>f()</code>注册到虚函数表中，这时派生类进行的不是重写而是<strong>覆盖</strong>，<code>me.f()</code>调用的是<code>x::f()</code>，但这不是真正的重写，会把基类的同名函数隐藏掉。对于一个<code>base</code>的无论是对象还是指针或引用，调用<code>f()</code>将会调用<code>base::f()</code>。</p>
-<p>关于覆盖，有一个十分诡异的事实，即使派生类的成员函数与其基类的同名函数有着不同的参数列表（<strong>甚至</strong>，即便基类中有一个同名虚函数，但有着不同的参数列表），基类的同名函数<strong>仍然会被隐藏</strong>（但是，可以使用作用域运算符调用），例如下面的代码会CE：</p>
-<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">base</span>&#123;</span></span><br><span class="line">    <span class="keyword">public</span>:</span><br><span class="line">    	<span class="function"><span class="keyword">virtual</span> <span class="keyword">void</span> <span class="title">f</span><span class="params">()</span> </span>&#123;&#125;</span><br><span class="line">&#125;;</span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">x</span> :</span> <span class="keyword">public</span> base&#123;</span><br><span class="line">    <span class="keyword">public</span>:</span><br><span class="line">    	<span class="function"><span class="keyword">void</span> <span class="title">f</span><span class="params">(<span class="keyword">int</span> a)</span> </span>&#123;&#125;</span><br><span class="line">&#125;;</span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">main</span><span class="params">()</span></span>&#123;</span><br><span class="line">    x me;</span><br><span class="line">    me.f(); <span class="comment">//错误，基类的void f()已被派生类隐藏</span></span><br><span class="line">    <span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
-<p>所以，尽管非重写的覆盖是合法的，但<strong>除了重写继承而来的虚函数之外，最好不要在派生类中定义与基类相同的名字</strong>。这会导致奇怪的错误和歧义。</p>
-<p>如果不希望基类的同名函数在这种情况下被隐藏掉，可以使用<code>using</code>将基类的函数名引入派生类，这只指定名字，而非参数列表，所以基类的所有重载的同名函数都会被引入，并且派生类定义的同参数列表函数会覆盖掉其中的。</p>
-<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">base</span>&#123;</span></span><br><span class="line">    <span class="keyword">public</span>:</span><br><span class="line">    	<span class="function"><span class="keyword">void</span> <span class="title">f</span><span class="params">()</span> </span>&#123;&#125;</span><br><span class="line">    	<span class="function"><span class="keyword">virtual</span> <span class="keyword">void</span> <span class="title">f</span><span class="params">(<span class="keyword">int</span> a,<span class="keyword">int</span> b)</span> </span>&#123;&#125;</span><br><span class="line">&#125;;</span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">x</span> :</span> <span class="keyword">public</span> base&#123;</span><br><span class="line">    <span class="keyword">public</span>:</span><br><span class="line">    	<span class="keyword">using</span> base::f;</span><br><span class="line">    	<span class="function"><span class="keyword">void</span> <span class="title">f</span><span class="params">(<span class="keyword">int</span> a)</span> </span>&#123;&#125;</span><br><span class="line">&#125;;</span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">main</span><span class="params">()</span></span>&#123;</span><br><span class="line">    x me;</span><br><span class="line">    me.f();</span><br><span class="line">    me.f(<span class="number">1</span>);</span><br><span class="line">    me.f(<span class="number">1</span>,<span class="number">2</span>);</span><br><span class="line">    <span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
-
-
-
-
-<hr>
-<p><strong>抽象基类</strong></p>
-<p>C++并没有像<code>abstract</code>和<code>MustInherit</code>这样的关键字来说明某个类是抽象类，而是引入了<strong>纯虚函数</strong>的定义：</p>
-<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">base</span>&#123;</span></span><br><span class="line">    <span class="keyword">public</span>:</span><br><span class="line">    	<span class="function"><span class="keyword">virtual</span> <span class="keyword">void</span> <span class="title">f</span><span class="params">()</span></span>=<span class="number">0</span>; <span class="comment">//纯虚函数</span></span><br><span class="line">&#125;;</span><br><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">base::f</span><span class="params">()</span></span>&#123;</span><br><span class="line">    <span class="comment">//do something</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
-<p>这样，一个类如果是纯虚函数，那么它就是抽象类，派生类必须对纯虚函数进行重写，否则也是抽象类。<strong>抽象类不能有实际对象</strong>，但可以作为指向非抽象派生类的指针或引用使用。</p>
-<p>有意思的是，纯虚函数其实也可以有定义的函数体（如果不是纯虚函数则必须有），但它没法被正常调用，唯一的方法是在派生类中通过作用域运算符调用。</p>
-<hr>
-<p><strong>关于继承的访问权限</strong></p>
-<p>对于<code>protected</code>有这样一个规定，<strong>派生类的成员或友元函数只能通过派生类对象而不是基类对象访问受保护成员</strong>。比如下面这个例子：</p>
-<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">base</span>&#123;</span></span><br><span class="line">    <span class="keyword">protected</span>:</span><br><span class="line">    	<span class="keyword">int</span> val;</span><br><span class="line">&#125;;</span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">x</span> :</span> <span class="keyword">public</span> base&#123;</span><br><span class="line">    <span class="function"><span class="keyword">friend</span> <span class="keyword">void</span> <span class="title">f</span><span class="params">(base&amp;)</span></span>;</span><br><span class="line">    <span class="function"><span class="keyword">friend</span> <span class="keyword">void</span> <span class="title">g</span><span class="params">(x&amp;)</span></span>;</span><br><span class="line">&#125;;</span><br><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">f</span><span class="params">(base &amp;a)</span></span>&#123;</span><br><span class="line">    <span class="built_in">cout</span>&lt;&lt;a.val&lt;&lt;<span class="built_in">endl</span>; <span class="comment">//错误，f是x的友元函数，但不是base的</span></span><br><span class="line">&#125;</span><br><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">g</span><span class="params">(x &amp;a)</span></span>&#123;</span><br><span class="line">    <span class="built_in">cout</span>&lt;&lt;a.val&lt;&lt;<span class="built_in">endl</span>; <span class="comment">//正确，x的友元函数g可以访问x的protected成员</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
-<p>之所以有这个规定的原因是对类中受保护成员的访问权限必须在这个类的内部声明<code>friend</code>提供，假如没有这个规定，我可以“不怀好意”地随便把这个类派生一个类，然后在派生类中声明<code>friend</code>，然后就可以访问基类的<code>protected</code>成员了，这个访问权限并不是基类给的，于是就达到了让<code>protected</code>身不由己的效果……（不得不说访问权限的逻辑还是很严密的）</p>
-<p>对于声明为<code>public</code>的公有继承，基类的成员什么访问权限，继承到派生类后就还是什么访问权限。如果是<code>private</code>私有继承，那么所有成员继承到派生类后都会变成<code>private</code>的，不过，这仅仅是相对于派生类与外部（包括派生类的派生类）的关系而言的，并不影响派生类与基类之间的关系，它还是可以访问基类的<code>public</code>与<code>protected</code>成员。</p>
-<p>另一种方式是<code>protected</code>继承，所有继承到派生类的成员将是<code>protected</code>的，派生类的派生类可以访问。</p>
-<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">base</span>&#123;</span></span><br><span class="line">    <span class="keyword">public</span>:</span><br><span class="line">    	<span class="keyword">int</span> val;</span><br><span class="line">&#125;;</span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">x</span> :</span> <span class="keyword">private</span> base&#123; <span class="comment">//private继承</span></span><br><span class="line">    <span class="function"><span class="keyword">void</span> <span class="title">f</span><span class="params">()</span></span>&#123;</span><br><span class="line">        <span class="built_in">cout</span>&lt;&lt;val&lt;&lt;<span class="built_in">endl</span>; <span class="comment">//正确</span></span><br><span class="line">    &#125;</span><br><span class="line">&#125;;</span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">y</span> :</span> <span class="keyword">public</span> x&#123;</span><br><span class="line">    <span class="function"><span class="keyword">void</span> <span class="title">g</span><span class="params">()</span></span>&#123;</span><br><span class="line">        <span class="built_in">cout</span>&lt;&lt;val&lt;&lt;<span class="built_in">endl</span>; <span class="comment">//错误，val是x的private成员</span></span><br><span class="line">    &#125;</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
-
-<p>（这里对于类的访问权限的逻辑关系应该从4个方面考虑：类，类的基类，类的派生类，使用类的用户（外部））</p>
-<p>类继承权限还涉及到派生类向基类的转换问题。不妨考虑这样一个有趣的例子，<code>x</code>以<code>private</code>方式继承了<code>base</code>，说明它不希望用户在外部访问它继承而来的成员<code>val</code>。但是，我可以利用这样的奇技淫巧，我把一个<code>x</code>对象使用引用转换用<code>base&amp;</code>访问，既然<code>val</code>是<code>base</code>的<code>public</code>成员，那么我就可以访问<code>val</code>——这实际上是真正的<code>x</code>对象的<code>private</code>成员！</p>
-<p>为了避免这种情况，必须要进行这样的规定：<strong>如果一个类私有继承基类，那么只可以在自己的成员函数或友元函数中完成该类到基类的转换，如果是受保护继承，那么它的派生类也可以将该类转换为基类</strong>。这个规定归根溯源还是为了符合“谁能访问<code>private</code>谁能访问<code>protected</code>”的访问权限逻辑。</p>
-<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">base</span>&#123;</span></span><br><span class="line">    <span class="keyword">public</span>:</span><br><span class="line">    	<span class="keyword">int</span> val;</span><br><span class="line">&#125;;</span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">x</span> :</span> <span class="keyword">private</span> base&#123;</span><br><span class="line">    <span class="function"><span class="keyword">void</span> <span class="title">f</span><span class="params">(base &amp;a)</span></span>&#123;</span><br><span class="line">        <span class="built_in">cout</span>&lt;&lt;a.val&lt;&lt;<span class="built_in">endl</span>; <span class="comment">//包含自己的成员函数访问自己的private的情况，可以</span></span><br><span class="line">    &#125;</span><br><span class="line">    <span class="function"><span class="keyword">void</span> <span class="title">g</span><span class="params">()</span></span>&#123;</span><br><span class="line">        f(*<span class="keyword">this</span>); <span class="comment">//在自己的成员函数里将自己转换为基类，可以</span></span><br><span class="line">    &#125;</span><br><span class="line">&#125;;</span><br><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">f1</span><span class="params">(base &amp;a)</span></span>;</span><br><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">g1</span><span class="params">()</span></span>&#123;</span><br><span class="line">    x me;</span><br><span class="line">    f1(me); <span class="comment">//外部用户把x转换为base，不可以</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
-<p>当然，我们发现私有继承和受保护继承实在是太霸道了——所有继承过来的成员的访问权限都会被设置为相同的，在某些情况下这显然是不灵活不合理的。于是我们可以在派生类中，显式地使用<code>using</code>指定成员的继承权限：</p>
-<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">base</span>&#123;</span></span><br><span class="line">    <span class="keyword">public</span>:</span><br><span class="line">    	<span class="keyword">int</span> val;</span><br><span class="line">    <span class="keyword">private</span>:</span><br><span class="line">    	<span class="keyword">int</span> val1;</span><br><span class="line">&#125;;</span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">x</span> :</span> <span class="keyword">private</span> base&#123;</span><br><span class="line">    <span class="keyword">public</span>:</span><br><span class="line">    	<span class="keyword">using</span> base::val; <span class="comment">//这时继承来的val变成x的public成员</span></span><br><span class="line">    	<span class="keyword">using</span> base::val1; <span class="comment">//错误，派生类本来也不能访问基类的private成员，更不能改变权限</span></span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
-
-<p>然而，灵活性增加的代价是不安全性的增加。考虑如下使用了之前提到的“奇技淫巧”的代码：</p>
-<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">base</span>&#123;</span></span><br><span class="line">    <span class="keyword">public</span>:</span><br><span class="line">    	<span class="keyword">int</span> val;</span><br><span class="line">&#125;;</span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">x</span> :</span> <span class="keyword">public</span> base&#123;</span><br><span class="line">    <span class="keyword">private</span>:</span><br><span class="line">    	<span class="keyword">using</span> base::val; <span class="comment">//val变为x的private成员</span></span><br><span class="line">&#125;;</span><br><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">f</span><span class="params">(base &amp;a)</span></span>&#123;</span><br><span class="line">    a.val=<span class="number">233</span>;</span><br><span class="line">&#125;</span><br><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">g</span><span class="params">()</span></span>&#123;</span><br><span class="line">    x me;</span><br><span class="line">    f(me);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
-<p>由于x对<code>base</code>是公有继承，因此x到<code>base</code>的转换是合法的，编译器并不会禁止上面的代码——尽管它在外部修改了x的<code>private</code>成员！这个问题的根本原因是x类的设计者造成的，所以，类的设计者应当使用恰当的继承方式，尽量不要显式地将基类的<code>public</code>转换为派生类的<code>private</code>。</p>
-<hr>
-<p><strong>继承与对象的内存控制</strong></p>
-<p>基类析构函数应该被声明为虚函数，这样，所有直接或间接的派生类的析构函数（不管是不是编译器合成的）都继承自这一虚函数，当派生类析构时，将会按照继承关系自底而上地调用各个类的析构函数——即便这是一个基类型的指向派生类对象指针的<code>delete</code>过程（如果基类析构函数不是虚的，一个派生类实体对象的自动析构仍将自底而上析构，但基类指针的<code>delete</code>则只能析构基类）。</p>
-<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">base</span>&#123;</span></span><br><span class="line">    <span class="keyword">public</span>:</span><br><span class="line">    	<span class="keyword">virtual</span> ~base()&#123;</span><br><span class="line">            <span class="built_in">cout</span>&lt;&lt;<span class="string">&quot;Finalize base&quot;</span>&lt;&lt;<span class="built_in">endl</span>;</span><br><span class="line">        &#125;</span><br><span class="line">&#125;;</span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">x</span> :</span> <span class="keyword">public</span> base&#123;</span><br><span class="line">    <span class="keyword">public</span>:</span><br><span class="line">    	~x()&#123;</span><br><span class="line">            <span class="built_in">cout</span>&lt;&lt;<span class="string">&quot;Finalize x&quot;</span>&lt;&lt;<span class="built_in">endl</span>;</span><br><span class="line">        &#125;</span><br><span class="line">&#125;;</span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">main</span><span class="params">()</span></span>&#123;</span><br><span class="line">    base *me=<span class="keyword">new</span> x;</span><br><span class="line">    <span class="keyword">delete</span> me; <span class="comment">//先~x()，再~base()</span></span><br><span class="line">    <span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
-<p>相应地，当<strong>默认</strong>创建一个派生类对象时，将自动自上而下调用默认构造函数，分别构造属于各个基类的部分。如果基类没有默认构造函数，只有带参数的构造函数，那么必须在派生类的默认构造函数中显式调用基类的构造函数。</p>
-<p>如果一个类中定义了虚析构函数，那么编译器就不会自动合成移动控制函数，将使用拷贝控制函数替代。如果我们希望对基类（或者派生类）进行默认的移动操作（即把各个成员进行移动），那么必须显式的把默认移动操作定义为<code>default</code>的，同时，也需要显式定义拷贝控制函数。</p>
-<p>如果基类中的默认构造函数，拷贝控制函数，移动控制函数是删除的，那么派生类中对应的部分也是删除的，因为属于基类的部分无法进行默认初始化/拷贝/移动。</p>
-<p>当派生类定义了拷贝或移动操作时，该操作负责的是包括基类部分在内的<strong>整个对象</strong>，这一点与析构函数不同。但是，我们可以显式地调用基类的操作：</p>
-<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">base</span>&#123;</span></span><br><span class="line">    <span class="keyword">public</span>:</span><br><span class="line">    	base(base &amp;a)&#123;</span><br><span class="line">            <span class="built_in">cout</span>&lt;&lt;<span class="string">&quot;Copy construct base&quot;</span>&lt;&lt;<span class="built_in">endl</span>;</span><br><span class="line">        &#125;</span><br><span class="line">&#125;;</span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">x</span> :</span> <span class="keyword">public</span> base&#123;</span><br><span class="line">    <span class="keyword">public</span>:</span><br><span class="line">    	x(x &amp;a): base(a)&#123; </span><br><span class="line">            <span class="comment">//注意！base(a)必须写成列表形式，写在函数体内编译器会报错！因为那样编译器会以为是调用基类的普通构造函数</span></span><br><span class="line">            <span class="built_in">cout</span>&lt;&lt;<span class="string">&quot;Copy construct x&quot;</span>&lt;&lt;<span class="built_in">endl</span>;</span><br><span class="line">        &#125;</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
-
-<p>如果们在上个程序中不调用<code>base(a)</code>，那么拷贝后的结果将会十分奇怪——基类部分默认构造，派生类部分是拷贝过来的。</p>
-<p>类似地，对于赋值运算符，也需要“调用”基类的赋值运算符：</p>
-<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">x&amp; <span class="keyword">operator</span> =(<span class="keyword">const</span> x &amp;a)&#123;</span><br><span class="line">    base::<span class="keyword">operator</span>=(a); <span class="comment">//先给基类部分赋值</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
-<p>让我们来考虑一个有趣的问题：在默认初始化一个派生类对象时，先调用基类的默认构造函数，如果基类的构造函数调用了某个虚函数——而这个虚函数在派生类中被重写，它使用了只属于派生类的对象——它还未被派生类的构造函数初始化，那么这个“虚函数的调用”就不能是对于派生类重写的函数的调用，而是基类自己虚函数的最初版本。所以，在自上而下的构造里，对象的虚函数表也是变化的，构造到哪一层，则使用这层类型的虚函数表。</p>
-<p>虽然一般情况下派生类并不能继承基类的构造函数，但这个可以通过<code>using</code>语句实现：</p>
-<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">base</span>&#123;</span></span><br><span class="line">    <span class="keyword">public</span>:</span><br><span class="line">    	base(<span class="keyword">int</span> a) &#123;&#125;</span><br><span class="line">&#125;;</span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">x</span> :</span> <span class="keyword">public</span> base&#123;</span><br><span class="line">    <span class="keyword">public</span>:</span><br><span class="line">    	<span class="keyword">using</span> base::base; <span class="comment">//编译器自动生成空的带参构造函数 x(int a): base(a) &#123;&#125;</span></span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
-
-<p>由于<code>using</code>只作用于名字，因此基类的所有构造函数都会被继承到派生类中，不过可以重载。但是，默认、拷贝和移动构造函数并不会被继承，它们将使用默认规则在派生类中合成。</p>
-<hr>
-<p><strong>虚拷贝</strong></p>
-<p>有时我们会面临类似这样的情况：一个基类<code>base</code>派生出若干个派生类，现在需要使用一个容器存<code>base</code>派生的对象（不管它是什么类型，都用<code>base</code>封装），显然这容器只能存指针，假设用<code>shared_ptr</code>实现，我们定义一个<code>shared_ptr&lt;base&gt; getptr(base &amp;b)</code>对传入的对象进行拷贝并封在一个智能指针中。乍一看好像很简单，然而这是不能直接拷贝的——我并不知道<code>b</code>指向的是什么派生类型的，最多，只能使用基类的拷贝控制函数，而它是不管派生类的部分的。</p>
-<p>为了解决这个问题，我们需要使用虚函数解决：</p>
-<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">base</span>&#123;</span></span><br><span class="line">    <span class="keyword">public</span>:</span><br><span class="line">    	base(<span class="keyword">const</span> base &amp;a)&#123;&#125;</span><br><span class="line">    	base(base &amp;&amp;a)&#123;&#125;</span><br><span class="line">    	<span class="function"><span class="keyword">virtual</span> base* <span class="title">clone</span><span class="params">()</span><span class="keyword">const</span> &amp;</span>&#123;</span><br><span class="line">            <span class="keyword">return</span> <span class="keyword">new</span> base(*<span class="keyword">this</span>);</span><br><span class="line">        &#125;</span><br><span class="line">    	<span class="function"><span class="keyword">virtual</span> base* <span class="title">clone</span><span class="params">()</span><span class="keyword">const</span> &amp;&amp;</span>&#123;</span><br><span class="line">            <span class="keyword">return</span> <span class="keyword">new</span> base(<span class="built_in">std</span>::move(*<span class="keyword">this</span>));</span><br><span class="line">        &#125;</span><br><span class="line">&#125;;</span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">x</span> :</span> <span class="keyword">public</span> base&#123;</span><br><span class="line">    <span class="keyword">public</span>:</span><br><span class="line">    	<span class="function">x* <span class="title">clone</span><span class="params">()</span> <span class="keyword">const</span> &amp; <span class="keyword">override</span></span>&#123;</span><br><span class="line">            <span class="keyword">return</span> <span class="keyword">new</span> x(*<span class="keyword">this</span>);	</span><br><span class="line">        &#125;</span><br><span class="line">    	<span class="function">x* <span class="title">clone</span><span class="params">()</span> <span class="keyword">const</span> &amp;&amp; <span class="keyword">override</span></span>&#123;</span><br><span class="line">            <span class="keyword">return</span> <span class="keyword">new</span> x(<span class="built_in">std</span>::move(*<span class="keyword">this</span>));	</span><br><span class="line">        &#125;</span><br><span class="line">&#125;;</span><br><span class="line"><span class="function"><span class="built_in">shared_ptr</span>&lt;base&gt; <span class="title">getptr</span><span class="params">(base &amp;b)</span></span>&#123;</span><br><span class="line">    <span class="keyword">return</span> <span class="built_in">shared_ptr</span>&lt;base&gt;(b.clone());</span><br><span class="line">&#125;</span><br><span class="line"><span class="function"><span class="built_in">shared_ptr</span>&lt;base&gt; <span class="title">getptr</span><span class="params">(base &amp;&amp;b)</span></span>&#123;</span><br><span class="line">    <span class="keyword">return</span> <span class="built_in">shared_ptr</span>&lt;base&gt;(b.clone());</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
-<p>对于每个派生类，只需要重写基类的虚拷贝函数就行了。这里揭示了虚函数的一种特殊用法，一般地，基类的虚函数要求和派生类继承的有着相同的返回值，但这是有例外的——<strong>可以仅返回自己类型的指针或引用</strong>，因为派生类的地址可以完美隐式转换为基类的。</p>
-
-      
+      <% if (post.excerpt && index){ %>
+        <%- post.excerpt %>
+        <% if (theme.excerpt_link){ %>
+          <p class="article-more-link">
+            <a href="<%- url_for(post.path) %>#more"><%= theme.excerpt_link %></a>
+          </p>
+        <% } %>
+      <% } else { %>
+        <%- post.content %>
+      <% } %>
     </div>
     <footer class="article-footer">
-      <a data-url="https://www.ywy-c-asm.cn/2021/03/25/%E3%80%8AC++Primer%E3%80%8B%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0%EF%BC%88%E4%BA%94%EF%BC%89/" data-id="ckmta5yfo0013r8t27h0g7f17" data-title="《C++Primer》学习笔记（五）"></a>
-      
-      
-      
-  <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/C/" rel="tag">C++</a></li></ul>
-
+      <a data-url="<%- post.permalink %>" data-id="<%= post._id %>" data-title="<%= post.title %>" class="article-share-link"><%= __('share') %></a>
+      <% if (post.comments && config.disqus_shortname){ %>
+        <a href="<%- post.permalink %>#disqus_thread" class="article-comment-link"><%= __('comment') %></a>
+      <% } %>
+      <% if (post.comments && theme.valine.enable && theme.valine.appId && theme.valine.appKey ){ %>
+        <a href="<%- url_for(post.path) %>#comments" class="article-comment-link">
+          <span class="post-comments-count valine-comment-count" data-xid="<%- url_for(post.path) %>" itemprop="commentCount"></span>
+          <%= __('comment') %>
+        </a>
+      <% } %>
+      <%- partial('post/tag') %>
     </footer>
   </div>
-  
-    
-<nav id="article-nav">
-  
-    <a href="/2021/03/28/%E3%80%8AC++Primer%E3%80%8B%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0%EF%BC%88%E5%85%AD%EF%BC%89/" id="article-nav-newer" class="article-nav-link-wrap">
-      <strong class="article-nav-caption">Newer</strong>
-      <div class="article-nav-title">
-        
-          《C++Primer》学习笔记（六）
-        
-      </div>
-    </a>
-  
-  
-    <a href="/2021/03/23/%E3%80%8AC++Primer%E3%80%8B%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0%EF%BC%88%E5%9B%9B%EF%BC%89/" id="article-nav-older" class="article-nav-link-wrap">
-      <strong class="article-nav-caption">Older</strong>
-      <div class="article-nav-title">《C++Primer》学习笔记（四）</div>
-    </a>
-  
-</nav>
-
-  
+  <% if (!index){ %>
+    <%- partial('post/nav') %>
+  <% } %>
 </article>
 
-
+<% if (!index && post.comments && config.disqus_shortname){ %>
+<section id="comments">
+  <div id="disqus_thread">
+    <noscript>Please enable JavaScript to view the <a target="_blank" rel="noopener" href="//disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+  </div>
 </section>
+<% } %>
+<% if (!index && post.comments && theme.valine.enable && theme.valine.appId && theme.valine.appKey){ %>
+  <section id="comments" class="vcomment">
+
+  </section>
+<% } %></section>
         
           <aside id="sidebar">
   
@@ -279,7 +171,7 @@
   <div class="widget-wrap">
     <h3 class="widget-title">Archives</h3>
     <div class="widget">
-      <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2021/03/">March 2021</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2021/02/">February 2021</a></li></ul>
+      <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2021/04/">April 2021</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2021/03/">March 2021</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2021/02/">February 2021</a></li></ul>
     </div>
   </div>
 
@@ -292,6 +184,14 @@
       <ul>
         
           <li>
+            <a href="/2021/04/03/2021.4.2-%E6%A0%A1%E8%B5%9B%E6%80%BB%E7%BB%93/">2021.4.2 校赛总结</a>
+          </li>
+        
+          <li>
+            <a href="/2021/04/02/Codeforces%E9%97%B2%E6%9D%82%E9%A2%98%E8%AE%B0%E5%BD%95/">Codeforces闲杂题记录</a>
+          </li>
+        
+          <li>
             <a href="/2021/03/28/%E3%80%8AC++Primer%E3%80%8B%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0%EF%BC%88%E5%85%AD%EF%BC%89/">《C++Primer》学习笔记（六）</a>
           </li>
         
@@ -301,14 +201,6 @@
         
           <li>
             <a href="/2021/03/23/%E3%80%8AC++Primer%E3%80%8B%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0%EF%BC%88%E5%9B%9B%EF%BC%89/">《C++Primer》学习笔记（四）</a>
-          </li>
-        
-          <li>
-            <a href="/2021/03/20/%E3%80%8AC++Primer%E3%80%8B%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0%EF%BC%88%E4%B8%89%EF%BC%89/">《C++Primer》学习笔记（三）</a>
-          </li>
-        
-          <li>
-            <a href="/2021/03/19/%E3%80%8A%E7%A6%BB%E6%95%A3%E6%95%B0%E5%AD%A6%E5%BC%95%E8%AE%BA%E3%80%8B%E8%B6%A3%E9%A2%98%E8%AF%81%E6%98%8E/">《离散数学引论》趣题证明</a>
           </li>
         
       </ul>
