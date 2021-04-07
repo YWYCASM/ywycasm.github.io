@@ -12,15 +12,17 @@
   <meta name="description" content="闲来无事刷点CF水题愉悦身心">
 <meta property="og:type" content="article">
 <meta property="og:title" content="Codeforces闲杂题记录">
-<meta property="og:url" content="https://www.ywy-c-asm.cn/2021/04/02/Codeforces%E9%97%B2%E6%9D%82%E9%A2%98%E8%AE%B0%E5%BD%95/index.html">
+<meta property="og:url" content="https://www.ywy-c-asm.cn/2021/04/07/Codeforces%E6%9D%82%E9%A2%98%E8%AE%B0%E5%BD%95/index.html">
 <meta property="og:site_name" content="ywy_c_asm">
 <meta property="og:description" content="闲来无事刷点CF水题愉悦身心">
 <meta property="og:locale" content="en_US">
-<meta property="article:published_time" content="2021-04-02T15:00:00.000Z">
-<meta property="article:modified_time" content="2021-04-03T00:12:17.586Z">
+<meta property="og:image" content="https://cdn.luogu.com.cn/upload/image_hosting/mkqr8ssx.png">
+<meta property="article:published_time" content="2021-04-07T13:00:00.000Z">
+<meta property="article:modified_time" content="2021-04-07T13:13:41.442Z">
 <meta property="article:author" content="ywy_c_asm">
 <meta property="article:tag" content="ACM">
 <meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://cdn.luogu.com.cn/upload/image_hosting/mkqr8ssx.png">
   
   
     <link rel="icon" href="/images/ico.ico">
@@ -83,10 +85,10 @@
 </header>
 
       <div class="outer" style="padding:0 0px">
-        <section id="main"><article id="post-Codeforces闲杂题记录" class="h-entry article article-type-post" itemprop="blogPost" itemscope itemtype="https://schema.org/BlogPosting">
+        <section id="main"><article id="post-Codeforces杂题记录" class="h-entry article article-type-post" itemprop="blogPost" itemscope itemtype="https://schema.org/BlogPosting">
   <div class="article-meta">
-    <a href="/2021/04/02/Codeforces%E9%97%B2%E6%9D%82%E9%A2%98%E8%AE%B0%E5%BD%95/" class="article-date">
-  <time class="dt-published" datetime="2021-04-02T15:00:00.000Z" itemprop="datePublished">2021-04-02</time>
+    <a href="/2021/04/07/Codeforces%E6%9D%82%E9%A2%98%E8%AE%B0%E5%BD%95/" class="article-date">
+  <time class="dt-published" datetime="2021-04-07T13:00:00.000Z" itemprop="datePublished">2021-04-07</time>
 </a>
     
   </div>
@@ -142,11 +144,38 @@
 <p>Solution：</p>
 <p>先考虑$k=0$咋做。我们把所有出现过的质因子搞出来，对每个数分解质因数，求出每个质因子（不管是不是在这数里出现过）的次数$mod\space2$，搞出一个01串，显然01串相同的两个数的乘积就是完全平方数了。最小化分段可以贪心，对于一个结束位置贪心地往前面找分段位置，直到在这段中出现两个01串相同的为止。</p>
 <p>$k&gt;0$时其实就是在贪心的基础上加个dp，但就不能暴力往前枚举位置了。$dp[i][j]$为以i为结束位置并且改了j个位置的最小分段。不妨直接枚举这一段中改了$x$个，对于每种01串我仅保留最后出现的位置，之前的都改掉。于是我用一个堆维护排序的非最后出现的位置，直接取往前第$x+1$个位置，在这里贪心地分段即可。$O(nk^2+nk\log n)$。</p>
+<h1 id="1495C-Garden-of-the-Sun"><a href="#1495C-Garden-of-the-Sun" class="headerlink" title="1495C Garden of the Sun"></a>1495C Garden of the Sun</h1><p><a target="_blank" rel="noopener" href="http://codeforces.com/problemset/problem/1495/C">题目链接</a></p>
+<p>题意：给个黑白染色的网格，保证没有两个黑格之间有公共点，你需要把一些白格染黑，使得所有黑格构成一棵树（4连通）。$n,m&lt;=500$</p>
+<p>Solution:</p>
+<p>神仙构造题。</p>
+<p>我们把每3列划分为一组，把每组中间那一列全染黑作为主干，这样一定能仅把该组内黑点连通。然后考虑相邻的组与组之间的连通，这个直接把某个在组内作为“枝节”的黑格的旁边的白格染黑，或者如果两组主干之间的两列全白则把第一行的两个白格染黑。</p>
+<p>当$m\mod3=1$时需要特殊考虑最后一列（它没法找到属于自己的组的主干），需要把这一列划分为若干个不相连的段，分别与旁边组的不同枝节相连。</p>
+<h1 id="1510B-Button-Lock"><a href="#1510B-Button-Lock" class="headerlink" title="1510B Button Lock"></a>1510B Button Lock</h1><p><a target="_blank" rel="noopener" href="https://codeforces.com/problemset/problem/1510/B">题目链接</a></p>
+<p>题意：维护一个初始为0的长度为$d$的01串，你每次可以把某个0变成1，或者把所有位置reset清0。现在给你$n$个互不相同的01串，用最少的操作次数使得这些关键状态都被经过，输出方案。$d&lt;=10$</p>
+<p>Solution:</p>
+<p>不是很裸的网络流，但也算是比较常见的建图了<del>然而我总是不擅长这种题</del>。我一开始直接想了一个假做法：让01串之间互相连流量无限费用为1的边，源点向0连流量无限的边，所有01串向0连流量无限费用为1的边（reset），所有关键状态向汇点连流量为1的边（保证最大流一定经过所有关键状态）。这样不行是因为到过了一个关键状态后还可以再接着再进行操作，但上面的建图直接把流流到了汇点，如果想<strong>在这个关键状态的基础上</strong>继续进行操作的话需要重新从源点流过来一个流，就有了额外费用。</p>
+<p>上面那个锅的修正方法是，既然每个关键状态都一定会被到过，那么我把每个关键状态复制一份，让源点向它们连流量为1的边，等效于在第一次到达这个关键状态的基础上再进行操作，实际上就是因为那个流已经流到汇点了，再从源点流一个过来。并且，我再让源点向0连流量无限费用为1的边，这样相当于按reset，这个是和那些复制的关键状态道理是一样的，因为reset只会在某个第一次到过的关键状态后进行。</p>
+<p>至于最终方案的输出，如果一个关键状态的复制点没被流过，那么它要么是终止状态（只会有一个），要么在到达他之后reset了。于是就可以在所有01串之间连表示执行过的操作的边，在这个有向图上跑个欧拉路即可。</p>
+<p>以后干脆把这种建图套路称为“前仆后继”算了……</p>
+<h1 id="1510E-Equlibium-Point"><a href="#1510E-Equlibium-Point" class="headerlink" title="1510E Equlibium Point"></a>1510E Equlibium Point</h1><p><a target="_blank" rel="noopener" href="https://codeforces.com/problemset/problem/1510/E">题目链接</a></p>
+<p>题意：对于一个括号序列，在平面直角坐标系上这样构造一个区域：从原点出发，遇到 $($ 则将$(x,y)$变为$(x+1,y+1)$，否则变为$(x+1,y-1)$，把最后连成的折线与x轴构成一个闭合区域。现在给你这个区域的质心坐标，构造一个满足它的括号序列。$n&lt;=36$</p>
+<p>Solution：</p>
+<p>这种东西不搜索是根本搞不出来的……而且，质心这种东西还是和面积相关的平均值，就很恶心。</p>
+<p>考虑折半搜索（我开始一直在想爆搜剪枝，因为考虑到$Catalan(18)$大概是$4e8$的。后来因为恶心的平均值剪不了枝没辙了就去跑步，突然想到，咦，我跑了半圈跑道，再拼个半圈跑道就成一圈了。那给我一半的括号，再在后面拼一半，不就成一个括号序列了吗？于是就想到了折半……），我先搜出来所有长度为18的括号序列前缀和后缀，令$f[S]$为一个前缀/后缀有多少左括号/右括号待匹配，<strong>两个$f$相同的前缀和后缀就可以拼起来</strong>。我们令$1×1$的等腰三角形作为面积的单位元，这样它们切成一半的区域的面积都能表示为$[1,18^2]$的整数。在搜的时候处理出它们的区域内所有单位三角形的重心之和$\sum x$与$\sum y$。</p>
+<p>对于每个前缀括号序列，我已经知道它的面积，枚举另一半的面积，这样就知道了总面积，也就可以把恶心的平均值搞成所有单位三角形的重心总和，找出所有后缀括号序列中重心总和与前面的总和（还需要加上一些横坐标的偏移）等于所有区域重心总和的就行了，这个可以用排序vector+二分解决。</p>
+<h1 id="1510I-Is-It-Rated"><a href="#1510I-Is-It-Rated" class="headerlink" title="1510I Is It Rated?"></a>1510I Is It Rated?</h1><p><a target="_blank" rel="noopener" href="https://codeforces.com/problemset/problem/1510/I">题目链接</a></p>
+<p>题意：你和$m$个人在赌博，每一轮，每个人说0或1，然后答案揭晓，说中的获胜。总共进行$n$轮赌博，每一轮你可以在知道$m$个人预测啥后进行预测。写一个扮演“你”的程序交互，要求最后你失败的次数不得超过$1.3b+100$，其中$b$是其他人中最少输的次数。</p>
+<p>Solution：</p>
+<p>放个CF上的standing自行体会吧……</p>
+<p><img src="https://cdn.luogu.com.cn/upload/image_hosting/mkqr8ssx.png"></p>
+<p><strong>随机乱搞！！！</strong></p>
+<p>显然我们需要跟着某些人的选择，直观上应该是当前输的最少的人，但是，如果我每回都让输的最少的人输，那这样会被卡掉。然后我就尝试每次随机找输的最少的几个人，或者有一定概率地找其他人，然后WA的一塌糊涂……</p>
+<p>题解的做法简直神仙到不行：令$f_i$为这个人已经输了几次，令$P_0=\sum_{s_i=0}\alpha^{f_i}$，$P_1=\sum_{s_i=1}\alpha^{f_i}$，把它们归一化后设为选择概率，然后$\alpha$通过调参确定一个介于0和1之间的数。感性理解一下就是，选他的人越多，输的少的人越选他，那就跟着一块选。</p>
 
       
     </div>
     <footer class="article-footer">
-      <a data-url="https://www.ywy-c-asm.cn/2021/04/02/Codeforces%E9%97%B2%E6%9D%82%E9%A2%98%E8%AE%B0%E5%BD%95/" data-id="ckn1e2am20003mgt2aw2i727b" data-title="Codeforces闲杂题记录"></a>
+      <a data-url="https://www.ywy-c-asm.cn/2021/04/07/Codeforces%E6%9D%82%E9%A2%98%E8%AE%B0%E5%BD%95/" data-id="ckn7h7lle0003okt28p43d5k1" data-title="Codeforces闲杂题记录"></a>
       
       
       
@@ -158,19 +187,10 @@
     
 <nav id="article-nav">
   
-    <a href="/2021/04/03/2021.4.2-%E6%A0%A1%E8%B5%9B%E6%80%BB%E7%BB%93/" id="article-nav-newer" class="article-nav-link-wrap">
-      <strong class="article-nav-caption">Newer</strong>
-      <div class="article-nav-title">
-        
-          2021.4.2 校赛总结
-        
-      </div>
-    </a>
   
-  
-    <a href="/2021/03/28/%E3%80%8AC++Primer%E3%80%8B%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0%EF%BC%88%E5%85%AD%EF%BC%89/" id="article-nav-older" class="article-nav-link-wrap">
+    <a href="/2021/04/03/2021.4.2-%E6%A0%A1%E8%B5%9B%E6%80%BB%E7%BB%93/" id="article-nav-older" class="article-nav-link-wrap">
       <strong class="article-nav-caption">Older</strong>
-      <div class="article-nav-title">《C++Primer》学习笔记（六）</div>
+      <div class="article-nav-title">2021.4.2 校赛总结</div>
     </a>
   
 </nav>
@@ -226,11 +246,11 @@
       <ul>
         
           <li>
-            <a href="/2021/04/03/2021.4.2-%E6%A0%A1%E8%B5%9B%E6%80%BB%E7%BB%93/">2021.4.2 校赛总结</a>
+            <a href="/2021/04/07/Codeforces%E6%9D%82%E9%A2%98%E8%AE%B0%E5%BD%95/">Codeforces闲杂题记录</a>
           </li>
         
           <li>
-            <a href="/2021/04/02/Codeforces%E9%97%B2%E6%9D%82%E9%A2%98%E8%AE%B0%E5%BD%95/">Codeforces闲杂题记录</a>
+            <a href="/2021/04/03/2021.4.2-%E6%A0%A1%E8%B5%9B%E6%80%BB%E7%BB%93/">2021.4.2 校赛总结</a>
           </li>
         
           <li>
