@@ -1,0 +1,355 @@
+<!DOCTYPE html>
+<html>
+
+
+
+<head>
+  <meta charset="utf-8">
+  
+  
+  <title>重新学习多项式 | ywy_c_asm</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+  <meta name="description" content="当时学OI时没敢深入学习多项式生成函数这些东西，现在突然想重新学习一下……毕竟当初微积分啥的都不会">
+<meta property="og:type" content="article">
+<meta property="og:title" content="重新学习多项式">
+<meta property="og:url" content="https://www.ywy-c-asm.cn/2021/05/09/%E9%87%8D%E6%96%B0%E5%AD%A6%E4%B9%A0%E5%A4%9A%E9%A1%B9%E5%BC%8F/index.html">
+<meta property="og:site_name" content="ywy_c_asm">
+<meta property="og:description" content="当时学OI时没敢深入学习多项式生成函数这些东西，现在突然想重新学习一下……毕竟当初微积分啥的都不会">
+<meta property="og:locale" content="en_US">
+<meta property="article:published_time" content="2021-05-09T07:50:00.000Z">
+<meta property="article:modified_time" content="2021-05-10T14:22:37.192Z">
+<meta property="article:author" content="ywy_c_asm">
+<meta property="article:tag" content="ACM">
+<meta name="twitter:card" content="summary">
+  
+  
+    <link rel="icon" href="/images/ico.ico">
+  
+  
+    
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/typeface-source-code-pro@0.0.71/index.min.css">
+
+  
+  
+<link rel="stylesheet" href="/css/style.css">
+
+  
+    
+<link rel="stylesheet" href="/fancybox/jquery.fancybox.min.css">
+
+  
+<meta name="generator" content="Hexo 5.4.0"></head>
+
+<body>
+
+
+
+  <div id="container">
+    <div id="wrap">
+
+	
+		
+      <header id="header">
+  <div id="banner"></div>
+  <div id="header-outer" class="outer">
+    <div id="header-title" class="inner">
+      <h1 id="logo-wrap">
+        <a href="/" id="logo">ywy_c_asm</a>
+      </h1>
+      
+        <h2 id="subtitle-wrap">
+          <a href="/" id="subtitle">菜 是 原 罪 | 罪 原 是 菜</a>
+        </h2>
+      
+    </div>
+    <div id="header-inner" class="inner">
+      <nav id="main-nav">
+        <a id="main-nav-toggle" class="nav-icon"></a>
+        
+          <a class="main-nav-link" href="/">Home</a>
+        
+          <a class="main-nav-link" href="/archives">Archives</a>
+        
+      </nav>
+      <nav id="sub-nav">
+        
+        <a id="nav-search-btn" class="nav-icon" title="Search"></a>
+      </nav>
+      <div id="search-form-wrap">
+        <form action="//google.com/search" method="get" accept-charset="UTF-8" class="search-form"><input type="search" name="q" class="search-form-input" placeholder="Search"><button type="submit" class="search-form-submit">&#xF002;</button><input type="hidden" name="sitesearch" value="https://www.ywy-c-asm.cn"></form>
+      </div>
+    </div>
+  </div>
+</header>
+
+      <div class="outer" style="padding:0 0px">
+        <section id="main"><article id="post-重新学习多项式" class="h-entry article article-type-post" itemprop="blogPost" itemscope itemtype="https://schema.org/BlogPosting">
+  <div class="article-meta">
+    <a href="/2021/05/09/%E9%87%8D%E6%96%B0%E5%AD%A6%E4%B9%A0%E5%A4%9A%E9%A1%B9%E5%BC%8F/" class="article-date">
+  <time class="dt-published" datetime="2021-05-09T07:50:00.000Z" itemprop="datePublished">2021-05-09</time>
+</a>
+    
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 class="p-name article-title" itemprop="headline name">
+      重新学习多项式
+    </h1>
+  
+
+      </header>
+    
+    <div class="e-content article-entry" itemprop="articleBody">
+      
+        <p>当时学OI时没敢深入学习多项式生成函数这些东西，现在突然想重新学习一下……毕竟当初微积分啥的都不会</p>
+<span id="more"></span>
+
+<h1 id="多项式牛顿迭代"><a href="#多项式牛顿迭代" class="headerlink" title="多项式牛顿迭代"></a>多项式牛顿迭代</h1><p>问题：给一个多项式$G(x)$，求$F(x)$使得$G(F(x))≡0(\mod x^n)$</p>
+<p>Solution:</p>
+<p>倍增，现在已经求出了满足$G(F_t(x))≡0(\mod x^{2^t})$的$F_t(x)$，我们对$G$在$F_t(x)$处泰勒展开：</p>
+<p>$G(F_{t+1}(x))=G(F_t(x))+G’(F_t(x))(F_{t+1}(x)-F_t(x))+\frac 1 2G’’(F_t(x))(F_{t+1}(x)-F_t(x))^2+…$</p>
+<p>显然由于$G$是多项式，$F_{t+1}(x)-F_t(x)≡0(\mod x^{2^t})$，那么从$G’’$这一项开始，所有项在模$x^{2^{t+1}}$意义下都是0，那么：</p>
+<p>$0≡G(F_{t+1}(x))≡G(F_t(x))+G’(F_t(x))(F_{t+1}(x)-F_t(x))(\mod x^{2^{t+1}})$</p>
+<p>$F_{t+1}(x)≡F_t(x)-\frac{G(F_t(x))}{G’(F_t(x))}(\mod x^{2^{t+1}})$</p>
+<p>这个式子就是众多多项式运算的基础了。</p>
+<h1 id="多项式求逆"><a href="#多项式求逆" class="headerlink" title="多项式求逆"></a>多项式求逆</h1><p>问题：给一个多项式$P(x)$，求$F(x)$使得$F(x)P(x)≡1(\mod x^n)$</p>
+<p>Solution:</p>
+<p><strong>推导方法一</strong></p>
+<p>牛顿迭代，令$G(F(x))=P(x)F(x)-1$，注意在$G$中，$P(x)$相当于常数，$F(x)$相当于变量，然后直接往公式里套：</p>
+<p>$F_{t+1}(x)=F_t(x)-\frac{F_t(x)P(x)-1}{P(x)}$</p>
+<p>设$\frac 1{P(x)}=F_t(x)+Q(x)x^{2^t}$</p>
+<p>$F_{t+1}(x)≡F_t(x)-(F_t(x)+Q(x)x^{2^t})(F_t(x)P(x)-1)(\mod x^{2^{t+1}})$</p>
+<p>由于$F_t(x)P(x)-1=A(x)x^{2^t}$，故可以把$Q(x)$在模$x^{2^{t+1}}$意义下消掉</p>
+<p>$F_{t+1}(x)≡F_t(x)-F_t(x)(F_t(x)P(x)-1)≡F_t(x)(2-P(x)F_t(x))(\mod x^{2^{t+1}})$</p>
+<p>于是这样倍增，每次做一个当前长度的多项式乘法，就是$T(n)=T(\frac n 2)+O(n\log n)=O(n\log n)$</p>
+<p><strong>推导方法二</strong></p>
+<p>设$P(x)F_t(x)=1+x^{2^t}Q(x)$，那么平方一下就能在模$x^{2^{t+1}}$意义下把$Q(x)$消掉</p>
+<p>$(P(x)F_t(x)-1)^2≡0(\mod x^{2^{t+1}})$</p>
+<p>$P(x)(2F_t(x)-F_t^2(x)P(x))≡0(\mod x^{2^{t+1}})$</p>
+<p>即$F_{t+1}≡F_t(x)(2-P(x)F_t(x))(\mod x^{2^{t+1}})$</p>
+<p>顺带一提，你谷上分治FFT的板子是可以直接把多项式方程变形然后上多项式求逆的，反正就是这些自己卷自己、自己和自己组合的生成函数关系就直接无脑上多项式算法解方程就行了。</p>
+<h1 id="多项式指对"><a href="#多项式指对" class="headerlink" title="多项式指对"></a>多项式指对</h1><p>多项式对数函数很好求，$\ln P(x)=\int \frac{P’(x)}{P(x)}dx$，转化为多项式求逆（多项式积分的常数项默认为0）。</p>
+<p>那么就可以用牛顿迭代求指数函数，令$G(F(x))=\ln F(x)-P(x)=0$，套公式：</p>
+<p>$F_{t+1}(x)=F_t(x)-F_t(x)(\ln F(x)-P(x))=F_t(x)(1-\ln F_t(x)+P(x))$</p>
+<p>这样也就可以快速求多项式的幂，$(F(x))^k=\exp(k\ln F(x))$</p>
+<h1 id="多项式开根"><a href="#多项式开根" class="headerlink" title="多项式开根"></a>多项式开根</h1><p>同样是牛顿迭代，设$G(F(x))=F(x)^2-P(x)=0$，套公式：</p>
+<p>$F_{t+1}(x)=F_t(x)-\frac{F_t(x)^2-P(x)}{2F_t(x)}$</p>
+<h1 id="多项式取模"><a href="#多项式取模" class="headerlink" title="多项式取模"></a>多项式取模</h1><p>问题：给出$m$次多项式$A(x)$以及$n$次多项式$B(x)$，求$C(x),D(x)$使得$A(x)=B(x)C(x)+D(x)$，且D的次数小于$n$</p>
+<p>Solution:</p>
+<p>代入$\frac 1 x$（实际意义是把多项式的系数reverse）：$x^mA(\frac 1 x)=(x^nB(\frac 1 x))(x^{m-n}C(\frac 1 x))+x^mD(\frac 1 x)$</p>
+<p>由于$D$低于$n$次，那么$x^mD(\frac 1 x)$在模$x^{m-n+1}$意义下为0，那么：</p>
+<p>$A_{rev}(x)≡B_{rev}(x)C_{rev}(x)(\mod x^{m-n+1})$，就转化为反多项式的求逆，求出$C$后$D$也就能求了。</p>
+<p>以下是我自己的多项式板子（预处理单位根卡常真香）</p>
+<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br><span class="line">84</span><br><span class="line">85</span><br><span class="line">86</span><br><span class="line">87</span><br><span class="line">88</span><br><span class="line">89</span><br><span class="line">90</span><br><span class="line">91</span><br><span class="line">92</span><br><span class="line">93</span><br><span class="line">94</span><br><span class="line">95</span><br><span class="line">96</span><br><span class="line">97</span><br><span class="line">98</span><br><span class="line">99</span><br><span class="line">100</span><br><span class="line">101</span><br><span class="line">102</span><br><span class="line">103</span><br><span class="line">104</span><br><span class="line">105</span><br><span class="line">106</span><br><span class="line">107</span><br><span class="line">108</span><br><span class="line">109</span><br><span class="line">110</span><br><span class="line">111</span><br><span class="line">112</span><br><span class="line">113</span><br><span class="line">114</span><br><span class="line">115</span><br><span class="line">116</span><br><span class="line">117</span><br><span class="line">118</span><br><span class="line">119</span><br><span class="line">120</span><br><span class="line">121</span><br><span class="line">122</span><br><span class="line">123</span><br><span class="line">124</span><br><span class="line">125</span><br><span class="line">126</span><br><span class="line">127</span><br><span class="line">128</span><br><span class="line">129</span><br><span class="line">130</span><br><span class="line">131</span><br><span class="line">132</span><br><span class="line">133</span><br><span class="line">134</span><br><span class="line">135</span><br><span class="line">136</span><br><span class="line">137</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">const</span> <span class="keyword">int</span> N=<span class="number">2097152</span>+<span class="number">10</span>;</span><br><span class="line">	<span class="keyword">const</span> <span class="keyword">int</span> p=<span class="number">998244353</span>;</span><br><span class="line">	<span class="keyword">const</span> <span class="keyword">int</span> G=<span class="number">3</span>;</span><br><span class="line">	<span class="function"><span class="keyword">inline</span> ll <span class="title">mi</span><span class="params">(<span class="keyword">int</span> a,<span class="keyword">int</span> b)</span></span>&#123;</span><br><span class="line">		ll ans=<span class="number">1</span>,tmp=a;<span class="keyword">while</span>(b)&#123;</span><br><span class="line">			<span class="keyword">if</span>(b&amp;<span class="number">1</span>)ans=ans*tmp%p;tmp=tmp*tmp%p;b&gt;&gt;=<span class="number">1</span>;</span><br><span class="line">		&#125;<span class="keyword">return</span> ans;</span><br><span class="line">	&#125;</span><br><span class="line">	<span class="keyword">int</span> hudie[N],dwg[<span class="number">2</span>][N];</span><br><span class="line">	<span class="function"><span class="keyword">void</span> <span class="title">ntt</span><span class="params">(<span class="keyword">int</span> n,<span class="built_in">vector</span>&lt;<span class="keyword">int</span>&gt;::iterator f,ll g)</span></span>&#123;</span><br><span class="line">		<span class="keyword">int</span> op=(g!=G);</span><br><span class="line">		<span class="keyword">for</span>(<span class="keyword">int</span> i=<span class="number">0</span>;i&lt;n;i++) <span class="keyword">if</span>(i&lt;hudie[i]) swap(f[i],f[hudie[i]]);</span><br><span class="line">		<span class="keyword">for</span>(<span class="keyword">int</span> bit=<span class="number">2</span>;bit&lt;=n;bit&lt;&lt;=<span class="number">1</span>)&#123;</span><br><span class="line">			<span class="keyword">int</span> dk=n/bit;</span><br><span class="line">			<span class="keyword">for</span>(<span class="keyword">int</span> i=<span class="number">0</span>;i&lt;n;i+=bit)&#123;</span><br><span class="line">				<span class="keyword">int</span> tot=<span class="number">0</span>;</span><br><span class="line">				<span class="keyword">for</span>(<span class="keyword">int</span> j=i;j&lt;i+(bit&gt;&gt;<span class="number">1</span>);j++)&#123;</span><br><span class="line">					ll me=f[j+(bit&gt;&gt;<span class="number">1</span>)]*(ll)dwg[op][tot]%p;</span><br><span class="line">					f[j+(bit&gt;&gt;<span class="number">1</span>)]=md(f[j]+p-me);</span><br><span class="line">					f[j]=md(f[j]+me);</span><br><span class="line">					tot+=dk;</span><br><span class="line">				&#125;</span><br><span class="line">			&#125;</span><br><span class="line">		&#125;</span><br><span class="line">	&#125;</span><br><span class="line">	<span class="keyword">int</span> gen_lst=<span class="number">-1</span>;</span><br><span class="line">	<span class="function"><span class="keyword">inline</span> <span class="keyword">int</span> <span class="title">gen</span><span class="params">(<span class="keyword">int</span> n)</span></span>&#123;</span><br><span class="line">		<span class="keyword">int</span> k=<span class="number">1</span>; <span class="keyword">while</span>(k&lt;=n) k&lt;&lt;=<span class="number">1</span>;</span><br><span class="line">		<span class="keyword">if</span>(gen_lst==k) <span class="keyword">return</span> gen_lst;</span><br><span class="line">		<span class="keyword">for</span>(<span class="keyword">int</span> i=<span class="number">0</span>;i&lt;k;i++) hudie[i]=(hudie[i&gt;&gt;<span class="number">1</span>]&gt;&gt;<span class="number">1</span>)|((i&amp;<span class="number">1</span>)?(k&gt;&gt;<span class="number">1</span>):<span class="number">0</span>);</span><br><span class="line">		ll invg=mi(mi(G,p<span class="number">-2</span>),(p<span class="number">-1</span>)/k),g=mi(G,(p<span class="number">-1</span>)/k); dwg[<span class="number">0</span>][<span class="number">0</span>]=dwg[<span class="number">1</span>][<span class="number">0</span>]=<span class="number">1</span>;</span><br><span class="line">		<span class="keyword">for</span>(<span class="keyword">int</span> i=<span class="number">1</span>;i&lt;=k;i++) dwg[<span class="number">0</span>][i]=dwg[<span class="number">0</span>][i<span class="number">-1</span>]*g%p,dwg[<span class="number">1</span>][i]=dwg[<span class="number">1</span>][i<span class="number">-1</span>]*invg%p;</span><br><span class="line">		<span class="keyword">return</span> gen_lst=k;	</span><br><span class="line">	&#125;</span><br><span class="line">	<span class="class"><span class="keyword">struct</span> <span class="title">poly</span>&#123;</span></span><br><span class="line">		<span class="built_in">vector</span>&lt;<span class="keyword">int</span>&gt; vec;</span><br><span class="line">		poly()=<span class="keyword">default</span>;</span><br><span class="line">		poly(<span class="keyword">int</span> size)</span><br><span class="line">		&#123;	<span class="keyword">while</span>(size--) vec.push_back(<span class="number">0</span>);	&#125;</span><br><span class="line">		<span class="keyword">int</span>&amp; <span class="keyword">operator</span> [](<span class="keyword">const</span> <span class="keyword">int</span> k)&#123;</span><br><span class="line">			<span class="keyword">while</span>(vec.size()&lt;=k) vec.push_back(<span class="number">0</span>);</span><br><span class="line">			<span class="keyword">return</span> vec[k];	</span><br><span class="line">		&#125;</span><br><span class="line">		<span class="function"><span class="keyword">void</span> <span class="title">resize</span><span class="params">(<span class="keyword">int</span> n)</span></span>&#123;</span><br><span class="line">			<span class="keyword">while</span>(vec.size()&lt;n) vec.push_back(<span class="number">0</span>);</span><br><span class="line">			<span class="keyword">while</span>(vec.size()&gt;n) vec.pop_back();	</span><br><span class="line">		&#125;</span><br><span class="line">		<span class="function"><span class="keyword">int</span> <span class="title">size</span><span class="params">()</span></span></span><br><span class="line"><span class="function">		</span>&#123;	<span class="keyword">return</span> vec.size();	&#125;</span><br><span class="line">		<span class="function"><span class="keyword">static</span> poly <span class="title">plus</span><span class="params">(poly &amp;a,poly &amp;b,ll sgn)</span></span>&#123;</span><br><span class="line">			<span class="keyword">int</span> n=max(a.size(),b.size());</span><br><span class="line">			<span class="function">poly <span class="title">res</span><span class="params">(n)</span></span>;</span><br><span class="line">			<span class="keyword">for</span>(<span class="keyword">int</span> i=<span class="number">0</span>;i&lt;n;i++) res[i]=(a[i]+p+sgn*b[i])%p;</span><br><span class="line">			<span class="keyword">for</span>(<span class="keyword">int</span> i=n;i&lt;a.size();i++) res[i]=a[i];</span><br><span class="line">			<span class="keyword">for</span>(<span class="keyword">int</span> i=n;i&lt;b.size();i++) res[i]=(p+sgn*b[i])%p;</span><br><span class="line">			<span class="keyword">return</span> res;		</span><br><span class="line">		&#125;</span><br><span class="line">		<span class="keyword">friend</span> poly <span class="keyword">operator</span> +(poly a,poly b)</span><br><span class="line">		&#123;	<span class="keyword">return</span> poly::plus(a,b,<span class="number">1</span>);	&#125;</span><br><span class="line">		<span class="keyword">friend</span> poly <span class="keyword">operator</span> -(poly a,poly b)</span><br><span class="line">		&#123;	<span class="keyword">return</span> poly::plus(a,b,<span class="number">-1</span>);	&#125;</span><br><span class="line">		<span class="keyword">friend</span> poly <span class="keyword">operator</span> *(poly a,poly b)&#123;</span><br><span class="line">			<span class="keyword">int</span> n=a.size()+b.size();</span><br><span class="line">			<span class="keyword">int</span> k=gen(n);</span><br><span class="line">			<span class="built_in">vector</span>&lt;<span class="keyword">int</span>&gt; f,g;</span><br><span class="line">			<span class="keyword">for</span>(<span class="keyword">int</span> i=<span class="number">0</span>;i&lt;k;i++) f.push_back(<span class="number">0</span>),g.push_back(<span class="number">0</span>);</span><br><span class="line">			<span class="keyword">for</span>(<span class="keyword">int</span> i=<span class="number">0</span>;i&lt;a.size();i++) f[i]=a[i];</span><br><span class="line">			<span class="keyword">for</span>(<span class="keyword">int</span> i=<span class="number">0</span>;i&lt;b.size();i++) g[i]=b[i];</span><br><span class="line">			ntt(k,f.begin(),G); ntt(k,g.begin(),G);</span><br><span class="line">			<span class="keyword">for</span>(<span class="keyword">int</span> i=<span class="number">0</span>;i&lt;k;i++) f[i]=(f[i]*(ll)g[i])%p;</span><br><span class="line">			ntt(k,f.begin(),mi(G,p<span class="number">-2</span>));</span><br><span class="line">			ll inv=mi(k,p<span class="number">-2</span>);</span><br><span class="line">			<span class="keyword">for</span>(<span class="keyword">int</span> i=<span class="number">0</span>;i&lt;k;i++) f[i]=f[i]*inv%p;</span><br><span class="line">			poly res; res.vec=f; res.resize(a.size()+b.size()<span class="number">-1</span>);</span><br><span class="line">			<span class="keyword">return</span> res;</span><br><span class="line">		&#125;</span><br><span class="line">		<span class="keyword">friend</span> poly <span class="keyword">operator</span> *(poly a,<span class="keyword">int</span> b)&#123;</span><br><span class="line">			poly res=a;</span><br><span class="line">			<span class="keyword">for</span>(<span class="keyword">int</span> i=<span class="number">0</span>;i&lt;res.size();i++) res[i]=(res[i]*(ll)b)%p;</span><br><span class="line">			<span class="keyword">return</span> res;	</span><br><span class="line">		&#125;</span><br><span class="line">		<span class="function"><span class="keyword">int</span> <span class="title">get</span><span class="params">(<span class="keyword">int</span> k)</span></span>&#123;</span><br><span class="line">			<span class="keyword">if</span>(k&lt;vec.size()) <span class="keyword">return</span> vec[k]; <span class="keyword">return</span> <span class="number">0</span>;	</span><br><span class="line">		&#125;</span><br><span class="line">	&#125;;</span><br><span class="line">	<span class="function"><span class="keyword">typedef</span> <span class="title">poly</span> <span class="params">(*pf)</span><span class="params">(poly&amp; res,poly&amp; f)</span></span>; </span><br><span class="line">	<span class="function">poly <span class="title">newton</span><span class="params">(poly &amp;f,pf func,<span class="keyword">int</span> init)</span></span>&#123;</span><br><span class="line">		poly res; res[<span class="number">0</span>]=init;</span><br><span class="line">		<span class="keyword">while</span>(res.size()&lt;f.size()) res=func(res,f);</span><br><span class="line">		res.resize(f.size()); <span class="keyword">return</span> res;</span><br><span class="line">	&#125;</span><br><span class="line">	<span class="function">poly <span class="title">inv_func</span><span class="params">(poly &amp;res,poly &amp;f)</span></span>&#123;</span><br><span class="line">		<span class="keyword">int</span> rn=res.size()&lt;&lt;<span class="number">1</span>;</span><br><span class="line">		poly f2=res*res,tmpf;</span><br><span class="line">		<span class="keyword">for</span>(<span class="keyword">int</span> i=<span class="number">0</span>;i&lt;rn;i++) tmpf[i]=f.get(i);</span><br><span class="line">		f2=f2*tmpf; f2.resize(rn);</span><br><span class="line">		<span class="keyword">return</span> res*<span class="number">2</span>-f2;	</span><br><span class="line">	&#125;</span><br><span class="line">	<span class="function">poly <span class="title">inv</span><span class="params">(poly f)</span></span>&#123;</span><br><span class="line">		<span class="keyword">return</span> newton(f,inv_func,mi(f[<span class="number">0</span>],p<span class="number">-2</span>));</span><br><span class="line">	&#125;</span><br><span class="line">	<span class="keyword">int</span> inverse[N];</span><br><span class="line">	<span class="function">poly <span class="title">ln</span><span class="params">(poly f)</span></span>&#123;</span><br><span class="line">		poly df,res;</span><br><span class="line">		<span class="keyword">for</span>(<span class="keyword">int</span> i=<span class="number">0</span>;i+<span class="number">1</span>&lt;f.size();i++) df[i]=(i+<span class="number">1ll</span>)*f[i+<span class="number">1</span>]%p;</span><br><span class="line">		df=df*inv(f);</span><br><span class="line">		<span class="keyword">for</span>(<span class="keyword">int</span> i=<span class="number">1</span>;i&lt;f.size();i++)&#123;</span><br><span class="line">			<span class="keyword">if</span>(i==<span class="number">1</span>) res[i]=df[i<span class="number">-1</span>]%p,inverse[i]=<span class="number">1</span>;</span><br><span class="line">			<span class="keyword">else</span>&#123;</span><br><span class="line">				inverse[i]=-(p/i)*(ll)inverse[p%i]%p;</span><br><span class="line">				inverse[i]=(p+inverse[i])%p;</span><br><span class="line">				res[i]=inverse[i]*(ll)df[i<span class="number">-1</span>]%p;		</span><br><span class="line">			&#125;</span><br><span class="line">		&#125;</span><br><span class="line">		<span class="keyword">return</span> res;	</span><br><span class="line">	&#125;</span><br><span class="line">	<span class="function">poly <span class="title">exp_func</span><span class="params">(poly &amp;res,poly &amp;f)</span></span>&#123;</span><br><span class="line">		<span class="keyword">int</span> rn=res.size()&lt;&lt;<span class="number">1</span>;</span><br><span class="line">		poly tmp=res; tmp.resize(rn); tmp=ln(tmp);</span><br><span class="line">		<span class="keyword">for</span>(<span class="keyword">int</span> i=<span class="number">0</span>;i&lt;rn;i++) tmp[i]=(f.get(i)+p-tmp[i])%p;</span><br><span class="line">		tmp[<span class="number">0</span>]=(tmp[<span class="number">0</span>]+<span class="number">1</span>)%p; tmp=res*tmp; tmp.resize(rn);</span><br><span class="line">		<span class="keyword">return</span> tmp;	</span><br><span class="line">	&#125;</span><br><span class="line">	<span class="function">poly <span class="title">exp</span><span class="params">(poly f)</span></span>&#123;</span><br><span class="line">		<span class="keyword">return</span> newton(f,exp_func,<span class="number">1</span>);</span><br><span class="line">	&#125;</span><br><span class="line">	<span class="function">poly <span class="title">sqrt_func</span><span class="params">(poly &amp;res,poly &amp;f)</span></span>&#123;</span><br><span class="line">		<span class="keyword">int</span> rn=res.size()&lt;&lt;<span class="number">1</span>;</span><br><span class="line">		poly tmp,tmpf=res;</span><br><span class="line">		<span class="keyword">for</span>(<span class="keyword">int</span> i=<span class="number">0</span>;i&lt;rn;i++) tmp[i]=f.get(i);</span><br><span class="line">		tmpf=tmpf*<span class="number">2</span>; tmpf.resize(rn);</span><br><span class="line">		tmpf=(tmp+res*res)*inv(tmpf); tmpf.resize(rn);</span><br><span class="line">		<span class="keyword">return</span> tmpf;</span><br><span class="line">	&#125;</span><br><span class="line">	<span class="function">poly <span class="title">sqrt</span><span class="params">(poly f)</span></span>&#123; <span class="comment">//保证f[0]=1 </span></span><br><span class="line">		<span class="keyword">return</span> newton(f,sqrt_func,<span class="number">1</span>);	</span><br><span class="line">	&#125;</span><br></pre></td></tr></table></figure>
+
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="https://www.ywy-c-asm.cn/2021/05/09/%E9%87%8D%E6%96%B0%E5%AD%A6%E4%B9%A0%E5%A4%9A%E9%A1%B9%E5%BC%8F/" data-id="ckoiqqfs4001i5kt24qdd8s4l" data-title="重新学习多项式"></a>
+      
+      
+      
+  <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/ACM/" rel="tag">ACM</a></li></ul>
+
+    </footer>
+  </div>
+  
+    
+<nav id="article-nav">
+  
+    <a href="/2021/05/10/%E9%87%8D(kai)%E6%96%B0(shi)%E5%AD%A6%E4%B9%A0%E7%94%9F%E6%88%90%E5%87%BD%E6%95%B0/" id="article-nav-newer" class="article-nav-link-wrap">
+      <strong class="article-nav-caption">Newer</strong>
+      <div class="article-nav-title">
+        
+          重(kai)新(shi)学习生成函数
+        
+      </div>
+    </a>
+  
+  
+    <a href="/2021/05/04/Codeforces-Global-Round-14-%E8%B5%9B%E5%90%8E%E8%A1%A5%E9%A2%98/" id="article-nav-older" class="article-nav-link-wrap">
+      <strong class="article-nav-caption">Older</strong>
+      <div class="article-nav-title">Codeforces Global Round 14 赛后补题</div>
+    </a>
+  
+</nav>
+
+  
+</article>
+
+
+</section>
+        
+          <aside id="sidebar">
+  
+    
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Tags</h3>
+    <div class="widget">
+      <ul class="tag-list" itemprop="keywords"><li class="tag-list-item"><a class="tag-list-link" href="/tags/ACM/" rel="tag">ACM</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/C/" rel="tag">C++</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/JavaScript/" rel="tag">JavaScript</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/NLP/" rel="tag">NLP</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E4%B8%AA%E4%BA%BA%E4%BB%8B%E7%BB%8D/" rel="tag">个人介绍</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E4%BD%8D%E8%BF%90%E7%AE%97/" rel="tag">位运算</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E6%83%B3%E6%B3%95/" rel="tag">想法</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E6%95%B0%E5%AD%A6/" rel="tag">数学</a></li></ul>
+    </div>
+  </div>
+
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">friends</h3>
+    <div class="widget">
+      <li><a target="_blank" rel="noopener" href="https://blog.i207m.top/" title="i207M">i207M</a></li>
+      <li><a target="_blank" rel="noopener" href="https://www.luogu.com.cn/blog/ywycasm/" title="Old ywy_c_asm">Old ywy_c_asm</a></li>
+      <li><a target="_blank" rel="noopener" href="https://blog.csdn.net/lyd_7_29" title="lyd729">lyd729</a></li>
+      <li><a target="_blank" rel="noopener" href="https://www.shadowice1984.xyz/" title="shadowice1984">shadowice1984</a></li>
+      <li><a target="_blank" rel="noopener" href="https://www.cnblogs.com/Miracevin" title="Miracle">Miracle</a></li>
+    </div>
+  </div>
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Archives</h3>
+    <div class="widget">
+      <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2021/05/">May 2021</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2021/04/">April 2021</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2021/03/">March 2021</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2021/02/">February 2021</a></li></ul>
+    </div>
+  </div>
+
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Recent Posts</h3>
+    <div class="widget">
+      <ul>
+        
+          <li>
+            <a href="/2021/05/10/%E9%87%8D(kai)%E6%96%B0(shi)%E5%AD%A6%E4%B9%A0%E7%94%9F%E6%88%90%E5%87%BD%E6%95%B0/">重(kai)新(shi)学习生成函数</a>
+          </li>
+        
+          <li>
+            <a href="/2021/05/09/%E9%87%8D%E6%96%B0%E5%AD%A6%E4%B9%A0%E5%A4%9A%E9%A1%B9%E5%BC%8F/">重新学习多项式</a>
+          </li>
+        
+          <li>
+            <a href="/2021/05/04/Codeforces-Global-Round-14-%E8%B5%9B%E5%90%8E%E8%A1%A5%E9%A2%98/">Codeforces Global Round 14 赛后补题</a>
+          </li>
+        
+          <li>
+            <a href="/2021/04/25/2021-EC-final-%E8%B5%9B%E5%90%8E%E8%A1%A5%E9%A2%98/">2021 EC-final 赛后补题</a>
+          </li>
+        
+          <li>
+            <a href="/2021/04/20/2021-04-20-2021-ICPC-EC-Final-%E6%B8%B8%E8%AE%B0/">2021 ICPC EC-Final 游记</a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+
+  
+</aside>
+        
+	
+<iframe id="iframe1" src="/balls3.html" style="height:500px;width:1500px;position:absolute;top:500px;left:0px;z-index:-1" scrolling="no" frameborder="0"></iframe>
+		<script>
+			var width=parseInt(document.body.clientWidth.toString().replace("px", ""), 10);
+			var height=document.body.scrollHeight;
+			iframe1.style='height:'+height+'px;width:'+width+'px;position:absolute;top:0px;left:0px;z-index:-1';
+		</script>
+
+
+      </div>
+      <footer id="footer">
+  <!-- MathJax配置，可通过单美元符号书写行内公式等 -->
+<script type="text/x-mathjax-config">
+    MathJax.Hub.Config({
+    "HTML-CSS": { 
+        preferredFont: "TeX", 
+        availableFonts: ["STIX","TeX"], 
+        linebreaks: { automatic:true }, 
+        EqnChunk: (MathJax.Hub.Browser.isMobile ? 10 : 50) 
+    },
+    tex2jax: { 
+        inlineMath: [ ["$", "$"], ["\\(","\\)"] ], 
+        processEscapes: true, 
+        ignoreClass: "tex2jax_ignore|dno",
+        skipTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code']
+    },
+    TeX: {  
+        equationNumbers: { autoNumber: "AMS" },
+        noUndefined: { attributes: { mathcolor: "red", mathbackground: "#FFEEEE", mathsize: "90%" } }, 
+        Macros: { href: "{}" } 
+    },
+    messageStyle: "none"
+    }); 
+</script>
+<!-- 给MathJax元素添加has-jax class -->
+<script type="text/x-mathjax-config">
+    MathJax.Hub.Queue(function() {
+        var all = MathJax.Hub.getAllJax(), i;
+        for(i=0; i < all.length; i += 1) {
+            all[i].SourceElement().parentNode.className += ' has-jax';
+        }
+    });
+</script>
+<!-- 通过连接CDN加载MathJax的js代码 -->
+<script type="text/javascript" async
+  src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.1/MathJax.js?config=TeX-MML-AM_CHTML">
+</script>
+  
+  <div class="outer">
+    <div id="footer-info" class="inner">
+      
+      &copy; 2021 ywy_c_asm<br>
+      Powered by <a href="https://hexo.io/" target="_blank">Hexo</a>
+    </div>
+  </div>
+</footer>
+
+
+
+
+
+
+
+    </div>
+    <nav id="mobile-nav">
+  
+    <a href="/" class="mobile-nav-link">Home</a>
+  
+    <a href="/archives" class="mobile-nav-link">Archives</a>
+  
+</nav>
+    
+
+
+<script src="/js/jquery-3.4.1.min.js"></script>
+
+
+
+  
+<script src="/fancybox/jquery.fancybox.min.js"></script>
+
+
+
+
+<script src="/js/script.js"></script>
+
+
+
+
+
+  </div>
+
+
+
+
+</body>
+</html>
