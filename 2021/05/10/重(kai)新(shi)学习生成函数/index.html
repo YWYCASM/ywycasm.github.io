@@ -17,7 +17,7 @@
 <meta property="og:description" content="说得好听是重新学习，其实OI时期也基本上没怎么敢学习过这种东西……">
 <meta property="og:locale" content="en_US">
 <meta property="article:published_time" content="2021-05-10T11:47:00.000Z">
-<meta property="article:modified_time" content="2021-05-10T15:07:52.583Z">
+<meta property="article:modified_time" content="2021-05-11T15:42:23.741Z">
 <meta property="article:author" content="ywy_c_asm">
 <meta property="article:tag" content="ACM">
 <meta name="twitter:card" content="summary">
@@ -121,11 +121,15 @@
 <p>题意：求$n$个点的荒漠图（即每个连通块都是仙人掌）的个数 mod 998244353，$n&lt;=10^5$</p>
 <p>Solution:</p>
 <p>我们先求出仙人掌的EGF，再exp一下就是答案。这个东西看上去就像把一些环像树一样组合起来，但直接组合还是不好做，因为一个点可以连多个环，所以我们考虑求出<strong>有根</strong>仙人掌的个数，最后除个点数就行（因为每个点都当了一遍根），然后就变成了自己卷自己的自我递推关系。令有根仙人掌的EGF为$F(x)$，考虑与根相连的东西，①一个割边，也就是说它连了另一个有根仙人掌，根是它连的那个点，对应的生成函数还是$F(x)$；②一个环，这个的计算方式其实和链是差不多的，假如这个环上有包括它自己的$i+1$个点，那么每个点都可以是一个以它为根的仙人掌，并且这些点的排布是有序的，可以直接乘起来——但由于这是环，正着走和反着走会算两遍，需要除2，对应的生成函数为$\sum_{i=2}^∞\frac{F(x)^i}2$。然后我们需要把根连的这些部分无序组合起来，就是exp了，即$F(x)=xexp(\frac{2F(x)-F(x)^2}{2-2F(x)})$，前面乘个x是因为根已经算了一个点，由于我们所有的组合都是基于有根仙人掌的根进行的，所以需要$[x^0]F(x)=0$。然后牛顿迭代即可。<del>这玩意常数可真tm大</del></p>
+<h1 id="边双连通图计数"><a href="#边双连通图计数" class="headerlink" title="边双连通图计数"></a>边双连通图计数</h1><p>我们仍然采用“有根图”的方式，你会发现这具有很强的计数递推性（图的根是根边双连通图的根），解决了很大的问题。令$G(x)$为无向连通有根图的EGF（其实就是额外乘了个点数），$F(x)$为有根边双连通图的EGF。对于任意一个无向连通图，都可以看成边双构成的树（边双连通图那就是一个点），我们假设$f_n$为$n$个点有根边双连通图的个数，枚举整个图的边双树的根有多少点，这个边双的儿子都是普通有根无向图，那么：</p>
+<p>$G(x)=\sum_{n=1}^∞\frac {f_n}{n!}x^n\sum_{k=0}^∞n^k\frac{G(x)^k}{k!}=\sum_{n=1}^∞\frac {f_n}{n!}x^n\exp(G(x))^n$</p>
+<p>然后我们惊奇的发现后面那个其实就是把$x\exp G(x)$代入了$F$中！于是$G(x)=F(xe^{G(x)})$，扩展拉格朗日反演解出$[x^n]F(x)$即可。</p>
+<p>总结一下，这个递推式里面出现了$n^k$，它难以处理，先把这个$n$放到exp里，再把$n$放到外面作为指数，于是<strong>作为指数的点数</strong>，那这不就是明显的要把多项式往多项式里套吗？</p>
 
       
     </div>
     <footer class="article-footer">
-      <a data-url="https://www.ywy-c-asm.cn/2021/05/10/%E9%87%8D(kai)%E6%96%B0(shi)%E5%AD%A6%E4%B9%A0%E7%94%9F%E6%88%90%E5%87%BD%E6%95%B0/" data-id="ckoiqqfs3001h5kt2fl3jabml" data-title="重(kai)新(shi)学习生成函数"></a>
+      <a data-url="https://www.ywy-c-asm.cn/2021/05/10/%E9%87%8D(kai)%E6%96%B0(shi)%E5%AD%A6%E4%B9%A0%E7%94%9F%E6%88%90%E5%87%BD%E6%95%B0/" data-id="ckok7druy001klst26pmcdx60" data-title="重(kai)新(shi)学习生成函数"></a>
       
       
       
