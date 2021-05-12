@@ -83,80 +83,61 @@
 </header>
 
       <div class="outer" style="padding:0 0px">
-        <section id="main"><article id="post-关于我为什么以最为极端的态度反对游戏这件事" class="h-entry article article-type-post" itemprop="blogPost" itemscope itemtype="https://schema.org/BlogPosting">
+        <section id="main"><article id="<%= post.layout %>-<%= post.slug %>" class="h-entry article article-type-<%= post.layout %>" itemprop="blogPost" itemscope itemtype="https://schema.org/BlogPosting">
   <div class="article-meta">
-    <a href="/2021/03/09/%E5%85%B3%E4%BA%8E%E6%88%91%E4%B8%BA%E4%BB%80%E4%B9%88%E4%BB%A5%E6%9C%80%E4%B8%BA%E6%9E%81%E7%AB%AF%E7%9A%84%E6%80%81%E5%BA%A6%E5%8F%8D%E5%AF%B9%E6%B8%B8%E6%88%8F%E8%BF%99%E4%BB%B6%E4%BA%8B/" class="article-date">
-  <time class="dt-published" datetime="2021-03-09T12:06:00.000Z" itemprop="datePublished">2021-03-09</time>
-</a>
-    
+    <%- partial('post/date', {class_name: 'article-date', date_format: null}) %>
+    <%- partial('post/category') %>
   </div>
   <div class="article-inner">
-    
-    
+    <%- partial('post/gallery') %>
+    <% if (post.link || post.title){ %>
       <header class="article-header">
-        
-  
-    <h1 class="p-name article-title" itemprop="headline name">
-      关于我为什么以最为极端的态度反对游戏这件事
-    </h1>
-  
-
+        <%- partial('post/title', {class_name: 'p-name article-title'}) %>
       </header>
-    
+    <% } %>
     <div class="e-content article-entry" itemprop="articleBody">
-      
-        <p>（本文是我在见到了一位自称“我很讨厌有人跟我炫耀自己从来不玩游戏”的同学后（emmm，其实我可能对他产生了些许误会……）有感而发）</p>
-<span id="more"></span>
-
-<p>认识我的人都知道我号称的“我从来不玩游戏，并且强烈反对它”的鲜明态度，这并非炫耀，假如你有和我一样的经历的话，你也会这么说。</p>
-<p>实际上这“从来不”并非完全正确，更为准确地说，应为“6年以来从不”。6年前的2014年是我这辈子经历过的第一个至暗时刻（第二个是OI省选失败后）。如果你去看我的学生档案，会发现我的学习经历中的2013~2014这一学年的记录是缺失的，小学于2013年夏结束，初中于2014年秋开始，中间一年的时间被抹去了，事实上我一直都在竭力把它从我的记忆中抹去，因为实在难以回首，只能尽力逃避，让它化作不再提起的历史。</p>
-<p>很多人问我那年发生了什么，我很为难，只能告诉他们“我因病休学”。这话是假的，实际上也不假，毕竟“心病”亦为“病”，那年我一直沉迷于淘米网某著名游戏（我十分不情愿说出它的名字，这令我感到令人作呕的耻辱）之中，以至于完全丧失了学习的动力，也许我当时就已经有因此而来的轻度的精神障碍（或许根本就没有，是我想多了）。我清楚的记得我是如何通过朋友与这该死的游戏初识（呵，听起来就像吸毒，不是吗），是如何每一天偷偷摸摸的沦丧于它带来的所谓“欢愉”的颓废之中，是如何在某一天运用一切拖延的方式拒绝再去上学，是如何在“因病休学”的日子里“享受”在家的所谓慵懒……现在想来，今天我说话的不利索，也许与当时长期在家几乎不与人言语有关吧。</p>
-<p>这一天天的时光就这样过去，不再上学的我仍然沉浸于赢的一场场战斗的喜悦与“能力”养成的满足感之中，就这样终日混着，不知道要干些什么。当时的一个心理医生问我，“你才初一，就这样整天待在家里，你为你的未来考虑过吗？是去上学，还是去打工？”我说不出话来，我只想着赶紧结束这无聊的心理治疗回家看看游戏今天的进度更新（后来这好心的心理医生由于给我咨询的时间太短，我几乎啥都不说，就没收钱）。后来到了2014年9月，开学了，尽管在最初的几天我以包括装病在内的手段在家赖着不走，但我还是被强制送到了学校，我就这样见到了41中初一20班的一群本应是我的学弟学妹们的新同学，这感觉十分奇怪，大家同样用“怎么都开学几天了又来了个人”的奇怪眼神看着我。</p>
-<p>开学后的一段时间内我仍然没有摆脱对游戏的沉迷，然而不久之后对它的兴趣开始逐渐减弱，直至某一天最后一次登录游戏后的第二天以来再也没有登录进入游戏过，再然后就居然变成了对它的越来越强烈的反感——一想起那个游戏以及那里面所谓“几大星系”的世界观中的一切，我会觉得起鸡皮疙瘩的不适感，也许这就是所谓“免疫抗体”，<strong>从那之后我再也没接触过任何游戏</strong>，并树立了反对它的强烈观念。这其中的原因我自己也说不清楚，或许是我的兴趣转移到了Visual Basic .NET编程上（这是我计算机科学之路的开端），或许是班主任刘英老师对我的特别照顾，或许是感受到了新班级同学们的热情（尤其是可爱的cjr同学，哈哈）。可能更为重要的是我的“我现在到底在干什么啊”的良心发现。</p>
-<p>这可能听起来有点奇怪，但我早已习惯于每天进入那个被我倒背如流的游戏网址中，“习惯”，确实是这样，当我有一天下决心不再继续，之后的每一天都再也没有进去过了，这似乎亦成了另一种<strong>习惯</strong>。事实上，最初的几天确实会有所谓的戒断反应，后来随着放弃游戏的天数越来越长，我开始恐惧，如果我回归那游戏，我会被它这段时间更新的越来越多的新东西所冲击到，我之前坚持每天上游戏积累的优势将会荡然无存，毕竟这是个养成类游戏，这恐惧一定程度上加速了我对它的远离。</p>
-<p>平心而论，游戏设计确实是一项了不起的事业，这复杂的可以称之为一门艺术的计算机图形学工程简直令人叹为观止。可是我就在想，为什么它为人类带来了如此之多的消沉与颓废？玩家根本不会关心CPU内部花了多少心血只为优化这图形的计算速度，根本不会关心这么多如此逼真的物理效果是如何用方程模拟出来，只会依赖于它给身体带来的某些激素浓度的升高来寻欢作乐，被它们所吸引，所沦陷，所无法自拔。所以，出于个人情感，<strong>我这辈子都不会从事任何与游戏开发有关的工作</strong>。</p>
-<p>当刺激的游戏体验与充满激情的讲课中的教授在课堂之上狭路相逢时，赢的往往是前者——进入HIT以来，我看到了实在是太多太多，这真是令我眼界大开，同学们与各种游戏之间碰撞出的火花实在是比我6年前更甚数倍。我不知道如何去评论他们，<strong>我只希望大家不会重蹈我的覆辙</strong>，毕竟绝大部分人都不知道，几乎被游戏推向毁灭，究竟是什么样的感受（我在讲完我的故事后再次告诉大家这感受一点也不好，真的糟糕极了）。</p>
-<p>厌恶游戏并不意味着热衷于内卷，就像对某些人来说热爱游戏并不意味着厌弃学习一样。我承认我以前可能曾经对内卷怀有深深的热情，甚至还有点享受其中，但起码现在不是，因为我意识到了与其整天刷那些没意思的数学题，还不如去学点真正有用的好东西，也没有什么必要非得执着于抓着那几个学分不放。</p>
-<p>我还记得当我初中时下定决心将我那一年发生的真实情况告诉我最好的朋友时，她说，你有没有想过，如果没有那游戏，你不会出现在这里，咱们也不可能会认识。诚如斯言，这游戏极大地改变了我的人生走向，不可否认的是，我今天能在这里，必须要感谢它（尽管我十分不情愿），这就是命运的有意思之处。不妨假设我从来都没有受到那游戏的影响，我现在或许就在某个大学甚至大专读大二，或许是否也在HIT也未可知。甚至，不妨再假设我没能在2014年9月重返校园，继续深陷其中，现在我或许成为家里蹲的巨婴，或许成为社会渣滓，或许在某个角落做着最低级的工作，原谅我无法再继续想象。</p>
-<p> <strong>谨以此文纪念我失去的一年，以及奉劝大家珍爱生命，远离游戏。</strong></p>
-
-      
+      <% if (post.excerpt && index){ %>
+        <%- post.excerpt %>
+        <% if (theme.excerpt_link){ %>
+          <p class="article-more-link">
+            <a href="<%- url_for(post.path) %>#more"><%= theme.excerpt_link %></a>
+          </p>
+        <% } %>
+      <% } else { %>
+        <%- post.content %>
+      <% } %>
     </div>
     <footer class="article-footer">
-      <a data-url="https://www.ywy-c-asm.cn/2021/03/09/%E5%85%B3%E4%BA%8E%E6%88%91%E4%B8%BA%E4%BB%80%E4%B9%88%E4%BB%A5%E6%9C%80%E4%B8%BA%E6%9E%81%E7%AB%AF%E7%9A%84%E6%80%81%E5%BA%A6%E5%8F%8D%E5%AF%B9%E6%B8%B8%E6%88%8F%E8%BF%99%E4%BB%B6%E4%BA%8B/" data-id="ckok7dru8000zlst21ga55baq" data-title="关于我为什么以最为极端的态度反对游戏这件事"></a>
-      
-      
-      
-  <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/%E6%83%B3%E6%B3%95/" rel="tag">想法</a></li></ul>
-
+      <a data-url="<%- post.permalink %>" data-id="<%= post._id %>" data-title="<%= post.title %>" class="article-share-link"><%= __('share') %></a>
+      <% if (post.comments && config.disqus_shortname){ %>
+        <a href="<%- post.permalink %>#disqus_thread" class="article-comment-link"><%= __('comment') %></a>
+      <% } %>
+      <% if (post.comments && theme.valine.enable && theme.valine.appId && theme.valine.appKey ){ %>
+        <a href="<%- url_for(post.path) %>#comments" class="article-comment-link">
+          <span class="post-comments-count valine-comment-count" data-xid="<%- url_for(post.path) %>" itemprop="commentCount"></span>
+          <%= __('comment') %>
+        </a>
+      <% } %>
+      <%- partial('post/tag') %>
     </footer>
   </div>
-  
-    
-<nav id="article-nav">
-  
-    <a href="/2021/03/12/%E5%B0%8F%E7%90%83%E7%A2%B0%E6%92%9E/" id="article-nav-newer" class="article-nav-link-wrap">
-      <strong class="article-nav-caption">Newer</strong>
-      <div class="article-nav-title">
-        
-          小球碰撞
-        
-      </div>
-    </a>
-  
-  
-    <a href="/2021/03/08/%E5%BF%AB%E9%80%9F%E8%8E%B7%E5%8F%96%E6%95%B4%E6%95%B0%E6%9C%80%E9%AB%98%E4%BA%8C%E8%BF%9B%E5%88%B6%E4%BD%8D/" id="article-nav-older" class="article-nav-link-wrap">
-      <strong class="article-nav-caption">Older</strong>
-      <div class="article-nav-title">快速获取整数最高二进制位</div>
-    </a>
-  
-</nav>
-
-  
+  <% if (!index){ %>
+    <%- partial('post/nav') %>
+  <% } %>
 </article>
 
-
+<% if (!index && post.comments && config.disqus_shortname){ %>
+<section id="comments">
+  <div id="disqus_thread">
+    <noscript>Please enable JavaScript to view the <a target="_blank" rel="noopener" href="//disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+  </div>
 </section>
+<% } %>
+<% if (!index && post.comments && theme.valine.enable && theme.valine.appId && theme.valine.appKey){ %>
+  <section id="comments" class="vcomment">
+
+  </section>
+<% } %></section>
         
           <aside id="sidebar">
   
