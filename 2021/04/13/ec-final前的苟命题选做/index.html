@@ -83,61 +83,187 @@
 </header>
 
       <div class="outer" style="padding:0 0px">
-        <section id="main"><article id="<%= post.layout %>-<%= post.slug %>" class="h-entry article article-type-<%= post.layout %>" itemprop="blogPost" itemscope itemtype="https://schema.org/BlogPosting">
+        <section id="main"><article id="post-ec-final前的苟命题选做" class="h-entry article article-type-post" itemprop="blogPost" itemscope itemtype="https://schema.org/BlogPosting">
   <div class="article-meta">
-    <%- partial('post/date', {class_name: 'article-date', date_format: null}) %>
-    <%- partial('post/category') %>
+    <a href="/2021/04/13/ec-final%E5%89%8D%E7%9A%84%E8%8B%9F%E5%91%BD%E9%A2%98%E9%80%89%E5%81%9A/" class="article-date">
+  <time class="dt-published" datetime="2021-04-13T00:28:00.000Z" itemprop="datePublished">2021-04-13</time>
+</a>
+    
   </div>
   <div class="article-inner">
-    <%- partial('post/gallery') %>
-    <% if (post.link || post.title){ %>
+    
+    
       <header class="article-header">
-        <%- partial('post/title', {class_name: 'p-name article-title'}) %>
+        
+  
+    <h1 class="p-name article-title" itemprop="headline name">
+      ec-final前的苟命题选做
+    </h1>
+  
+
       </header>
-    <% } %>
+    
     <div class="e-content article-entry" itemprop="articleBody">
-      <% if (post.excerpt && index){ %>
-        <%- post.excerpt %>
-        <% if (theme.excerpt_link){ %>
-          <p class="article-more-link">
-            <a href="<%- url_for(post.path) %>#more"><%= theme.excerpt_link %></a>
-          </p>
-        <% } %>
-      <% } else { %>
-        <%- post.content %>
-      <% } %>
+      
+        <p>在距离ec-final 2021不到一周的时候刷题苟命……</p>
+<span id="more"></span>
+
+<hr>
+<h1 id="EC-Final-2019-C-Dirichlet-k-th-Root"><a href="#EC-Final-2019-C-Dirichlet-k-th-Root" class="headerlink" title="EC-Final 2019 C. Dirichlet k-th Root"></a>EC-Final 2019 C. Dirichlet k-th Root</h1><p><a target="_blank" rel="noopener" href="http://codeforces.com/gym/102471/problem/C">题目链接</a></p>
+<p>题意：给你$g(1)…g(n)$，$g$是由$f$在模998244353意义下做k次狄利克雷卷积而来的，保证$g(1)=1$，求$f(1)…f(n)$。$n&lt;=10^5,k&lt;=10^9$</p>
+<p>Solution：</p>
+<p>这题有两种做法，第一种是据说有个神仙结论是$f^p=\epsilon$，那么$f=f^{xp+kinv(k)}=(f^k)^{inv(k)}=g^{inv(k)}$，所以只需要把$g$卷k的逆元次就行了……<del>我相信这题当时就是这么被A穿的……</del></p>
+<p>第二种做法是利用已经算出的前面的$f$递推出后面的$f$。考虑k次狄利克雷卷积的意义，$f^k(n)=\sum_{a_1a_2…a_k=n}f(a_1)f(a_2)…f(a_k)$，这里面$a_i$可以是小于$n$的约数（此时它的$f$已经被算出），也可以是$n$自己，如果这样的话那么剩下的就只能是1。所以，从组合意义上考虑，存在$a_i=n$的连乘积项就有$k$个，它们都是$f(n)$，所以：$f^k(n)=kf(n)+\sum_{a_1*…*a_k=n,a_i\not=n}f(a_1)…f(a_k)$，令后一项为$F(n)$，如果知道了$F(n)$，就可算出$f(n)=\frac{g(n)-F(n)}k$了。后面那个东西本质上其实就是强行让$f(n)=0$的<strong>k次狄利克雷卷积</strong>！</p>
+<p>这个东西如果每次都把每个$n$的所有约数找出来做一遍$k$次狄利克雷卷积就T了，但我们仍然可以利用$f^k(n)=kf(n)+F(n)$来“动态维护k次卷积”。假如我们在在进行倍增卷积，已经知道了$1…n-1$的$f^1,f^2,f^4,f^8…$，我可以先让$f(n)=0$，<strong>单独地</strong>求$n$在这些次数的卷积中的函数值（即$F^i(n)$），最后把$1f(n),2f(n),4f(n)…$加回去，就得到了$1…n$的真正的$1^1,f^2,f^4…$了。</p>
+<hr>
+<h1 id="EC-Final-2019-H-King"><a href="#EC-Final-2019-H-King" class="headerlink" title="EC-Final 2019 H. King"></a>EC-Final 2019 H. King</h1><p><a target="_blank" rel="noopener" href="http://codeforces.com/gym/102471/problem/H">题目链接</a></p>
+<p>题意：给个序列，求它最长的在模$p$意义下的等比子序列，如果长度$&lt;\frac n 2$，则输出-1。$n&lt;=2*10^5$</p>
+<p>Solution:</p>
+<p>乱搞题。对于每个相邻的或者隔一个数的每两个数求一个比值$q$，这大概有$2n$个，统计出现次数最多的前几个$q$，然后每个都对整个序列跑一遍dp即可。这是因为当子序列长度$&gt;=\frac n 2$时，这样相邻的或者每隔一个数的能够成为子序列的相邻两个的概率会比较大。一种靠谱的解释是，最坏情况是<strong>1</strong>，0，0，<strong>2</strong>，0，0，<strong>4</strong>，<strong>8</strong>这样，最坏会统计$\frac n 8$次，而对于这$2n$个比值中出现次数$&gt;=\frac n 8$的至多只有16个了。</p>
+<hr>
+<h1 id="EC-Final-2019-E-Flow"><a href="#EC-Final-2019-E-Flow" class="headerlink" title="EC-Final 2019 E. Flow"></a>EC-Final 2019 E. Flow</h1><p><a target="_blank" rel="noopener" href="http://codeforces.com/gym/102471/problem/E">题目链接</a></p>
+<p>题意：给个网络流图，它包含了$S$到$T$的若干条<strong>边数相同</strong>且不相交的路径，你每次可以选两条边，让其中一条容量+1，另一条容量-1，使得最终的最大流最大，求最小的操作次数。$n&lt;=10^5$</p>
+<p>Solution：</p>
+<p><del>这题是个共产主义好题</del></p>
+<p>不难发现最大的最大流就是$f=\lfloor\frac{\sum_{i=1}^mc_i}k\rfloor$，因为我们可以把每条边都平均地取到这个，所以这个是答案下界，并且假设最大流能取到$f’&gt;f$，那么每条路径上的总和至少是$k<em>flow_i$，容量总和至少是$\sum k</em>flow_i=kf’&gt;kf&gt;\sum c_i$，矛盾，所以$f$也是答案上界，最大的最大流就是$f$。</p>
+<p>考虑一种一定能构造出$f$的方法（但不一定使操作数最少）是，把每条路径上大于最小值的部分都切掉，扔到“公共容量”中<del>强行共产</del>，然后每条路径上的每条容量都已经被摊平了，我再把公共容量随便地平摊在路径上，每$k$个容量可以使最大流+1。这样往一条路径上平摊公共容量，其实相当于增加这条路径上原来的所有的最小边的容量，而其它边的容量相当于先被扔进公共容量里再拿了回来，我们需要把这种浪费抵消掉。</p>
+<p>每一次，我们尝试使某一条路径上的所有最小边去“追赶”次小边，不管能不能追上，反正让所有最小边总体加$x$，就会使最大流+$x$，这样会使公共容量减少$kx$，而$k-cntmin$条非最小边“增加”的就可以等效为这一部分根本就从来没被加到公共容量中过，因此对操作次数产生的贡献就是$xcntmin$。所以，每次取最小边最少的路径增加最小边的容量即可。</p>
+<p><del>vp的时候没看见边数相同然后就自闭了也不知道那200多个人是咋A的……等结束后才发现读错题了然后就会了……</del></p>
+<hr>
+<h1 id="Codeforces-1511E-Colorings-and-Dominoes"><a href="#Codeforces-1511E-Colorings-and-Dominoes" class="headerlink" title="Codeforces 1511E Colorings and Dominoes"></a>Codeforces 1511E Colorings and Dominoes</h1><p><a target="_blank" rel="noopener" href="http://codeforces.com/contest/1511/problem/E">题目链接</a></p>
+<p>题意：给个$nm$棋盘，有些格子是障碍，你可以任意地把剩下格子染成红色或者蓝色，然后往上面放多米诺骨牌。横牌只能放在两个红色格子上，竖牌只能放在两个蓝色格子上，求所有方案的最大放置数的总和。$nm&lt;=3e5$</p>
+<p>Solution:</p>
+<p>显然横牌与竖牌是互相独立的，它们之间的放置不会有影响，那么可以分别求总和。于是转化为求仅考虑一行（一列）的最大放置数总和，简单dp即可。注意，这类求所有方案总和的dp题，一定要使用<strong>贡献乘方案数</strong>计算答案，既要计数，又要求和（这里很容易假掉）。</p>
+<hr>
+<h1 id="Codeforces-1511G-Chips-On-a-Board"><a href="#Codeforces-1511G-Chips-On-a-Board" class="headerlink" title="Codeforces 1511G Chips On a Board"></a>Codeforces 1511G Chips On a Board</h1><p><a target="_blank" rel="noopener" href="http://codeforces.com/contest/1511/problem/G">题目链接</a></p>
+<p>题意：给个$nm$棋盘，每一行在某列放有一个棋子，A和B玩游戏，每次取某个区间的所有列，每次一个人把这部分中的某个棋子左移任意格，不能移出该部分，多次给区间询问输赢。$n,m,q&lt;=2e5$</p>
+<p>Solution：</p>
+<p>比赛快结束时想出了这题做法，然后没时间写了……</p>
+<p>显然这个就是Nim游戏，就是一个求 区间内所有棋子位置$-l$ 的异或和的动态询问题。多个棋子出现在同一列是没用的，偶数个会全都异或掉，奇数个只需要保留一个，这样就相当于每列仅有一个棋子。考虑按位统计，有两种方式：①从$l$出发，每次跨过一个$2^k$的区间，在第奇数个区间里的所有棋子到$l$的距离在$k$位上是1的，统计区间内有多少棋子。②静态地统计$l$右侧与$l$差值$\mod 2^{k+1}$（或者更大的2的次幂）$=x$的有多少个，其中$x$的$k$位是1。那么我们按照根号分治的套路，对0位<del>8位用②处理（模512），9位</del>17位用①处理。$O(q\sqrt n)$</p>
+<hr>
+<h1 id="2018-ICPC-焦作站-B-Ultraman-vs-Aodzilla-and-Bodzilla"><a href="#2018-ICPC-焦作站-B-Ultraman-vs-Aodzilla-and-Bodzilla" class="headerlink" title="2018 ICPC 焦作站 B. Ultraman vs. Aodzilla and Bodzilla"></a>2018 ICPC 焦作站 B. Ultraman vs. Aodzilla and Bodzilla</h1><p><a target="_blank" rel="noopener" href="https://codeforces.com/gym/102028/problem/B">题目链接</a></p>
+<p>题意：奥特曼要打两个怪A和B，它们分别有血量$hp_A,hp_B$以及攻击力$ATK_A,ATK_B$，奥特曼在第$i$回合能够挑一个没死的怪对他造成$i$点伤害，在这之前每个没死的怪会对奥特曼造成伤害。将奥特曼每次做的选择搞成一个包含A和B的字符串$S$，求打死怪所需的最小伤害以及在此条件下的字典序最小的$S$。</p>
+<p>Solution：</p>
+<p>答案其实只与A和B啥时候死有关。令$f(n)=\sum_{i=1}^ni$，假设A先死，设$f(a)$为最小的$&gt;=hp_A$的，$f(k)$为最小的$&gt;=hp_A+hp_B$的，显然，A不可能死的比$a$早，B不可能死的比$k$早，可以证明，最优策略一定就是A在a回合死，B在k回合死。构造方式是，先假设A独占了1<del>a回合，在第a回合会有一个多浪费掉的血量$\Delta A$（这个很重要！），如果a+1</del>k回合可以直接把B搞死那没事，如果搞不死，这是因为$\Delta A$的浪费造成的，可以发现这样一个性质：如果B搞不死，还需要$\Delta B$才能搞死，那么**一定有$\Delta A&gt;=\Delta B$**（必须这样才能使$f(k)&gt;=hp_A+hp_B$）。那么我们可以在第$\Delta A$回合把这里的A替换为B，能够这样做的原则是，我们可以在前a回合里找一些总和$&lt;=\Delta A$的位置改成B而使得A还在a回合死，等效于a回合的浪费被减少。所以方案是一定可以被构造出来的，现在的问题就是如何使字典序最小。</p>
+<p>实际上当A先死的时候按照上面的构造方式构造出的字典序本来就是最小的。若没有$\Delta B$，把前面都放A，后面都放B。否则，我需要把前面的一个A改成B，肯定要尽量的往后取，显然在第$\Delta A$回合修改是最靠后的。</p>
+<p>当B先死的时候对字典序的构造情况则完全不同，尽管答案的取法是一样的。现在反过来，$\Delta B$是第b回合浪费的血，$\Delta A$是A在k回合剩下的血量。假如$\Delta A$不存在，那么我直接在前面取一个极长的和不超过$\Delta B$的前缀替换为A即可。否则，让我们来考虑这样的问题，如果我们要使用字典序最小的方式在前面把B替换成A使得A增加的血量为固定的$x$，如何构造？显然可以这样从前往后贪心：如果剩余的$x=i$，或者$x-i&gt;=i+1$（即在这里放了A之后在后面还能再放A），那么就在i处放A。情况大概就是这样：</p>
+<table>
+<thead>
+<tr>
+<th>$x$</th>
+<th>1</th>
+<th>2</th>
+<th>3</th>
+<th>4</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>1</td>
+<td>A</td>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td>2</td>
+<td></td>
+<td>A</td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td>3</td>
+<td>A</td>
+<td>A</td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td>4</td>
+<td>A</td>
+<td></td>
+<td>A</td>
+<td></td>
+</tr>
+<tr>
+<td>5</td>
+<td>A</td>
+<td></td>
+<td></td>
+<td>A</td>
+</tr>
+<tr>
+<td>6</td>
+<td>A</td>
+<td>A</td>
+<td>A</td>
+<td></td>
+</tr>
+<tr>
+<td>7</td>
+<td>A</td>
+<td>A</td>
+<td></td>
+<td>A</td>
+</tr>
+</tbody></table>
+<p>可以发现，如果$x$可以被表示为全是A的前缀，那么任何$&lt;x$的构造出的字典序都不可能更优。根据这个思路，我先尝试去找一段前缀使得$&gt;=\Delta A$且$&lt;=\Delta B$然后把这前缀都替换为A。如果不行，我只能在前面找一些和$&gt;=\Delta A$的，根据上表可知如果造不出全A前缀，数越大字典序越大，那么贪心地构造一个恰好为$\Delta A$的即可。</p>
+<p>最终比较A先死和B先死的两种方案就行了。这题真tm神啊……</p>
+<hr>
+<h1 id="CF1511F-Chainword"><a href="#CF1511F-Chainword" class="headerlink" title="CF1511F Chainword"></a>CF1511F Chainword</h1><p><a target="_blank" rel="noopener" href="https://codeforces.com/contest/1511/problem/F">题目链接</a></p>
+<p>题意：求以下三元组$(S,P,Q)$的数目，$S$是一个长m的字符串，$P$和$Q$是S的分段方案，划分的每一段都属于一个大小为$n$的字典。字典字符串长度$&lt;=5$，$n&lt;=8$，$m&lt;=10^9$</p>
+<p>Solution:</p>
+<p>比赛时想了半天这题如何用AC自动机构造转移矩阵，但这题用AC自动机是不行的，必须用普通的Trie树，因为转移一个字符后，如果到达Trie树上一个是某个串结尾的终止节点，就可以决策是不是跳回0点，相当于在这划分了一次（现在想来，以前是见过这类套路的，如果它不是分段而是重叠字符串那可能就得用AC自动机了）。如果是二重划分，那么就$f[i][j]$记录P到达的节点和q到达的节点，每次让它们转移同样的字符。</p>
+<p>这样直接做矩乘是过不去的，但这状态可以进一步优化。如果$(i,j)$是一个合法状态，那么其中一个的前缀必定是另一个的后缀，并且我可以强行规定$i&lt;=j$再让状态数缩小一半，当$i=j$时往同一个后继状态上做两次转移即可，于是这样状态数能压缩至不到200。</p>
+<hr>
+<h1 id="CF724E-Goods-Transportation"><a href="#CF724E-Goods-Transportation" class="headerlink" title="CF724E Goods Transportation"></a>CF724E Goods Transportation</h1><p><a target="_blank" rel="noopener" href="https://codeforces.com/problemset/problem/724/E">题目链接</a></p>
+<p>题意：有$n$个城市，每个城市至多可以制造$p_i$个货物，至多可以卖出$s_i$个货物，对于$i&lt;j$，你至多可以搬运$c$个货物从$i$到$j$。你可以随便直接或间接地搬运，求最多卖出多少物品。$n&lt;=10^4$</p>
+<p>Solution:</p>
+<p>显然可以想到一个最大流建图，$S$向每个点连$p_i$，每个点向$T$连$s_i$，一个点往后面所有点连$c$。这样建图是$n^2$的，但是你需要知道<strong>最大流=最小割</strong>！这可以转化为一个集合划分问题，集合之间的边都是一个常数$c$。$dp[i][j]$表示前$i$个点中与$S$在同一集的有$j$个，与$T$在同一集的有$i-j$个的最小割，如果一个点要连$S$，它需要割掉$s_i$（但不用割掉与$i-j$点的$c$，因为这些边是连向它的），否则需要割掉$p_i$以及前面$j$个点连向它的$c$边。</p>
+<hr>
+<h1 id="CF1428G-Lucky-Numbers"><a href="#CF1428G-Lucky-Numbers" class="headerlink" title="CF1428G Lucky Numbers"></a>CF1428G Lucky Numbers</h1><p><a target="_blank" rel="noopener" href="https://codeforces.com/problemset/problem/1428/G2">题目链接</a></p>
+<p>题意：给你$k$，再给你$q$个数$n_1…n_q$，你需要分别把它们拆分为$k$个数，对于每个数，如果第$i$位是3或6或9，那么会产生$f_i,2f_i$或$3f_i$的价值贡献。最大化每个$n_i$的价值和。$n,k&lt;10^6$，简单版：$q=1$，加强版：$q&lt;=10^5$</p>
+<p>Solution：</p>
+<p>$q=1$的简单版可以用<a target="_blank" rel="noopener" href="https://www.luogu.com.cn/blog/ywycasm/solution-cf1428g1">这个</a>拆位贪心填9的方法搞出来。</p>
+<p>另一种更加巧妙的方法是把每位的贡献用多重背包搞出来，因为每位至多只有一个不为3，6，9的数，我们把它放到最后一位，枚举最后一个数是啥，单独计算它的价值作为背包数组的初始值，剩下$k-1$个6位数只能填3的倍数，并且0，3，6，9它们的价值是成比例的，不妨就把3作为<strong>单位元</strong>，那么相当于第$i$位可以填$3(k-1)$个重量为$3ei$价值为$f_i$的物品，二进制优化多重背包即可，这样多次询问只需要往背包数组里查答案就行了。</p>
+
+      
     </div>
     <footer class="article-footer">
-      <a data-url="<%- post.permalink %>" data-id="<%= post._id %>" data-title="<%= post.title %>" class="article-share-link"><%= __('share') %></a>
-      <% if (post.comments && config.disqus_shortname){ %>
-        <a href="<%- post.permalink %>#disqus_thread" class="article-comment-link"><%= __('comment') %></a>
-      <% } %>
-      <% if (post.comments && theme.valine.enable && theme.valine.appId && theme.valine.appKey ){ %>
-        <a href="<%- url_for(post.path) %>#comments" class="article-comment-link">
-          <span class="post-comments-count valine-comment-count" data-xid="<%- url_for(post.path) %>" itemprop="commentCount"></span>
-          <%= __('comment') %>
-        </a>
-      <% } %>
-      <%- partial('post/tag') %>
+      <a data-url="https://www.ywy-c-asm.cn/2021/04/13/ec-final%E5%89%8D%E7%9A%84%E8%8B%9F%E5%91%BD%E9%A2%98%E9%80%89%E5%81%9A/" data-id="ckoqt7lqv000oqst2dh9p30af" data-title="ec-final前的苟命题选做"></a>
+      
+      
+      
+  <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/ACM/" rel="tag">ACM</a></li></ul>
+
     </footer>
   </div>
-  <% if (!index){ %>
-    <%- partial('post/nav') %>
-  <% } %>
+  
+    
+<nav id="article-nav">
+  
+    <a href="/2021/04/20/2021-04-20-2021-ICPC-EC-Final-%E6%B8%B8%E8%AE%B0/" id="article-nav-newer" class="article-nav-link-wrap">
+      <strong class="article-nav-caption">Newer</strong>
+      <div class="article-nav-title">
+        
+          2021 ICPC EC-Final 游记
+        
+      </div>
+    </a>
+  
+  
+    <a href="/2021/04/10/2018-ICPC-EC-Final-%E9%80%89%E5%81%9A/" id="article-nav-older" class="article-nav-link-wrap">
+      <strong class="article-nav-caption">Older</strong>
+      <div class="article-nav-title">2018 ICPC EC-Final 选做</div>
+    </a>
+  
+</nav>
+
+  
 </article>
 
-<% if (!index && post.comments && config.disqus_shortname){ %>
-<section id="comments">
-  <div id="disqus_thread">
-    <noscript>Please enable JavaScript to view the <a target="_blank" rel="noopener" href="//disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
-  </div>
-</section>
-<% } %>
-<% if (!index && post.comments && theme.valine.enable && theme.valine.appId && theme.valine.appKey){ %>
-  <section id="comments" class="vcomment">
 
-  </section>
-<% } %></section>
+</section>
         
           <aside id="sidebar">
   
