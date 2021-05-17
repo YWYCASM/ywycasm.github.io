@@ -7,22 +7,20 @@
   <meta charset="utf-8">
   
   
-  <title>Codeforces闲杂题记录（二） | ywy_c_asm</title>
+  <title>重走OI路：2020-2021 OI题泛做 | ywy_c_asm</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-  <meta name="description" content="1394C Boboniu and String题目链接 题意：给你$n$个01串$s_i$，定义两个01串$S,T$的距离为每次进行如下几种操作把$S$变成与$T$的0的个数和1的个数相同的最少次数：①删个”10”或”01”，②在末尾加个0或1，③在末尾加个”10”或”01”。现在构造一个01串$S$，使得$\max_{i&#x3D;1}^ndis(s_i,S)$最小。$n&lt;&#x3D;3e5$，字符串">
+  <meta name="description" content="非常惭愧的是我这几年都没看过CSP&#x2F;NOIP&#x2F;HEOI的题……今天就做了做，发现OI题相对于ACM题来说还是要友好不少的……">
 <meta property="og:type" content="article">
-<meta property="og:title" content="Codeforces闲杂题记录（二）">
-<meta property="og:url" content="https://www.ywy-c-asm.cn/2021/04/08/Codeforces%E9%97%B2%E6%9D%82%E9%A2%98%E8%AE%B0%E5%BD%95%EF%BC%88%E4%BA%8C%EF%BC%89/index.html">
+<meta property="og:title" content="重走OI路：2020-2021 OI题泛做">
+<meta property="og:url" content="https://www.ywy-c-asm.cn/2021/05/17/%E9%87%8D%E8%B5%B0OI%E8%B7%AF%EF%BC%9A2020-2021-OI%E9%A2%98%E6%B3%9B%E5%81%9A/index.html">
 <meta property="og:site_name" content="ywy_c_asm">
-<meta property="og:description" content="1394C Boboniu and String题目链接 题意：给你$n$个01串$s_i$，定义两个01串$S,T$的距离为每次进行如下几种操作把$S$变成与$T$的0的个数和1的个数相同的最少次数：①删个”10”或”01”，②在末尾加个0或1，③在末尾加个”10”或”01”。现在构造一个01串$S$，使得$\max_{i&#x3D;1}^ndis(s_i,S)$最小。$n&lt;&#x3D;3e5$，字符串">
+<meta property="og:description" content="非常惭愧的是我这几年都没看过CSP&#x2F;NOIP&#x2F;HEOI的题……今天就做了做，发现OI题相对于ACM题来说还是要友好不少的……">
 <meta property="og:locale" content="en_US">
-<meta property="og:image" content="https://cdn.luogu.com.cn/upload/image_hosting/pseilfzt.png">
-<meta property="article:published_time" content="2021-04-08T10:38:00.000Z">
-<meta property="article:modified_time" content="2021-04-09T07:13:10.119Z">
+<meta property="article:published_time" content="2021-05-17T11:08:00.000Z">
+<meta property="article:modified_time" content="2021-05-17T12:21:53.358Z">
 <meta property="article:author" content="ywy_c_asm">
 <meta property="article:tag" content="ACM">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:image" content="https://cdn.luogu.com.cn/upload/image_hosting/pseilfzt.png">
   
   
     <link rel="icon" href="/images/ico.ico">
@@ -85,10 +83,10 @@
 </header>
 
       <div class="outer" style="padding:0 0px">
-        <section id="main"><article id="post-Codeforces闲杂题记录（二）" class="h-entry article article-type-post" itemprop="blogPost" itemscope itemtype="https://schema.org/BlogPosting">
+        <section id="main"><article id="post-重走OI路：2020-2021-OI题泛做" class="h-entry article article-type-post" itemprop="blogPost" itemscope itemtype="https://schema.org/BlogPosting">
   <div class="article-meta">
-    <a href="/2021/04/08/Codeforces%E9%97%B2%E6%9D%82%E9%A2%98%E8%AE%B0%E5%BD%95%EF%BC%88%E4%BA%8C%EF%BC%89/" class="article-date">
-  <time class="dt-published" datetime="2021-04-08T10:38:00.000Z" itemprop="datePublished">2021-04-08</time>
+    <a href="/2021/05/17/%E9%87%8D%E8%B5%B0OI%E8%B7%AF%EF%BC%9A2020-2021-OI%E9%A2%98%E6%B3%9B%E5%81%9A/" class="article-date">
+  <time class="dt-published" datetime="2021-05-17T11:08:00.000Z" itemprop="datePublished">2021-05-17</time>
 </a>
     
   </div>
@@ -99,7 +97,7 @@
         
   
     <h1 class="p-name article-title" itemprop="headline name">
-      Codeforces闲杂题记录（二）
+      重走OI路：2020-2021 OI题泛做
     </h1>
   
 
@@ -107,28 +105,34 @@
     
     <div class="e-content article-entry" itemprop="articleBody">
       
-        <span id="more"></span>
+        <p>非常惭愧的是我这几年都没看过CSP/NOIP/HEOI的题……今天就做了做，发现OI题相对于ACM题来说还是要友好不少的……</p>
+<span id="more"></span>
 
-<hr>
-<h1 id="1394C-Boboniu-and-String"><a href="#1394C-Boboniu-and-String" class="headerlink" title="1394C Boboniu and String"></a>1394C Boboniu and String</h1><p><a target="_blank" rel="noopener" href="https://codeforces.com/problemset/problem/1394/C">题目链接</a></p>
-<p>题意：给你$n$个01串$s_i$，定义两个01串$S,T$的距离为每次进行如下几种操作把$S$变成<strong>与$T$的0的个数和1的个数相同</strong>的最少次数：①删个”10”或”01”，②在末尾加个0或1，③在末尾加个”10”或”01”。现在构造一个01串$S$，使得$\max_{i=1}^ndis(s_i,S)$最小。$n&lt;=3e5$，字符串总长不超过$5e5$</p>
+<h1 id="CSP-J-2020"><a href="#CSP-J-2020" class="headerlink" title="CSP-J 2020"></a>CSP-J 2020</h1><h3 id="T1-优秀的拆分"><a href="#T1-优秀的拆分" class="headerlink" title="T1. 优秀的拆分"></a>T1. 优秀的拆分</h3><p>二进制拆分即可。</p>
+<h3 id="T2-直播获奖"><a href="#T2-直播获奖" class="headerlink" title="T2. 直播获奖"></a>T2. 直播获奖</h3><p>注意到值域只有600，每次暴力枚举第$k$大的值即可。</p>
+<h3 id="T3-表达式"><a href="#T3-表达式" class="headerlink" title="T3. 表达式"></a>T3. 表达式</h3><p>题意：给你$n$个01变量以及一个包含与或非的布尔表达式，给出$n$个变量的初值，保证它们在表达式中出现恰好一次。再给出$q$次修改操作，每个操作都在最开始的基础上翻转掉一个变量，求表达式的值。表达式长度$&lt;=10^6$</p>
 <p>Solution：</p>
-<p>显然这仅和字符串里0和1的个数有关，那么我们把每个串用$(x,y)$表示。考虑如何把$(x,y)$变成$(x’,y’)$，如果$x&gt;=x’,y&gt;=y’$，那么我可以先删01或10使得0和1同时减少，直到某种数相同，再单独删另一个。所以$dis=\max(x-x’,y-y’)$。$x$和$y$同时更小的情况同理。如果一个更大，而另一个更小，那么就不能进行01或10的操作，只能单独地进行删增。那么：</p>
-<p>$\begin{align*}\begin{split}dis((x,y),(x’,y’))= \left {\begin{array}{ll}\max(|x-x’|,|y-y’|),          &amp; (x-x’))y-y’)&gt;=0\|x-x’|+|y-y’|,   &amp; (x-x’)(y-y’)&lt;0\\end{array}\right.\end{split}\end{align*}$</p>
-<p>套路地考虑二分答案，然后在每个点周围形成一个区域，大概就是长这样一个六边形：</p>
-<p><img src="https://cdn.luogu.com.cn/upload/image_hosting/pseilfzt.png"></p>
-<p>好了那这题就转化为若干个多边形的交集问题了。这题还不是很恶心，因为涉及到的所有点（包括线段的交点）一定都是整点，在求交的时候把在另一个多边形内部的顶点以及线段两两之间的交点求出来即可。</p>
-<p>一个很明显的优化是，当$n$很大时，字符串的长度会趋于比较短，那么我们对所有点对去重就会使$n$大大降低。</p>
-<h1 id="1388E-Uncle-Bogdan-and-Projections"><a href="#1388E-Uncle-Bogdan-and-Projections" class="headerlink" title="1388E Uncle Bogdan and Projections"></a>1388E Uncle Bogdan and Projections</h1><p>题意：给平面上$n$条横向的不相交的线段，将它们从某个方向上向x轴作投影，投影不能相交，最小化投影的x坐标极差。$n&lt;=2000$</p>
-<p>Solution:</p>
-<p>对于每两条线段，使得它们的投影相交的角度是一段区间，就是一个左端点和另一条的右端点的连线角度，那么我们得到了一堆区间，投影的方向显然应该在区间并的端点上取值。</p>
-<p>而这个取值个数是$O(n^2)$的，现在我已知角度$\theta$，希望求出$x_i+\frac{y_i}{\tan\theta}$的最大值和最小值，这个用非dp的斜率优化去搞，把所有端点的上凸壳和下凸壳求出来，单调枚举$\tan\theta$，在凸壳上用双指针维护极值即可。</p>
-<p>看上去思路很简单但写起来很恶心……另外凸壳应该用极角排序求，注意这个的$x$不一定有序，需要保证压栈时后面的$x$不小于前面的。</p>
+<p>注意到修改的时候，别的变量都是不变的，那么我们可以离线在表达式树上dfs，维护每个变量翻转后的答案，一个非节点的作用就是把子树里的答案翻转，一个与节点的作用就是，当一个子树的值为0时，把另一个子树赋值为0，或节点同理，那么可以用线段树维护dfs序，然而我被卡常了，实际上可以直接在表达式树上打标记就是$O(n)$的……</p>
+<h3 id="T4-方格取数"><a href="#T4-方格取数" class="headerlink" title="T4. 方格取数"></a>T4. 方格取数</h3><p>这个从左往右按列dp即可，每一列正着反着各做一遍dp。</p>
+<h1 id="CSP-S-2020"><a href="#CSP-S-2020" class="headerlink" title="CSP-S 2020"></a>CSP-S 2020</h1><p>（我做题的时候把CSP-J当成CSP-S做了……还寻思为啥HE的同学们怎么这么水的题都才200多分，看了看S组的题发现好像也不是很难啊……上300大概挺容易的……）</p>
+<h3 id="T1-儒略历"><a href="#T1-儒略历" class="headerlink" title="T1. 儒略历"></a>T1. 儒略历</h3><p>大模拟……细节比较恶心，还好规模没那么大。拆成公元前的、公元1年~1581年、1582年、1583年以后的四段讨论所有情况即可。</p>
+<h3 id="T2-动物园"><a href="#T2-动物园" class="headerlink" title="T2. 动物园"></a>T2. 动物园</h3><p>感觉难度还不如T1……找出几个位不能放，剩下的随便，就是2的幂。注意特判答案为$2^{64}$的情况。</p>
+<h3 id="T3-函数调用"><a href="#T3-函数调用" class="headerlink" title="T3. 函数调用"></a>T3. 函数调用</h3><p>题意：给你$n$个变量以及$m$个函数，这些函数有3类：①把某个变量加一个数，②把所有变量乘一个数，③按顺序调用某些函数。保证调用关系不会出现递归（也就是说这是个DAG），现在按顺序调用若干个函数，求最后的$n$个变量。$n,m&lt;=10^6$</p>
+<p>Solution：</p>
+<p>这题思路上很像J组的T3啊，感觉，就是把表达式树换成DAG就没了啊……</p>
+<p>我们采用统计贡献的套路，对于一个加函数，考虑它加的这个玩意，会被乘多少东西。倒着拓扑排序，$f[i]$为调用这个函数，会让所有变量多乘多少，然后再正着拓扑排序，$g[i]$为这个函数调用出的加函数要乘多少东西，把后面调用出来的函数的$f$的积的贡献加到下一层节点即可。</p>
+<h3 id="T4-贪吃蛇"><a href="#T4-贪吃蛇" class="headerlink" title="T4. 贪吃蛇"></a>T4. 贪吃蛇</h3><p>题意：有$n$条蛇，每条蛇有个体力$hp_i$，蛇$i$比蛇$j$强当且仅当$hp_i&gt;hp_j$或者$hp_i=hp_j$且$i&gt;j$，保证最初的$hp$是 单调不减的。每一轮最强的蛇会决定要不要吃掉最弱的蛇，如果吃掉，那么它的$hp$要减掉弱蛇$hp$，如果吃掉后，之后自己会被别的蛇吃掉，那么它不吃，直接结束。假设每条蛇足够聪明，求最终剩下多少蛇。$n&lt;=10^6$，10组数据。</p>
+<p>Solution：</p>
+<p>好题！出题人好idea！</p>
+<p>首先不难发现如果强蛇吃完弱蛇后，自己不会变成最弱的，那么他一定会吃，因为在最强蛇不会变成最弱的情况下，最弱蛇会越来越强，最强蛇会越来越弱，最强蛇吃完之后变成的新蛇会越来越弱，如果这个蛇吃完后变成的新蛇不是最弱的，那么之后的蛇吃完后变成的新蛇会给他垫底，直到某条之后的蛇发现自己会变成最弱的为止。</p>
+<p>但这还没完，如果某条蛇吃完后会变成最弱的，这不一定代表它会被下一条蛇吃，假如下一条最强蛇发现自己也会变成最弱，那么下一轮不一定会执行，这条蛇也有可能会在吃完后幸免于难。这样的话我们可以递推，如果下一轮的最强蛇不会变成最弱，那么下一轮会执行，也就是说把自己找死变成最弱的这轮不能执行，假如上一轮也是这种情况，那么上一轮也就可以执行……这样，对于一段连续的都把最强蛇变成最弱蛇的轮，它们的执行情况是奇偶交替的，要么是第一个这样的轮最后执行，要么是第二个。</p>
+<p>于是就很容易能有一个$O(n\log n)$的做法，开两个大根和小根的可删堆维护所有蛇，直接模拟这个贪吃蛇的过程。但是$Tn&lt;=10^7$，会被卡，不过要是我的话我就干脆在考场上拿稳这带log的70分就溜了……</p>
+<p>然后我就发现其实可以利用上面的那个新蛇的单调性，开个队列存放新蛇，然后都是单调的（除非是一段连续的最强变最弱轮后的第一个非这样的轮，这个不是单调的，但这轮就可以结束了），不用堆来维护。这样相当于拿4个指针维护了两个队列，细节非常多……就能$O(n)$了。</p>
 
       
     </div>
     <footer class="article-footer">
-      <a data-url="https://www.ywy-c-asm.cn/2021/04/08/Codeforces%E9%97%B2%E6%9D%82%E9%A2%98%E8%AE%B0%E5%BD%95%EF%BC%88%E4%BA%8C%EF%BC%89/" data-id="ckosksjsa000o4ot285qe74bd" data-title="Codeforces闲杂题记录（二）"></a>
+      <a data-url="https://www.ywy-c-asm.cn/2021/05/17/%E9%87%8D%E8%B5%B0OI%E8%B7%AF%EF%BC%9A2020-2021-OI%E9%A2%98%E6%B3%9B%E5%81%9A/" data-id="ckosksjst001l4ot2brkk1oqy" data-title="重走OI路：2020-2021 OI题泛做"></a>
       
       
       
@@ -140,19 +144,10 @@
     
 <nav id="article-nav">
   
-    <a href="/2021/04/10/2018-ICPC-EC-Final-%E9%80%89%E5%81%9A/" id="article-nav-newer" class="article-nav-link-wrap">
-      <strong class="article-nav-caption">Newer</strong>
-      <div class="article-nav-title">
-        
-          2018 ICPC EC-Final 选做
-        
-      </div>
-    </a>
   
-  
-    <a href="/2021/04/07/Codeforces%E6%9D%82%E9%A2%98%E8%AE%B0%E5%BD%95/" id="article-nav-older" class="article-nav-link-wrap">
+    <a href="/2021/05/10/%E9%87%8D(kai)%E6%96%B0(shi)%E5%AD%A6%E4%B9%A0%E7%94%9F%E6%88%90%E5%87%BD%E6%95%B0/" id="article-nav-older" class="article-nav-link-wrap">
       <strong class="article-nav-caption">Older</strong>
-      <div class="article-nav-title">Codeforces闲杂题记录</div>
+      <div class="article-nav-title">重(kai)新(shi)学习生成函数</div>
     </a>
   
 </nav>
