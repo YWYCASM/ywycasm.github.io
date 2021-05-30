@@ -5,39 +5,42 @@
 
 <head>
   <meta charset="utf-8">
-  
-  
-  <title>重走OI路：2020-2021 OI题泛做 | ywy_c_asm</title>
+  <%- partial('google-analytics') %>
+  <%
+  var title = page.title;
+
+  if (is_archive()){
+    title = __('archive_a');
+
+    if (is_month()){
+      title += ': ' + page.year + '/' + page.month;
+    } else if (is_year()){
+      title += ': ' + page.year;
+    }
+  } else if (is_category()){
+    title = __('category') + ': ' + page.category;
+  } else if (is_tag()){
+    title = __('tag') + ': ' + page.tag;
+  }
+  %>
+  <title><% if (title){ %><%= title %> | <% } %><%= config.title %></title>
   <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-  <meta name="description" content="（未完待续） 非常惭愧的是我这几年都没看过CSP&#x2F;NOIP&#x2F;HEOI的题……今天就做了做，发现OI题相对于ACM题来说还是要友好不少的……">
-<meta property="og:type" content="article">
-<meta property="og:title" content="重走OI路：2020-2021 OI题泛做">
-<meta property="og:url" content="https://www.ywy-c-asm.cn/2021/05/17/%E9%87%8D%E8%B5%B0OI%E8%B7%AF%EF%BC%9A2020-2021-OI%E9%A2%98%E6%B3%9B%E5%81%9A/index.html">
-<meta property="og:site_name" content="ywy_c_asm">
-<meta property="og:description" content="（未完待续） 非常惭愧的是我这几年都没看过CSP&#x2F;NOIP&#x2F;HEOI的题……今天就做了做，发现OI题相对于ACM题来说还是要友好不少的……">
-<meta property="og:locale" content="en_US">
-<meta property="article:published_time" content="2021-05-17T11:08:00.000Z">
-<meta property="article:modified_time" content="2021-05-19T14:44:01.569Z">
-<meta property="article:author" content="ywy_c_asm">
-<meta property="article:tag" content="ACM">
-<meta name="twitter:card" content="summary">
-  
-  
-    <link rel="icon" href="/images/ico.ico">
-  
-  
-    
-<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/typeface-source-code-pro@0.0.71/index.min.css">
-
-  
-  
-<link rel="stylesheet" href="/css/style.css">
-
-  
-    
-<link rel="stylesheet" href="/fancybox/jquery.fancybox.min.css">
-
-  
+  <%- open_graph({twitter_id: theme.twitter, fb_admins: theme.fb_admins, fb_app_id: theme.fb_app_id}) %>
+  <% if (config.feed) { %>
+    <%- feed_tag() %>
+  <% } else if (theme.rss) { %>
+    <%- feed_tag(theme.rss) %>
+  <% } %>
+  <% if (theme.favicon){ %>
+    <%- favicon_tag(theme.favicon) %>
+  <% } %>
+  <% if (config.highlight.enable){ %>
+    <%- css('https://cdn.jsdelivr.net/npm/typeface-source-code-pro@0.0.71/index.min.css') %>
+  <% } %>
+  <%- css('css/style') %>
+  <% if (theme.fancybox){ %>
+    <%- css('fancybox/jquery.fancybox.min.css') %>
+  <% } %>
 <meta name="generator" content="Hexo 5.4.0"></head>
 
 <body>
@@ -105,8 +108,7 @@
     
     <div class="e-content article-entry" itemprop="articleBody">
       
-        <p>（未完待续）</p>
-<p>非常惭愧的是我这几年都没看过CSP/NOIP/HEOI的题……今天就做了做，发现OI题相对于ACM题来说还是要友好不少的……</p>
+        <p>非常惭愧的是我这几年都没看过CSP/NOIP/HEOI的题……今天就做了做，发现OI题相对于ACM题来说还是要友好不少的……</p>
 <span id="more"></span>
 
 <h1 id="CSP-J-2020"><a href="#CSP-J-2020" class="headerlink" title="CSP-J 2020"></a>CSP-J 2020</h1><h3 id="T1-优秀的拆分"><a href="#T1-优秀的拆分" class="headerlink" title="T1. 优秀的拆分"></a>T1. 优秀的拆分</h3><p>二进制拆分即可。</p>
@@ -149,11 +151,12 @@
 <p>我们枚举所有颜色，然后把这种颜色直接分离到一个栈里。直接把这种颜色看做1，剩下的看做0。首先我们需要构造一个全0栈，现在先考虑栈多于3个的情况，其中3个为ABC，令$cnt_i$为某个栈1的个数，先把C的前$cnt_A$个弹到空栈中，然后把A中1弹到C，0弹到空栈，然后把C的前$cnt_B$个弹到A，把B中1弹到C，0弹到A。此时，A和B原来的0都在空栈与A的顶部，显然，最初的$cnt_A+cnt_B&lt;=m$，也就是说这些0一定可以组成全0栈，把这些0装满B就得到了全0栈。然后我们对每个非全0栈$D$，利用全0栈把其中的1提取出来，方法是把全0栈弹$m-cnt_D$个0到空栈，再把D的所有0弹到全0栈中，所有1弹到空栈中，这样D变成了空栈，空栈变成了上面是1下面是0的浮动栈，全0栈还是全0栈，最终我们把所有上方的1抽出来扔进空栈，再把一个剩下0的栈里的0都弹到其他栈里即可。</p>
 <p>现在我们考虑只有2个栈A和B的情况，不妨假设$cnt_A&gt;=cnt_B$，把B扔$cnt_A$个到空栈，把A的1扔进B，0扔进空栈，假设现在空栈里有$k$个1，把B顶部的k个1扔进A，把空栈的所有1扔进B，所有0扔进A，再把A顶部的所有0扔进空栈，再把B的所有0扔进空栈，所有1扔进A，就行了。</p>
 <p>这个总代价是$\frac{n(n+1)}2m$的，大概也是50多万。</p>
+<h3 id="T4-微信步数"><a href="#T4-微信步数" class="headerlink" title="T4.微信步数"></a>T4.微信步数</h3><p><del>这题实在是不可做，鸽了</del></p>
 
       
     </div>
     <footer class="article-footer">
-      <a data-url="https://www.ywy-c-asm.cn/2021/05/17/%E9%87%8D%E8%B5%B0OI%E8%B7%AF%EF%BC%9A2020-2021-OI%E9%A2%98%E6%B3%9B%E5%81%9A/" data-id="ckp9ik5j5001o7kt2ffid7bor" data-title="重走OI路：2020-2021 OI题泛做"></a>
+      <a data-url="https://www.ywy-c-asm.cn/2021/05/17/%E9%87%8D%E8%B5%B0OI%E8%B7%AF%EF%BC%9A2020-2021-OI%E9%A2%98%E6%B3%9B%E5%81%9A/" data-id="ckpb6wd12001wm8t29teaa4cz" data-title="重走OI路：2020-2021 OI题泛做"></a>
       
       
       
@@ -233,6 +236,10 @@
       <ul>
         
           <li>
+            <a href="/2021/05/29/%E9%87%8D%E8%B5%B0OI%E8%B7%AF%EF%BC%9A2020-2021-OI%E9%A2%98%E6%B3%9B%E5%81%9A%EF%BC%88%E4%BA%8C%EF%BC%89/">重走OI路：2020-2021 OI题泛做（二）</a>
+          </li>
+        
+          <li>
             <a href="/2021/05/23/%E4%B8%8D%E7%9F%A5%E9%81%93%E8%AF%A5%E8%B5%B7%E4%BB%80%E4%B9%88%E5%90%8D%E5%AD%97%E7%9A%84%E9%A2%98%E8%A7%A3/">几个有趣的题</a>
           </li>
         
@@ -246,10 +253,6 @@
         
           <li>
             <a href="/2021/05/09/%E9%87%8D%E6%96%B0%E5%AD%A6%E4%B9%A0%E5%A4%9A%E9%A1%B9%E5%BC%8F/">重新学习多项式</a>
-          </li>
-        
-          <li>
-            <a href="/2021/05/04/Codeforces-Global-Round-14-%E8%B5%9B%E5%90%8E%E8%A1%A5%E9%A2%98/">Codeforces Global Round 14 赛后补题</a>
           </li>
         
       </ul>
