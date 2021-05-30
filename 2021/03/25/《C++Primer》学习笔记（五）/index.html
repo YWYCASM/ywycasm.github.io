@@ -5,42 +5,39 @@
 
 <head>
   <meta charset="utf-8">
-  <%- partial('google-analytics') %>
-  <%
-  var title = page.title;
-
-  if (is_archive()){
-    title = __('archive_a');
-
-    if (is_month()){
-      title += ': ' + page.year + '/' + page.month;
-    } else if (is_year()){
-      title += ': ' + page.year;
-    }
-  } else if (is_category()){
-    title = __('category') + ': ' + page.category;
-  } else if (is_tag()){
-    title = __('tag') + ': ' + page.tag;
-  }
-  %>
-  <title><% if (title){ %><%= title %> | <% } %><%= config.title %></title>
+  
+  
+  <title>《C++Primer》学习笔记（五） | ywy_c_asm</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-  <%- open_graph({twitter_id: theme.twitter, fb_admins: theme.fb_admins, fb_app_id: theme.fb_app_id}) %>
-  <% if (config.feed) { %>
-    <%- feed_tag() %>
-  <% } else if (theme.rss) { %>
-    <%- feed_tag(theme.rss) %>
-  <% } %>
-  <% if (theme.favicon){ %>
-    <%- favicon_tag(theme.favicon) %>
-  <% } %>
-  <% if (config.highlight.enable){ %>
-    <%- css('https://cdn.jsdelivr.net/npm/typeface-source-code-pro@0.0.71/index.min.css') %>
-  <% } %>
-  <%- css('css/style') %>
-  <% if (theme.fancybox){ %>
-    <%- css('fancybox/jquery.fancybox.min.css') %>
-  <% } %>
+  <meta name="description" content="关于类的继承那一堆东西……">
+<meta property="og:type" content="article">
+<meta property="og:title" content="《C++Primer》学习笔记（五）">
+<meta property="og:url" content="https://www.ywy-c-asm.cn/2021/03/25/%E3%80%8AC++Primer%E3%80%8B%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0%EF%BC%88%E4%BA%94%EF%BC%89/index.html">
+<meta property="og:site_name" content="ywy_c_asm">
+<meta property="og:description" content="关于类的继承那一堆东西……">
+<meta property="og:locale" content="en_US">
+<meta property="article:published_time" content="2021-03-25T12:04:00.000Z">
+<meta property="article:modified_time" content="2021-03-28T13:38:26.544Z">
+<meta property="article:author" content="ywy_c_asm">
+<meta property="article:tag" content="C++">
+<meta name="twitter:card" content="summary">
+  
+  
+    <link rel="icon" href="/images/ico.ico">
+  
+  
+    
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/typeface-source-code-pro@0.0.71/index.min.css">
+
+  
+  
+<link rel="stylesheet" href="/css/style.css">
+
+  
+    
+<link rel="stylesheet" href="/fancybox/jquery.fancybox.min.css">
+
+  
 <meta name="generator" content="Hexo 5.4.0"></head>
 
 <body>
@@ -215,7 +212,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="https://www.ywy-c-asm.cn/2021/03/25/%E3%80%8AC++Primer%E3%80%8B%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0%EF%BC%88%E4%BA%94%EF%BC%89/" data-id="ckpb6wd0s001om8t2gvi435qn" data-title="《C++Primer》学习笔记（五）"></a>
+      <a data-url="https://www.ywy-c-asm.cn/2021/03/25/%E3%80%8AC++Primer%E3%80%8B%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0%EF%BC%88%E4%BA%94%EF%BC%89/" data-id="ckpb7ggao001vp8t2dqtsfltl" data-title="《C++Primer》学习笔记（五）"></a>
       
       
       

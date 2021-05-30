@@ -5,42 +5,36 @@
 
 <head>
   <meta charset="utf-8">
-  <%- partial('google-analytics') %>
-  <%
-  var title = page.title;
-
-  if (is_archive()){
-    title = __('archive_a');
-
-    if (is_month()){
-      title += ': ' + page.year + '/' + page.month;
-    } else if (is_year()){
-      title += ': ' + page.year;
-    }
-  } else if (is_category()){
-    title = __('category') + ': ' + page.category;
-  } else if (is_tag()){
-    title = __('tag') + ': ' + page.tag;
-  }
-  %>
-  <title><% if (title){ %><%= title %> | <% } %><%= config.title %></title>
+  
+  
+  <title>ywy_c_asm</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-  <%- open_graph({twitter_id: theme.twitter, fb_admins: theme.fb_admins, fb_app_id: theme.fb_app_id}) %>
-  <% if (config.feed) { %>
-    <%- feed_tag() %>
-  <% } else if (theme.rss) { %>
-    <%- feed_tag(theme.rss) %>
-  <% } %>
-  <% if (theme.favicon){ %>
-    <%- favicon_tag(theme.favicon) %>
-  <% } %>
-  <% if (config.highlight.enable){ %>
-    <%- css('https://cdn.jsdelivr.net/npm/typeface-source-code-pro@0.0.71/index.min.css') %>
-  <% } %>
-  <%- css('css/style') %>
-  <% if (theme.fancybox){ %>
-    <%- css('fancybox/jquery.fancybox.min.css') %>
-  <% } %>
+  <meta name="description" content="前HEOIer，现HIT ACMer">
+<meta property="og:type" content="website">
+<meta property="og:title" content="ywy_c_asm">
+<meta property="og:url" content="https://www.ywy-c-asm.cn/page/2/index.html">
+<meta property="og:site_name" content="ywy_c_asm">
+<meta property="og:description" content="前HEOIer，现HIT ACMer">
+<meta property="og:locale" content="en_US">
+<meta property="article:author" content="ywy_c_asm">
+<meta name="twitter:card" content="summary">
+  
+  
+    <link rel="icon" href="/images/ico.ico">
+  
+  
+    
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/typeface-source-code-pro@0.0.71/index.min.css">
+
+  
+  
+<link rel="stylesheet" href="/css/style.css">
+
+  
+    
+<link rel="stylesheet" href="/fancybox/jquery.fancybox.min.css">
+
+  
 <meta name="generator" content="Hexo 5.4.0"></head>
 
 <body>
@@ -120,7 +114,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="https://www.ywy-c-asm.cn/2021/04/10/2018-ICPC-EC-Final-%E9%80%89%E5%81%9A/" data-id="ckpb6wcw10001m8t2ffi4hf37" data-title="2018 ICPC EC-Final 选做"></a>
+      <a data-url="https://www.ywy-c-asm.cn/2021/04/10/2018-ICPC-EC-Final-%E9%80%89%E5%81%9A/" data-id="ckpb7gg9i0001p8t21frgbpuf" data-title="2018 ICPC EC-Final 选做"></a>
       
       
       
@@ -177,7 +171,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="https://www.ywy-c-asm.cn/2021/04/08/Codeforces%E9%97%B2%E6%9D%82%E9%A2%98%E8%AE%B0%E5%BD%95%EF%BC%88%E4%BA%8C%EF%BC%89/" data-id="ckpb6wczb000pm8t2dq5c2830" data-title="Codeforces闲杂题记录（二）"></a>
+      <a data-url="https://www.ywy-c-asm.cn/2021/04/08/Codeforces%E9%97%B2%E6%9D%82%E9%A2%98%E8%AE%B0%E5%BD%95%EF%BC%88%E4%BA%8C%EF%BC%89/" data-id="ckpb7gg9y000hp8t2amz6gb9m" data-title="Codeforces闲杂题记录（二）"></a>
       
       
       
@@ -222,7 +216,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="https://www.ywy-c-asm.cn/2021/04/07/Codeforces%E6%9D%82%E9%A2%98%E8%AE%B0%E5%BD%95/" data-id="ckpb6wcy8000em8t22i5772f3" data-title="Codeforces闲杂题记录"></a>
+      <a data-url="https://www.ywy-c-asm.cn/2021/04/07/Codeforces%E6%9D%82%E9%A2%98%E8%AE%B0%E5%BD%95/" data-id="ckpb7gg9w000ep8t2bl1b5j5v" data-title="Codeforces闲杂题记录"></a>
       
       
       
@@ -267,7 +261,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="https://www.ywy-c-asm.cn/2021/04/03/2021.4.2-%E6%A0%A1%E8%B5%9B%E6%80%BB%E7%BB%93/" data-id="ckpb6wcxy000am8t2f7b829ep" data-title="2021.4.2 校赛总结"></a>
+      <a data-url="https://www.ywy-c-asm.cn/2021/04/03/2021.4.2-%E6%A0%A1%E8%B5%9B%E6%80%BB%E7%BB%93/" data-id="ckpb7gg9r0008p8t21dg296no" data-title="2021.4.2 校赛总结"></a>
       
       
       
@@ -312,7 +306,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="https://www.ywy-c-asm.cn/2021/03/28/%E3%80%8AC++Primer%E3%80%8B%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0%EF%BC%88%E5%85%AD%EF%BC%89/" data-id="ckpb6wczn000wm8t28590fqew" data-title="《C++Primer》学习笔记（六）"></a>
+      <a data-url="https://www.ywy-c-asm.cn/2021/03/28/%E3%80%8AC++Primer%E3%80%8B%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0%EF%BC%88%E5%85%AD%EF%BC%89/" data-id="ckpb7gga6000up8t2cnwg5s0o" data-title="《C++Primer》学习笔记（六）"></a>
       
       
       
@@ -357,7 +351,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="https://www.ywy-c-asm.cn/2021/03/25/%E3%80%8AC++Primer%E3%80%8B%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0%EF%BC%88%E4%BA%94%EF%BC%89/" data-id="ckpb6wd0s001om8t2gvi435qn" data-title="《C++Primer》学习笔记（五）"></a>
+      <a data-url="https://www.ywy-c-asm.cn/2021/03/25/%E3%80%8AC++Primer%E3%80%8B%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0%EF%BC%88%E4%BA%94%EF%BC%89/" data-id="ckpb7ggao001vp8t2dqtsfltl" data-title="《C++Primer》学习笔记（五）"></a>
       
       
       
@@ -402,7 +396,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="https://www.ywy-c-asm.cn/2021/03/23/%E3%80%8AC++Primer%E3%80%8B%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0%EF%BC%88%E5%9B%9B%EF%BC%89/" data-id="ckpb6wczs0010m8t2fqh0dn2d" data-title="《C++Primer》学习笔记（四）"></a>
+      <a data-url="https://www.ywy-c-asm.cn/2021/03/23/%E3%80%8AC++Primer%E3%80%8B%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0%EF%BC%88%E5%9B%9B%EF%BC%89/" data-id="ckpb7gga7000wp8t2c521dwo7" data-title="《C++Primer》学习笔记（四）"></a>
       
       
       
@@ -447,7 +441,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="https://www.ywy-c-asm.cn/2021/03/20/%E3%80%8AC++Primer%E3%80%8B%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0%EF%BC%88%E4%B8%89%EF%BC%89/" data-id="ckpb6wd0q001mm8t28i53dpj2" data-title="《C++Primer》学习笔记（三）"></a>
+      <a data-url="https://www.ywy-c-asm.cn/2021/03/20/%E3%80%8AC++Primer%E3%80%8B%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0%EF%BC%88%E4%B8%89%EF%BC%89/" data-id="ckpb7ggan001tp8t2g1gh2thk" data-title="《C++Primer》学习笔记（三）"></a>
       
       
       
@@ -493,7 +487,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="https://www.ywy-c-asm.cn/2021/03/19/%E3%80%8A%E7%A6%BB%E6%95%A3%E6%95%B0%E5%AD%A6%E5%BC%95%E8%AE%BA%E3%80%8B%E8%B6%A3%E9%A2%98%E8%AF%81%E6%98%8E/" data-id="ckpb6wczp000xm8t2509hbna0" data-title="《离散数学引论》趣题证明"></a>
+      <a data-url="https://www.ywy-c-asm.cn/2021/03/19/%E3%80%8A%E7%A6%BB%E6%95%A3%E6%95%B0%E5%AD%A6%E5%BC%95%E8%AE%BA%E3%80%8B%E8%B6%A3%E9%A2%98%E8%AF%81%E6%98%8E/" data-id="ckpb7gga8000zp8t2fglcfqhd" data-title="《离散数学引论》趣题证明"></a>
       
       
       
@@ -538,7 +532,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="https://www.ywy-c-asm.cn/2021/03/19/%E3%80%8AC++Primer%E3%80%8B%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0%EF%BC%88%E4%BA%8C%EF%BC%89/" data-id="ckpb6wczk000um8t2eyt78432" data-title="《C++Primer》学习笔记（二）"></a>
+      <a data-url="https://www.ywy-c-asm.cn/2021/03/19/%E3%80%8AC++Primer%E3%80%8B%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0%EF%BC%88%E4%BA%8C%EF%BC%89/" data-id="ckpb7gga5000sp8t2650ocf9n" data-title="《C++Primer》学习笔记（二）"></a>
       
       
       

@@ -5,42 +5,36 @@
 
 <head>
   <meta charset="utf-8">
-  <%- partial('google-analytics') %>
-  <%
-  var title = page.title;
-
-  if (is_archive()){
-    title = __('archive_a');
-
-    if (is_month()){
-      title += ': ' + page.year + '/' + page.month;
-    } else if (is_year()){
-      title += ': ' + page.year;
-    }
-  } else if (is_category()){
-    title = __('category') + ': ' + page.category;
-  } else if (is_tag()){
-    title = __('tag') + ': ' + page.tag;
-  }
-  %>
-  <title><% if (title){ %><%= title %> | <% } %><%= config.title %></title>
+  
+  
+  <title>ywy_c_asm</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-  <%- open_graph({twitter_id: theme.twitter, fb_admins: theme.fb_admins, fb_app_id: theme.fb_app_id}) %>
-  <% if (config.feed) { %>
-    <%- feed_tag() %>
-  <% } else if (theme.rss) { %>
-    <%- feed_tag(theme.rss) %>
-  <% } %>
-  <% if (theme.favicon){ %>
-    <%- favicon_tag(theme.favicon) %>
-  <% } %>
-  <% if (config.highlight.enable){ %>
-    <%- css('https://cdn.jsdelivr.net/npm/typeface-source-code-pro@0.0.71/index.min.css') %>
-  <% } %>
-  <%- css('css/style') %>
-  <% if (theme.fancybox){ %>
-    <%- css('fancybox/jquery.fancybox.min.css') %>
-  <% } %>
+  <meta name="description" content="前HEOIer，现HIT ACMer">
+<meta property="og:type" content="website">
+<meta property="og:title" content="ywy_c_asm">
+<meta property="og:url" content="https://www.ywy-c-asm.cn/page/3/index.html">
+<meta property="og:site_name" content="ywy_c_asm">
+<meta property="og:description" content="前HEOIer，现HIT ACMer">
+<meta property="og:locale" content="en_US">
+<meta property="article:author" content="ywy_c_asm">
+<meta name="twitter:card" content="summary">
+  
+  
+    <link rel="icon" href="/images/ico.ico">
+  
+  
+    
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/typeface-source-code-pro@0.0.71/index.min.css">
+
+  
+  
+<link rel="stylesheet" href="/css/style.css">
+
+  
+    
+<link rel="stylesheet" href="/fancybox/jquery.fancybox.min.css">
+
+  
 <meta name="generator" content="Hexo 5.4.0"></head>
 
 <body>
@@ -119,7 +113,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="https://www.ywy-c-asm.cn/2021/03/17/%E3%80%8AC++Primer%E3%80%8B%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/" data-id="ckpb6wd0o001lm8t2a5p20mj1" data-title="《C++Primer》学习笔记（一）"></a>
+      <a data-url="https://www.ywy-c-asm.cn/2021/03/17/%E3%80%8AC++Primer%E3%80%8B%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/" data-id="ckpb7ggam001sp8t29reoa9ad" data-title="《C++Primer》学习笔记（一）"></a>
       
       
       
@@ -164,7 +158,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="https://www.ywy-c-asm.cn/2021/03/12/%E5%B0%8F%E7%90%83%E7%A2%B0%E6%92%9E/" data-id="ckpb6wczv0011m8t2ap5c7lau" data-title="小球碰撞"></a>
+      <a data-url="https://www.ywy-c-asm.cn/2021/03/12/%E5%B0%8F%E7%90%83%E7%A2%B0%E6%92%9E/" data-id="ckpb7ggag001ep8t2b6uxfey4" data-title="小球碰撞"></a>
       
       
       
@@ -209,7 +203,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="https://www.ywy-c-asm.cn/2021/03/09/%E5%85%B3%E4%BA%8E%E6%88%91%E4%B8%BA%E4%BB%80%E4%B9%88%E4%BB%A5%E6%9C%80%E4%B8%BA%E6%9E%81%E7%AB%AF%E7%9A%84%E6%80%81%E5%BA%A6%E5%8F%8D%E5%AF%B9%E6%B8%B8%E6%88%8F%E8%BF%99%E4%BB%B6%E4%BA%8B/" data-id="ckpb6wczy0014m8t2hnqj7fkt" data-title="关于我为什么以最为极端的态度反对游戏这件事"></a>
+      <a data-url="https://www.ywy-c-asm.cn/2021/03/09/%E5%85%B3%E4%BA%8E%E6%88%91%E4%B8%BA%E4%BB%80%E4%B9%88%E4%BB%A5%E6%9C%80%E4%B8%BA%E6%9E%81%E7%AB%AF%E7%9A%84%E6%80%81%E5%BA%A6%E5%8F%8D%E5%AF%B9%E6%B8%B8%E6%88%8F%E8%BF%99%E4%BB%B6%E4%BA%8B/" data-id="ckpb7gga90011p8t2bid78p6l" data-title="关于我为什么以最为极端的态度反对游戏这件事"></a>
       
       
       
@@ -254,7 +248,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="https://www.ywy-c-asm.cn/2021/03/08/%E5%BF%AB%E9%80%9F%E8%8E%B7%E5%8F%96%E6%95%B4%E6%95%B0%E6%9C%80%E9%AB%98%E4%BA%8C%E8%BF%9B%E5%88%B6%E4%BD%8D/" data-id="ckpb6wd010016m8t2a7elfyrf" data-title="快速获取整数最高二进制位"></a>
+      <a data-url="https://www.ywy-c-asm.cn/2021/03/08/%E5%BF%AB%E9%80%9F%E8%8E%B7%E5%8F%96%E6%95%B4%E6%95%B0%E6%9C%80%E9%AB%98%E4%BA%8C%E8%BF%9B%E5%88%B6%E4%BD%8D/" data-id="ckpb7ggah001hp8t262rp15kr" data-title="快速获取整数最高二进制位"></a>
       
       
       
@@ -300,7 +294,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="https://www.ywy-c-asm.cn/2021/03/07/%E8%A1%A1%E9%87%8F%E4%B8%A4%E4%B8%AA%E6%B1%89%E8%AF%AD%E5%8F%A5%E5%AD%90%E7%9A%84%E7%9B%B8%E4%BC%BC%E5%BA%A6/" data-id="ckpb6wd050018m8t20uzdestx" data-title="衡量两个汉语句子的相似度"></a>
+      <a data-url="https://www.ywy-c-asm.cn/2021/03/07/%E8%A1%A1%E9%87%8F%E4%B8%A4%E4%B8%AA%E6%B1%89%E8%AF%AD%E5%8F%A5%E5%AD%90%E7%9A%84%E7%9B%B8%E4%BC%BC%E5%BA%A6/" data-id="ckpb7ggaa0013p8t2ebp287ep" data-title="衡量两个汉语句子的相似度"></a>
       
       
       

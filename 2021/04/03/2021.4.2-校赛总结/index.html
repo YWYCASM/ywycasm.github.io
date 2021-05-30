@@ -5,42 +5,39 @@
 
 <head>
   <meta charset="utf-8">
-  <%- partial('google-analytics') %>
-  <%
-  var title = page.title;
-
-  if (is_archive()){
-    title = __('archive_a');
-
-    if (is_month()){
-      title += ': ' + page.year + '/' + page.month;
-    } else if (is_year()){
-      title += ': ' + page.year;
-    }
-  } else if (is_category()){
-    title = __('category') + ': ' + page.category;
-  } else if (is_tag()){
-    title = __('tag') + ': ' + page.tag;
-  }
-  %>
-  <title><% if (title){ %><%= title %> | <% } %><%= config.title %></title>
+  
+  
+  <title>2021.4.2 校赛总结 | ywy_c_asm</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-  <%- open_graph({twitter_id: theme.twitter, fb_admins: theme.fb_admins, fb_app_id: theme.fb_app_id}) %>
-  <% if (config.feed) { %>
-    <%- feed_tag() %>
-  <% } else if (theme.rss) { %>
-    <%- feed_tag(theme.rss) %>
-  <% } %>
-  <% if (theme.favicon){ %>
-    <%- favicon_tag(theme.favicon) %>
-  <% } %>
-  <% if (config.highlight.enable){ %>
-    <%- css('https://cdn.jsdelivr.net/npm/typeface-source-code-pro@0.0.71/index.min.css') %>
-  <% } %>
-  <%- css('css/style') %>
-  <% if (theme.fancybox){ %>
-    <%- css('fancybox/jquery.fancybox.min.css') %>
-  <% } %>
+  <meta name="description" content="总之这场全程交一发WA一发就是很丢人">
+<meta property="og:type" content="article">
+<meta property="og:title" content="2021.4.2 校赛总结">
+<meta property="og:url" content="https://www.ywy-c-asm.cn/2021/04/03/2021.4.2-%E6%A0%A1%E8%B5%9B%E6%80%BB%E7%BB%93/index.html">
+<meta property="og:site_name" content="ywy_c_asm">
+<meta property="og:description" content="总之这场全程交一发WA一发就是很丢人">
+<meta property="og:locale" content="en_US">
+<meta property="article:published_time" content="2021-04-03T00:13:00.000Z">
+<meta property="article:modified_time" content="2021-04-03T07:04:35.234Z">
+<meta property="article:author" content="ywy_c_asm">
+<meta property="article:tag" content="ACM">
+<meta name="twitter:card" content="summary">
+  
+  
+    <link rel="icon" href="/images/ico.ico">
+  
+  
+    
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/typeface-source-code-pro@0.0.71/index.min.css">
+
+  
+  
+<link rel="stylesheet" href="/css/style.css">
+
+  
+    
+<link rel="stylesheet" href="/fancybox/jquery.fancybox.min.css">
+
+  
 <meta name="generator" content="Hexo 5.4.0"></head>
 
 <body>
@@ -123,7 +120,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="https://www.ywy-c-asm.cn/2021/04/03/2021.4.2-%E6%A0%A1%E8%B5%9B%E6%80%BB%E7%BB%93/" data-id="ckpb6wcxy000am8t2f7b829ep" data-title="2021.4.2 校赛总结"></a>
+      <a data-url="https://www.ywy-c-asm.cn/2021/04/03/2021.4.2-%E6%A0%A1%E8%B5%9B%E6%80%BB%E7%BB%93/" data-id="ckpb7gg9r0008p8t21dg296no" data-title="2021.4.2 校赛总结"></a>
       
       
       
