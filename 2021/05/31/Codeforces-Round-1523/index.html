@@ -9,15 +9,15 @@
   
   <title>Codeforces Round 1523 | ywy_c_asm</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-  <meta name="description" content="D. Love-Hate题意：给个$n$个左部点$m$个右部点的二分图，每个左部点至多连15条边，求一个最大的右部点的子集使得至少有$\lceil\frac n 2\rceil$个左部点与这些点都相连。$n&lt;&#x3D;2×10^5,m&lt;&#x3D;60$ Solution: 注意到一个点有至少50%的概率是这一半点中的一个，那么可以随机几次找这样一个左部点，仅考虑它连的至多15个右部点，暴力枚举子集然后">
+  <meta name="description" content=".">
 <meta property="og:type" content="article">
 <meta property="og:title" content="Codeforces Round 1523">
 <meta property="og:url" content="https://www.ywy-c-asm.cn/2021/05/31/Codeforces-Round-1523/index.html">
 <meta property="og:site_name" content="ywy_c_asm">
-<meta property="og:description" content="D. Love-Hate题意：给个$n$个左部点$m$个右部点的二分图，每个左部点至多连15条边，求一个最大的右部点的子集使得至少有$\lceil\frac n 2\rceil$个左部点与这些点都相连。$n&lt;&#x3D;2×10^5,m&lt;&#x3D;60$ Solution: 注意到一个点有至少50%的概率是这一半点中的一个，那么可以随机几次找这样一个左部点，仅考虑它连的至多15个右部点，暴力枚举子集然后">
+<meta property="og:description" content=".">
 <meta property="og:locale" content="en_US">
 <meta property="article:published_time" content="2021-05-30T16:51:00.000Z">
-<meta property="article:modified_time" content="2021-06-03T01:44:30.906Z">
+<meta property="article:modified_time" content="2021-06-03T14:51:44.141Z">
 <meta property="article:author" content="ywy_c_asm">
 <meta property="article:tag" content="ACM">
 <meta name="twitter:card" content="summary">
@@ -105,7 +105,10 @@
     
     <div class="e-content article-entry" itemprop="articleBody">
       
-        <h1 id="D-Love-Hate"><a href="#D-Love-Hate" class="headerlink" title="D. Love-Hate"></a>D. Love-Hate</h1><p>题意：给个$n$个左部点$m$个右部点的二分图，每个左部点至多连15条边，求一个最大的右部点的子集使得至少有$\lceil\frac n 2\rceil$个左部点与这些点都相连。$n&lt;=2×10^5,m&lt;=60$</p>
+        <p>.</p>
+<span id="more"></span>
+
+<h1 id="D-Love-Hate"><a href="#D-Love-Hate" class="headerlink" title="D. Love-Hate"></a>D. Love-Hate</h1><p>题意：给个$n$个左部点$m$个右部点的二分图，每个左部点至多连15条边，求一个最大的右部点的子集使得至少有$\lceil\frac n 2\rceil$个左部点与这些点都相连。$n&lt;=2×10^5,m&lt;=60$</p>
 <p>Solution:</p>
 <p>注意到一个点有至少50%的概率是这一半点中的一个，那么可以随机几次找这样一个左部点，仅考虑它连的至多15个右部点，暴力枚举子集然后判断，一般的话只能用bitset，就T了，但我们是要判定是否有至少一半左部点都与之相连，仍然可以随机化一些点用频率近似概率，如果频率较大那么进行暴力判断。这样的话为防止被卡（比如所有左部点都连相同的15个右部点），需要从大到小枚举子集，如果这个子集的大小比当前找到的答案差，那么不判定。</p>
 <p>当时这题疯狂在pretest上WA，开始以为是随机化的不够好，后来想起来tmd是我直接用rand去<strong>随机一个2e5的数</strong>，你不WA谁WA……</p>
@@ -120,7 +123,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="https://www.ywy-c-asm.cn/2021/05/31/Codeforces-Round-1523/" data-id="ckpgw3vos000east23lmt9eqw" data-title="Codeforces Round 1523"></a>
+      <a data-url="https://www.ywy-c-asm.cn/2021/05/31/Codeforces-Round-1523/" data-id="ckph16ifa000hzwt2hlvg7q2m" data-title="Codeforces Round 1523"></a>
       
       
       
@@ -131,6 +134,15 @@
   
     
 <nav id="article-nav">
+  
+    <a href="/2021/06/03/CCPC2021%E9%BB%91%E9%BE%99%E6%B1%9F%E7%9C%81%E8%B5%9B-C%E9%A2%98/" id="article-nav-newer" class="article-nav-link-wrap">
+      <strong class="article-nav-caption">Newer</strong>
+      <div class="article-nav-title">
+        
+          CCPC2021黑龙江省赛 C题
+        
+      </div>
+    </a>
   
   
     <a href="/2021/05/29/%E9%87%8D%E8%B5%B0OI%E8%B7%AF%EF%BC%9A2020-2021-OI%E9%A2%98%E6%B3%9B%E5%81%9A%EF%BC%88%E4%BA%8C%EF%BC%89/" id="article-nav-older" class="article-nav-link-wrap">
@@ -178,7 +190,7 @@
   <div class="widget-wrap">
     <h3 class="widget-title">Archives</h3>
     <div class="widget">
-      <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2021/05/">May 2021</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2021/04/">April 2021</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2021/03/">March 2021</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2021/02/">February 2021</a></li></ul>
+      <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2021/06/">June 2021</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2021/05/">May 2021</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2021/04/">April 2021</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2021/03/">March 2021</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2021/02/">February 2021</a></li></ul>
     </div>
   </div>
 
@@ -189,6 +201,10 @@
     <h3 class="widget-title">Recent Posts</h3>
     <div class="widget">
       <ul>
+        
+          <li>
+            <a href="/2021/06/03/CCPC2021%E9%BB%91%E9%BE%99%E6%B1%9F%E7%9C%81%E8%B5%9B-C%E9%A2%98/">CCPC2021黑龙江省赛 C题</a>
+          </li>
         
           <li>
             <a href="/2021/05/31/Codeforces-Round-1523/">Codeforces Round 1523</a>
@@ -204,10 +220,6 @@
         
           <li>
             <a href="/2021/05/17/%E9%87%8D%E8%B5%B0OI%E8%B7%AF%EF%BC%9A2020-2021-OI%E9%A2%98%E6%B3%9B%E5%81%9A/">重走OI路：2020-2021 OI题泛做</a>
-          </li>
-        
-          <li>
-            <a href="/2021/05/10/%E9%87%8D(kai)%E6%96%B0(shi)%E5%AD%A6%E4%B9%A0%E7%94%9F%E6%88%90%E5%87%BD%E6%95%B0/">重(kai)新(shi)学习生成函数</a>
           </li>
         
       </ul>
