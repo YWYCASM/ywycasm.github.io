@@ -5,39 +5,42 @@
 
 <head>
   <meta charset="utf-8">
-  
-  
-  <title>重走OI路：2020-2021 OI题泛做 | ywy_c_asm</title>
+  <%- partial('google-analytics') %>
+  <%
+  var title = page.title;
+
+  if (is_archive()){
+    title = __('archive_a');
+
+    if (is_month()){
+      title += ': ' + page.year + '/' + page.month;
+    } else if (is_year()){
+      title += ': ' + page.year;
+    }
+  } else if (is_category()){
+    title = __('category') + ': ' + page.category;
+  } else if (is_tag()){
+    title = __('tag') + ': ' + page.tag;
+  }
+  %>
+  <title><% if (title){ %><%= title %> | <% } %><%= config.title %></title>
   <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-  <meta name="description" content="非常惭愧的是我这几年都没看过CSP&#x2F;NOIP&#x2F;HEOI的题……今天就做了做，发现OI题相对于ACM题来说还是要友好不少的……">
-<meta property="og:type" content="article">
-<meta property="og:title" content="重走OI路：2020-2021 OI题泛做">
-<meta property="og:url" content="https://www.ywy-c-asm.cn/2021/05/17/%E9%87%8D%E8%B5%B0OI%E8%B7%AF%EF%BC%9A2020-2021-OI%E9%A2%98%E6%B3%9B%E5%81%9A/index.html">
-<meta property="og:site_name" content="ywy_c_asm">
-<meta property="og:description" content="非常惭愧的是我这几年都没看过CSP&#x2F;NOIP&#x2F;HEOI的题……今天就做了做，发现OI题相对于ACM题来说还是要友好不少的……">
-<meta property="og:locale" content="en_US">
-<meta property="article:published_time" content="2021-05-17T11:08:00.000Z">
-<meta property="article:modified_time" content="2021-05-29T12:26:50.693Z">
-<meta property="article:author" content="ywy_c_asm">
-<meta property="article:tag" content="ACM">
-<meta name="twitter:card" content="summary">
-  
-  
-    <link rel="icon" href="/images/ico.ico">
-  
-  
-    
-<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/typeface-source-code-pro@0.0.71/index.min.css">
-
-  
-  
-<link rel="stylesheet" href="/css/style.css">
-
-  
-    
-<link rel="stylesheet" href="/fancybox/jquery.fancybox.min.css">
-
-  
+  <%- open_graph({twitter_id: theme.twitter, fb_admins: theme.fb_admins, fb_app_id: theme.fb_app_id}) %>
+  <% if (config.feed) { %>
+    <%- feed_tag() %>
+  <% } else if (theme.rss) { %>
+    <%- feed_tag(theme.rss) %>
+  <% } %>
+  <% if (theme.favicon){ %>
+    <%- favicon_tag(theme.favicon) %>
+  <% } %>
+  <% if (config.highlight.enable){ %>
+    <%- css('https://cdn.jsdelivr.net/npm/typeface-source-code-pro@0.0.71/index.min.css') %>
+  <% } %>
+  <%- css('css/style') %>
+  <% if (theme.fancybox){ %>
+    <%- css('fancybox/jquery.fancybox.min.css') %>
+  <% } %>
 <meta name="generator" content="Hexo 5.4.0"></head>
 
 <body>
@@ -83,61 +86,110 @@
 </header>
 
       <div class="outer" style="padding:0 0px">
-        <section id="main"><article id="<%= post.layout %>-<%= post.slug %>" class="h-entry article article-type-<%= post.layout %>" itemprop="blogPost" itemscope itemtype="https://schema.org/BlogPosting">
+        <section id="main"><article id="post-重走OI路：2020-2021-OI题泛做" class="h-entry article article-type-post" itemprop="blogPost" itemscope itemtype="https://schema.org/BlogPosting">
   <div class="article-meta">
-    <%- partial('post/date', {class_name: 'article-date', date_format: null}) %>
-    <%- partial('post/category') %>
+    <a href="/2021/05/17/%E9%87%8D%E8%B5%B0OI%E8%B7%AF%EF%BC%9A2020-2021-OI%E9%A2%98%E6%B3%9B%E5%81%9A/" class="article-date">
+  <time class="dt-published" datetime="2021-05-17T11:08:00.000Z" itemprop="datePublished">2021-05-17</time>
+</a>
+    
   </div>
   <div class="article-inner">
-    <%- partial('post/gallery') %>
-    <% if (post.link || post.title){ %>
+    
+    
       <header class="article-header">
-        <%- partial('post/title', {class_name: 'p-name article-title'}) %>
+        
+  
+    <h1 class="p-name article-title" itemprop="headline name">
+      重走OI路：2020-2021 OI题泛做
+    </h1>
+  
+
       </header>
-    <% } %>
+    
     <div class="e-content article-entry" itemprop="articleBody">
-      <% if (post.excerpt && index){ %>
-        <%- post.excerpt %>
-        <% if (theme.excerpt_link){ %>
-          <p class="article-more-link">
-            <a href="<%- url_for(post.path) %>#more"><%= theme.excerpt_link %></a>
-          </p>
-        <% } %>
-      <% } else { %>
-        <%- post.content %>
-      <% } %>
+      
+        <p>非常惭愧的是我这几年都没看过CSP/NOIP/HEOI的题……今天就做了做，发现OI题相对于ACM题来说还是要友好不少的……</p>
+<span id="more"></span>
+
+<h1 id="CSP-J-2020"><a href="#CSP-J-2020" class="headerlink" title="CSP-J 2020"></a>CSP-J 2020</h1><h3 id="T1-优秀的拆分"><a href="#T1-优秀的拆分" class="headerlink" title="T1. 优秀的拆分"></a>T1. 优秀的拆分</h3><p>二进制拆分即可。</p>
+<h3 id="T2-直播获奖"><a href="#T2-直播获奖" class="headerlink" title="T2. 直播获奖"></a>T2. 直播获奖</h3><p>注意到值域只有600，每次暴力枚举第$k$大的值即可。</p>
+<h3 id="T3-表达式"><a href="#T3-表达式" class="headerlink" title="T3. 表达式"></a>T3. 表达式</h3><p>题意：给你$n$个01变量以及一个包含与或非的布尔表达式，给出$n$个变量的初值，保证它们在表达式中出现恰好一次。再给出$q$次修改操作，每个操作都在最开始的基础上翻转掉一个变量，求表达式的值。表达式长度$&lt;=10^6$</p>
+<p>Solution：</p>
+<p>注意到修改的时候，别的变量都是不变的，那么我们可以离线在表达式树上dfs，维护每个变量翻转后的答案，一个非节点的作用就是把子树里的答案翻转，一个与节点的作用就是，当一个子树的值为0时，把另一个子树赋值为0，或节点同理，那么可以用线段树维护dfs序，然而我被卡常了，实际上可以直接在表达式树上打标记就是$O(n)$的……</p>
+<h3 id="T4-方格取数"><a href="#T4-方格取数" class="headerlink" title="T4. 方格取数"></a>T4. 方格取数</h3><p>这个从左往右按列dp即可，每一列正着反着各做一遍dp。</p>
+<h1 id="CSP-S-2020"><a href="#CSP-S-2020" class="headerlink" title="CSP-S 2020"></a>CSP-S 2020</h1><p>（我做题的时候把CSP-J当成CSP-S做了……还寻思为啥HE的同学们怎么这么水的题都才200多分，看了看S组的题发现好像也不是很难啊……上300大概挺容易的……）</p>
+<h3 id="T1-儒略历"><a href="#T1-儒略历" class="headerlink" title="T1. 儒略历"></a>T1. 儒略历</h3><p>大模拟……细节比较恶心，还好规模没那么大。拆成公元前的、公元1年~1581年、1582年、1583年以后的四段讨论所有情况即可。</p>
+<h3 id="T2-动物园"><a href="#T2-动物园" class="headerlink" title="T2. 动物园"></a>T2. 动物园</h3><p>感觉难度还不如T1……找出几个位不能放，剩下的随便，就是2的幂。注意特判答案为$2^{64}$的情况。</p>
+<h3 id="T3-函数调用"><a href="#T3-函数调用" class="headerlink" title="T3. 函数调用"></a>T3. 函数调用</h3><p>题意：给你$n$个变量以及$m$个函数，这些函数有3类：①把某个变量加一个数，②把所有变量乘一个数，③按顺序调用某些函数。保证调用关系不会出现递归（也就是说这是个DAG），现在按顺序调用若干个函数，求最后的$n$个变量。$n,m&lt;=10^6$</p>
+<p>Solution：</p>
+<p>这题思路上很像J组的T3啊，感觉，就是把表达式树换成DAG就没了啊……</p>
+<p>我们采用统计贡献的套路，对于一个加函数，考虑它加的这个玩意，会被乘多少东西。倒着拓扑排序，$f[i]$为调用这个函数，会让所有变量多乘多少，然后再正着拓扑排序，$g[i]$为这个函数调用出的加函数要乘多少东西，把后面调用出来的函数的$f$的积的贡献加到下一层节点即可。</p>
+<h3 id="T4-贪吃蛇"><a href="#T4-贪吃蛇" class="headerlink" title="T4. 贪吃蛇"></a>T4. 贪吃蛇</h3><p>题意：有$n$条蛇，每条蛇有个体力$hp_i$，蛇$i$比蛇$j$强当且仅当$hp_i&gt;hp_j$或者$hp_i=hp_j$且$i&gt;j$，保证最初的$hp$是 单调不减的。每一轮最强的蛇会决定要不要吃掉最弱的蛇，如果吃掉，那么它的$hp$要减掉弱蛇$hp$，如果吃掉后，之后自己会被别的蛇吃掉，那么它不吃，直接结束。假设每条蛇足够聪明，求最终剩下多少蛇。$n&lt;=10^6$，10组数据。</p>
+<p>Solution：</p>
+<p>好题！出题人好idea！</p>
+<p>首先不难发现如果强蛇吃完弱蛇后，自己不会变成最弱的，那么他一定会吃，因为在最强蛇不会变成最弱的情况下，最弱蛇会越来越强，最强蛇会越来越弱，最强蛇吃完之后变成的新蛇会越来越弱，如果这个蛇吃完后变成的新蛇不是最弱的，那么之后的蛇吃完后变成的新蛇会给他垫底，直到某条之后的蛇发现自己会变成最弱的为止。</p>
+<p>但这还没完，如果某条蛇吃完后会变成最弱的，这不一定代表它会被下一条蛇吃，假如下一条最强蛇发现自己也会变成最弱，那么下一轮不一定会执行，这条蛇也有可能会在吃完后幸免于难。这样的话我们可以递推，如果下一轮的最强蛇不会变成最弱，那么下一轮会执行，也就是说把自己找死变成最弱的这轮不能执行，假如上一轮也是这种情况，那么上一轮也就可以执行……这样，对于一段连续的都把最强蛇变成最弱蛇的轮，它们的执行情况是奇偶交替的，要么是第一个这样的轮最后执行，要么是第二个。</p>
+<p>于是就很容易能有一个$O(n\log n)$的做法，开两个大根和小根的可删堆维护所有蛇，直接模拟这个贪吃蛇的过程。但是$Tn&lt;=10^7$，会被卡，不过要是我的话我就干脆在考场上拿稳这带log的70分就溜了……</p>
+<p>然后我就发现其实可以利用上面的那个新蛇的单调性，开个队列存放新蛇，然后都是单调的（除非是一段连续的最强变最弱轮后的第一个非这样的轮，这个不是单调的，但这轮就可以结束了），不用堆来维护。这样相当于拿4个指针维护了两个队列，细节非常多……就能$O(n)$了。</p>
+<h1 id="NOIP2020"><a href="#NOIP2020" class="headerlink" title="NOIP2020"></a>NOIP2020</h1><h3 id="T1-排水系统"><a href="#T1-排水系统" class="headerlink" title="T1. 排水系统"></a>T1. 排水系统</h3><p>题意：给你个多源多汇的流图，有$m$个源点会流入1吨水，对于每个点，接收汇过来的水之后，再均等地从每条出边流出去，求每个汇点流了多少水，用分数表示。$n&lt;=10^5$，$m&lt;=10$，每个源点到每个汇点至多不超过10个非源非汇的中间点，每个点至多5条出边。</p>
+<p>Solution：</p>
+<p>这个题真的是给我坑死了，在此谴责恶意爆long long的出题人。显然，这题是拓扑排序递推，需要用到分数加法和除法（每次都要除以出边条数），关键在于考虑是不是会溢出。<strong>不超过10个中间点</strong>意味着这个分数可能会除11个不超过5的数，也就是说分母会乘11个数，考虑到分数加法，最终的分母为取lcm后的结果，在最坏情况下是$2^{22}3^{11}5^{11}$（因为4有两个2），爆longlong，他妈的还是刚好爆！！这什么鬼啊，必须得用高精……</p>
+<h3 id="T2-字符串匹配"><a href="#T2-字符串匹配" class="headerlink" title="T2. 字符串匹配"></a>T2. 字符串匹配</h3><p>题意：给个字符串，求有多少$A,B,C$，使得$S=ABABAB…ABC$，且A中出现奇数次的字符个数不超过C中出现奇数次的字符。$n&lt;=10^6$，5组数据。</p>
+<p>Solution：</p>
+<p>很像2020年黑龙江省赛的串题，仍然使用了$i-next[i]$是前缀的最小循环节的关键性质，如果它刚好是$i$的约数，那这是一个整循环节。我们考虑枚举$AB$的这个前缀，令$f[i]$为，这个前缀最多能重复多少次，如果$i$没有除自身之外的整循环节，那么我们可以让后面某个最小整循环节为$i$的前缀去更新$f[i]$，否则，可以用$i$的最小整循环节的重复次数去计算出$i$的重复次数。</p>
+<p>现在我们能够确定AB了，我们令$C’$为AB重复最多次后剩余的部分，那么真正的$C$可以是$C’$、$ABC’$、$ABABC’$……注意到AB如果重复偶数次是对后缀中出现奇数次的字符个数没有贡献的，可以用奇偶优化，仅考虑$C’$与$ABC’$，然后统计前面有多少个前缀A满足奇字符个数小于等于后缀的就行了，可以用树状数组强行优化到$O(n\log 26)$。</p>
+<h3 id="T3-移球游戏"><a href="#T3-移球游戏" class="headerlink" title="T3. 移球游戏"></a>T3. 移球游戏</h3><p>题意：给$n+1$个大小为$m$的栈，前$n$个栈的每个栈中有$m$个球，$n$种颜色，每种颜色恰好$m$个，第$n+1$个栈是空的。你每次可以把一个栈的栈顶弹到另一个栈的栈顶，栈大小不能超过$m$，构造操作次数不超过$820000$的方案使得每种颜色的球在同一个栈中。$n&lt;=50$，$m&lt;=400$</p>
+<p>Solution:</p>
+<p>好题！NOIP竟然会有思维含量这么高的构造好题！</p>
+<p>首先，考虑$n$种颜色是比较困难的，我们不妨把它转为01来考虑，以下两种方法都用了这个思路：</p>
+<h4 id="方法一-分治（整体二分）"><a href="#方法一-分治（整体二分）" class="headerlink" title="方法一. 分治（整体二分）"></a>方法一. 分治（整体二分）</h4><p>这个类似于我在NOI2019的D2T3的场上做法，大概也是构造题的一种套路吧。就是我递归地把所有栈均等划分为两部分，把一些颜色的球恰好装到左边的部分，剩下的装到右边的部分，就可以把颜色表示为01，不妨假设1的个数不小于0的个数。首先，我们把所有栈做一个“浮动”操作，即把栈里的所有1搞到0的上面。我们从中任选一个栈$A$，对于剩下的每个栈$B$，以及空栈$C$，假如$B$中有$x$个1，让$A$的前$x$个弹到$C$中，再把$B$弹完，1弹到$A$中，0弹到$C$中（<strong>注意</strong>，这样的操作，在本题中相当重要！），然后把$C$上面$m-x$个0弹回$B$中，$A$上面$x$个1弹回$B$中，再把$A$里的东西弹到$C$中，这样就完成了一次对$B$的浮动操作，代价是$x+m+m-x+x+m-x&lt;=4m$。注意，这样最后会剩下一个未浮动的栈$D$需要特殊考虑，我们可以构造操作顺序使得它的1是较少的，假设是$k$个1，前面已经有一个栈$E$在顶部有$y&gt;=k$个1，先把$E$弹$k$个1到空栈，再把$D$的1弹到$E$，0弹到空栈，再把空栈里的东西倒过来弹到$D$里就行了。</p>
+<p>于是现在我们所有的栈都是1在上0在下，现在就要把1和0分开。这就要分两种情况：</p>
+<p>①目前未分开的1更多，假设1最多的为$A$，次多的为$B$，由于抽屉原理，这两个栈中的1的总数一定至少为$m$，我们把$A$中所有的球都倒着扔到空栈里，把$B$中的1都扔进$A$，把空栈中的0都扔进$B$（一定不会溢出），再把空栈里的1把A和B装满，这样A就是一个全1的栈，B就是一个浮动栈，就这样进行下去就行了。这样单次代价至多为$3m$。</p>
+<p>②目前未分开的0更多，假设0最多的为A，次多的为B，把A和B的1都弹到空栈中（不会溢出），再用B中的0把A装满，再把空栈里的1弹到B中，这样A就是全0栈，B就是浮动栈，这代价也至多是$3m$。</p>
+<p>于是就做完了，总的代价至多为$7nm\log n&lt;=700000$，实际上甚至不到60万。</p>
+<h4 id="方法二-单色构造"><a href="#方法二-单色构造" class="headerlink" title="方法二. 单色构造"></a>方法二. 单色构造</h4><p>这方法不是我的，是<a target="_blank" rel="noopener" href="https://www.luogu.com.cn/blog/61120/solution-p7115">这位神仙</a>的场上做法，思路也十分清奇。</p>
+<p>我们枚举所有颜色，然后把这种颜色直接分离到一个栈里。直接把这种颜色看做1，剩下的看做0。首先我们需要构造一个全0栈，现在先考虑栈多于3个的情况，其中3个为ABC，令$cnt_i$为某个栈1的个数，先把C的前$cnt_A$个弹到空栈中，然后把A中1弹到C，0弹到空栈，然后把C的前$cnt_B$个弹到A，把B中1弹到C，0弹到A。此时，A和B原来的0都在空栈与A的顶部，显然，最初的$cnt_A+cnt_B&lt;=m$，也就是说这些0一定可以组成全0栈，把这些0装满B就得到了全0栈。然后我们对每个非全0栈$D$，利用全0栈把其中的1提取出来，方法是把全0栈弹$m-cnt_D$个0到空栈，再把D的所有0弹到全0栈中，所有1弹到空栈中，这样D变成了空栈，空栈变成了上面是1下面是0的浮动栈，全0栈还是全0栈，最终我们把所有上方的1抽出来扔进空栈，再把一个剩下0的栈里的0都弹到其他栈里即可。</p>
+<p>现在我们考虑只有2个栈A和B的情况，不妨假设$cnt_A&gt;=cnt_B$，把B扔$cnt_A$个到空栈，把A的1扔进B，0扔进空栈，假设现在空栈里有$k$个1，把B顶部的k个1扔进A，把空栈的所有1扔进B，所有0扔进A，再把A顶部的所有0扔进空栈，再把B的所有0扔进空栈，所有1扔进A，就行了。</p>
+<p>这个总代价是$\frac{n(n+1)}2m$的，大概也是50多万。</p>
+<h3 id="T4-微信步数"><a href="#T4-微信步数" class="headerlink" title="T4.微信步数"></a>T4.微信步数</h3><p><del>这题实在是不可做，鸽了</del></p>
+
+      
     </div>
     <footer class="article-footer">
-      <a data-url="<%- post.permalink %>" data-id="<%= post._id %>" data-title="<%= post.title %>" class="article-share-link"><%= __('share') %></a>
-      <% if (post.comments && config.disqus_shortname){ %>
-        <a href="<%- post.permalink %>#disqus_thread" class="article-comment-link"><%= __('comment') %></a>
-      <% } %>
-      <% if (post.comments && theme.valine.enable && theme.valine.appId && theme.valine.appKey ){ %>
-        <a href="<%- url_for(post.path) %>#comments" class="article-comment-link">
-          <span class="post-comments-count valine-comment-count" data-xid="<%- url_for(post.path) %>" itemprop="commentCount"></span>
-          <%= __('comment') %>
-        </a>
-      <% } %>
-      <%- partial('post/tag') %>
+      <a data-url="https://www.ywy-c-asm.cn/2021/05/17/%E9%87%8D%E8%B5%B0OI%E8%B7%AF%EF%BC%9A2020-2021-OI%E9%A2%98%E6%B3%9B%E5%81%9A/" data-id="ckpv6vf50001w4gt2epwucbhh" data-title="重走OI路：2020-2021 OI题泛做"></a>
+      
+      
+      
+  <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/ACM/" rel="tag">ACM</a></li></ul>
+
     </footer>
   </div>
-  <% if (!index){ %>
-    <%- partial('post/nav') %>
-  <% } %>
+  
+    
+<nav id="article-nav">
+  
+    <a href="/2021/05/23/%E4%B8%8D%E7%9F%A5%E9%81%93%E8%AF%A5%E8%B5%B7%E4%BB%80%E4%B9%88%E5%90%8D%E5%AD%97%E7%9A%84%E9%A2%98%E8%A7%A3/" id="article-nav-newer" class="article-nav-link-wrap">
+      <strong class="article-nav-caption">Newer</strong>
+      <div class="article-nav-title">
+        
+          几个有趣的题
+        
+      </div>
+    </a>
+  
+  
+    <a href="/2021/05/10/%E9%87%8D(kai)%E6%96%B0(shi)%E5%AD%A6%E4%B9%A0%E7%94%9F%E6%88%90%E5%87%BD%E6%95%B0/" id="article-nav-older" class="article-nav-link-wrap">
+      <strong class="article-nav-caption">Older</strong>
+      <div class="article-nav-title">重(kai)新(shi)学习生成函数</div>
+    </a>
+  
+</nav>
+
+  
 </article>
 
-<% if (!index && post.comments && config.disqus_shortname){ %>
-<section id="comments">
-  <div id="disqus_thread">
-    <noscript>Please enable JavaScript to view the <a target="_blank" rel="noopener" href="//disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
-  </div>
-</section>
-<% } %>
-<% if (!index && post.comments && theme.valine.enable && theme.valine.appId && theme.valine.appKey){ %>
-  <section id="comments" class="vcomment">
 
-  </section>
-<% } %></section>
+</section>
         
           <aside id="sidebar">
   

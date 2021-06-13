@@ -5,39 +5,42 @@
 
 <head>
   <meta charset="utf-8">
-  
-  
-  <title>《C++Primer》学习笔记（四） | ywy_c_asm</title>
+  <%- partial('google-analytics') %>
+  <%
+  var title = page.title;
+
+  if (is_archive()){
+    title = __('archive_a');
+
+    if (is_month()){
+      title += ': ' + page.year + '/' + page.month;
+    } else if (is_year()){
+      title += ': ' + page.year;
+    }
+  } else if (is_category()){
+    title = __('category') + ': ' + page.category;
+  } else if (is_tag()){
+    title = __('tag') + ': ' + page.tag;
+  }
+  %>
+  <title><% if (title){ %><%= title %> | <% } %><%= config.title %></title>
   <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-  <meta name="description" content=".">
-<meta property="og:type" content="article">
-<meta property="og:title" content="《C++Primer》学习笔记（四）">
-<meta property="og:url" content="https://www.ywy-c-asm.cn/2021/03/23/%E3%80%8AC++Primer%E3%80%8B%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0%EF%BC%88%E5%9B%9B%EF%BC%89/index.html">
-<meta property="og:site_name" content="ywy_c_asm">
-<meta property="og:description" content=".">
-<meta property="og:locale" content="en_US">
-<meta property="article:published_time" content="2021-03-22T23:20:00.000Z">
-<meta property="article:modified_time" content="2021-03-25T12:01:31.925Z">
-<meta property="article:author" content="ywy_c_asm">
-<meta property="article:tag" content="C++">
-<meta name="twitter:card" content="summary">
-  
-  
-    <link rel="icon" href="/images/ico.ico">
-  
-  
-    
-<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/typeface-source-code-pro@0.0.71/index.min.css">
-
-  
-  
-<link rel="stylesheet" href="/css/style.css">
-
-  
-    
-<link rel="stylesheet" href="/fancybox/jquery.fancybox.min.css">
-
-  
+  <%- open_graph({twitter_id: theme.twitter, fb_admins: theme.fb_admins, fb_app_id: theme.fb_app_id}) %>
+  <% if (config.feed) { %>
+    <%- feed_tag() %>
+  <% } else if (theme.rss) { %>
+    <%- feed_tag(theme.rss) %>
+  <% } %>
+  <% if (theme.favicon){ %>
+    <%- favicon_tag(theme.favicon) %>
+  <% } %>
+  <% if (config.highlight.enable){ %>
+    <%- css('https://cdn.jsdelivr.net/npm/typeface-source-code-pro@0.0.71/index.min.css') %>
+  <% } %>
+  <%- css('css/style') %>
+  <% if (theme.fancybox){ %>
+    <%- css('fancybox/jquery.fancybox.min.css') %>
+  <% } %>
 <meta name="generator" content="Hexo 5.4.0"></head>
 
 <body>
@@ -83,61 +86,151 @@
 </header>
 
       <div class="outer" style="padding:0 0px">
-        <section id="main"><article id="<%= post.layout %>-<%= post.slug %>" class="h-entry article article-type-<%= post.layout %>" itemprop="blogPost" itemscope itemtype="https://schema.org/BlogPosting">
+        <section id="main"><article id="post-《C++Primer》学习笔记（四）" class="h-entry article article-type-post" itemprop="blogPost" itemscope itemtype="https://schema.org/BlogPosting">
   <div class="article-meta">
-    <%- partial('post/date', {class_name: 'article-date', date_format: null}) %>
-    <%- partial('post/category') %>
+    <a href="/2021/03/23/%E3%80%8AC++Primer%E3%80%8B%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0%EF%BC%88%E5%9B%9B%EF%BC%89/" class="article-date">
+  <time class="dt-published" datetime="2021-03-22T23:20:00.000Z" itemprop="datePublished">2021-03-23</time>
+</a>
+    
   </div>
   <div class="article-inner">
-    <%- partial('post/gallery') %>
-    <% if (post.link || post.title){ %>
+    
+    
       <header class="article-header">
-        <%- partial('post/title', {class_name: 'p-name article-title'}) %>
+        
+  
+    <h1 class="p-name article-title" itemprop="headline name">
+      《C++Primer》学习笔记（四）
+    </h1>
+  
+
       </header>
-    <% } %>
+    
     <div class="e-content article-entry" itemprop="articleBody">
-      <% if (post.excerpt && index){ %>
-        <%- post.excerpt %>
-        <% if (theme.excerpt_link){ %>
-          <p class="article-more-link">
-            <a href="<%- url_for(post.path) %>#more"><%= theme.excerpt_link %></a>
-          </p>
-        <% } %>
-      <% } else { %>
-        <%- post.content %>
-      <% } %>
+      
+        <p>.</p>
+<span id="more"></span>
+
+<hr>
+<p><strong>拷贝</strong></p>
+<p>对象可以有一种称为<strong>拷贝初始化</strong>的方式，即用自己类型的对象初始化自己，例如：</p>
+<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="function">x <span class="title">me1</span><span class="params">(me)</span></span>;</span><br><span class="line">x me2=me;</span><br></pre></td></tr></table></figure>
+
+<p>一般的，所有类型都支持这种方式，这将会调用该类的拷贝构造函数，以下是一个例子：</p>
+<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">x</span>&#123;</span></span><br><span class="line">    <span class="keyword">public</span>:</span><br><span class="line">    	<span class="keyword">int</span> *p;</span><br><span class="line">    	x(<span class="keyword">int</span> a)&#123;</span><br><span class="line">            p=<span class="keyword">new</span> <span class="keyword">int</span>(a);</span><br><span class="line">        &#125;</span><br><span class="line">    	x(<span class="keyword">const</span> x &amp;a)&#123; <span class="comment">//拷贝构造函数</span></span><br><span class="line">            p=<span class="keyword">new</span> <span class="keyword">int</span>(*a.p);</span><br><span class="line">        &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>编译器在默认状态下会自动生成一个拷贝构造函数，它会将类内所有成员都拷贝初始化为另一个对象的成员。那么，就像这个例子一样，如果类内定义了指针，这就需要拷贝构造函数进行内存的复制而非简单的指针赋值。</p>
+<p>并且，非引用传参以及非引用返回都会进行对象的拷贝初始化，这也意味着拷贝构造函数的参数必须是自己的<code>const</code>引用，否则就会发生“拷贝构造函数–参数按值传递–拷贝构造函数–……”的无限递归。</p>
+<p>另一种拷贝是拷贝赋值，即非对象定义状态下的<code>=</code>赋值，这时我们需要定义赋值运算符（必须通过<code>*this</code>返回左值的引用）：</p>
+<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">x&amp; <span class="keyword">operator</span> =(<span class="keyword">const</span> x&amp; a)&#123;</span><br><span class="line">    p=<span class="keyword">new</span> <span class="keyword">int</span>(*a.p);</span><br><span class="line">    <span class="keyword">return</span>(*<span class="keyword">this</span>);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>默认状态下，编译器自动合成拷贝赋值运算符，与默认合成的拷贝构造函数行为一样。</p>
+<p><strong>注意</strong>，赋值运算符组合了拷贝构造函数和析构函数的功能，即（这一点常常被遗忘），把原来的资源释放，拷贝新的资源。这就会涉及到一个特殊情况——<strong>自我拷贝</strong>，我们必须让赋值运算符能够处理<code>x=x</code>的情况！所以，我们必须先进行拷贝，再进行释放。</p>
+<p>有一种看似简单实则不然的操作是<code>swap</code>，如果我们使用更直接的方法进行交换，那么就会涉及到多次拷贝，对于分配资源的类来讲，这是很低效的，所以，很多这样的类都自己定义了<code>swap</code>操作，直接将指针进行交换。并且这样的话我们可以使用这样的<code>swap</code>编写出另一种更加简洁的拷贝赋值：</p>
+<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">x</span>&#123;</span></span><br><span class="line">    <span class="keyword">public</span>:</span><br><span class="line">    	x(<span class="keyword">int</span> a):</span><br><span class="line">    		p(<span class="keyword">new</span> <span class="keyword">int</span>(a)) &#123;&#125;</span><br><span class="line">    	~x()&#123;</span><br><span class="line">            <span class="keyword">delete</span> p;</span><br><span class="line">        &#125;</span><br><span class="line">    	x(x &amp;a)&#123;</span><br><span class="line">            p=<span class="keyword">new</span> <span class="keyword">int</span>(*a.p);</span><br><span class="line">        &#125;</span><br><span class="line">    	<span class="function"><span class="keyword">friend</span> <span class="keyword">void</span> <span class="title">swap</span><span class="params">(x &amp;a,x &amp;b)</span></span>;</span><br><span class="line">    	x&amp; <span class="keyword">operator</span> =(x a)&#123;</span><br><span class="line">            swap(*<span class="keyword">this</span>,a);</span><br><span class="line">            <span class="keyword">return</span>(*<span class="keyword">this</span>);</span><br><span class="line">        &#125;</span><br><span class="line">    <span class="keyword">private</span>:</span><br><span class="line">    	<span class="keyword">int</span> *p;</span><br><span class="line">&#125;;</span><br><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">swap</span><span class="params">(x &amp;a,x &amp;b)</span></span>&#123;</span><br><span class="line">    <span class="built_in">std</span>::swap(a.p,b.p);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>这个赋值运算符的有趣之处在于它是按<strong>值</strong>传递，首先，右值会通过拷贝构造函数传递值，这样就首先自动完成了内存分配，然后我把当前对象同参数a进行指针交换，等函数结束后，a会被销毁，这就顺便完成了对原左值对象的释放！</p>
+<hr>
+<p><strong>析构函数</strong></p>
+<p>当一个对象生存期结束被销毁时，系统将会自动调用对象的析构函数，<strong>然后</strong>，对象的成员将会被栈序销毁，后被构造的函数先销毁（其实构造函数也会执行正好相反的事情，在函数体执行之前先使用包括列表初始化之内的方式自动将成员初始化）。</p>
+<p>析构函数不能被重载，不能有参数，一般被用来干诸如内存释放之类的事情，因为内置类型的指针被析构时，并不会把内存区域<code>delete</code>掉。</p>
+<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">x</span>&#123;</span></span><br><span class="line">    <span class="keyword">public</span>:</span><br><span class="line">    	<span class="keyword">int</span> *p;</span><br><span class="line">    	x(<span class="keyword">int</span> a)&#123;</span><br><span class="line">            p=<span class="keyword">new</span> <span class="keyword">int</span>(a);</span><br><span class="line">        &#125;</span><br><span class="line">    	~x()&#123;</span><br><span class="line">        	<span class="keyword">delete</span> p;    </span><br><span class="line">        &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p><strong>如果一个类需要自定义析构函数，几乎可以肯定的是它也需要自定义拷贝构造函数与拷贝赋值运算符。</strong></p>
+<hr>
+<p><strong>函数的删除</strong></p>
+<p>C++11引入了“函数删除”这种骚操作，如果在类内的成员函数声明后加上<code>=delete</code>，那么这函数就被禁止调用。这东西常用于编译器会自动给你合成的东西（而你不希望这样），比如拷贝构造函数、拷贝赋值运算符。这样，类就可以被定义为<strong>禁止拷贝</strong>的，典型的例子是<code>istream</code>、<code>ostream</code>、<code>unique_ptr</code>，它们防止多个对象控制相同的资源。</p>
+<p>甚至，析构函数都可以被定义为<code>delete</code>的！这就很有意思——对象本身，或者包含该对象的对象，都不能作为变量在栈中定义，因为会因生存期结束而调用析构函数，只能在堆中分配内存，还不能<code>delete</code>……<del>delete的东西不能被delete</del></p>
+<p>那么问题来了，在C++11之前<code>istream</code>是如何阻止拷贝呢？很简单，因为<code>private</code>……</p>
+<hr>
+<p><strong>关于noexcept</strong></p>
+<p>C++11引入了<code>noexcept</code>修饰符用于说明某个函数不会抛出异常，它的作用是，告诉编译器这个函数不会出现异常，在编译时不加入异常处理相关的代码，用以提升效率。也就是说，其实这函数还是可能会抛出异常的，这时直接终止整个程序，<strong>即使是外面套了<code>try</code>都无法阻止</strong>。一般有两种场合使用<code>noexcept</code>：这函数已经确定不会抛出异常，或者如果抛出异常我们不知道如何处理。</p>
+<p>下列代码会自动终止程序：</p>
+<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">f</span><span class="params">()</span> <span class="keyword">noexcept</span></span>&#123;</span><br><span class="line">    <span class="keyword">throw</span> <span class="keyword">new</span> exception;	</span><br><span class="line">&#125;</span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">main</span><span class="params">()</span></span>&#123;</span><br><span class="line">    <span class="keyword">try</span>&#123; <span class="comment">//这个try没法作用在noexcept上</span></span><br><span class="line">        f();	</span><br><span class="line">    &#125;<span class="keyword">catch</span>(exception e)&#123;</span><br><span class="line">        <span class="built_in">cout</span>&lt;&lt;<span class="number">233</span>&lt;&lt;<span class="built_in">endl</span>;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">return</span>(<span class="number">0</span>);	</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<hr>
+<p><strong>移动</strong></p>
+<p>引入一个实际问题：对于<code>vector</code>的<code>push_back</code>操作，可能会造成内存的重新分配，显然它会先分配一段空内存，再把原来内存上的对象<strong>复制</strong>过去，再把原来内存<code>delete</code>掉。很显然，似乎本来就应该这样做。</p>
+<p>但这样是有效率上的缺陷的，这“复制”是基于的对象的拷贝，而<strong>对象的拷贝往往连带着自身所分配资源的复制</strong>。具体点说，假如这是一个<code>vector&lt;string&gt;</code>，我们都知道<code>string</code>的行为像值，对它进行拷贝会新分配一个存字符串的内存，然后我再把旧的的资源在<code>delete</code>旧内存区的时候释放，这造成了效率浪费。更优的做法应该是，直接进行对象的<strong>移动</strong>，即我并不为“新”对象分配新的资源以便拷贝，而是直接把旧对象的资源移加到新对象上，再让旧对象放弃资源（<strong>这一步骤是必须的</strong>，如果跳过它直接析构，显然就会把资源销毁！），再析构掉旧对象。这样就仅仅是简单的指针赋值了。</p>
+<p>C++11为了解决这一问题，引入了<strong>右值引用</strong>和<code>utility</code>中的<code>move</code>函数。一般的引用是左值引用，它可以进行地址传递，通过地址向一个可作为左值的对象赋值等。而右值引用则是不可以作为左值的临时对象的引用，例如，字面值，表达式，将要被销毁的对象（这个就是移动要用到的）等。</p>
+<p>类中可以使用右值引用定义移动构造函数与移动赋值运算符，以下是一个完整的例子：</p>
+<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">x</span>&#123;</span></span><br><span class="line">	<span class="keyword">public</span>:</span><br><span class="line">		<span class="function"><span class="keyword">explicit</span> <span class="title">x</span><span class="params">(<span class="keyword">int</span> a)</span>: <span class="comment">//普通构造函数</span></span></span><br><span class="line"><span class="function">			<span class="title">p</span><span class="params">(<span class="keyword">new</span> <span class="keyword">int</span>(a))</span> </span>&#123;&#125;</span><br><span class="line">		x(x &amp;&amp;a) <span class="keyword">noexcept</span>&#123; <span class="comment">//移动构造函数</span></span><br><span class="line">			p=a.p;</span><br><span class="line">			a.p=<span class="literal">nullptr</span>;	<span class="comment">//使原来的a放弃资源</span></span><br><span class="line">		&#125;</span><br><span class="line">		x(<span class="keyword">const</span> x &amp;a)&#123; <span class="comment">//拷贝构造函数</span></span><br><span class="line">			p=<span class="keyword">new</span> <span class="keyword">int</span>(*a.p);	</span><br><span class="line">		&#125;</span><br><span class="line">		~x()&#123;</span><br><span class="line">			<span class="keyword">delete</span>(p);	</span><br><span class="line">		&#125;</span><br><span class="line">		x&amp; <span class="keyword">operator</span> =(<span class="keyword">const</span> x &amp;a)&#123; <span class="comment">//拷贝赋值</span></span><br><span class="line">			<span class="keyword">int</span> *tmp=p;</span><br><span class="line">			p=<span class="keyword">new</span> <span class="keyword">int</span>(*a.p);</span><br><span class="line">			<span class="keyword">delete</span>(tmp);</span><br><span class="line">			<span class="keyword">return</span>(*<span class="keyword">this</span>);	</span><br><span class="line">		&#125;</span><br><span class="line">		x&amp; <span class="keyword">operator</span> =(x &amp;&amp;a)&#123; <span class="comment">//移动赋值</span></span><br><span class="line">			<span class="keyword">if</span>(p!=a.p)&#123; <span class="comment">//注意防止自我移动</span></span><br><span class="line">				<span class="keyword">delete</span>(p);</span><br><span class="line">				p=a.p;</span><br><span class="line">				a.p=<span class="literal">nullptr</span>;	</span><br><span class="line">			&#125;</span><br><span class="line">			<span class="keyword">return</span>(*<span class="keyword">this</span>);	</span><br><span class="line">		&#125;</span><br><span class="line">    <span class="keyword">private</span>:</span><br><span class="line">		<span class="keyword">int</span> *p;	</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
+
+<p>注意，一般情况下普通变量是不能传入右值引用参数的，需要用<code>std::move()</code>将其转化为右值引用，这样就可以移动了。但这样做的风险是，这个变量并不会因为进行了移动操作而自动被析构（理论上应该如此），如果它还存在的话，它是一个已经放弃资源的空对象。</p>
+<p>可以把这个类x往<code>vector</code>里多<code>push_back</code>几次，会发现移动构造函数被多次调用，这说明<code>vector</code>的内存操作确实是基于移动构造的。然而现实却很残酷，如果一个类没有定义移动操作，但定义了拷贝操作，那么编译器<strong>会自动地把拷贝操作当做移动使用</strong>。如果移动和拷贝操作都没定义，那么编译器会自动合成移动操作，即直接调用所有成员的移动操作。众所周知，STL容器并不会考虑元素内部定义了什么，因此某些情况下仍然是基于拷贝的内存“移动”。</p>
+<p>一般地，若赋的值是不可作为左值的右值，那么重载决策会调用移动操作而不是拷贝。</p>
+<p>C++11提供了<code>std::make_move_iterator()</code>将普通迭代器转化为移动迭代器，其解引用后生成右值引用，这个的好处是可以配合迭代器算法<code>uninitialized_copy(first,second,destptr)</code>实现基于移动的内存批量复制。</p>
+<p>关于左值和右值，有这样一些奇怪的操作，比如我们上面那个类x：</p>
+<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="function">x <span class="title">f</span><span class="params">()</span></span>&#123;</span><br><span class="line">    <span class="keyword">return</span>(x(<span class="number">233</span>));</span><br><span class="line">&#125;</span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">main</span><span class="params">()</span></span>&#123;</span><br><span class="line">    f()=x(<span class="number">3333</span>);</span><br><span class="line">    <span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>我们知道，f不应该作为左值使用，但由于f返回一个临时对象，编译器确实不禁止对它赋值（尽管对于内置类型确实是禁止的）。解决方法是对赋值运算符加一个<code>&amp;</code>修饰符，表示在这里的<code>*this</code>应该是一个左值引用（类似地，对于其他成员函数也可以如此，毕竟有相当多的情况下直接调用右值的成员函数）：</p>
+<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">x&amp; <span class="keyword">operator</span> =(<span class="keyword">const</span> x &amp;a) &amp;;</span><br><span class="line">x&amp; <span class="keyword">operator</span> =(x &amp;&amp;a) &amp;;</span><br></pre></td></tr></table></figure>
+
+<hr>
+<p><strong>重载运算符</strong></p>
+<p>运算符作为成员函数定义在类的内部时，返回值可以是任何类型（即便是<code>void</code>都可以！），而且甚至可以像普通成员函数一样调用：</p>
+<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">x</span>&#123;</span></span><br><span class="line">    <span class="keyword">public</span>:</span><br><span class="line">    	<span class="keyword">void</span> <span class="keyword">operator</span> +(<span class="keyword">const</span> x &amp;a) &#123;&#125;</span><br><span class="line">&#125;;</span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">main</span><span class="params">()</span></span>&#123;</span><br><span class="line">    x a,b;</span><br><span class="line">    a+b;</span><br><span class="line">    a.<span class="keyword">operator</span>+(b); <span class="comment">//骚写法</span></span><br><span class="line">    <span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>C++中除了<code>::</code>、<code>.</code>、<code>.*</code>、<code>? :</code>不能重载以外，剩下的（包括<code>new</code>和<code>delete</code>）都可以被重载。但通常情况下，取地址、逻辑与或、逗号是不应该重载的，因为它们有一些人尽皆知的特性，重载可能会让它们改变。</p>
+<p>除了赋值运算符、下标运算符、<code>()</code>运算符、<code>-&gt;</code>运算符以外（这些必须是成员函数，另外<code>++</code>、<code>--</code>、解引用<code>*</code>也应该尽可能定义为成员），其它运算符都应尽量直接定义在类的外部（不需要在类内声明）。这样的必要性在于，运算符两侧的对象类型不一定都是该类型，而成员运算符只能定义在左侧对象内。例如：</p>
+<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">string</span> a=<span class="string">&quot;ywy&quot;</span>;</span><br><span class="line"><span class="built_in">string</span> b=a+<span class="string">&quot;_c_asm&quot;</span>; <span class="comment">//可以调用作为string成员函数的operator +(string&amp;,const char*)</span></span><br><span class="line"><span class="built_in">string</span> c=<span class="string">&quot;vegeteble &quot;</span>+a; <span class="comment">//如果operator+是string的成员函数，将会引起错误，因为const char*内并未定义+</span></span><br></pre></td></tr></table></figure>
+
+<p>关于下标运算符，它应该返回引用，并且我们应该分别定义一个<code>const</code>版本和非<code>const</code>版本，对于非<code>const</code>对象（即便它是右值！）调用下标运算符，会默认返回可修改的左值引用。只有<code>const</code>对象才会使用不可修改的下标运算符。</p>
+<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">int</span>&amp; <span class="keyword">operator</span> [](<span class="keyword">int</span> a); <span class="comment">//非const下标</span></span><br><span class="line"><span class="keyword">const</span> <span class="keyword">int</span>&amp; <span class="keyword">operator</span> [](<span class="keyword">int</span> a) <span class="keyword">const</span>; <span class="comment">//const下标</span></span><br></pre></td></tr></table></figure>
+
+<p>关于自增/自减运算符，一个问题是如何对前置和后置进行有效区分。编译器规定前置运算符无参数，按引用返回，而后置运算符传入一个默认为0的<code>int</code>参数，按值返回。</p>
+<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">x&amp; <span class="keyword">operator</span> ++(); <span class="comment">//前置++</span></span><br><span class="line">x <span class="keyword">operator</span> ++(<span class="keyword">int</span> a); <span class="comment">//后置++</span></span><br></pre></td></tr></table></figure>
+
+<p>关于解引用运算符与成员访问运算符，前者需要返回某类型的引用，后者需要返回一个指针或者定义了<code>-&gt;</code>的对象（反正这样递归下去最终还是指针……）然后访问最终指针对象的成员。<strong>注意</strong>：定义了解引用运算符并不能自动地替代箭头成员访问的工作。</p>
+<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">x</span>&#123;</span></span><br><span class="line">    <span class="keyword">public</span>:</span><br><span class="line">    	<span class="keyword">int</span> val;</span><br><span class="line">    	x(<span class="keyword">int</span> a):</span><br><span class="line">    		val(a) &#123;&#125;</span><br><span class="line">&#125;;</span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">y</span>&#123;</span></span><br><span class="line">    <span class="keyword">public</span>:</span><br><span class="line">    	x *p;</span><br><span class="line">    	y(<span class="keyword">int</span> a):</span><br><span class="line">    		p(<span class="keyword">new</span> x(a)) &#123;&#125;</span><br><span class="line">    	x&amp; <span class="keyword">operator</span> *() <span class="keyword">const</span>&#123;</span><br><span class="line">            <span class="keyword">return</span> *p;</span><br><span class="line">        &#125;</span><br><span class="line">    	x* <span class="keyword">operator</span> -&gt;() <span class="keyword">const</span>&#123;</span><br><span class="line">            <span class="keyword">return</span> p;</span><br><span class="line">        &#125;</span><br><span class="line">&#125;;</span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">main</span><span class="params">()</span></span>&#123;</span><br><span class="line">    <span class="function">y <span class="title">me</span><span class="params">(<span class="number">233</span>)</span></span>;</span><br><span class="line">    <span class="built_in">cout</span>&lt;&lt;(*me).val&lt;&lt;<span class="string">&quot; &quot;</span>&lt;&lt;me-&gt;val&lt;&lt;<span class="built_in">endl</span>;</span><br><span class="line">    <span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>关于函数调用运算符，它可以使得对象有类似函数的行为，可以当做可调用对象使用（实际上，<code>lambda</code>表达式将会被处理为像这样的一个定义了<code>()</code>的临时类对象，捕获变量将被“构造函数”构造为类成员，所以，我们之前那个向量排序问题也可以用带有成员和<code>()</code>的类处理）。很多时候，它们可以作为谓词提供给STL算法。</p>
+<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">comp</span>&#123;</span></span><br><span class="line">    <span class="function"><span class="keyword">bool</span> <span class="title">operator</span> <span class="params">()</span><span class="params">(<span class="keyword">int</span> a,<span class="keyword">int</span> b)</span> <span class="keyword">const</span></span>&#123;</span><br><span class="line">        <span class="keyword">return</span> a&lt;b;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;;</span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">main</span><span class="params">()</span></span>&#123;</span><br><span class="line">    <span class="built_in">vector</span>&lt;<span class="keyword">int</span>&gt; vec=&#123;<span class="number">5</span>,<span class="number">2</span>,<span class="number">1</span>,<span class="number">4</span>,<span class="number">3</span>,<span class="number">7</span>,<span class="number">8</span>&#125;;</span><br><span class="line">    comp cmp;</span><br><span class="line">    sort(vec.begin(),vec.end(),cmp);</span><br><span class="line">	<span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>关于类型转换运算符，其实其他类型转换为该类的运算符就是单参数的构造函数，把该类转化为其他类型，需要使用如下的定义：</p>
+<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//[expilicit] operator [type-name]() const;</span></span><br><span class="line"><span class="function"><span class="keyword">operator</span> <span class="title">int</span><span class="params">()</span> <span class="keyword">const</span></span>;</span><br></pre></td></tr></table></figure>
+
+<p>这个运算符的名称和返回类型都是类型名。如果在运算符（包括单参构造函数）之前用<code>explicit</code>修饰，那么说明编译器不应该进行隐式转换，只能用<code>static_cast</code>强制转换（<strong>但特殊情况是</strong>，如果这个类有转换为<code>bool</code>的<code>explicit</code>运算符，那么它可以在诸如<code>if</code>、<code>!||&amp;&amp;</code>、<code>:?</code>这样的条件表达式上自动进行隐式转换。一个典型例子是<code>std::istream</code>的<code>cin</code>，我们经常使用<code>while(cin&gt;&gt;x)</code>这种写法，因为<code>istream</code>里定义了到<code>bool</code>的转换运算符，但这样做的后果是，隐式转换会使得<code>cin&lt;&lt;x</code>进行<code>istream-&gt;bool-&gt;int</code>从而它不会引起编译错误，所以C++11引入了<code>explicit</code>，但为了使得广泛使用的条件表达式写法还有效，把这个作为了特例）。</p>
+<p>为了避免隐式转换的二义性，有两个原则：一是不要在两个类中各自声明一个互相转换的运算符（比如，在A中定义一个<code>A(const B &amp;)</code>，在B中定义一个<code>operator A()</code>），二是只需要在类中定义一个用于算术类型的转换（例如，如果在A中定义一个<code>A(double)</code>和<code>A(int)</code>，传入一个<code>long</code>将会引起重载决策失败），因为编译器会自动完成可能带有歧义的算术类型之间的隐式转换。</p>
+<p><strong>如果在函数调用时需要通过构造函数或强制类型转换才能调用正确的重载函数，这通常说明程序的设计存在缺陷。</strong></p>
+
+      
     </div>
     <footer class="article-footer">
-      <a data-url="<%- post.permalink %>" data-id="<%= post._id %>" data-title="<%= post.title %>" class="article-share-link"><%= __('share') %></a>
-      <% if (post.comments && config.disqus_shortname){ %>
-        <a href="<%- post.permalink %>#disqus_thread" class="article-comment-link"><%= __('comment') %></a>
-      <% } %>
-      <% if (post.comments && theme.valine.enable && theme.valine.appId && theme.valine.appKey ){ %>
-        <a href="<%- url_for(post.path) %>#comments" class="article-comment-link">
-          <span class="post-comments-count valine-comment-count" data-xid="<%- url_for(post.path) %>" itemprop="commentCount"></span>
-          <%= __('comment') %>
-        </a>
-      <% } %>
-      <%- partial('post/tag') %>
+      <a data-url="https://www.ywy-c-asm.cn/2021/03/23/%E3%80%8AC++Primer%E3%80%8B%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0%EF%BC%88%E5%9B%9B%EF%BC%89/" data-id="ckpv6vf4n00144gt2033whcyt" data-title="《C++Primer》学习笔记（四）"></a>
+      
+      
+      
+  <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/C/" rel="tag">C++</a></li></ul>
+
     </footer>
   </div>
-  <% if (!index){ %>
-    <%- partial('post/nav') %>
-  <% } %>
+  
+    
+<nav id="article-nav">
+  
+    <a href="/2021/03/25/%E3%80%8AC++Primer%E3%80%8B%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0%EF%BC%88%E4%BA%94%EF%BC%89/" id="article-nav-newer" class="article-nav-link-wrap">
+      <strong class="article-nav-caption">Newer</strong>
+      <div class="article-nav-title">
+        
+          《C++Primer》学习笔记（五）
+        
+      </div>
+    </a>
+  
+  
+    <a href="/2021/03/20/%E3%80%8AC++Primer%E3%80%8B%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0%EF%BC%88%E4%B8%89%EF%BC%89/" id="article-nav-older" class="article-nav-link-wrap">
+      <strong class="article-nav-caption">Older</strong>
+      <div class="article-nav-title">《C++Primer》学习笔记（三）</div>
+    </a>
+  
+</nav>
+
+  
 </article>
 
-<% if (!index && post.comments && config.disqus_shortname){ %>
-<section id="comments">
-  <div id="disqus_thread">
-    <noscript>Please enable JavaScript to view the <a target="_blank" rel="noopener" href="//disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
-  </div>
-</section>
-<% } %>
-<% if (!index && post.comments && theme.valine.enable && theme.valine.appId && theme.valine.appKey){ %>
-  <section id="comments" class="vcomment">
 
-  </section>
-<% } %></section>
+</section>
         
           <aside id="sidebar">
   
