@@ -82,464 +82,565 @@
       <div class="outer" style="padding:0 0px">
         <section id="main">
   
-    <article id="post-2021-EC-final-赛后补题" class="h-entry article article-type-post" itemprop="blogPost" itemscope itemtype="https://schema.org/BlogPosting">
+    <article id="<%= post.layout %>-<%= post.slug %>" class="h-entry article article-type-<%= post.layout %>" itemprop="blogPost" itemscope itemtype="https://schema.org/BlogPosting">
   <div class="article-meta">
-    <a href="/2021/04/25/2021-EC-final-%E8%B5%9B%E5%90%8E%E8%A1%A5%E9%A2%98/" class="article-date">
-  <time class="dt-published" datetime="2021-04-25T02:10:00.000Z" itemprop="datePublished">2021-04-25</time>
-</a>
-    
+    <%- partial('post/date', {class_name: 'article-date', date_format: null}) %>
+    <%- partial('post/category') %>
   </div>
   <div class="article-inner">
-    
-    
+    <%- partial('post/gallery') %>
+    <% if (post.link || post.title){ %>
       <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="p-name article-title" href="/2021/04/25/2021-EC-final-%E8%B5%9B%E5%90%8E%E8%A1%A5%E9%A2%98/">2021 EC-final 赛后补题</a>
-    </h1>
-  
-
+        <%- partial('post/title', {class_name: 'p-name article-title'}) %>
       </header>
-    
+    <% } %>
     <div class="e-content article-entry" itemprop="articleBody">
-      
-        <p>现在看来本来应该再多A几个题的……</p>
-        
+      <% if (post.excerpt && index){ %>
+        <%- post.excerpt %>
+        <% if (theme.excerpt_link){ %>
           <p class="article-more-link">
-            <a href="/2021/04/25/2021-EC-final-%E8%B5%9B%E5%90%8E%E8%A1%A5%E9%A2%98/#more">Read More</a>
+            <a href="<%- url_for(post.path) %>#more"><%= theme.excerpt_link %></a>
           </p>
-        
-      
+        <% } %>
+      <% } else { %>
+        <%- post.content %>
+      <% } %>
     </div>
     <footer class="article-footer">
-      <a data-url="https://www.ywy-c-asm.cn/2021/04/25/2021-EC-final-%E8%B5%9B%E5%90%8E%E8%A1%A5%E9%A2%98/" data-id="ckpjsnd2a0006ekt22zg85pi7" data-title="2021 EC-final 赛后补题"></a>
-      
-      
-      
-  <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/ACM/" rel="tag">ACM</a></li></ul>
-
+      <a data-url="<%- post.permalink %>" data-id="<%= post._id %>" data-title="<%= post.title %>" class="article-share-link"><%= __('share') %></a>
+      <% if (post.comments && config.disqus_shortname){ %>
+        <a href="<%- post.permalink %>#disqus_thread" class="article-comment-link"><%= __('comment') %></a>
+      <% } %>
+      <% if (post.comments && theme.valine.enable && theme.valine.appId && theme.valine.appKey ){ %>
+        <a href="<%- url_for(post.path) %>#comments" class="article-comment-link">
+          <span class="post-comments-count valine-comment-count" data-xid="<%- url_for(post.path) %>" itemprop="commentCount"></span>
+          <%= __('comment') %>
+        </a>
+      <% } %>
+      <%- partial('post/tag') %>
     </footer>
   </div>
-  
+  <% if (!index){ %>
+    <%- partial('post/nav') %>
+  <% } %>
 </article>
 
+<% if (!index && post.comments && config.disqus_shortname){ %>
+<section id="comments">
+  <div id="disqus_thread">
+    <noscript>Please enable JavaScript to view the <a target="_blank" rel="noopener" href="//disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+  </div>
+</section>
+<% } %>
+<% if (!index && post.comments && theme.valine.enable && theme.valine.appId && theme.valine.appKey){ %>
+  <section id="comments" class="vcomment">
 
-
+  </section>
+<% } %>
   
-    <article id="post-2021-04-20-2021-ICPC-EC-Final-游记" class="h-entry article article-type-post" itemprop="blogPost" itemscope itemtype="https://schema.org/BlogPosting">
+    <article id="<%= post.layout %>-<%= post.slug %>" class="h-entry article article-type-<%= post.layout %>" itemprop="blogPost" itemscope itemtype="https://schema.org/BlogPosting">
   <div class="article-meta">
-    <a href="/2021/04/20/2021-04-20-2021-ICPC-EC-Final-%E6%B8%B8%E8%AE%B0/" class="article-date">
-  <time class="dt-published" datetime="2021-04-19T16:00:00.000Z" itemprop="datePublished">2021-04-20</time>
-</a>
-    
+    <%- partial('post/date', {class_name: 'article-date', date_format: null}) %>
+    <%- partial('post/category') %>
   </div>
   <div class="article-inner">
-    
-    
+    <%- partial('post/gallery') %>
+    <% if (post.link || post.title){ %>
       <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="p-name article-title" href="/2021/04/20/2021-04-20-2021-ICPC-EC-Final-%E6%B8%B8%E8%AE%B0/">2021 ICPC EC-Final 游记</a>
-    </h1>
-  
-
+        <%- partial('post/title', {class_name: 'p-name article-title'}) %>
       </header>
-    
+    <% } %>
     <div class="e-content article-entry" itemprop="articleBody">
-      
-        <p>由于这个博客对图片加载实在不怎么友好，就放到旧博客上了……<a target="_blank" rel="noopener" href="https://www.luogu.com.cn/blog/ywycasm/post-2021-icpc-ec-final-you-ji">链接</a></p>
-
-      
-    </div>
-    <footer class="article-footer">
-      <a data-url="https://www.ywy-c-asm.cn/2021/04/20/2021-04-20-2021-ICPC-EC-Final-%E6%B8%B8%E8%AE%B0/" data-id="ckpjsnd250003ekt2c9mvcg1c" data-title="2021 ICPC EC-Final 游记"></a>
-      
-      
-      
-  <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/ACM/" rel="tag">ACM</a></li></ul>
-
-    </footer>
-  </div>
-  
-</article>
-
-
-
-  
-    <article id="post-ec-final前的苟命题选做" class="h-entry article article-type-post" itemprop="blogPost" itemscope itemtype="https://schema.org/BlogPosting">
-  <div class="article-meta">
-    <a href="/2021/04/13/ec-final%E5%89%8D%E7%9A%84%E8%8B%9F%E5%91%BD%E9%A2%98%E9%80%89%E5%81%9A/" class="article-date">
-  <time class="dt-published" datetime="2021-04-13T00:28:00.000Z" itemprop="datePublished">2021-04-13</time>
-</a>
-    
-  </div>
-  <div class="article-inner">
-    
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="p-name article-title" href="/2021/04/13/ec-final%E5%89%8D%E7%9A%84%E8%8B%9F%E5%91%BD%E9%A2%98%E9%80%89%E5%81%9A/">ec-final前的苟命题选做</a>
-    </h1>
-  
-
-      </header>
-    
-    <div class="e-content article-entry" itemprop="articleBody">
-      
-        <p>在距离ec-final 2021不到一周的时候刷题苟命……</p>
-        
+      <% if (post.excerpt && index){ %>
+        <%- post.excerpt %>
+        <% if (theme.excerpt_link){ %>
           <p class="article-more-link">
-            <a href="/2021/04/13/ec-final%E5%89%8D%E7%9A%84%E8%8B%9F%E5%91%BD%E9%A2%98%E9%80%89%E5%81%9A/#more">Read More</a>
+            <a href="<%- url_for(post.path) %>#more"><%= theme.excerpt_link %></a>
           </p>
-        
-      
+        <% } %>
+      <% } else { %>
+        <%- post.content %>
+      <% } %>
     </div>
     <footer class="article-footer">
-      <a data-url="https://www.ywy-c-asm.cn/2021/04/13/ec-final%E5%89%8D%E7%9A%84%E8%8B%9F%E5%91%BD%E9%A2%98%E9%80%89%E5%81%9A/" data-id="ckpjsnd3t000wekt2havm47ms" data-title="ec-final前的苟命题选做"></a>
-      
-      
-      
-  <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/ACM/" rel="tag">ACM</a></li></ul>
-
+      <a data-url="<%- post.permalink %>" data-id="<%= post._id %>" data-title="<%= post.title %>" class="article-share-link"><%= __('share') %></a>
+      <% if (post.comments && config.disqus_shortname){ %>
+        <a href="<%- post.permalink %>#disqus_thread" class="article-comment-link"><%= __('comment') %></a>
+      <% } %>
+      <% if (post.comments && theme.valine.enable && theme.valine.appId && theme.valine.appKey ){ %>
+        <a href="<%- url_for(post.path) %>#comments" class="article-comment-link">
+          <span class="post-comments-count valine-comment-count" data-xid="<%- url_for(post.path) %>" itemprop="commentCount"></span>
+          <%= __('comment') %>
+        </a>
+      <% } %>
+      <%- partial('post/tag') %>
     </footer>
   </div>
-  
+  <% if (!index){ %>
+    <%- partial('post/nav') %>
+  <% } %>
 </article>
 
+<% if (!index && post.comments && config.disqus_shortname){ %>
+<section id="comments">
+  <div id="disqus_thread">
+    <noscript>Please enable JavaScript to view the <a target="_blank" rel="noopener" href="//disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+  </div>
+</section>
+<% } %>
+<% if (!index && post.comments && theme.valine.enable && theme.valine.appId && theme.valine.appKey){ %>
+  <section id="comments" class="vcomment">
 
-
+  </section>
+<% } %>
   
-    <article id="post-2018-ICPC-EC-Final-选做" class="h-entry article article-type-post" itemprop="blogPost" itemscope itemtype="https://schema.org/BlogPosting">
+    <article id="<%= post.layout %>-<%= post.slug %>" class="h-entry article article-type-<%= post.layout %>" itemprop="blogPost" itemscope itemtype="https://schema.org/BlogPosting">
   <div class="article-meta">
-    <a href="/2021/04/10/2018-ICPC-EC-Final-%E9%80%89%E5%81%9A/" class="article-date">
-  <time class="dt-published" datetime="2021-04-09T16:00:00.000Z" itemprop="datePublished">2021-04-10</time>
-</a>
-    
+    <%- partial('post/date', {class_name: 'article-date', date_format: null}) %>
+    <%- partial('post/category') %>
   </div>
   <div class="article-inner">
-    
-    
+    <%- partial('post/gallery') %>
+    <% if (post.link || post.title){ %>
       <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="p-name article-title" href="/2021/04/10/2018-ICPC-EC-Final-%E9%80%89%E5%81%9A/">2018 ICPC EC-Final 选做</a>
-    </h1>
-  
-
+        <%- partial('post/title', {class_name: 'p-name article-title'}) %>
       </header>
-    
+    <% } %>
     <div class="e-content article-entry" itemprop="articleBody">
-      
-        <p>说得好听是选做，其实就是鸽了不可做题……</p>
-<p>感觉今年ECFinal要打铁了……</p>
-        
+      <% if (post.excerpt && index){ %>
+        <%- post.excerpt %>
+        <% if (theme.excerpt_link){ %>
           <p class="article-more-link">
-            <a href="/2021/04/10/2018-ICPC-EC-Final-%E9%80%89%E5%81%9A/#more">Read More</a>
+            <a href="<%- url_for(post.path) %>#more"><%= theme.excerpt_link %></a>
           </p>
-        
-      
+        <% } %>
+      <% } else { %>
+        <%- post.content %>
+      <% } %>
     </div>
     <footer class="article-footer">
-      <a data-url="https://www.ywy-c-asm.cn/2021/04/10/2018-ICPC-EC-Final-%E9%80%89%E5%81%9A/" data-id="ckpjsnd1y0001ekt2b5on69y3" data-title="2018 ICPC EC-Final 选做"></a>
-      
-      
-      
-  <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/ACM/" rel="tag">ACM</a></li></ul>
-
+      <a data-url="<%- post.permalink %>" data-id="<%= post._id %>" data-title="<%= post.title %>" class="article-share-link"><%= __('share') %></a>
+      <% if (post.comments && config.disqus_shortname){ %>
+        <a href="<%- post.permalink %>#disqus_thread" class="article-comment-link"><%= __('comment') %></a>
+      <% } %>
+      <% if (post.comments && theme.valine.enable && theme.valine.appId && theme.valine.appKey ){ %>
+        <a href="<%- url_for(post.path) %>#comments" class="article-comment-link">
+          <span class="post-comments-count valine-comment-count" data-xid="<%- url_for(post.path) %>" itemprop="commentCount"></span>
+          <%= __('comment') %>
+        </a>
+      <% } %>
+      <%- partial('post/tag') %>
     </footer>
   </div>
-  
+  <% if (!index){ %>
+    <%- partial('post/nav') %>
+  <% } %>
 </article>
 
+<% if (!index && post.comments && config.disqus_shortname){ %>
+<section id="comments">
+  <div id="disqus_thread">
+    <noscript>Please enable JavaScript to view the <a target="_blank" rel="noopener" href="//disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+  </div>
+</section>
+<% } %>
+<% if (!index && post.comments && theme.valine.enable && theme.valine.appId && theme.valine.appKey){ %>
+  <section id="comments" class="vcomment">
 
-
+  </section>
+<% } %>
   
-    <article id="post-Codeforces闲杂题记录（二）" class="h-entry article article-type-post" itemprop="blogPost" itemscope itemtype="https://schema.org/BlogPosting">
+    <article id="<%= post.layout %>-<%= post.slug %>" class="h-entry article article-type-<%= post.layout %>" itemprop="blogPost" itemscope itemtype="https://schema.org/BlogPosting">
   <div class="article-meta">
-    <a href="/2021/04/08/Codeforces%E9%97%B2%E6%9D%82%E9%A2%98%E8%AE%B0%E5%BD%95%EF%BC%88%E4%BA%8C%EF%BC%89/" class="article-date">
-  <time class="dt-published" datetime="2021-04-08T10:38:00.000Z" itemprop="datePublished">2021-04-08</time>
-</a>
-    
+    <%- partial('post/date', {class_name: 'article-date', date_format: null}) %>
+    <%- partial('post/category') %>
   </div>
   <div class="article-inner">
-    
-    
+    <%- partial('post/gallery') %>
+    <% if (post.link || post.title){ %>
       <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="p-name article-title" href="/2021/04/08/Codeforces%E9%97%B2%E6%9D%82%E9%A2%98%E8%AE%B0%E5%BD%95%EF%BC%88%E4%BA%8C%EF%BC%89/">Codeforces闲杂题记录（二）</a>
-    </h1>
-  
-
+        <%- partial('post/title', {class_name: 'p-name article-title'}) %>
       </header>
-    
+    <% } %>
     <div class="e-content article-entry" itemprop="articleBody">
-      
-        <span id="more"></span>
-
-<hr>
-<h1 id="1394C-Boboniu-and-String"><a href="#1394C-Boboniu-and-String" class="headerlink" title="1394C Boboniu and String"></a>1394C Boboniu and String</h1><p><a target="_blank" rel="noopener" href="https://codeforces.com/problemset/problem/1394/C">题目链接</a></p>
-<p>题意：给你$n$个01串$s_i$，定义两个01串$S,T$的距离为每次进行如下几种操作把$S$变成<strong>与$T$的0的个数和1的个数相同</strong>的最少次数：①删个”10”或”01”，②在末尾加个0或1，③在末尾加个”10”或”01”。现在构造一个01串$S$，使得$\max_{i=1}^ndis(s_i,S)$最小。$n&lt;=3e5$，字符串总长不超过$5e5$</p>
-<p>Solution：</p>
-<p>显然这仅和字符串里0和1的个数有关，那么我们把每个串用$(x,y)$表示。考虑如何把$(x,y)$变成$(x’,y’)$，如果$x&gt;=x’,y&gt;=y’$，那么我可以先删01或10使得0和1同时减少，直到某种数相同，再单独删另一个。所以$dis=\max(x-x’,y-y’)$。$x$和$y$同时更小的情况同理。如果一个更大，而另一个更小，那么就不能进行01或10的操作，只能单独地进行删增。那么：</p>
-<p>$\begin{align*}\begin{split}dis((x,y),(x’,y’))= \left {\begin{array}{ll}\max(|x-x’|,|y-y’|),          &amp; (x-x’))y-y’)&gt;=0\|x-x’|+|y-y’|,   &amp; (x-x’)(y-y’)&lt;0\\end{array}\right.\end{split}\end{align*}$</p>
-<p>套路地考虑二分答案，然后在每个点周围形成一个区域，大概就是长这样一个六边形：</p>
-<p><img src="https://cdn.luogu.com.cn/upload/image_hosting/pseilfzt.png"></p>
-<p>好了那这题就转化为若干个多边形的交集问题了。这题还不是很恶心，因为涉及到的所有点（包括线段的交点）一定都是整点，在求交的时候把在另一个多边形内部的顶点以及线段两两之间的交点求出来即可。</p>
-<p>一个很明显的优化是，当$n$很大时，字符串的长度会趋于比较短，那么我们对所有点对去重就会使$n$大大降低。</p>
-<h1 id="1388E-Uncle-Bogdan-and-Projections"><a href="#1388E-Uncle-Bogdan-and-Projections" class="headerlink" title="1388E Uncle Bogdan and Projections"></a>1388E Uncle Bogdan and Projections</h1><p>题意：给平面上$n$条横向的不相交的线段，将它们从某个方向上向x轴作投影，投影不能相交，最小化投影的x坐标极差。$n&lt;=2000$</p>
-<p>Solution:</p>
-<p>对于每两条线段，使得它们的投影相交的角度是一段区间，就是一个左端点和另一条的右端点的连线角度，那么我们得到了一堆区间，投影的方向显然应该在区间并的端点上取值。</p>
-<p>而这个取值个数是$O(n^2)$的，现在我已知角度$\theta$，希望求出$x_i+\frac{y_i}{\tan\theta}$的最大值和最小值，这个用非dp的斜率优化去搞，把所有端点的上凸壳和下凸壳求出来，单调枚举$\tan\theta$，在凸壳上用双指针维护极值即可。</p>
-<p>看上去思路很简单但写起来很恶心……另外凸壳应该用极角排序求，注意这个的$x$不一定有序，需要保证压栈时后面的$x$不小于前面的。</p>
-
-      
-    </div>
-    <footer class="article-footer">
-      <a data-url="https://www.ywy-c-asm.cn/2021/04/08/Codeforces%E9%97%B2%E6%9D%82%E9%A2%98%E8%AE%B0%E5%BD%95%EF%BC%88%E4%BA%8C%EF%BC%89/" data-id="ckpjsnd3h000oekt2dih86d73" data-title="Codeforces闲杂题记录（二）"></a>
-      
-      
-      
-  <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/ACM/" rel="tag">ACM</a></li></ul>
-
-    </footer>
-  </div>
-  
-</article>
-
-
-
-  
-    <article id="post-Codeforces杂题记录" class="h-entry article article-type-post" itemprop="blogPost" itemscope itemtype="https://schema.org/BlogPosting">
-  <div class="article-meta">
-    <a href="/2021/04/07/Codeforces%E6%9D%82%E9%A2%98%E8%AE%B0%E5%BD%95/" class="article-date">
-  <time class="dt-published" datetime="2021-04-07T13:00:00.000Z" itemprop="datePublished">2021-04-07</time>
-</a>
-    
-  </div>
-  <div class="article-inner">
-    
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="p-name article-title" href="/2021/04/07/Codeforces%E6%9D%82%E9%A2%98%E8%AE%B0%E5%BD%95/">Codeforces闲杂题记录</a>
-    </h1>
-  
-
-      </header>
-    
-    <div class="e-content article-entry" itemprop="articleBody">
-      
-        <p><del>闲来无事刷点CF水题愉悦身心</del></p>
-        
+      <% if (post.excerpt && index){ %>
+        <%- post.excerpt %>
+        <% if (theme.excerpt_link){ %>
           <p class="article-more-link">
-            <a href="/2021/04/07/Codeforces%E6%9D%82%E9%A2%98%E8%AE%B0%E5%BD%95/#more">Read More</a>
+            <a href="<%- url_for(post.path) %>#more"><%= theme.excerpt_link %></a>
           </p>
-        
-      
+        <% } %>
+      <% } else { %>
+        <%- post.content %>
+      <% } %>
     </div>
     <footer class="article-footer">
-      <a data-url="https://www.ywy-c-asm.cn/2021/04/07/Codeforces%E6%9D%82%E9%A2%98%E8%AE%B0%E5%BD%95/" data-id="ckpjsnd3d000lekt22bhm6yqp" data-title="Codeforces闲杂题记录"></a>
-      
-      
-      
-  <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/ACM/" rel="tag">ACM</a></li></ul>
-
+      <a data-url="<%- post.permalink %>" data-id="<%= post._id %>" data-title="<%= post.title %>" class="article-share-link"><%= __('share') %></a>
+      <% if (post.comments && config.disqus_shortname){ %>
+        <a href="<%- post.permalink %>#disqus_thread" class="article-comment-link"><%= __('comment') %></a>
+      <% } %>
+      <% if (post.comments && theme.valine.enable && theme.valine.appId && theme.valine.appKey ){ %>
+        <a href="<%- url_for(post.path) %>#comments" class="article-comment-link">
+          <span class="post-comments-count valine-comment-count" data-xid="<%- url_for(post.path) %>" itemprop="commentCount"></span>
+          <%= __('comment') %>
+        </a>
+      <% } %>
+      <%- partial('post/tag') %>
     </footer>
   </div>
-  
+  <% if (!index){ %>
+    <%- partial('post/nav') %>
+  <% } %>
 </article>
 
+<% if (!index && post.comments && config.disqus_shortname){ %>
+<section id="comments">
+  <div id="disqus_thread">
+    <noscript>Please enable JavaScript to view the <a target="_blank" rel="noopener" href="//disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+  </div>
+</section>
+<% } %>
+<% if (!index && post.comments && theme.valine.enable && theme.valine.appId && theme.valine.appKey){ %>
+  <section id="comments" class="vcomment">
 
-
+  </section>
+<% } %>
   
-    <article id="post-2021.4.2-校赛总结" class="h-entry article article-type-post" itemprop="blogPost" itemscope itemtype="https://schema.org/BlogPosting">
+    <article id="<%= post.layout %>-<%= post.slug %>" class="h-entry article article-type-<%= post.layout %>" itemprop="blogPost" itemscope itemtype="https://schema.org/BlogPosting">
   <div class="article-meta">
-    <a href="/2021/04/03/2021.4.2-%E6%A0%A1%E8%B5%9B%E6%80%BB%E7%BB%93/" class="article-date">
-  <time class="dt-published" datetime="2021-04-03T00:13:00.000Z" itemprop="datePublished">2021-04-03</time>
-</a>
-    
+    <%- partial('post/date', {class_name: 'article-date', date_format: null}) %>
+    <%- partial('post/category') %>
   </div>
   <div class="article-inner">
-    
-    
+    <%- partial('post/gallery') %>
+    <% if (post.link || post.title){ %>
       <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="p-name article-title" href="/2021/04/03/2021.4.2-%E6%A0%A1%E8%B5%9B%E6%80%BB%E7%BB%93/">2021.4.2 校赛总结</a>
-    </h1>
-  
-
+        <%- partial('post/title', {class_name: 'p-name article-title'}) %>
       </header>
-    
+    <% } %>
     <div class="e-content article-entry" itemprop="articleBody">
-      
-        <p><del>总之这场全程交一发WA一发就是很丢人</del></p>
-        
+      <% if (post.excerpt && index){ %>
+        <%- post.excerpt %>
+        <% if (theme.excerpt_link){ %>
           <p class="article-more-link">
-            <a href="/2021/04/03/2021.4.2-%E6%A0%A1%E8%B5%9B%E6%80%BB%E7%BB%93/#more">Read More</a>
+            <a href="<%- url_for(post.path) %>#more"><%= theme.excerpt_link %></a>
           </p>
-        
-      
+        <% } %>
+      <% } else { %>
+        <%- post.content %>
+      <% } %>
     </div>
     <footer class="article-footer">
-      <a data-url="https://www.ywy-c-asm.cn/2021/04/03/2021.4.2-%E6%A0%A1%E8%B5%9B%E6%80%BB%E7%BB%93/" data-id="ckpjsnd2c0008ekt2ev7zd6aq" data-title="2021.4.2 校赛总结"></a>
-      
-      
-      
-  <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/ACM/" rel="tag">ACM</a></li></ul>
-
+      <a data-url="<%- post.permalink %>" data-id="<%= post._id %>" data-title="<%= post.title %>" class="article-share-link"><%= __('share') %></a>
+      <% if (post.comments && config.disqus_shortname){ %>
+        <a href="<%- post.permalink %>#disqus_thread" class="article-comment-link"><%= __('comment') %></a>
+      <% } %>
+      <% if (post.comments && theme.valine.enable && theme.valine.appId && theme.valine.appKey ){ %>
+        <a href="<%- url_for(post.path) %>#comments" class="article-comment-link">
+          <span class="post-comments-count valine-comment-count" data-xid="<%- url_for(post.path) %>" itemprop="commentCount"></span>
+          <%= __('comment') %>
+        </a>
+      <% } %>
+      <%- partial('post/tag') %>
     </footer>
   </div>
-  
+  <% if (!index){ %>
+    <%- partial('post/nav') %>
+  <% } %>
 </article>
 
+<% if (!index && post.comments && config.disqus_shortname){ %>
+<section id="comments">
+  <div id="disqus_thread">
+    <noscript>Please enable JavaScript to view the <a target="_blank" rel="noopener" href="//disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+  </div>
+</section>
+<% } %>
+<% if (!index && post.comments && theme.valine.enable && theme.valine.appId && theme.valine.appKey){ %>
+  <section id="comments" class="vcomment">
 
-
+  </section>
+<% } %>
   
-    <article id="post-《C++Primer》学习笔记（六）" class="h-entry article article-type-post" itemprop="blogPost" itemscope itemtype="https://schema.org/BlogPosting">
+    <article id="<%= post.layout %>-<%= post.slug %>" class="h-entry article article-type-<%= post.layout %>" itemprop="blogPost" itemscope itemtype="https://schema.org/BlogPosting">
   <div class="article-meta">
-    <a href="/2021/03/28/%E3%80%8AC++Primer%E3%80%8B%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0%EF%BC%88%E5%85%AD%EF%BC%89/" class="article-date">
-  <time class="dt-published" datetime="2021-03-28T13:56:00.000Z" itemprop="datePublished">2021-03-28</time>
-</a>
-    
+    <%- partial('post/date', {class_name: 'article-date', date_format: null}) %>
+    <%- partial('post/category') %>
   </div>
   <div class="article-inner">
-    
-    
+    <%- partial('post/gallery') %>
+    <% if (post.link || post.title){ %>
       <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="p-name article-title" href="/2021/03/28/%E3%80%8AC++Primer%E3%80%8B%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0%EF%BC%88%E5%85%AD%EF%BC%89/">《C++Primer》学习笔记（六）</a>
-    </h1>
-  
-
+        <%- partial('post/title', {class_name: 'p-name article-title'}) %>
       </header>
-    
+    <% } %>
     <div class="e-content article-entry" itemprop="articleBody">
-      
-        <p><strong>关于模板的各种用法</strong></p>
-        
+      <% if (post.excerpt && index){ %>
+        <%- post.excerpt %>
+        <% if (theme.excerpt_link){ %>
           <p class="article-more-link">
-            <a href="/2021/03/28/%E3%80%8AC++Primer%E3%80%8B%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0%EF%BC%88%E5%85%AD%EF%BC%89/#more">Read More</a>
+            <a href="<%- url_for(post.path) %>#more"><%= theme.excerpt_link %></a>
           </p>
-        
-      
+        <% } %>
+      <% } else { %>
+        <%- post.content %>
+      <% } %>
     </div>
     <footer class="article-footer">
-      <a data-url="https://www.ywy-c-asm.cn/2021/03/28/%E3%80%8AC++Primer%E3%80%8B%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0%EF%BC%88%E5%85%AD%EF%BC%89/" data-id="ckpjsnd3z0010ekt25awceyqm" data-title="《C++Primer》学习笔记（六）"></a>
-      
-      
-      
-  <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/C/" rel="tag">C++</a></li></ul>
-
+      <a data-url="<%- post.permalink %>" data-id="<%= post._id %>" data-title="<%= post.title %>" class="article-share-link"><%= __('share') %></a>
+      <% if (post.comments && config.disqus_shortname){ %>
+        <a href="<%- post.permalink %>#disqus_thread" class="article-comment-link"><%= __('comment') %></a>
+      <% } %>
+      <% if (post.comments && theme.valine.enable && theme.valine.appId && theme.valine.appKey ){ %>
+        <a href="<%- url_for(post.path) %>#comments" class="article-comment-link">
+          <span class="post-comments-count valine-comment-count" data-xid="<%- url_for(post.path) %>" itemprop="commentCount"></span>
+          <%= __('comment') %>
+        </a>
+      <% } %>
+      <%- partial('post/tag') %>
     </footer>
   </div>
-  
+  <% if (!index){ %>
+    <%- partial('post/nav') %>
+  <% } %>
 </article>
 
+<% if (!index && post.comments && config.disqus_shortname){ %>
+<section id="comments">
+  <div id="disqus_thread">
+    <noscript>Please enable JavaScript to view the <a target="_blank" rel="noopener" href="//disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+  </div>
+</section>
+<% } %>
+<% if (!index && post.comments && theme.valine.enable && theme.valine.appId && theme.valine.appKey){ %>
+  <section id="comments" class="vcomment">
 
-
+  </section>
+<% } %>
   
-    <article id="post-《C++Primer》学习笔记（五）" class="h-entry article article-type-post" itemprop="blogPost" itemscope itemtype="https://schema.org/BlogPosting">
+    <article id="<%= post.layout %>-<%= post.slug %>" class="h-entry article article-type-<%= post.layout %>" itemprop="blogPost" itemscope itemtype="https://schema.org/BlogPosting">
   <div class="article-meta">
-    <a href="/2021/03/25/%E3%80%8AC++Primer%E3%80%8B%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0%EF%BC%88%E4%BA%94%EF%BC%89/" class="article-date">
-  <time class="dt-published" datetime="2021-03-25T12:04:00.000Z" itemprop="datePublished">2021-03-25</time>
-</a>
-    
+    <%- partial('post/date', {class_name: 'article-date', date_format: null}) %>
+    <%- partial('post/category') %>
   </div>
   <div class="article-inner">
-    
-    
+    <%- partial('post/gallery') %>
+    <% if (post.link || post.title){ %>
       <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="p-name article-title" href="/2021/03/25/%E3%80%8AC++Primer%E3%80%8B%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0%EF%BC%88%E4%BA%94%EF%BC%89/">《C++Primer》学习笔记（五）</a>
-    </h1>
-  
-
+        <%- partial('post/title', {class_name: 'p-name article-title'}) %>
       </header>
-    
+    <% } %>
     <div class="e-content article-entry" itemprop="articleBody">
-      
-        <p>关于类的继承那一堆东西……</p>
-        
+      <% if (post.excerpt && index){ %>
+        <%- post.excerpt %>
+        <% if (theme.excerpt_link){ %>
           <p class="article-more-link">
-            <a href="/2021/03/25/%E3%80%8AC++Primer%E3%80%8B%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0%EF%BC%88%E4%BA%94%EF%BC%89/#more">Read More</a>
+            <a href="<%- url_for(post.path) %>#more"><%= theme.excerpt_link %></a>
           </p>
-        
-      
+        <% } %>
+      <% } else { %>
+        <%- post.content %>
+      <% } %>
     </div>
     <footer class="article-footer">
-      <a data-url="https://www.ywy-c-asm.cn/2021/03/25/%E3%80%8AC++Primer%E3%80%8B%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0%EF%BC%88%E4%BA%94%EF%BC%89/" data-id="ckpjsnd51001zekt21p330udj" data-title="《C++Primer》学习笔记（五）"></a>
-      
-      
-      
-  <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/C/" rel="tag">C++</a></li></ul>
-
+      <a data-url="<%- post.permalink %>" data-id="<%= post._id %>" data-title="<%= post.title %>" class="article-share-link"><%= __('share') %></a>
+      <% if (post.comments && config.disqus_shortname){ %>
+        <a href="<%- post.permalink %>#disqus_thread" class="article-comment-link"><%= __('comment') %></a>
+      <% } %>
+      <% if (post.comments && theme.valine.enable && theme.valine.appId && theme.valine.appKey ){ %>
+        <a href="<%- url_for(post.path) %>#comments" class="article-comment-link">
+          <span class="post-comments-count valine-comment-count" data-xid="<%- url_for(post.path) %>" itemprop="commentCount"></span>
+          <%= __('comment') %>
+        </a>
+      <% } %>
+      <%- partial('post/tag') %>
     </footer>
   </div>
-  
+  <% if (!index){ %>
+    <%- partial('post/nav') %>
+  <% } %>
 </article>
 
+<% if (!index && post.comments && config.disqus_shortname){ %>
+<section id="comments">
+  <div id="disqus_thread">
+    <noscript>Please enable JavaScript to view the <a target="_blank" rel="noopener" href="//disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+  </div>
+</section>
+<% } %>
+<% if (!index && post.comments && theme.valine.enable && theme.valine.appId && theme.valine.appKey){ %>
+  <section id="comments" class="vcomment">
 
-
+  </section>
+<% } %>
   
-    <article id="post-《C++Primer》学习笔记（四）" class="h-entry article article-type-post" itemprop="blogPost" itemscope itemtype="https://schema.org/BlogPosting">
+    <article id="<%= post.layout %>-<%= post.slug %>" class="h-entry article article-type-<%= post.layout %>" itemprop="blogPost" itemscope itemtype="https://schema.org/BlogPosting">
   <div class="article-meta">
-    <a href="/2021/03/23/%E3%80%8AC++Primer%E3%80%8B%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0%EF%BC%88%E5%9B%9B%EF%BC%89/" class="article-date">
-  <time class="dt-published" datetime="2021-03-22T23:20:00.000Z" itemprop="datePublished">2021-03-23</time>
-</a>
-    
+    <%- partial('post/date', {class_name: 'article-date', date_format: null}) %>
+    <%- partial('post/category') %>
   </div>
   <div class="article-inner">
-    
-    
+    <%- partial('post/gallery') %>
+    <% if (post.link || post.title){ %>
       <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="p-name article-title" href="/2021/03/23/%E3%80%8AC++Primer%E3%80%8B%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0%EF%BC%88%E5%9B%9B%EF%BC%89/">《C++Primer》学习笔记（四）</a>
-    </h1>
-  
-
+        <%- partial('post/title', {class_name: 'p-name article-title'}) %>
       </header>
-    
+    <% } %>
     <div class="e-content article-entry" itemprop="articleBody">
-      
-        <p>.</p>
-        
+      <% if (post.excerpt && index){ %>
+        <%- post.excerpt %>
+        <% if (theme.excerpt_link){ %>
           <p class="article-more-link">
-            <a href="/2021/03/23/%E3%80%8AC++Primer%E3%80%8B%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0%EF%BC%88%E5%9B%9B%EF%BC%89/#more">Read More</a>
+            <a href="<%- url_for(post.path) %>#more"><%= theme.excerpt_link %></a>
           </p>
-        
-      
+        <% } %>
+      <% } else { %>
+        <%- post.content %>
+      <% } %>
     </div>
     <footer class="article-footer">
-      <a data-url="https://www.ywy-c-asm.cn/2021/03/23/%E3%80%8AC++Primer%E3%80%8B%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0%EF%BC%88%E5%9B%9B%EF%BC%89/" data-id="ckpjsnd420013ekt26ur8bgtt" data-title="《C++Primer》学习笔记（四）"></a>
-      
-      
-      
-  <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/C/" rel="tag">C++</a></li></ul>
-
+      <a data-url="<%- post.permalink %>" data-id="<%= post._id %>" data-title="<%= post.title %>" class="article-share-link"><%= __('share') %></a>
+      <% if (post.comments && config.disqus_shortname){ %>
+        <a href="<%- post.permalink %>#disqus_thread" class="article-comment-link"><%= __('comment') %></a>
+      <% } %>
+      <% if (post.comments && theme.valine.enable && theme.valine.appId && theme.valine.appKey ){ %>
+        <a href="<%- url_for(post.path) %>#comments" class="article-comment-link">
+          <span class="post-comments-count valine-comment-count" data-xid="<%- url_for(post.path) %>" itemprop="commentCount"></span>
+          <%= __('comment') %>
+        </a>
+      <% } %>
+      <%- partial('post/tag') %>
     </footer>
   </div>
-  
+  <% if (!index){ %>
+    <%- partial('post/nav') %>
+  <% } %>
 </article>
 
+<% if (!index && post.comments && config.disqus_shortname){ %>
+<section id="comments">
+  <div id="disqus_thread">
+    <noscript>Please enable JavaScript to view the <a target="_blank" rel="noopener" href="//disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+  </div>
+</section>
+<% } %>
+<% if (!index && post.comments && theme.valine.enable && theme.valine.appId && theme.valine.appKey){ %>
+  <section id="comments" class="vcomment">
 
+  </section>
+<% } %>
+  
+    <article id="<%= post.layout %>-<%= post.slug %>" class="h-entry article article-type-<%= post.layout %>" itemprop="blogPost" itemscope itemtype="https://schema.org/BlogPosting">
+  <div class="article-meta">
+    <%- partial('post/date', {class_name: 'article-date', date_format: null}) %>
+    <%- partial('post/category') %>
+  </div>
+  <div class="article-inner">
+    <%- partial('post/gallery') %>
+    <% if (post.link || post.title){ %>
+      <header class="article-header">
+        <%- partial('post/title', {class_name: 'p-name article-title'}) %>
+      </header>
+    <% } %>
+    <div class="e-content article-entry" itemprop="articleBody">
+      <% if (post.excerpt && index){ %>
+        <%- post.excerpt %>
+        <% if (theme.excerpt_link){ %>
+          <p class="article-more-link">
+            <a href="<%- url_for(post.path) %>#more"><%= theme.excerpt_link %></a>
+          </p>
+        <% } %>
+      <% } else { %>
+        <%- post.content %>
+      <% } %>
+    </div>
+    <footer class="article-footer">
+      <a data-url="<%- post.permalink %>" data-id="<%= post._id %>" data-title="<%= post.title %>" class="article-share-link"><%= __('share') %></a>
+      <% if (post.comments && config.disqus_shortname){ %>
+        <a href="<%- post.permalink %>#disqus_thread" class="article-comment-link"><%= __('comment') %></a>
+      <% } %>
+      <% if (post.comments && theme.valine.enable && theme.valine.appId && theme.valine.appKey ){ %>
+        <a href="<%- url_for(post.path) %>#comments" class="article-comment-link">
+          <span class="post-comments-count valine-comment-count" data-xid="<%- url_for(post.path) %>" itemprop="commentCount"></span>
+          <%= __('comment') %>
+        </a>
+      <% } %>
+      <%- partial('post/tag') %>
+    </footer>
+  </div>
+  <% if (!index){ %>
+    <%- partial('post/nav') %>
+  <% } %>
+</article>
 
+<% if (!index && post.comments && config.disqus_shortname){ %>
+<section id="comments">
+  <div id="disqus_thread">
+    <noscript>Please enable JavaScript to view the <a target="_blank" rel="noopener" href="//disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+  </div>
+</section>
+<% } %>
+<% if (!index && post.comments && theme.valine.enable && theme.valine.appId && theme.valine.appKey){ %>
+  <section id="comments" class="vcomment">
+
+  </section>
+<% } %>
+  
+    <article id="<%= post.layout %>-<%= post.slug %>" class="h-entry article article-type-<%= post.layout %>" itemprop="blogPost" itemscope itemtype="https://schema.org/BlogPosting">
+  <div class="article-meta">
+    <%- partial('post/date', {class_name: 'article-date', date_format: null}) %>
+    <%- partial('post/category') %>
+  </div>
+  <div class="article-inner">
+    <%- partial('post/gallery') %>
+    <% if (post.link || post.title){ %>
+      <header class="article-header">
+        <%- partial('post/title', {class_name: 'p-name article-title'}) %>
+      </header>
+    <% } %>
+    <div class="e-content article-entry" itemprop="articleBody">
+      <% if (post.excerpt && index){ %>
+        <%- post.excerpt %>
+        <% if (theme.excerpt_link){ %>
+          <p class="article-more-link">
+            <a href="<%- url_for(post.path) %>#more"><%= theme.excerpt_link %></a>
+          </p>
+        <% } %>
+      <% } else { %>
+        <%- post.content %>
+      <% } %>
+    </div>
+    <footer class="article-footer">
+      <a data-url="<%- post.permalink %>" data-id="<%= post._id %>" data-title="<%= post.title %>" class="article-share-link"><%= __('share') %></a>
+      <% if (post.comments && config.disqus_shortname){ %>
+        <a href="<%- post.permalink %>#disqus_thread" class="article-comment-link"><%= __('comment') %></a>
+      <% } %>
+      <% if (post.comments && theme.valine.enable && theme.valine.appId && theme.valine.appKey ){ %>
+        <a href="<%- url_for(post.path) %>#comments" class="article-comment-link">
+          <span class="post-comments-count valine-comment-count" data-xid="<%- url_for(post.path) %>" itemprop="commentCount"></span>
+          <%= __('comment') %>
+        </a>
+      <% } %>
+      <%- partial('post/tag') %>
+    </footer>
+  </div>
+  <% if (!index){ %>
+    <%- partial('post/nav') %>
+  <% } %>
+</article>
+
+<% if (!index && post.comments && config.disqus_shortname){ %>
+<section id="comments">
+  <div id="disqus_thread">
+    <noscript>Please enable JavaScript to view the <a target="_blank" rel="noopener" href="//disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+  </div>
+</section>
+<% } %>
+<% if (!index && post.comments && theme.valine.enable && theme.valine.appId && theme.valine.appKey){ %>
+  <section id="comments" class="vcomment">
+
+  </section>
+<% } %>
   
 
 
@@ -595,6 +696,10 @@
       <ul>
         
           <li>
+            <a href="/2021/06/13/2021-06-13-2021-CCPC-%E4%B8%9C%E5%8C%97%E5%9B%9B%E7%9C%81%E8%B5%9B-%E8%B5%9B%E5%90%8E%E8%A1%A5%E9%A2%98/">2021 CCPC 东北四省赛 赛后补题</a>
+          </li>
+        
+          <li>
             <a href="/2021/06/05/NOI2019%E8%A1%A5%E9%A2%98/">NOI2019补题</a>
           </li>
         
@@ -608,10 +713,6 @@
         
           <li>
             <a href="/2021/05/29/%E9%87%8D%E8%B5%B0OI%E8%B7%AF%EF%BC%9A2020-2021-OI%E9%A2%98%E6%B3%9B%E5%81%9A%EF%BC%88%E4%BA%8C%EF%BC%89/">重走OI路：2020-2021 OI题泛做（二）</a>
-          </li>
-        
-          <li>
-            <a href="/2021/05/23/%E4%B8%8D%E7%9F%A5%E9%81%93%E8%AF%A5%E8%B5%B7%E4%BB%80%E4%B9%88%E5%90%8D%E5%AD%97%E7%9A%84%E9%A2%98%E8%A7%A3/">几个有趣的题</a>
           </li>
         
       </ul>

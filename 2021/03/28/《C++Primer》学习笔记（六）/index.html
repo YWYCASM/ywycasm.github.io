@@ -83,176 +83,61 @@
 </header>
 
       <div class="outer" style="padding:0 0px">
-        <section id="main"><article id="post-《C++Primer》学习笔记（六）" class="h-entry article article-type-post" itemprop="blogPost" itemscope itemtype="https://schema.org/BlogPosting">
+        <section id="main"><article id="<%= post.layout %>-<%= post.slug %>" class="h-entry article article-type-<%= post.layout %>" itemprop="blogPost" itemscope itemtype="https://schema.org/BlogPosting">
   <div class="article-meta">
-    <a href="/2021/03/28/%E3%80%8AC++Primer%E3%80%8B%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0%EF%BC%88%E5%85%AD%EF%BC%89/" class="article-date">
-  <time class="dt-published" datetime="2021-03-28T13:56:00.000Z" itemprop="datePublished">2021-03-28</time>
-</a>
-    
+    <%- partial('post/date', {class_name: 'article-date', date_format: null}) %>
+    <%- partial('post/category') %>
   </div>
   <div class="article-inner">
-    
-    
+    <%- partial('post/gallery') %>
+    <% if (post.link || post.title){ %>
       <header class="article-header">
-        
-  
-    <h1 class="p-name article-title" itemprop="headline name">
-      《C++Primer》学习笔记（六）
-    </h1>
-  
-
+        <%- partial('post/title', {class_name: 'p-name article-title'}) %>
       </header>
-    
+    <% } %>
     <div class="e-content article-entry" itemprop="articleBody">
-      
-        <p><strong>关于模板的各种用法</strong></p>
-<span id="more"></span>
-
-<p>模板其实就是一种类似宏定义的类型替换，它是C++中众多“类型识别”（作为一种最为典型的静态类型语言，这种机制实在了不起）的应用之一。它提供了一种编写类型无关代码——称为<strong>泛型</strong>——的方式。一个最简单的例子：</p>
-<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">template</span>&lt;<span class="keyword">typename</span> T&gt;</span><br><span class="line"><span class="function"><span class="keyword">bool</span> <span class="title">comp</span><span class="params">(<span class="keyword">const</span> T &amp;a,<span class="keyword">const</span> T &amp;b)</span></span>&#123;</span><br><span class="line">    <span class="keyword">return</span> a&lt;b;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
-<p>只有在实际调用该函数时，编译器才会识别参数的类型，然后生成一个具有相应的类型参数的新函数<code>comp&lt;T&gt;</code>。这样，我只需要保证a和b类型相等，并且定义了小于运算符（单看这模板函数本身，并不知道是不是可以对T比较大小，只有在调用处根据模板生成函数时编译器才会检查并报错）。</p>
-<p>模板的参数不仅是类型，还可以是值，由于函数是在编译时生成的，这值必须是字面值常量（一个非常典型的例子是<code>bitset&lt;x&gt;</code>），这种用法常常用来说明数组大小：</p>
-<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">template</span>&lt;<span class="keyword">typename</span> T,<span class="keyword">int</span> N&gt;</span><br><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">print_array</span><span class="params">(<span class="keyword">const</span> T (&amp;arr)[N])</span></span>&#123;</span><br><span class="line">    <span class="keyword">for</span>(<span class="keyword">auto</span> i:arr)</span><br><span class="line">        <span class="built_in">cout</span>&lt;&lt;i&lt;&lt;<span class="string">&quot; &quot;</span>;</span><br><span class="line">&#125;</span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">main</span><span class="params">()</span></span>&#123;</span><br><span class="line">    <span class="keyword">int</span> a[<span class="number">3</span>]=&#123;<span class="number">1</span>,<span class="number">2</span>,<span class="number">3</span>&#125;;</span><br><span class="line">    print_array(a);</span><br><span class="line">    <span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
-<p>类亦可使用模板，但与函数不同的是，编译器并不能推断出类的模板参数，需要显式指定：</p>
-<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">template</span>&lt;<span class="keyword">typename</span> T&gt;</span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">x</span>&#123;</span></span><br><span class="line">    <span class="keyword">public</span>:</span><br><span class="line">    	<span class="keyword">typedef</span> T value_type;</span><br><span class="line">    	<span class="function"><span class="keyword">void</span> <span class="title">print</span><span class="params">(<span class="keyword">const</span> T &amp;a)</span> <span class="keyword">const</span></span>&#123;</span><br><span class="line">            <span class="built_in">cout</span>&lt;&lt;a&lt;&lt;<span class="built_in">endl</span>;</span><br><span class="line">        &#125;</span><br><span class="line">&#125;;</span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">main</span><span class="params">()</span></span>&#123;</span><br><span class="line">    x&lt;<span class="keyword">int</span>&gt; me;</span><br><span class="line">    x&lt;<span class="keyword">int</span>&gt;::value_type a=<span class="number">233</span>;</span><br><span class="line">    me.print(a);</span><br><span class="line">    <span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
-<p>（上面那个代码有个值得注意的细节，在类中使用<code>typedef</code>时，这东西和<code>#define</code>的行为完全不一样，它被当做是类的<code>static</code>成员，可以拥有访问权限）</p>
-<p>关于模板的友元关系，一个类可以声明所有的模板实例都是友元，也可以声明指定的模板实例是友元：</p>
-<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">x</span>&#123;</span></span><br><span class="line">    <span class="keyword">friend</span> <span class="class"><span class="keyword">class</span> <span class="title">vector</span>&lt;</span><span class="keyword">int</span>&gt;;</span><br><span class="line">    </span><br><span class="line">    <span class="keyword">template</span>&lt;<span class="keyword">typename</span>&gt; <span class="comment">//无需说明参数名称，只是声明</span></span><br><span class="line">    <span class="keyword">friend</span> <span class="class"><span class="keyword">class</span> <span class="title">set</span>;</span></span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
-
-<p>在C++11中，允许这样的使用类模板的类型定义（但<code>typedef</code>不可以）</p>
-<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">template</span>&lt;<span class="keyword">typename</span> T,<span class="keyword">typename</span> U&gt;</span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">x</span> &#123;</span>&#125;;</span><br><span class="line"><span class="keyword">template</span>&lt;<span class="keyword">typename</span> T&gt;</span><br><span class="line"><span class="keyword">using</span> type=x&lt;T,T&gt;;</span><br></pre></td></tr></table></figure>
-
-<p>有时，我们可能需要类型参数作用域中的类型，但这可能会带来歧义：</p>
-<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">T::size_type *p; <span class="comment">//如果T::size_type是一个对象，那么执行乘法，如果是类型，那么是指针变量定义</span></span><br></pre></td></tr></table></figure>
-
-<p>所以，当出现这种情况时，我们需要在前面加上<code>typename</code>说明这是类型：</p>
-<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">x</span>&#123;</span></span><br><span class="line">    <span class="keyword">public</span>:</span><br><span class="line">    	<span class="keyword">typedef</span> <span class="keyword">int</span> size_type;</span><br><span class="line">&#125;;</span><br><span class="line"><span class="keyword">template</span>&lt;<span class="keyword">typename</span> T&gt;</span><br><span class="line"><span class="function"><span class="keyword">typename</span> T::size_type <span class="title">f</span><span class="params">()</span></span>&#123;</span><br><span class="line">    <span class="keyword">typename</span> T::size_type *p=<span class="keyword">new</span> <span class="keyword">int</span>(<span class="number">233</span>);</span><br><span class="line">&#125;</span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">main</span><span class="params">()</span></span>&#123;</span><br><span class="line">    f&lt;<span class="keyword">int</span>&gt;();</span><br><span class="line">    <span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
-<p>上面那个程序还告诉我们，如果编译器无法推断出类型参数时，需要显式地指定。实际上，可以只显示指定前几个，剩下几个可以由编译器自动推断。这样显式指定参数类型后，就相当于有了个明确的实例，传入实参时可以正常的隐式转换以匹配参数类型，例如：</p>
-<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">long</span> <span class="keyword">long</span> a=<span class="number">233</span>;</span><br><span class="line"><span class="built_in">cout</span>&lt;&lt; min&lt;<span class="keyword">long</span>,<span class="keyword">long</span>&gt;(a,<span class="number">2333</span>) &lt;&lt;<span class="built_in">endl</span>;</span><br></pre></td></tr></table></figure>
-
-<p>模板一个缺点是，在多个源文件的情况下，如果多个文件共用同一种模板的同一个实例，由于单个文件单独编译，那么编译器会在多个目标文件中都生成一个模板类实例，这增加了额外的开销。我们需要在定义模板的文件中显式地给予其实例化的<strong>定义</strong>（告诉编译器，不管是不是在这个源文件中使用过，先创建一个实例，可能会在连接中被使用）：</p>
-<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">template</span> <span class="class"><span class="keyword">class</span> <span class="title">x</span>&lt;</span><span class="keyword">int</span>&gt;;</span><br></pre></td></tr></table></figure>
-
-<p>在使用模板的源文件中，根据常理，编译器会在使用的地方去搜索或创建实例，那么我们需要使用<code>extern</code>给出声明，表示它已经在其它源文件中给出了定义，在连接时进行搜索：</p>
-<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">extern</span> <span class="keyword">template</span> <span class="class"><span class="keyword">class</span> <span class="title">x</span>&lt;</span><span class="keyword">int</span>&gt;;</span><br></pre></td></tr></table></figure>
-
-<p>编译器在推断模板的类型参数时，一般不进行任何隐式自动转换，但有两个例外：①非<code>const</code>引用/指针到<code>const</code>引用/指针的转换（但参数如果没有声明<code>const&amp;</code>，那么传入一个<code>const</code>对象会自动识别为带有<code>const</code>的类型），②数组名或函数名自动转换为指针。</p>
-<p>考虑这样一个例子：我要写一个模板函数<code>f(it)</code>返回迭代器的值，传入的迭代器可以用模板的类型推断，但是返回值类型呢？一种方式是使用<code>auto</code>，这虽然可行，却因为过于灵活而增加了不确定性（编译器会对它抛出<code>Warning</code>）。另一种方式是使用一种名为<strong>尾置返回类型</strong>的骚操作（<del>其实这和模板没啥关系，但常常用于模板）</del>：</p>
-<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">template</span>&lt;<span class="keyword">typename</span> T&gt;</span><br><span class="line">auto f(T it) -&gt; decltype(*it)&#123; //指定他的返回类型和it解引用后一致</span><br><span class="line">    <span class="keyword">return</span> *it;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
-<p>头文件<code>type_traits</code>提供了若干用于“类型”转换的模板类，它们仅有一个类型成员<code>type</code>，用于诸如把一个引用类型转换为普通类型之类，下表是一些主要的：</p>
-<table>
-<thead>
-<tr>
-<th><code>x&lt;T&gt;</code></th>
-<th><code>T</code>为（除此之外的均不改变类型）</th>
-<th><code>x&lt;T&gt;::type</code>为</th>
-</tr>
-</thead>
-<tbody><tr>
-<td><code>remove_reference</code></td>
-<td><code>X&amp; or X&amp;&amp;</code></td>
-<td><code>X</code></td>
-</tr>
-<tr>
-<td><code>add_const</code></td>
-<td>除了const、引用、函数以外的类型</td>
-<td><code>const T</code></td>
-</tr>
-<tr>
-<td><code>add_lvalue_reference</code></td>
-<td>右值引用或非引用</td>
-<td>左值引用</td>
-</tr>
-<tr>
-<td><code>add_pointer</code></td>
-<td>引用或普通类型</td>
-<td>指针</td>
-</tr>
-<tr>
-<td><code>remove_all_extents</code></td>
-<td><code>X[n1][n2]...</code></td>
-<td><code>X</code></td>
-</tr>
-</tbody></table>
-<p>去这个头文件里查看它们的实现，会发现一些非常耐人寻味的东西：</p>
-<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">template</span>&lt;<span class="keyword">typename</span> _Tp&gt;</span><br><span class="line">  <span class="class"><span class="keyword">struct</span> <span class="title">remove_reference</span></span></span><br><span class="line"><span class="class">  &#123;</span> <span class="keyword">typedef</span> _Tp   type; &#125;;</span><br><span class="line"></span><br><span class="line"><span class="keyword">template</span>&lt;<span class="keyword">typename</span> _Tp&gt;</span><br><span class="line">  <span class="class"><span class="keyword">struct</span> <span class="title">remove_reference</span>&lt;</span>_Tp&amp;&gt;</span><br><span class="line">  &#123; <span class="keyword">typedef</span> _Tp   type; &#125;;</span><br><span class="line"></span><br><span class="line"><span class="keyword">template</span>&lt;<span class="keyword">typename</span> _Tp&gt;</span><br><span class="line">  <span class="class"><span class="keyword">struct</span> <span class="title">remove_reference</span>&lt;</span>_Tp&amp;&amp;&gt;</span><br><span class="line">  &#123; <span class="keyword">typedef</span> _Tp   type; &#125;;</span><br></pre></td></tr></table></figure>
-
-
-
-<hr>
-<p><strong>引用折叠与完美转发</strong></p>
-<p>考虑下面一个奇怪的程序：</p>
-<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">f</span><span class="params">(<span class="keyword">int</span> &amp;a)</span></span>&#123;</span><br><span class="line">    <span class="built_in">cout</span>&lt;&lt;<span class="string">&quot;Left ref &quot;</span>&lt;&lt;a&lt;&lt;<span class="built_in">endl</span>;</span><br><span class="line">&#125;</span><br><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">f</span><span class="params">(<span class="keyword">int</span> &amp;&amp;a)</span></span>&#123;</span><br><span class="line">    <span class="built_in">cout</span>&lt;&lt;<span class="string">&quot;Right ref &quot;</span>&lt;&lt;a&lt;&lt;<span class="built_in">endl</span>;</span><br><span class="line">&#125;</span><br><span class="line"><span class="keyword">template</span>&lt;<span class="keyword">typename</span> T&gt;</span><br><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">send</span><span class="params">(T &amp;&amp;a)</span></span>&#123;</span><br><span class="line">    f(a);</span><br><span class="line">&#125;</span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">main</span><span class="params">()</span></span>&#123;</span><br><span class="line">    <span class="keyword">int</span> a=<span class="number">233</span>;</span><br><span class="line">    send(a); <span class="comment">//传入左值</span></span><br><span class="line">    send(<span class="number">233</span>); <span class="comment">//传入右值</span></span><br><span class="line">    <span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
-<p>这个程序有两个有意思的地方：①按理说，类型为右值引用的形参是不能接受左值引用的实参的，但是这个模板函数却做到了。②两次<code>send</code>调用的都是<code>void f(int&amp;)</code>，即便第二次传入的是右值。</p>
-<p>第一个问题的原因是C++11的规定，对于模板类型的“右值引用”形参，如果我传入一个右值就正常当做右值引用使用。如果传入一个左值引用，会变成<code>X&amp; &amp;&amp;</code>的奇怪形式，<strong>那么编译器将按照<code>x&amp;</code>处理</strong>，也正是因为这个原因<code>std::move</code>可以正常工作。</p>
-<p>第二个问题涉及到右值引用的本质，本来，<strong>右值</strong>的定义就是“没有名字的临时变量”，<code>send</code>的形参类型虽然是“右值引用”，但是<strong>这仅代表它接受一个右值</strong>，在函数体内，既然a有了名字，那么它会被当做<strong>左值</strong>！所以简单地调用<code>f(a)</code>只会调用<code>f(int&amp;)</code>，这是一次不完美的函数转发。</p>
-<p>为了解决这个问题，我们可以使用<code>utility</code>中的<code>std::forward&lt;T&gt;</code>：</p>
-<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">template</span>&lt;<span class="keyword">typename</span> T&gt;</span><br><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">send</span><span class="params">(T &amp;&amp;a)</span></span>&#123;</span><br><span class="line">    f(<span class="built_in">std</span>::forward&lt;T&gt;(a));</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
-<p>这样，如果a真的是一个右值，那么<code>std::forward</code>会返回右值，否则返回左值，该是啥还是啥。它的作用类似<code>move</code>，我去看了一下它的实现，发现写这玩意的人简直把模板玩的溜的一批……</p>
-<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">template</span>&lt;<span class="keyword">typename</span> _Tp&gt;</span><br><span class="line">  <span class="keyword">constexpr</span> _Tp&amp;&amp;</span><br><span class="line">  forward(<span class="keyword">typename</span> <span class="built_in">std</span>::remove_reference&lt;_Tp&gt;::type&amp; <span class="keyword">__t</span>) <span class="keyword">noexcept</span></span><br><span class="line">  &#123; <span class="keyword">return</span> <span class="keyword">static_cast</span>&lt;_Tp&amp;&amp;&gt;(<span class="keyword">__t</span>); &#125;</span><br></pre></td></tr></table></figure>
-
-<p>追根溯源，它利用了模板类型对引用折叠的性质。他把传入的参数使用<code>remove_reference</code>统一当成左值处理，反正，不管传进来的是右值还是引用，都能得到一个地址。然后，如果<code>a</code>本来是一个左值引用，那么<code>T</code>即<code>__Tp</code>一定是左值引用类型，最终把地址转换为<code>__Tp&amp;&amp;</code>，再折叠一下，还是左值……如果a真的是右值引用，那么<code>__Tp</code>是不带引用类型，最终还是转换为右值引用。所以，当用于一个<strong>模板</strong>参数的“右值”引用类型时，<code>std::forward</code>会保持实参类型的所有细节。</p>
-<hr>
-<p><strong>变长参数模板</strong></p>
-<p><del>woc这写法实在太骚太nb了我要吐了</del></p>
-<p>模板可以把最后一个类型参数声明为变长的，就像这样：</p>
-<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">template</span>&lt;<span class="keyword">typename</span>...Args&gt;</span><br><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">print</span><span class="params">(<span class="keyword">const</span> Args&amp; ...args)</span></span>;</span><br></pre></td></tr></table></figure>
-
-<p>这个类型参数<code>Args</code>表示多个（甚至是0个）可以是不同类型的参数，在函数体内，可以使用<code>sizeof...(args)</code>得知参数个数，这个玩意是编译器级别的<code>constexpr</code>。</p>
-<p>由于这堆参数可以有不同的类型，因此并不能作为数组使用<del>python欢迎你</del>，但是可以利用函数的重载来<strong>递归</strong>地读取这些参数：</p>
-<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">template</span>&lt;<span class="keyword">typename</span> T&gt;</span><br><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">print</span><span class="params">(<span class="keyword">const</span> T&amp; arg0)</span></span>&#123; <span class="comment">//一个参数的“递归”边界</span></span><br><span class="line">    <span class="built_in">cout</span>&lt;&lt;arg0&lt;&lt;<span class="built_in">endl</span>;</span><br><span class="line">&#125;</span><br><span class="line"><span class="keyword">template</span>&lt;<span class="keyword">typename</span> T,<span class="keyword">typename</span>...Args&gt;</span><br><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">print</span><span class="params">(<span class="keyword">const</span> T&amp; arg0,<span class="keyword">const</span> Args&amp; ...args)</span></span>&#123; <span class="comment">//至少两个参数</span></span><br><span class="line">    <span class="built_in">cout</span>&lt;&lt;arg0&lt;&lt;<span class="string">&quot; &quot;</span>;</span><br><span class="line">    print(args...);</span><br><span class="line">&#125;</span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">main</span><span class="params">()</span></span>&#123;</span><br><span class="line">    print(<span class="number">1</span>,<span class="number">2</span>,<span class="number">3</span>,<span class="number">4ll</span>,<span class="built_in">string</span>(<span class="string">&quot;ywysb&quot;</span>));</span><br><span class="line">    <span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
-<p>这种所谓的“递归”实际上会被编译器展开为多个不同重载函数的互相调用，事实上，变长模板参数本来也就是编译层面上的东西。</p>
-<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">print(<span class="number">1</span>,<span class="number">2</span>,<span class="number">3</span>,<span class="number">4ll</span>,<span class="built_in">string</span>(<span class="string">&quot;ywysb&quot;</span>));</span><br><span class="line"><span class="comment">//arg0=1, args=2,3,4ll...</span></span><br><span class="line">print(<span class="number">2</span>,<span class="number">3</span>,<span class="number">4ll</span>,<span class="built_in">string</span>(<span class="string">&quot;ywysb&quot;</span>));</span><br><span class="line">print(<span class="number">3</span>,<span class="number">4ll</span>,<span class="built_in">string</span>(<span class="string">&quot;ywysb&quot;</span>));</span><br><span class="line">print(<span class="number">4ll</span>,<span class="built_in">string</span>(<span class="string">&quot;ywysb&quot;</span>));</span><br><span class="line"><span class="comment">//args=string(&quot;ywysb&quot;), print(args...)----&gt;call print&lt;T&gt;()</span></span><br><span class="line">print(<span class="built_in">string</span>(<span class="string">&quot;ywysb&quot;</span>));</span><br></pre></td></tr></table></figure>
-
-<p>变长参数的扩展还可以使用谓词的形式：</p>
-<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">template</span>&lt;<span class="keyword">typename</span> T&gt;</span><br><span class="line"><span class="function">T <span class="title">dec</span><span class="params">(<span class="keyword">const</span> T&amp; arg0)</span></span>&#123;</span><br><span class="line">    <span class="keyword">return</span> arg0<span class="number">-1</span>;</span><br><span class="line">&#125;</span><br><span class="line"><span class="keyword">template</span>&lt;<span class="keyword">typename</span> ...Args&gt;</span><br><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">print_dec</span><span class="params">(<span class="keyword">const</span> Args&amp; args)</span></span>&#123;</span><br><span class="line">    print(dec(args)...); <span class="comment">//等价于print(dec(arg0),dec(arg1),dec(arg2)......</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
-
-      
+      <% if (post.excerpt && index){ %>
+        <%- post.excerpt %>
+        <% if (theme.excerpt_link){ %>
+          <p class="article-more-link">
+            <a href="<%- url_for(post.path) %>#more"><%= theme.excerpt_link %></a>
+          </p>
+        <% } %>
+      <% } else { %>
+        <%- post.content %>
+      <% } %>
     </div>
     <footer class="article-footer">
-      <a data-url="https://www.ywy-c-asm.cn/2021/03/28/%E3%80%8AC++Primer%E3%80%8B%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0%EF%BC%88%E5%85%AD%EF%BC%89/" data-id="ckpjsnd3z0010ekt25awceyqm" data-title="《C++Primer》学习笔记（六）"></a>
-      
-      
-      
-  <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/C/" rel="tag">C++</a></li></ul>
-
+      <a data-url="<%- post.permalink %>" data-id="<%= post._id %>" data-title="<%= post.title %>" class="article-share-link"><%= __('share') %></a>
+      <% if (post.comments && config.disqus_shortname){ %>
+        <a href="<%- post.permalink %>#disqus_thread" class="article-comment-link"><%= __('comment') %></a>
+      <% } %>
+      <% if (post.comments && theme.valine.enable && theme.valine.appId && theme.valine.appKey ){ %>
+        <a href="<%- url_for(post.path) %>#comments" class="article-comment-link">
+          <span class="post-comments-count valine-comment-count" data-xid="<%- url_for(post.path) %>" itemprop="commentCount"></span>
+          <%= __('comment') %>
+        </a>
+      <% } %>
+      <%- partial('post/tag') %>
     </footer>
   </div>
-  
-    
-<nav id="article-nav">
-  
-    <a href="/2021/04/03/2021.4.2-%E6%A0%A1%E8%B5%9B%E6%80%BB%E7%BB%93/" id="article-nav-newer" class="article-nav-link-wrap">
-      <strong class="article-nav-caption">Newer</strong>
-      <div class="article-nav-title">
-        
-          2021.4.2 校赛总结
-        
-      </div>
-    </a>
-  
-  
-    <a href="/2021/03/25/%E3%80%8AC++Primer%E3%80%8B%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0%EF%BC%88%E4%BA%94%EF%BC%89/" id="article-nav-older" class="article-nav-link-wrap">
-      <strong class="article-nav-caption">Older</strong>
-      <div class="article-nav-title">《C++Primer》学习笔记（五）</div>
-    </a>
-  
-</nav>
-
-  
+  <% if (!index){ %>
+    <%- partial('post/nav') %>
+  <% } %>
 </article>
 
-
+<% if (!index && post.comments && config.disqus_shortname){ %>
+<section id="comments">
+  <div id="disqus_thread">
+    <noscript>Please enable JavaScript to view the <a target="_blank" rel="noopener" href="//disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+  </div>
 </section>
+<% } %>
+<% if (!index && post.comments && theme.valine.enable && theme.valine.appId && theme.valine.appKey){ %>
+  <section id="comments" class="vcomment">
+
+  </section>
+<% } %></section>
         
           <aside id="sidebar">
   
@@ -299,6 +184,10 @@
       <ul>
         
           <li>
+            <a href="/2021/06/13/2021-06-13-2021-CCPC-%E4%B8%9C%E5%8C%97%E5%9B%9B%E7%9C%81%E8%B5%9B-%E8%B5%9B%E5%90%8E%E8%A1%A5%E9%A2%98/">2021 CCPC 东北四省赛 赛后补题</a>
+          </li>
+        
+          <li>
             <a href="/2021/06/05/NOI2019%E8%A1%A5%E9%A2%98/">NOI2019补题</a>
           </li>
         
@@ -312,10 +201,6 @@
         
           <li>
             <a href="/2021/05/29/%E9%87%8D%E8%B5%B0OI%E8%B7%AF%EF%BC%9A2020-2021-OI%E9%A2%98%E6%B3%9B%E5%81%9A%EF%BC%88%E4%BA%8C%EF%BC%89/">重走OI路：2020-2021 OI题泛做（二）</a>
-          </li>
-        
-          <li>
-            <a href="/2021/05/23/%E4%B8%8D%E7%9F%A5%E9%81%93%E8%AF%A5%E8%B5%B7%E4%BB%80%E4%B9%88%E5%90%8D%E5%AD%97%E7%9A%84%E9%A2%98%E8%A7%A3/">几个有趣的题</a>
           </li>
         
       </ul>

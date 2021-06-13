@@ -85,138 +85,61 @@
 </header>
 
       <div class="outer" style="padding:0 0px">
-        <section id="main"><article id="post-Codeforces杂题记录" class="h-entry article article-type-post" itemprop="blogPost" itemscope itemtype="https://schema.org/BlogPosting">
+        <section id="main"><article id="<%= post.layout %>-<%= post.slug %>" class="h-entry article article-type-<%= post.layout %>" itemprop="blogPost" itemscope itemtype="https://schema.org/BlogPosting">
   <div class="article-meta">
-    <a href="/2021/04/07/Codeforces%E6%9D%82%E9%A2%98%E8%AE%B0%E5%BD%95/" class="article-date">
-  <time class="dt-published" datetime="2021-04-07T13:00:00.000Z" itemprop="datePublished">2021-04-07</time>
-</a>
-    
+    <%- partial('post/date', {class_name: 'article-date', date_format: null}) %>
+    <%- partial('post/category') %>
   </div>
   <div class="article-inner">
-    
-    
+    <%- partial('post/gallery') %>
+    <% if (post.link || post.title){ %>
       <header class="article-header">
-        
-  
-    <h1 class="p-name article-title" itemprop="headline name">
-      Codeforces闲杂题记录
-    </h1>
-  
-
+        <%- partial('post/title', {class_name: 'p-name article-title'}) %>
       </header>
-    
+    <% } %>
     <div class="e-content article-entry" itemprop="articleBody">
-      
-        <p><del>闲来无事刷点CF水题愉悦身心</del></p>
-<span id="more"></span>
-
-<h1 id="1500A-Going-Home"><a href="#1500A-Going-Home" class="headerlink" title="1500A Going Home"></a>1500A Going Home</h1><p><a target="_blank" rel="noopener" href="http://codeforces.com/problemset/problem/1500/A">题目链接</a></p>
-<p>题意：给一个长为$n$的序列，从中找出4个位置互不相同的数，使得其中两个之和等于另外两个之和，任意输出一组方案或说明无解。$n&lt;=2\cdot10^5,1&lt;=a_i&lt;=2.5\cdot10^6$。</p>
-<p>Solution：</p>
-<p>等价于这四个数中其中两个的差等于另外两个的差，如果是两两之间作差，会产生$O(n^2)$个对，但<strong>本质不同的差至多值域范围个</strong>，因此我们暴力二重枚举数对一定能在有效时间内找到重复的差。</p>
-<p>但这样是有问题的，题目要求4个数位置不同，也就是说不能把$i&lt;j&lt;k$且$|a_j-a_i|=|a_k-a_j|$这样的相同的差当成答案，因此需要做一些特殊考虑。</p>
-<p>首先，如果有两种数出现至少两次，或者有一种数至少出现4次，那它们可以直接被构造成答案。排除这种情况后，就至多仅有一种数$x$出现至少一次，我们先把形如$x+x=a+b$的答案简单特判出来，若没有，那么多个$x$是没用的，因此现在的情况就是所有数互不相同。</p>
-<p>然后我们二重循环暴力找差，对于每个差并不简单地记录它之前是否出现过，而是开个大小为2的桶。此时如果发现之前有差与当前的差相同，若桶内有2个对，其中至多有一个对的右端点等于当前对的左端点，必然存在一个对可以与当前对构成答案。若桶里只有一个对，要么输出答案，要么无法构成答案，把当前的对放到桶里。这样，每种差至多被扫描2次，复杂度仍然正确。</p>
-<h1 id="1506G-Maximize-the-Remaining-String"><a href="#1506G-Maximize-the-Remaining-String" class="headerlink" title="1506G Maximize the Remaining String"></a>1506G Maximize the Remaining String</h1><p><a target="_blank" rel="noopener" href="http://codeforces.com/problemset/problem/1506/G">题目链接</a></p>
-<p>题意：给个只有小写字母的字符串，对于每种字母保留一个，最大化剩下字符串的字典序。$n&lt;=2*10^5$</p>
-<p>Solution:</p>
-<p>按照套路，我们应先让处于开头位置的字母最大，倒着枚举字母，考虑它是否会出现在开头。那么这就意味着不能有一种字母的所有位置都在这个位置之前（因为我要把前面的所有字母都删掉），我们令每种字母最后出现的位置为1，树状数组维护之前1的个数，如果没有那么就可以。显然这个从前往后有单调性，那么仅考虑这种字符出现在最前的位置是否可行即可。</p>
-<p>现在要找最大的第二个字母，它的前面必须有第一个字母，并且，除了第一个字母外，其余字母都能够被删除，那么我们把第一种字母的最后一个出现位置的1改成0，“假装”不存在第一种字母，并且不考虑它的第一个出现位置之前的所有字母，这样就可以递归地让剩余字符串字典序最大了。</p>
-<h1 id="1497D-Genius"><a href="#1497D-Genius" class="headerlink" title="1497D Genius"></a>1497D Genius</h1><p><a target="_blank" rel="noopener" href="http://codeforces.com/problemset/problem/1497/D">题目链接</a></p>
-<p>题意：长为$n$的序列，每个位置的$c_i=2^i$，权值$s_i$，标签$tag_i$，你可以从任意一个位置开始，每次跳到另一个标签不同的位置，要求跳的$|c_i-c_j|$越来越大，得分为$|s_i-s_j|$的和，求最大分数。$n&lt;=5000$，<strong>空间限制32MB</strong></p>
-<p>Solution：</p>
-<p>这个2的幂的性质就很好。我们从小到大限制只能跳不超过$i$的点dp，考虑位置$i$，显然由于之前没跳到过比他更大的点，那么不管轨迹是啥，一定能够从$1…i-1$任一个点跳到$i$（如果不考虑tag）。然后，$i$可以往回跳到$j&lt;i$，前提是上一个点在$[j+1,i-1]$内。</p>
-<p>于是我们令$f[i][lim]$为仅考虑$[1,lim]$内的点，跳到i的最大得分。在计算$f[lim]$时用前面的点更新它，再倒着更新之前的点（往回跳），边更新边取中间$f[lim][j]$的最大值即可。第二维可以滚动数组掉。</p>
-<h1 id="1494E-A-Z-Graph"><a href="#1494E-A-Z-Graph" class="headerlink" title="1494E A-Z Graph"></a>1494E A-Z Graph</h1><p><a target="_blank" rel="noopener" href="http://codeforces.com/problemset/problem/1494/E">题目链接</a></p>
-<p>题意：给个有向图，支持动态加边删边，保证不存在自环重边，每条边有个字母。每次给定$k&gt;=2$，询问是否存在可重顶点序列$[v_1,v_2…v_k]$，使得路径$v_1-&gt;v_2-&gt;…v_k$和$v_k-&gt;…v_2-&gt;v_1$的字符串相同。</p>
-<p>Solution：</p>
-<p><del>被一个大水题坑了qwq，所以CF现在也开始恶意评分了吗</del></p>
-<p>如果有一个$(s,t)$存在双向路径，那么不管路径上字母是啥，当$k$为奇数时，一定能够走出一条顶点对称的路径出来（就是$sts,ststs,…$这样），正着走和倒着走一定是一样的字符串。若$k$为偶数，假如条件成立，那么在$[v_1,…v_k]$中间一定存在$(s,t)$使得双向路径的字母相同（因为这路径是奇对称的），实际上如果真有这个，那么$k$不管是啥都可以构造出来字母完全相同的……</p>
-<p><del>所以其实就是个找双向边的大水题啊，就这还2400分wcnmd</del></p>
-<h1 id="1500C-Matrix-Sorting"><a href="#1500C-Matrix-Sorting" class="headerlink" title="1500C Matrix Sorting"></a>1500C Matrix Sorting</h1><p><a target="_blank" rel="noopener" href="http://codeforces.com/problemset/problem/1500/C">题目链接</a></p>
-<p>题意：给两个$n*m$矩阵$A,B$，你每次可以以某一列为关键字对行进行<strong>稳定</strong>排序，构造一种把A排序成B的方法。$n,m&lt;=1500$</p>
-<p>Solution：</p>
-<p>神题。</p>
-<p>我们首先可以处理出B的每一行对应着A的第几行，可以把这个序号当做一列，相当于最开始一次排序必须是最右边的一列。倒着考虑B的每一对行$i&lt;j$，对于每一列$k$的排序都会分为下面3种情况：①不影响ij的次序（$B_{ik}=B_{jk}$），②使ij变成最终的次序（$B_{ik}&lt;B_{jk}$），③使ij变成相反的次序（$B_{ik}&gt;B_{jk}$）。显然，我构造出的列的排序序列中，最后几个可以是①类列，但必须有一个②类列（<strong>注意</strong>，如果对于这对行而言不存在②类列，那么无论如何$i$行是不可能优于$j$行的，无解，可以看题目上的样例3），然后才可以有③类列，这是一种“解锁”关系。不难想到拓扑排序，但这个是“只要有一个”就可解锁，实际上可以用相似的方法：把每一对行视作白点，每一个列视为黑点，白点向它的③类列连边，②类列向白点连边。黑点必须把所有入度都解锁掉，白点只需解锁一个入度。我一开始以为这玩意会产生后效性做不了，其实用和拓扑排序差不多的bfs就能得到唯一的序列了……只要把最右边的列解锁出来就可以。</p>
-<p>这样做是$O(n^2m)$的，其实，我们并不需要考虑每一对行，只需要让每个相邻的两行保持顺序，就可得到最终的顺序了。</p>
-<h1 id="1497E-Square-Free-division"><a href="#1497E-Square-Free-division" class="headerlink" title="1497E Square-Free division"></a>1497E Square-Free division</h1><p><a target="_blank" rel="noopener" href="http://codeforces.com/problemset/problem/1497/E2">题目链接</a></p>
-<p>题意：给个序列，把它划分为最少的段，使得每段中不存在两个数乘积为完全平方数。你可以在一开始把至多$k$个位置修改为任意整数。$n&lt;=200000$，$a_i&lt;=10^7$，$0&lt;=k&lt;=20$。<a target="_blank" rel="noopener" href="http://codeforces.com/problemset/problem/1497/E1">简单版</a>：$k=0$。</p>
-<p>Solution：</p>
-<p>先考虑$k=0$咋做。我们把所有出现过的质因子搞出来，对每个数分解质因数，求出每个质因子（不管是不是在这数里出现过）的次数$mod\space2$，搞出一个01串，显然01串相同的两个数的乘积就是完全平方数了。最小化分段可以贪心，对于一个结束位置贪心地往前面找分段位置，直到在这段中出现两个01串相同的为止。</p>
-<p>$k&gt;0$时其实就是在贪心的基础上加个dp，但就不能暴力往前枚举位置了。$dp[i][j]$为以i为结束位置并且改了j个位置的最小分段。不妨直接枚举这一段中改了$x$个，对于每种01串我仅保留最后出现的位置，之前的都改掉。于是我用一个堆维护排序的非最后出现的位置，直接取往前第$x+1$个位置，在这里贪心地分段即可。$O(nk^2+nk\log n)$。</p>
-<h1 id="1495C-Garden-of-the-Sun"><a href="#1495C-Garden-of-the-Sun" class="headerlink" title="1495C Garden of the Sun"></a>1495C Garden of the Sun</h1><p><a target="_blank" rel="noopener" href="http://codeforces.com/problemset/problem/1495/C">题目链接</a></p>
-<p>题意：给个黑白染色的网格，保证没有两个黑格之间有公共点，你需要把一些白格染黑，使得所有黑格构成一棵树（4连通）。$n,m&lt;=500$</p>
-<p>Solution:</p>
-<p>神仙构造题。</p>
-<p>我们把每3列划分为一组，把每组中间那一列全染黑作为主干，这样一定能仅把该组内黑点连通。然后考虑相邻的组与组之间的连通，这个直接把某个在组内作为“枝节”的黑格的旁边的白格染黑，或者如果两组主干之间的两列全白则把第一行的两个白格染黑。</p>
-<p>当$m\mod3=1$时需要特殊考虑最后一列（它没法找到属于自己的组的主干），需要把这一列划分为若干个不相连的段，分别与旁边组的不同枝节相连。</p>
-<h1 id="1510B-Button-Lock"><a href="#1510B-Button-Lock" class="headerlink" title="1510B Button Lock"></a>1510B Button Lock</h1><p><a target="_blank" rel="noopener" href="https://codeforces.com/problemset/problem/1510/B">题目链接</a></p>
-<p>题意：维护一个初始为0的长度为$d$的01串，你每次可以把某个0变成1，或者把所有位置reset清0。现在给你$n$个互不相同的01串，用最少的操作次数使得这些关键状态都被经过，输出方案。$d&lt;=10$</p>
-<p>Solution:</p>
-<p>不是很裸的网络流，但也算是比较常见的建图了<del>然而我总是不擅长这种题</del>。我一开始直接想了一个假做法：让01串之间互相连流量无限费用为1的边，源点向0连流量无限的边，所有01串向0连流量无限费用为1的边（reset），所有关键状态向汇点连流量为1的边（保证最大流一定经过所有关键状态）。这样不行是因为到过了一个关键状态后还可以再接着再进行操作，但上面的建图直接把流流到了汇点，如果想<strong>在这个关键状态的基础上</strong>继续进行操作的话需要重新从源点流过来一个流，就有了额外费用。</p>
-<p>上面那个锅的修正方法是，既然每个关键状态都一定会被到过，那么我把每个关键状态复制一份，让源点向它们连流量为1的边，等效于在第一次到达这个关键状态的基础上再进行操作，实际上就是因为那个流已经流到汇点了，再从源点流一个过来。并且，我再让源点向0连流量无限费用为1的边，这样相当于按reset，这个是和那些复制的关键状态道理是一样的，因为reset只会在某个第一次到过的关键状态后进行。</p>
-<p>至于最终方案的输出，如果一个关键状态的复制点没被流过，那么它要么是终止状态（只会有一个），要么在到达他之后reset了。于是就可以在所有01串之间连表示执行过的操作的边，在这个有向图上跑个欧拉路即可。</p>
-<p>以后干脆把这种建图套路称为“前仆后继”算了……</p>
-<h1 id="1510E-Equlibium-Point"><a href="#1510E-Equlibium-Point" class="headerlink" title="1510E Equlibium Point"></a>1510E Equlibium Point</h1><p><a target="_blank" rel="noopener" href="https://codeforces.com/problemset/problem/1510/E">题目链接</a></p>
-<p>题意：对于一个括号序列，在平面直角坐标系上这样构造一个区域：从原点出发，遇到 $($ 则将$(x,y)$变为$(x+1,y+1)$，否则变为$(x+1,y-1)$，把最后连成的折线与x轴构成一个闭合区域。现在给你这个区域的质心坐标，构造一个满足它的括号序列。$n&lt;=36$</p>
-<p>Solution：</p>
-<p>这种东西不搜索是根本搞不出来的……而且，质心这种东西还是和面积相关的平均值，就很恶心。</p>
-<p>考虑折半搜索（我开始一直在想爆搜剪枝，因为考虑到$Catalan(18)$大概是$4e8$的。后来因为恶心的平均值剪不了枝没辙了就去跑步，突然想到，咦，我跑了半圈跑道，再拼个半圈跑道就成一圈了。那给我一半的括号，再在后面拼一半，不就成一个括号序列了吗？于是就想到了折半……），我先搜出来所有长度为18的括号序列前缀和后缀，令$f[S]$为一个前缀/后缀有多少左括号/右括号待匹配，<strong>两个$f$相同的前缀和后缀就可以拼起来</strong>。我们令$1×1$的等腰三角形作为面积的单位元，这样它们切成一半的区域的面积都能表示为$[1,18^2]$的整数。在搜的时候处理出它们的区域内所有单位三角形的重心之和$\sum x$与$\sum y$。</p>
-<p>对于每个前缀括号序列，我已经知道它的面积，枚举另一半的面积，这样就知道了总面积，也就可以把恶心的平均值搞成所有单位三角形的重心总和，找出所有后缀括号序列中重心总和与前面的总和（还需要加上一些横坐标的偏移）等于所有区域重心总和的就行了，这个可以用排序vector+二分解决。</p>
-<h1 id="1510I-Is-It-Rated"><a href="#1510I-Is-It-Rated" class="headerlink" title="1510I Is It Rated?"></a>1510I Is It Rated?</h1><p><a target="_blank" rel="noopener" href="https://codeforces.com/problemset/problem/1510/I">题目链接</a></p>
-<p>题意：你和$m$个人在赌博，每一轮，每个人说0或1，然后答案揭晓，说中的获胜。总共进行$n$轮赌博，每一轮你可以在知道$m$个人预测啥后进行预测。写一个扮演“你”的程序交互，要求最后你失败的次数不得超过$1.3b+100$，其中$b$是其他人中最少输的次数。</p>
-<p>Solution：</p>
-<p>放个CF上的standing自行体会吧……</p>
-<p><img src="https://cdn.luogu.com.cn/upload/image_hosting/mkqr8ssx.png"></p>
-<p><strong>随机乱搞！！！</strong></p>
-<p>显然我们需要跟着某些人的选择，直观上应该是当前输的最少的人，但是，如果我每回都让输的最少的人输，那这样会被卡掉。然后我就尝试每次随机找输的最少的几个人，或者有一定概率地找其他人，然后WA的一塌糊涂……</p>
-<p>题解的做法简直神仙到不行：令$f_i$为这个人已经输了几次，令$P_0=\sum_{s_i=0}\alpha^{f_i}$，$P_1=\sum_{s_i=1}\alpha^{f_i}$，把它们归一化后设为选择概率，然后$\alpha$通过调参确定一个介于0和1之间的数。感性理解一下就是，选他的人越多，输的少的人越选他，那就跟着一块选。</p>
-<h1 id="1477C-Nezzar-and-Nice-Bitemap"><a href="#1477C-Nezzar-and-Nice-Bitemap" class="headerlink" title="1477C Nezzar and Nice Bitemap"></a>1477C Nezzar and Nice Bitemap</h1><p><a target="_blank" rel="noopener" href="https://codeforces.com/problemset/problem/1477/C">题目链接</a></p>
-<p>题意：给你平面上$n$个点，将它们排序，使得不存在连续的3个点$A,B,C$，$\angle ABC&gt;=90°$。$n&lt;=5000$</p>
-<p>Solution:</p>
-<p>在此之前我从未见过定量计算的random_shuffle随机化，直到这题……</p>
-<p>考虑以下两个随机乱搞的正确率：</p>
-<p>①随机打乱序列，判断是否存在连续3个不合法的点，如果不合法则重新打乱。</p>
-<p>②随机打乱序列，类似选择排序一样从前往后扫，如果发现当前连续的3个点$i,j,k$不合法，则从后面找一个$l$，$i,j,l$是合法的，让$l$与$k$交换。如果找不到则重新打乱。</p>
-<p>在最坏情况下，任意3个点中，恰好都有一个点不能放到中间，也就是说，随机找3个点，不合法的概率是$\frac 1 3$。换句话说，我们现在有两个固定的点$AB$，随机找一个$C$接在后面，不合法的概率也是$\frac 1 3$。所以算法1的正确率最坏是$P_1=(\frac 2 3)^{n-2}$。但是算法2则不一样，我不一定非要保证这两个点的相邻点必须是好的，只要保证后面的部分中有一个好点就行了，所以$P_2=\prod_{i=1}^{n-2}(1-(\frac 1 3)^i)$，当$n&lt;=5000$时，$P_2&gt;=0.56$，期望随机打乱一两次就行了……</p>
-
-      
+      <% if (post.excerpt && index){ %>
+        <%- post.excerpt %>
+        <% if (theme.excerpt_link){ %>
+          <p class="article-more-link">
+            <a href="<%- url_for(post.path) %>#more"><%= theme.excerpt_link %></a>
+          </p>
+        <% } %>
+      <% } else { %>
+        <%- post.content %>
+      <% } %>
     </div>
     <footer class="article-footer">
-      <a data-url="https://www.ywy-c-asm.cn/2021/04/07/Codeforces%E6%9D%82%E9%A2%98%E8%AE%B0%E5%BD%95/" data-id="ckpjsnd3d000lekt22bhm6yqp" data-title="Codeforces闲杂题记录"></a>
-      
-      
-      
-  <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/ACM/" rel="tag">ACM</a></li></ul>
-
+      <a data-url="<%- post.permalink %>" data-id="<%= post._id %>" data-title="<%= post.title %>" class="article-share-link"><%= __('share') %></a>
+      <% if (post.comments && config.disqus_shortname){ %>
+        <a href="<%- post.permalink %>#disqus_thread" class="article-comment-link"><%= __('comment') %></a>
+      <% } %>
+      <% if (post.comments && theme.valine.enable && theme.valine.appId && theme.valine.appKey ){ %>
+        <a href="<%- url_for(post.path) %>#comments" class="article-comment-link">
+          <span class="post-comments-count valine-comment-count" data-xid="<%- url_for(post.path) %>" itemprop="commentCount"></span>
+          <%= __('comment') %>
+        </a>
+      <% } %>
+      <%- partial('post/tag') %>
     </footer>
   </div>
-  
-    
-<nav id="article-nav">
-  
-    <a href="/2021/04/08/Codeforces%E9%97%B2%E6%9D%82%E9%A2%98%E8%AE%B0%E5%BD%95%EF%BC%88%E4%BA%8C%EF%BC%89/" id="article-nav-newer" class="article-nav-link-wrap">
-      <strong class="article-nav-caption">Newer</strong>
-      <div class="article-nav-title">
-        
-          Codeforces闲杂题记录（二）
-        
-      </div>
-    </a>
-  
-  
-    <a href="/2021/04/03/2021.4.2-%E6%A0%A1%E8%B5%9B%E6%80%BB%E7%BB%93/" id="article-nav-older" class="article-nav-link-wrap">
-      <strong class="article-nav-caption">Older</strong>
-      <div class="article-nav-title">2021.4.2 校赛总结</div>
-    </a>
-  
-</nav>
-
-  
+  <% if (!index){ %>
+    <%- partial('post/nav') %>
+  <% } %>
 </article>
 
-
+<% if (!index && post.comments && config.disqus_shortname){ %>
+<section id="comments">
+  <div id="disqus_thread">
+    <noscript>Please enable JavaScript to view the <a target="_blank" rel="noopener" href="//disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+  </div>
 </section>
+<% } %>
+<% if (!index && post.comments && theme.valine.enable && theme.valine.appId && theme.valine.appKey){ %>
+  <section id="comments" class="vcomment">
+
+  </section>
+<% } %></section>
         
           <aside id="sidebar">
   
@@ -263,6 +186,10 @@
       <ul>
         
           <li>
+            <a href="/2021/06/13/2021-06-13-2021-CCPC-%E4%B8%9C%E5%8C%97%E5%9B%9B%E7%9C%81%E8%B5%9B-%E8%B5%9B%E5%90%8E%E8%A1%A5%E9%A2%98/">2021 CCPC 东北四省赛 赛后补题</a>
+          </li>
+        
+          <li>
             <a href="/2021/06/05/NOI2019%E8%A1%A5%E9%A2%98/">NOI2019补题</a>
           </li>
         
@@ -276,10 +203,6 @@
         
           <li>
             <a href="/2021/05/29/%E9%87%8D%E8%B5%B0OI%E8%B7%AF%EF%BC%9A2020-2021-OI%E9%A2%98%E6%B3%9B%E5%81%9A%EF%BC%88%E4%BA%8C%EF%BC%89/">重走OI路：2020-2021 OI题泛做（二）</a>
-          </li>
-        
-          <li>
-            <a href="/2021/05/23/%E4%B8%8D%E7%9F%A5%E9%81%93%E8%AF%A5%E8%B5%B7%E4%BB%80%E4%B9%88%E5%90%8D%E5%AD%97%E7%9A%84%E9%A2%98%E8%A7%A3/">几个有趣的题</a>
           </li>
         
       </ul>
