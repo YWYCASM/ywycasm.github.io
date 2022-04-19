@@ -7,20 +7,28 @@
   <meta charset="utf-8">
   
   
-  <title>《C++Primer》学习笔记（五） | ywy_c_asm</title>
+  <title>JPEG图像压缩详解 | ywy_c_asm</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-  <meta name="description" content="关于类的继承那一堆东西……">
+  <meta name="description" content="本文讲解了JPEG图像的存储格式、压缩原理以及代码实现。">
 <meta property="og:type" content="article">
-<meta property="og:title" content="《C++Primer》学习笔记（五）">
-<meta property="og:url" content="https://www.ywy-c-asm.cn/2021/03/25/%E3%80%8AC++Primer%E3%80%8B%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0%EF%BC%88%E4%BA%94%EF%BC%89/index.html">
+<meta property="og:title" content="JPEG图像压缩详解">
+<meta property="og:url" content="https://www.ywy-c-asm.cn/2021/09/06/JPEG%E5%9B%BE%E5%83%8F%E5%8E%8B%E7%BC%A9%E8%AF%A6%E8%A7%A3/index.html">
 <meta property="og:site_name" content="ywy_c_asm">
-<meta property="og:description" content="关于类的继承那一堆东西……">
+<meta property="og:description" content="本文讲解了JPEG图像的存储格式、压缩原理以及代码实现。">
 <meta property="og:locale" content="en_US">
-<meta property="article:published_time" content="2021-03-25T12:04:00.000Z">
-<meta property="article:modified_time" content="2021-03-28T13:38:26.544Z">
+<meta property="og:image" content="https://img-blog.csdn.net/20180608145023493?watermark/2/text/aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L2FzYWhpbm9rYXdh/font/5a6L5L2T/fontsize/400/fill/I0JBQkFCMA==/dissolve/70">
+<meta property="og:image" content="https://z3.ax1x.com/2021/09/06/h5Puzn.png">
+<meta property="og:image" content="https://z3.ax1x.com/2021/09/06/h5Zm7t.png">
+<meta property="og:image" content="https://z3.ax1x.com/2021/09/06/h5ZUA0.png">
+<meta property="og:image" content="https://z3.ax1x.com/2021/09/06/h50tbR.png">
+<meta property="og:image" content="https://z3.ax1x.com/2021/09/06/h50M5V.png">
+<meta property="og:image" content="https://z3.ax1x.com/2021/09/06/h5aB8g.png">
+<meta property="article:published_time" content="2021-09-06T15:10:00.000Z">
+<meta property="article:modified_time" content="2022-04-19T14:33:10.347Z">
 <meta property="article:author" content="ywy_c_asm">
-<meta property="article:tag" content="C++">
+<meta property="article:tag" content="图像处理">
 <meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://img-blog.csdn.net/20180608145023493?watermark/2/text/aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L2FzYWhpbm9rYXdh/font/5a6L5L2T/fontsize/400/fill/I0JBQkFCMA==/dissolve/70">
   
   
     <link rel="icon" href="/images/ico.ico">
