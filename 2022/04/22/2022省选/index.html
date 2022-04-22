@@ -1,0 +1,340 @@
+<!DOCTYPE html>
+<html>
+
+
+
+<head>
+  <meta charset="utf-8">
+  
+  
+  <title>2022年OI省选题选做 | ywy_c_asm</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+  <meta name="description" content="今年的省选题出的还挺有意思的。">
+<meta property="og:type" content="article">
+<meta property="og:title" content="2022年OI省选题选做">
+<meta property="og:url" content="https://www.ywy-c-asm.cn/2022/04/22/2022%E7%9C%81%E9%80%89/index.html">
+<meta property="og:site_name" content="ywy_c_asm">
+<meta property="og:description" content="今年的省选题出的还挺有意思的。">
+<meta property="og:locale" content="en_US">
+<meta property="article:published_time" content="2022-04-21T16:00:00.000Z">
+<meta property="article:modified_time" content="2022-04-22T09:56:52.573Z">
+<meta property="article:author" content="ywy_c_asm">
+<meta property="article:tag" content="ACM">
+<meta name="twitter:card" content="summary">
+  
+  
+    <link rel="icon" href="/images/ico.ico">
+  
+  
+    
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/typeface-source-code-pro@0.0.71/index.min.css">
+
+  
+  
+<link rel="stylesheet" href="/css/style.css">
+
+  
+    
+<link rel="stylesheet" href="/fancybox/jquery.fancybox.min.css">
+
+  
+<meta name="generator" content="Hexo 5.4.0"></head>
+
+<body>
+
+
+
+  <div id="container">
+    <div id="wrap">
+
+	
+		
+      <header id="header">
+  <div id="banner"></div>
+  <div id="header-outer" class="outer">
+    <div id="header-title" class="inner">
+      <h1 id="logo-wrap">
+        <a href="/" id="logo">ywy_c_asm</a>
+      </h1>
+      
+        <h2 id="subtitle-wrap">
+          <a href="/" id="subtitle">菜 是 原 罪 | 罪 原 是 菜</a>
+        </h2>
+      
+    </div>
+    <div id="header-inner" class="inner">
+      <nav id="main-nav">
+        <a id="main-nav-toggle" class="nav-icon"></a>
+        
+          <a class="main-nav-link" href="/">Home</a>
+        
+          <a class="main-nav-link" href="/archives">Archives</a>
+        
+      </nav>
+      <nav id="sub-nav">
+        
+        <a id="nav-search-btn" class="nav-icon" title="Search"></a>
+      </nav>
+      <div id="search-form-wrap">
+        <form action="//google.com/search" method="get" accept-charset="UTF-8" class="search-form"><input type="search" name="q" class="search-form-input" placeholder="Search"><button type="submit" class="search-form-submit">&#xF002;</button><input type="hidden" name="sitesearch" value="https://www.ywy-c-asm.cn"></form>
+      </div>
+    </div>
+  </div>
+</header>
+
+      <div class="outer" style="padding:0 0px">
+        <section id="main"><article id="post-2022省选" class="h-entry article article-type-post" itemprop="blogPost" itemscope itemtype="https://schema.org/BlogPosting">
+  <div class="article-meta">
+    <a href="/2022/04/22/2022%E7%9C%81%E9%80%89/" class="article-date">
+  <time class="dt-published" datetime="2022-04-21T16:00:00.000Z" itemprop="datePublished">2022-04-22</time>
+</a>
+    
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 class="p-name article-title" itemprop="headline name">
+      2022年OI省选题选做
+    </h1>
+  
+
+      </header>
+    
+    <div class="e-content article-entry" itemprop="articleBody">
+      
+        <p>今年的省选题出的还挺有意思的。</p>
+<span id="more"></span>
+
+<h1 id="D1T2-填树"><a href="#D1T2-填树" class="headerlink" title="D1T2 填树"></a>D1T2 填树</h1><p><a target="_blank" rel="noopener" href="https://www.luogu.com.cn/problem/P8290">题目链接</a></p>
+<p><strong>题意：</strong> 你有一棵200个点的树，每个点上有个区间$[l_i,r_i]$，你可以选取一条路径把其中的点都各自填上一个对应区间内的数，需要保证填的数的极差不超过$K$。求：①填数方案数，②对于所有填数方案求填的数的总和。$K,r_i\le 10^9$。</p>
+<p><strong>Solution：</strong> 这题其实某种程度上来说也算是比较套路。首先我们枚举填数的最小值$x$，然后强行限制填的数都在$[x,x+K]$内，对于一个点它的填数方案可以是$[\max(x,l_i),\min(x+K,r_i)]$，一条路径的方案数就是把这些区间大小都乘起来，通过一次$O(n)$的树形dp可以搞出所有路径的方案，这个答案是最小值$\ge x$的，减去$[x+1,x+K]$限制下的答案即可。</p>
+<p>显然这东西可以考虑套路地搞成关于$x$的$O(n)$次多项式然后插值，具体来说就是我们按$l_i,r_i+1,l_i-K,r_i-K+1$对$x$的值域进行划分，这样的话对于每个值域区间（对于$x$在这一段中的线性变化，所有点的$\max$或$\min$状况并不会发生实质的改变），这些路径上点的方案数（是$x$的线性函数）乘起来是关于$x$的$n$次多项式，对这段值域内的所有$x$求和便是$n+1$次多项式，因此求出$n+2$个点值后拉格朗日插值即可。求和的做法类似，只是多项式多了一次而已。</p>
+<p>时间复杂度$O(n^3)$，<del>但不知为何我代码慢的跟$O(n^4)$似的……</del></p>
+<h1 id="D2T1-卡牌"><a href="#D2T1-卡牌" class="headerlink" title="D2T1 卡牌"></a>D2T1 卡牌</h1><p><a target="_blank" rel="noopener" href="https://www.luogu.com.cn/problem/P8292">题目链接</a></p>
+<p><strong>题意：</strong> 你有$n$个整数$s_1…s_n$，现在进行$m$轮询问，每次给你$c_i$个质数，你要从$n$个数中选取出一个子集使得它们的质因子构成的集合完全覆盖这些质数。求方案数。$n\le 10^6$，$s_i\le 2000$，$\sum c_i\le 18000$</p>
+<p><strong>Solution：</strong> </p>
+<p>尽管$n$很大，显然只需要按2000的值域考虑这些数然后把它们的$cnt$计入答案。考虑如下两个事实：</p>
+<p>①如果没有任意两个质数在同一个$s_i$中，那么我们可以将所有整数按照其所具有的质数进行等价类划分，对于每个质数的等价类我们必须至少拿一个，对于不包含任何质数的数，拿和不拿都行，因此我们可以把它们的方案<strong>独立</strong>乘起来：$ans=2^{cnt[no\space p]}\prod_{p_i}(2^{cnt[p_i]}-1)$。</p>
+<p>②答案显然可以用容斥原理转为如下形式：$ans=\sum_{T\subseteq P}(-1)^{|T|}{\text{[不包含T中质因子的数的子集数]}}$，但显然我们不能直接枚举$P$的子集。</p>
+<p>现在我们把以上两个重要事实结合起来，首先②中的容斥计数我们可以带上条件，即将$P$缩减为“所有$&lt;\sqrt {2000}$的小质数集”，然后把剩下的大质数放到求和号里面的条件中，即“包含所有大质数且不包含$T$中质因子的子集数”，为什么要这样？因为小质数很少可以直接枚举子集，大质数显然是独立的（<strong>两个大质数不可能在同一个数中</strong>），那么我们可以考虑对每个大质数$p$求$f(p,T)$表示$p$的倍数中有多少个规避了小质数集$T$，这样就能用①的方法计数了。</p>
+<p>$f(P,T)$咋求？显然就是一个简单的子集和，FWT即可。</p>
+<p>小于$\sqrt {2000}$的质数共有14个（2~43），实际上由于$43<em>47&gt;2000$，所以我们也可以把43视作大质数，这样最坏复杂度就是$13</em>2^{13}*\sum c_i$，居然跑的极快无比……</p>
+<p>根号分治+对小数枚举子集，这题的idea挺好的。</p>
+<h1 id="D2T2-序列变换"><a href="#D2T2-序列变换" class="headerlink" title="D2T2 序列变换"></a>D2T2 序列变换</h1><p><a target="_blank" rel="noopener" href="https://www.luogu.com.cn/problem/P8293">题目链接</a></p>
+<p><strong>题意：</strong> 你有一个长度为$2n$的括号序列，每个左括号有个权值，你希望通过以下两种操作将其变成类似<code>(((())))</code>这样的所有括号都存在嵌套关系的括号序列：</p>
+<p>①对于$…(A)(B)…$，你可以交换$A$和$B$之间的左右括号，代价是$x*[\text{A左边括号权值}]+y*[\text{B左边括号权值}]$。</p>
+<p>②交换一对相邻的括号子序列，无代价。</p>
+<p>求最小总代价。$n&lt;=4*10^5,x,y\in{0,1}$</p>
+<p><strong>Solution：</strong> 首先我们可以对括号序列建多叉树，除了根以外的每个点都是一个最外层包着一层括号的括号序列（权值是外层左括号的权值），它的儿子们是剥掉外层形成的若干个拼起来的括号序列。那么这两个操作对应到树上就是：儿子之间不考虑顺序（可以随便交换），对于两个儿子$a$和$b$，我们可以把$b$和$b$的儿子都移到$a$下面，代价是$x<em>val_a+y</em>val_b$，最终要让整棵树变成直链。换句话说，我们每次让一个点<strong>留在</strong>这一层，然后把这一层其他的点通过<strong>借助另一个点</strong>的方式转移到下一层，这样其实对括号序列分层就行，就跟树没啥关系了。转化后我们对$x$和$y$进行讨论：</p>
+<p>①$x=0,y=1$，代价只和转移下去的点有关，那么我们显然每次让这一层最大的点留下即可，剩下的点都借助最大点转移下去。用map/set维护即可。</p>
+<p>②$x=1,y=1$，转移下去的点和被借助的点都要付出代价，那么我们仍然让最大点留在这层，然后让剩下的点借助最小点转移下去，最后让最小点借助最大点转移下去。这样每个点都被算了一次，再加上最小点被借助的$size-2$次，也没有后效性，显然是最优的。</p>
+<p>③$x=1,y=0$，这种情况比较复杂。首先代价只和被借助点有关，我们肯定要让该转移下去的点借助最小点转移下去，但此时保留最大点显然就不一定更优，因为它会被借助以产生代价，而如果我们一直让最大点下放，它就不会产生代价。</p>
+<p>假如我们知道每一层应该保留哪个点，除了最后一层之外的每层的保留点（显然就是除最后一个外的所有点），必定会在倒数第二个点转移下去的时候产生一次代价，而前面的点一定应该借助最小点转移下去。那么答案便是：</p>
+<p>$ans=\sum val_i+\sum_{level\space i}\min_i*(size_i-2)-[\text{最后一个点的权值}]$</p>
+<p>显然，$size_i$是固定的，答案只与每层的最小点以及最后一个点有关。</p>
+<p>对于每一层，假设$size_i&gt;=3$，我们在上面留了一个点$rest$，如果$rest$是最大点，那么我们完全可以把最后一点和rest交换使得答案更优；如果rest是最小点，那么我们把rest和下放的某个点交换，也不会使得答案（$\min_i$）更差。因此我们得到一个重要结论：<strong>尽可能同时把最大点和最小点下放。</strong> 因此我们随便找个其它点留下即可。</p>
+<p>如果$size_i=1$，这种情况显然只可能出现在最开始一段和最后一层，特判即可。</p>
+<p>如果$size_i=2$，就比较麻烦，因为我们现在必须下放最小点或最大点。注意到一个性质，我们得出的每层的$size$从这里开始一定满足$2,2,2,2,&gt;2,&gt;2…&gt;2,2,1$，因为$size$的本质其实是我们把原树的每层点数抽掉一个然后做一个前缀和，因为原树中每层点数至少为1，所以在$i&lt;Height$的时候$size$序列是单调不降的，但是超出树高则开始单调递减，最终变成1。也就是说，$size=2$的层除了倒数第二层（显然这层要下放最大值），剩下的刚好构成连续的一段，那么<strong>这一段</strong>的贡献显然只与最终从这一段下放的<strong>唯一</strong>的一个数有关。</p>
+<p>由类似前面的思路，我们下放的要么是最大值要么是最小值，否则会使得答案更优。因此各自比较一下即可。</p>
+<p>时间复杂度$O(n\log n)$（最难的情况反而是$O(n)$的……）</p>
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="https://www.ywy-c-asm.cn/2022/04/22/2022%E7%9C%81%E9%80%89/" data-id="cl2a9ep5q0000k0z198amepm1" data-title="2022年OI省选题选做"></a>
+      
+      
+      
+  <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/ACM/" rel="tag">ACM</a></li></ul>
+
+    </footer>
+  </div>
+  
+    
+<nav id="article-nav">
+  
+  
+    <a href="/2022/04/09/%E6%95%B0%E5%AD%A6%E9%A2%98/" id="article-nav-older" class="article-nav-link-wrap">
+      <strong class="article-nav-caption">Older</strong>
+      <div class="article-nav-title">两个生成函数毒瘤题</div>
+    </a>
+  
+</nav>
+
+  
+</article>
+
+
+</section>
+        
+          <aside id="sidebar">
+  
+    
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Tags</h3>
+    <div class="widget">
+      <ul class="tag-list" itemprop="keywords"><li class="tag-list-item"><a class="tag-list-link" href="/tags/ACM/" rel="tag">ACM</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/C/" rel="tag">C++</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/JavaScript/" rel="tag">JavaScript</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/NLP/" rel="tag">NLP</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E4%B8%AA%E4%BA%BA%E4%BB%8B%E7%BB%8D/" rel="tag">个人介绍</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E4%BD%8D%E8%BF%90%E7%AE%97/" rel="tag">位运算</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E5%9B%BE%E5%83%8F%E5%A4%84%E7%90%86/" rel="tag">图像处理</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E6%95%B0%E5%AD%A6/" rel="tag">数学</a></li></ul>
+    </div>
+  </div>
+
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">friends</h3>
+    <div class="widget">
+      <li><a target="_blank" rel="noopener" href="https://blog.i207m.top/" title="i207M">i207M</a></li>
+      <li><a target="_blank" rel="noopener" href="https://www.luogu.com.cn/blog/ywycasm/" title="Old ywy_c_asm">Old ywy_c_asm</a></li>
+      <li><a target="_blank" rel="noopener" href="https://blog.csdn.net/lyd_7_29" title="lyd729">lyd729</a></li>
+      <li><a target="_blank" rel="noopener" href="https://www.shadowice1984.xyz/" title="shadowice1984">shadowice1984</a></li>
+      <li><a target="_blank" rel="noopener" href="https://www.cnblogs.com/Miracevin" title="Miracle">Miracle</a></li>
+    </div>
+  </div>
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Archives</h3>
+    <div class="widget">
+      <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2022/04/">April 2022</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2021/09/">September 2021</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2021/06/">June 2021</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2021/05/">May 2021</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2021/04/">April 2021</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2021/03/">March 2021</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2021/02/">February 2021</a></li></ul>
+    </div>
+  </div>
+
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Recent Posts</h3>
+    <div class="widget">
+      <ul>
+        
+          <li>
+            <a href="/2022/04/22/2022%E7%9C%81%E9%80%89/">2022年OI省选题选做</a>
+          </li>
+        
+          <li>
+            <a href="/2022/04/09/%E6%95%B0%E5%AD%A6%E9%A2%98/">两个生成函数毒瘤题</a>
+          </li>
+        
+          <li>
+            <a href="/2021/09/06/JPEG%E5%9B%BE%E5%83%8F%E5%8E%8B%E7%BC%A9%E8%AF%A6%E8%A7%A3/">JPEG图像压缩详解</a>
+          </li>
+        
+          <li>
+            <a href="/2021/06/26/CF1540B-Tree-Array/">CF1540B Tree Array</a>
+          </li>
+        
+          <li>
+            <a href="/2021/06/13/2021-06-13-2021-CCPC-%E4%B8%9C%E5%8C%97%E5%9B%9B%E7%9C%81%E8%B5%9B-%E8%B5%9B%E5%90%8E%E8%A1%A5%E9%A2%98/">2021 CCPC 东北四省赛 赛后补题</a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+
+  
+</aside>
+        
+	
+<iframe id="iframe1" src="/balls3.html" style="height:500px;width:1500px;position:absolute;top:500px;left:0px;z-index:-1" scrolling="no" frameborder="0"></iframe>
+		<script>
+			var width=parseInt(document.body.clientWidth.toString().replace("px", ""), 10);
+			var height=document.body.scrollHeight;
+			iframe1.style='height:'+height+'px;width:'+width+'px;position:absolute;top:0px;left:0px;z-index:-1';
+		</script>
+
+
+      </div>
+      <footer id="footer">
+  <!-- MathJax配置，可通过单美元符号书写行内公式等 -->
+<script type="text/x-mathjax-config">
+    MathJax.Hub.Config({
+    "HTML-CSS": { 
+        preferredFont: "TeX", 
+        availableFonts: ["STIX","TeX"], 
+        linebreaks: { automatic:true }, 
+        EqnChunk: (MathJax.Hub.Browser.isMobile ? 10 : 50) 
+    },
+    tex2jax: { 
+        inlineMath: [ ["$", "$"], ["\\(","\\)"] ], 
+        processEscapes: true, 
+        ignoreClass: "tex2jax_ignore|dno",
+        skipTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code']
+    },
+    TeX: {  
+        equationNumbers: { autoNumber: "AMS" },
+        noUndefined: { attributes: { mathcolor: "red", mathbackground: "#FFEEEE", mathsize: "90%" } }, 
+        Macros: { href: "{}" } 
+    },
+    messageStyle: "none"
+    }); 
+</script>
+<!-- 给MathJax元素添加has-jax class -->
+<script type="text/x-mathjax-config">
+    MathJax.Hub.Queue(function() {
+        var all = MathJax.Hub.getAllJax(), i;
+        for(i=0; i < all.length; i += 1) {
+            all[i].SourceElement().parentNode.className += ' has-jax';
+        }
+    });
+</script>
+<!-- 通过连接CDN加载MathJax的js代码 -->
+<script type="text/javascript" async
+  src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.1/MathJax.js?config=TeX-MML-AM_CHTML">
+</script>
+  
+  <div class="outer">
+    <div id="footer-info" class="inner">
+      
+      &copy; 2022 ywy_c_asm<br>
+      Powered by <a href="https://hexo.io/" target="_blank">Hexo</a>
+    </div>
+  </div>
+</footer>
+
+
+
+
+
+
+
+    </div>
+    <nav id="mobile-nav">
+  
+    <a href="/" class="mobile-nav-link">Home</a>
+  
+    <a href="/archives" class="mobile-nav-link">Archives</a>
+  
+</nav>
+    
+
+
+<script src="/js/jquery-3.4.1.min.js"></script>
+
+
+
+  
+<script src="/fancybox/jquery.fancybox.min.js"></script>
+
+
+
+
+<script src="/js/script.js"></script>
+
+
+
+
+
+  </div>
+
+
+
+
+</body>
+</html>

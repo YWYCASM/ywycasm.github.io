@@ -2,6 +2,13 @@
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   
   <url>
+    <loc>https://www.ywy-c-asm.cn/2022/04/22/2022%E7%9C%81%E9%80%89/</loc>
+    
+    <lastmod>2022-04-22</lastmod>
+    
+  </url>
+  
+  <url>
     <loc>https://www.ywy-c-asm.cn/2021/09/06/JPEG%E5%9B%BE%E5%83%8F%E5%8E%8B%E7%BC%A9%E8%AF%A6%E8%A7%A3/</loc>
     
     <lastmod>2022-04-19</lastmod>
@@ -249,7 +256,7 @@
 
   <url>
     <loc>https://www.ywy-c-asm.cn/</loc>
-    <lastmod>2022-04-19</lastmod>
+    <lastmod>2022-04-22</lastmod>
     <changefreq>daily</changefreq>
     <priority>1.0</priority>
   </url>
@@ -257,56 +264,56 @@
   
   <url>
     <loc>https://www.ywy-c-asm.cn/tags/ACM/</loc>
-    <lastmod>2022-04-19</lastmod>
+    <lastmod>2022-04-22</lastmod>
     <changefreq>daily</changefreq>
     <priority>0.6</priority>
   </url>
   
   <url>
     <loc>https://www.ywy-c-asm.cn/tags/%E4%B8%AA%E4%BA%BA%E4%BB%8B%E7%BB%8D/</loc>
-    <lastmod>2022-04-19</lastmod>
+    <lastmod>2022-04-22</lastmod>
     <changefreq>daily</changefreq>
     <priority>0.6</priority>
   </url>
   
   <url>
     <loc>https://www.ywy-c-asm.cn/tags/C/</loc>
-    <lastmod>2022-04-19</lastmod>
+    <lastmod>2022-04-22</lastmod>
     <changefreq>daily</changefreq>
     <priority>0.6</priority>
   </url>
   
   <url>
     <loc>https://www.ywy-c-asm.cn/tags/%E6%95%B0%E5%AD%A6/</loc>
-    <lastmod>2022-04-19</lastmod>
+    <lastmod>2022-04-22</lastmod>
     <changefreq>daily</changefreq>
     <priority>0.6</priority>
   </url>
   
   <url>
     <loc>https://www.ywy-c-asm.cn/tags/JavaScript/</loc>
-    <lastmod>2022-04-19</lastmod>
+    <lastmod>2022-04-22</lastmod>
     <changefreq>daily</changefreq>
     <priority>0.6</priority>
   </url>
   
   <url>
     <loc>https://www.ywy-c-asm.cn/tags/%E4%BD%8D%E8%BF%90%E7%AE%97/</loc>
-    <lastmod>2022-04-19</lastmod>
+    <lastmod>2022-04-22</lastmod>
     <changefreq>daily</changefreq>
     <priority>0.6</priority>
   </url>
   
   <url>
     <loc>https://www.ywy-c-asm.cn/tags/NLP/</loc>
-    <lastmod>2022-04-19</lastmod>
+    <lastmod>2022-04-22</lastmod>
     <changefreq>daily</changefreq>
     <priority>0.6</priority>
   </url>
   
   <url>
     <loc>https://www.ywy-c-asm.cn/tags/%E5%9B%BE%E5%83%8F%E5%A4%84%E7%90%86/</loc>
-    <lastmod>2022-04-19</lastmod>
+    <lastmod>2022-04-22</lastmod>
     <changefreq>daily</changefreq>
     <priority>0.6</priority>
   </url>
