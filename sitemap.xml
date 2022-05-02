@@ -277,6 +277,16 @@
   </url>
   
   <url>
+<<<<<<< HEAD
+=======
+    <loc>https://www.ywy-c-asm.cn/tags/%E5%9B%BE%E5%83%8F%E5%A4%84%E7%90%86/</loc>
+    <lastmod>2022-05-02</lastmod>
+    <changefreq>daily</changefreq>
+    <priority>0.6</priority>
+  </url>
+  
+  <url>
+>>>>>>> 8b6de3a (Update)
     <loc>https://www.ywy-c-asm.cn/tags/%E4%B8%AA%E4%BA%BA%E4%BB%8B%E7%BB%8D/</loc>
     <lastmod>2022-05-02</lastmod>
     <changefreq>daily</changefreq>
@@ -305,6 +315,16 @@
   </url>
   
   <url>
+<<<<<<< HEAD
+=======
+    <loc>https://www.ywy-c-asm.cn/tags/%E8%BD%AF%E4%BB%B6%E6%9E%84%E9%80%A0%E8%AF%BE%E7%A8%8B%E7%AC%94%E8%AE%B0/</loc>
+    <lastmod>2022-05-02</lastmod>
+    <changefreq>daily</changefreq>
+    <priority>0.6</priority>
+  </url>
+  
+  <url>
+>>>>>>> 8b6de3a (Update)
     <loc>https://www.ywy-c-asm.cn/tags/%E4%BD%8D%E8%BF%90%E7%AE%97/</loc>
     <lastmod>2022-05-02</lastmod>
     <changefreq>daily</changefreq>
@@ -318,6 +338,7 @@
     <priority>0.6</priority>
   </url>
   
+<<<<<<< HEAD
   <url>
     <loc>https://www.ywy-c-asm.cn/tags/%E5%9B%BE%E5%83%8F%E5%A4%84%E7%90%86/</loc>
     <lastmod>2022-05-02</lastmod>
@@ -332,6 +353,8 @@
     <priority>0.6</priority>
   </url>
   
+=======
+>>>>>>> 8b6de3a (Update)
 
   
 </urlset>
