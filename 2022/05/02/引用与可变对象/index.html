@@ -1,0 +1,348 @@
+<!DOCTYPE html>
+<html>
+
+
+
+<head>
+  <meta charset="utf-8">
+  <%- partial('google-analytics') %>
+  <%
+  var title = page.title;
+
+  if (is_archive()){
+    title = __('archive_a');
+
+    if (is_month()){
+      title += ': ' + page.year + '/' + page.month;
+    } else if (is_year()){
+      title += ': ' + page.year;
+    }
+  } else if (is_category()){
+    title = __('category') + ': ' + page.category;
+  } else if (is_tag()){
+    title = __('tag') + ': ' + page.tag;
+  }
+  %>
+  <title><% if (title){ %><%= title %> | <% } %><%= config.title %></title>
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+  <%- open_graph({twitter_id: theme.twitter, fb_admins: theme.fb_admins, fb_app_id: theme.fb_app_id}) %>
+  <% if (config.feed) { %>
+    <%- feed_tag() %>
+  <% } else if (theme.rss) { %>
+    <%- feed_tag(theme.rss) %>
+  <% } %>
+  <% if (theme.favicon){ %>
+    <%- favicon_tag(theme.favicon) %>
+  <% } %>
+  <% if (config.highlight.enable){ %>
+    <%- css('https://cdn.jsdelivr.net/npm/typeface-source-code-pro@0.0.71/index.min.css') %>
+  <% } %>
+  <%- css('css/style') %>
+  <% if (theme.fancybox){ %>
+    <%- css('fancybox/jquery.fancybox.min.css') %>
+  <% } %>
+<meta name="generator" content="Hexo 5.4.0"></head>
+
+<body>
+
+
+
+  <div id="container">
+    <div id="wrap">
+
+	
+		
+      <header id="header">
+  <div id="banner"></div>
+  <div id="header-outer" class="outer">
+    <div id="header-title" class="inner">
+      <h1 id="logo-wrap">
+        <a href="/" id="logo">ywy_c_asm</a>
+      </h1>
+      
+        <h2 id="subtitle-wrap">
+          <a href="/" id="subtitle">菜 是 原 罪 | 罪 原 是 菜</a>
+        </h2>
+      
+    </div>
+    <div id="header-inner" class="inner">
+      <nav id="main-nav">
+        <a id="main-nav-toggle" class="nav-icon"></a>
+        
+          <a class="main-nav-link" href="/">Home</a>
+        
+          <a class="main-nav-link" href="/archives">Archives</a>
+        
+      </nav>
+      <nav id="sub-nav">
+        
+        <a id="nav-search-btn" class="nav-icon" title="Search"></a>
+      </nav>
+      <div id="search-form-wrap">
+        <form action="//google.com/search" method="get" accept-charset="UTF-8" class="search-form"><input type="search" name="q" class="search-form-input" placeholder="Search"><button type="submit" class="search-form-submit">&#xF002;</button><input type="hidden" name="sitesearch" value="https://www.ywy-c-asm.cn"></form>
+      </div>
+    </div>
+  </div>
+</header>
+
+      <div class="outer" style="padding:0 0px">
+        <section id="main"><article id="post-引用与可变对象" class="h-entry article article-type-post" itemprop="blogPost" itemscope itemtype="https://schema.org/BlogPosting">
+  <div class="article-meta">
+    <a href="/2022/05/02/%E5%BC%95%E7%94%A8%E4%B8%8E%E5%8F%AF%E5%8F%98%E5%AF%B9%E8%B1%A1/" class="article-date">
+  <time class="dt-published" datetime="2022-05-02T06:42:00.000Z" itemprop="datePublished">2022-05-02</time>
+</a>
+    
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 class="p-name article-title" itemprop="headline name">
+      【软件构造课笔记】引用与可变对象
+    </h1>
+  
+
+      </header>
+    
+    <div class="e-content article-entry" itemprop="articleBody">
+      
+        <p>关于java或其它OOP程序设计中的对象的一些不那么直接的修改方式，可能会带来一些奇怪的问题。</p>
+<span id="more"></span>
+
+<h1 id="引用与可变对象"><a href="#引用与可变对象" class="headerlink" title="引用与可变对象"></a>引用与可变对象</h1><p>考虑如下java代码：</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">String str=<span class="string">&quot;abc&quot;</span>;</span><br><span class="line">str.concat(<span class="string">&quot;d&quot;</span>);</span><br><span class="line">System.out.println(str);</span><br><span class="line">StringBuilder str1=<span class="keyword">new</span> StringBuilder(<span class="string">&quot;abc&quot;</span>);</span><br><span class="line">StringBuilder str2=str1;</span><br><span class="line">str1.append(<span class="string">&quot;d&quot;</span>);</span><br><span class="line">System.out.println(str1.toString());</span><br><span class="line">System.out.println(str2.toString());</span><br></pre></td></tr></table></figure>
+
+<p>它的输出结果是：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">abc</span><br><span class="line">abcd</span><br><span class="line">abcd</span><br></pre></td></tr></table></figure>
+
+<p>这实际上并不让我们感到意外，从根源上说，java的除基本类型（值类型）之外的所有类型都是<strong>引用类型</strong>，这些类型的对象都会<strong>按引用传递</strong>，也就是说它们都是指针，指向真正存在堆里的对象实体。所以，一个变量就可以有两种被修改的形式：<strong>要么让它重新指向另一个对象，要么直接修改它指向的对象在堆里的数据。</strong></p>
+<p>我们比较关注后者，因为它可能会带来一些问题，比如上面的程序。在java中<code>String</code>属于引用类型中的<strong>不可变类型（immutable）</strong>，一旦被初始化为一个新对象，那么我们就永远都不可能改变这个在堆中的对象（就算用对象的成员函数也不行），除非给这个变量重新指向。也就是说上面用的<code>conact</code>成员函数会利用本身创建一个新的对象而非修改本身。但<code>StringBuilder</code>是<strong>可变类型（mutable）</strong>，使用<code>append</code>成员函数能够直接在当前对象上修改，而这两个<code>StringBuilder</code>变量事实上<strong>指向同一个</strong>对象，所以它们相当于都被改变了。</p>
+<p>把该程序的快照图画出来就是这样：</p>
+<p><a target="_blank" rel="noopener" href="https://imgtu.com/i/OPqV4x"><img src="https://s1.ax1x.com/2022/05/02/OPqV4x.png" alt="OPqV4x.png"></a></p>
+<p>我们再来看另外一个更加危险的例子：</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">static</span> <span class="keyword">int</span> <span class="title">sum</span><span class="params">(List&lt;Integer&gt; vec)</span></span>&#123;</span><br><span class="line">    <span class="keyword">int</span> ans=<span class="number">0</span>;</span><br><span class="line">    <span class="keyword">for</span>(<span class="keyword">int</span> i:vec)</span><br><span class="line">        ans+=i;</span><br><span class="line">    vec.set(<span class="number">0</span>,<span class="number">233</span>);</span><br><span class="line">    <span class="keyword">return</span> ans;</span><br><span class="line">&#125;</span><br><span class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">main</span><span class="params">(String[] args)</span></span>&#123;</span><br><span class="line">    ArrayList&lt;Integer&gt; vec=<span class="keyword">new</span> ArrayList&lt;Integer&gt;();</span><br><span class="line">    vec.add(<span class="number">1</span>);</span><br><span class="line">    vec.add(<span class="number">2</span>);</span><br><span class="line">    vec.add(<span class="number">3</span>);</span><br><span class="line">    vec.add(<span class="number">4</span>);</span><br><span class="line">    vec.add(<span class="number">5</span>);</span><br><span class="line">    System.out.println(sum(vec));</span><br><span class="line">    <span class="keyword">for</span>(<span class="keyword">int</span> i:vec)</span><br><span class="line">        System.out.printf(<span class="string">&quot;%d &quot;</span>,i);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>它的输出是：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">15</span><br><span class="line">233 2 3 4 5</span><br></pre></td></tr></table></figure>
+
+<p>我们会发现，向某个函数中传入（<strong>按引用传入</strong>）一个<strong>可变</strong>对象作为参数，可能会存在着<strong>非法篡改</strong>的风险！这在一些场合，比如多人协同开发，A调用B实现的函数，但A并不知道这个函数是不是可能会修改传入的引用可变对象，就十分的危险。</p>
+<p>其中一种比较浪费时间和空间的安全的解决方式是直接使用拷贝的方式而不是原对象的引用传入参数，例如：</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">static</span> <span class="keyword">int</span> <span class="title">sum</span><span class="params">(List&lt;Integer&gt; vec)</span></span>&#123;</span><br><span class="line">    <span class="keyword">int</span> ans=<span class="number">0</span>;</span><br><span class="line">    <span class="keyword">for</span>(<span class="keyword">int</span> i:vec)</span><br><span class="line">        ans+=i;</span><br><span class="line">    vec.set(<span class="number">0</span>,<span class="number">233</span>);</span><br><span class="line">    <span class="keyword">return</span> ans;</span><br><span class="line">&#125;</span><br><span class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">main</span><span class="params">(String[] args)</span></span>&#123;</span><br><span class="line">    ArrayList&lt;Integer&gt; vec=<span class="keyword">new</span> ArrayList&lt;Integer&gt;();</span><br><span class="line">    vec.add(<span class="number">1</span>);</span><br><span class="line">    vec.add(<span class="number">2</span>);</span><br><span class="line">    vec.add(<span class="number">3</span>);</span><br><span class="line">    vec.add(<span class="number">4</span>);</span><br><span class="line">    vec.add(<span class="number">5</span>);</span><br><span class="line">    System.out.println(sum(<span class="keyword">new</span> ArrayList(vec)));    <span class="comment">//传参时拷贝一个新对象</span></span><br><span class="line">    <span class="keyword">for</span>(<span class="keyword">int</span> i:vec)</span><br><span class="line">        System.out.printf(<span class="string">&quot;%d &quot;</span>,i);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>另一种方式是使用类封装的方式，即我们希望以<strong>不可变类型</strong>的形式使用一个<strong>可变类型</strong>，可以新定义一个它的子类，然后重写所有可能会引起对象修改的方法，使得它们不可用或者<strong>在运行时</strong>引发异常。java对于集合<code>List</code>提供了<code>Collections.unmodifiableList</code>作为它的不可变类型版本。那么：</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">static</span> <span class="keyword">int</span> <span class="title">sum</span><span class="params">(List&lt;Integer&gt; vec)</span></span>&#123;</span><br><span class="line">    <span class="keyword">int</span> ans=<span class="number">0</span>;</span><br><span class="line">    <span class="keyword">for</span>(<span class="keyword">int</span> i:vec)</span><br><span class="line">        ans+=i;</span><br><span class="line">    vec.set(<span class="number">0</span>,<span class="number">233</span>);</span><br><span class="line">    <span class="keyword">return</span> ans;</span><br><span class="line">&#125;</span><br><span class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">main</span><span class="params">(String[] args)</span></span>&#123;</span><br><span class="line">    ArrayList&lt;Integer&gt; vec=<span class="keyword">new</span> ArrayList&lt;Integer&gt;();</span><br><span class="line">    vec.add(<span class="number">1</span>);</span><br><span class="line">    vec.add(<span class="number">2</span>);</span><br><span class="line">    vec.add(<span class="number">3</span>);</span><br><span class="line">    vec.add(<span class="number">4</span>);</span><br><span class="line">    vec.add(<span class="number">5</span>);</span><br><span class="line">    System.out.println(sum(Collections.unmodifiableList(vec))); <span class="comment">//传入不可变对象</span></span><br><span class="line">    <span class="keyword">for</span>(<span class="keyword">int</span> i:vec)</span><br><span class="line">        System.out.printf(<span class="string">&quot;%d &quot;</span>,i);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>这样的话在运行时对于<code>sum</code>函数作出的危险行为就会引发异常：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">Exception in thread &quot;main&quot; java.lang.UnsupportedOperationException</span><br><span class="line">        at java.base&#x2F;java.util.Collections$UnmodifiableList.set(Collections.java:1349)</span><br><span class="line">        at Main.sum(Main.java:16)</span><br><span class="line">        at Main.main(Main.java:26)</span><br></pre></td></tr></table></figure>
+
+<blockquote>
+<p>实际上cpp也有类似的但更加灵活的机制，比如我们可以直接使用指针，或者为类重载赋值运算符或者定义拷贝构造函数，以及编译时对于指针的的底层<code>const</code>机制。</p>
+</blockquote>
+<p>或者对于这个例子中的集合类<code>List</code>而言，另一种方法是使用只读的迭代器来传入参数，这样可以直接防止函数修改外部定义的集合，例如：</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">private</span> <span class="keyword">static</span> <span class="class"><span class="keyword">class</span> <span class="title">ListIterator</span>&lt;<span class="title">T</span>&gt;</span>&#123;</span><br><span class="line">    <span class="keyword">private</span> List&lt;T&gt; list;</span><br><span class="line">    <span class="keyword">private</span> <span class="keyword">int</span> index;</span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="title">ListIterator</span><span class="params">(List&lt;T&gt; _list,<span class="keyword">int</span> _start)</span></span>&#123;</span><br><span class="line">        index=_start;</span><br><span class="line">        list=_list;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="function"><span class="keyword">public</span> T <span class="title">now</span><span class="params">()</span></span>&#123;</span><br><span class="line">        <span class="keyword">return</span> list.get(index);</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">boolean</span> <span class="title">isInvaild</span><span class="params">()</span></span>&#123;</span><br><span class="line">        <span class="keyword">return</span> index&lt;list.size();</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">next</span><span class="params">()</span></span>&#123;</span><br><span class="line">        index++;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"><span class="function"><span class="keyword">static</span> <span class="keyword">int</span> <span class="title">sum</span><span class="params">(ListIterator&lt;Integer&gt; it)</span></span>&#123;</span><br><span class="line">    <span class="keyword">int</span> ans=<span class="number">0</span>;</span><br><span class="line">    <span class="keyword">while</span>(it.isInvaild())&#123;</span><br><span class="line">        ans+=it.now();</span><br><span class="line">        it.next();</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">return</span> ans;</span><br><span class="line">&#125;</span><br><span class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">main</span><span class="params">(String[] args)</span></span>&#123;</span><br><span class="line">    ArrayList&lt;Integer&gt; vec=<span class="keyword">new</span> ArrayList&lt;Integer&gt;();</span><br><span class="line">    vec.add(<span class="number">1</span>);</span><br><span class="line">    vec.add(<span class="number">2</span>);</span><br><span class="line">    vec.add(<span class="number">3</span>);</span><br><span class="line">    vec.add(<span class="number">4</span>);</span><br><span class="line">    vec.add(<span class="number">5</span>);</span><br><span class="line">    ListIterator&lt;Integer&gt; it=<span class="keyword">new</span> ListIterator&lt;Integer&gt;(vec,<span class="number">0</span>);</span><br><span class="line">    System.out.println(sum(it));</span><br><span class="line">    <span class="keyword">for</span>(<span class="keyword">int</span> i:vec)</span><br><span class="line">        System.out.printf(<span class="string">&quot;%d &quot;</span>,i);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>然而，我们也应当看出，在集合中的对象是<strong>可变类型</strong>时，这一操作仍然存在改变集合内对象的风险，例如：</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">private</span> <span class="keyword">static</span> <span class="class"><span class="keyword">class</span> <span class="title">MyInt</span></span>&#123;</span><br><span class="line">    <span class="keyword">private</span> <span class="keyword">int</span> value;</span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="title">MyInt</span><span class="params">(<span class="keyword">int</span> val)</span></span>&#123;</span><br><span class="line">        value=val;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">int</span> <span class="title">get</span><span class="params">()</span></span>&#123;</span><br><span class="line">        <span class="keyword">return</span> value;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">set</span><span class="params">(<span class="keyword">int</span> val)</span></span>&#123;</span><br><span class="line">        value=val;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"><span class="keyword">private</span> <span class="keyword">static</span> <span class="class"><span class="keyword">class</span> <span class="title">ListIterator</span>&lt;<span class="title">T</span>&gt;</span>&#123;</span><br><span class="line">    <span class="keyword">private</span> List&lt;T&gt; list;</span><br><span class="line">    <span class="keyword">private</span> <span class="keyword">int</span> index;</span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="title">ListIterator</span><span class="params">(List&lt;T&gt; _list,<span class="keyword">int</span> _start)</span></span>&#123;</span><br><span class="line">        index=_start;</span><br><span class="line">        list=_list;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="function"><span class="keyword">public</span> T <span class="title">now</span><span class="params">()</span></span>&#123;</span><br><span class="line">        <span class="keyword">return</span> list.get(index);</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">boolean</span> <span class="title">isInvaild</span><span class="params">()</span></span>&#123;</span><br><span class="line">        <span class="keyword">return</span> index&lt;list.size();</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">next</span><span class="params">()</span></span>&#123;</span><br><span class="line">        index++;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"><span class="function"><span class="keyword">static</span> <span class="keyword">int</span> <span class="title">sum</span><span class="params">(ListIterator&lt;MyInt&gt; it)</span></span>&#123;</span><br><span class="line">    <span class="keyword">int</span> ans=<span class="number">0</span>;</span><br><span class="line">    <span class="keyword">while</span>(it.isInvaild())&#123;</span><br><span class="line">        ans+=it.now().get();</span><br><span class="line">        it.now().set(<span class="number">2333</span>); <span class="comment">//使用可变对象的方法恶意篡改！</span></span><br><span class="line">        it.next();</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">return</span> ans;</span><br><span class="line">&#125;</span><br><span class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">main</span><span class="params">(String[] args)</span></span>&#123;</span><br><span class="line">    ArrayList&lt;MyInt&gt; vec=<span class="keyword">new</span> ArrayList&lt;MyInt&gt;();</span><br><span class="line">    vec.add(<span class="keyword">new</span> MyInt(<span class="number">1</span>));</span><br><span class="line">    vec.add(<span class="keyword">new</span> MyInt(<span class="number">2</span>));</span><br><span class="line">    vec.add(<span class="keyword">new</span> MyInt(<span class="number">3</span>));</span><br><span class="line">    vec.add(<span class="keyword">new</span> MyInt(<span class="number">4</span>));</span><br><span class="line">    vec.add(<span class="keyword">new</span> MyInt(<span class="number">5</span>));</span><br><span class="line">    ListIterator&lt;MyInt&gt; it=<span class="keyword">new</span> ListIterator&lt;MyInt&gt;(vec,<span class="number">0</span>);</span><br><span class="line">    System.out.println(sum(it));</span><br><span class="line">    <span class="keyword">for</span>(MyInt i:vec)</span><br><span class="line">        System.out.printf(<span class="string">&quot;%d &quot;</span>,i.get());</span><br><span class="line">    <span class="comment">//输出2333 2333 2333 2333 2333</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<hr>
+<p>总而言之，关于可变对象和不可变对象，我们应当理解其<strong>引用指向对象</strong>的本质，应当采取一些较为安全可靠的方式来避免非法修改的风险。</p>
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="https://www.ywy-c-asm.cn/2022/05/02/%E5%BC%95%E7%94%A8%E4%B8%8E%E5%8F%AF%E5%8F%98%E5%AF%B9%E8%B1%A1/" data-id="cl2ocu1u10000g4z1bjz59a5t" data-title="【软件构造课笔记】引用与可变对象"></a>
+      
+      
+      
+  <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/%E8%BD%AF%E4%BB%B6%E6%9E%84%E9%80%A0%E8%AF%BE%E7%A8%8B%E7%AC%94%E8%AE%B0/" rel="tag">软件构造课程笔记</a></li></ul>
+
+    </footer>
+  </div>
+  
+    
+<nav id="article-nav">
+  
+  
+    <a href="/2022/04/22/2022%E7%9C%81%E9%80%89/" id="article-nav-older" class="article-nav-link-wrap">
+      <strong class="article-nav-caption">Older</strong>
+      <div class="article-nav-title">2022年OI省选题选做</div>
+    </a>
+  
+</nav>
+
+  
+</article>
+
+
+</section>
+        
+          <aside id="sidebar">
+  
+    
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Tags</h3>
+    <div class="widget">
+      <ul class="tag-list" itemprop="keywords"><li class="tag-list-item"><a class="tag-list-link" href="/tags/ACM/" rel="tag">ACM</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/C/" rel="tag">C++</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/JavaScript/" rel="tag">JavaScript</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/NLP/" rel="tag">NLP</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E4%B8%AA%E4%BA%BA%E4%BB%8B%E7%BB%8D/" rel="tag">个人介绍</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E4%BD%8D%E8%BF%90%E7%AE%97/" rel="tag">位运算</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E5%9B%BE%E5%83%8F%E5%A4%84%E7%90%86/" rel="tag">图像处理</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E6%95%B0%E5%AD%A6/" rel="tag">数学</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E8%BD%AF%E4%BB%B6%E6%9E%84%E9%80%A0%E8%AF%BE%E7%A8%8B%E7%AC%94%E8%AE%B0/" rel="tag">软件构造课程笔记</a></li></ul>
+    </div>
+  </div>
+
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">friends</h3>
+    <div class="widget">
+      <li><a target="_blank" rel="noopener" href="https://blog.i207m.top/" title="i207M">i207M</a></li>
+      <li><a target="_blank" rel="noopener" href="https://www.luogu.com.cn/blog/ywycasm/" title="Old ywy_c_asm">Old ywy_c_asm</a></li>
+      <li><a target="_blank" rel="noopener" href="https://blog.csdn.net/lyd_7_29" title="lyd729">lyd729</a></li>
+      <li><a target="_blank" rel="noopener" href="https://www.shadowice1984.xyz/" title="shadowice1984">shadowice1984</a></li>
+      <li><a target="_blank" rel="noopener" href="https://www.cnblogs.com/Miracevin" title="Miracle">Miracle</a></li>
+    </div>
+  </div>
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Archives</h3>
+    <div class="widget">
+      <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2022/05/">May 2022</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2022/04/">April 2022</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2021/09/">September 2021</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2021/06/">June 2021</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2021/05/">May 2021</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2021/04/">April 2021</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2021/03/">March 2021</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2021/02/">February 2021</a></li></ul>
+    </div>
+  </div>
+
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Recent Posts</h3>
+    <div class="widget">
+      <ul>
+        
+          <li>
+            <a href="/2022/05/02/%E5%BC%95%E7%94%A8%E4%B8%8E%E5%8F%AF%E5%8F%98%E5%AF%B9%E8%B1%A1/">【软件构造课笔记】引用与可变对象</a>
+          </li>
+        
+          <li>
+            <a href="/2022/04/22/2022%E7%9C%81%E9%80%89/">2022年OI省选题选做</a>
+          </li>
+        
+          <li>
+            <a href="/2022/04/09/%E6%95%B0%E5%AD%A6%E9%A2%98/">两个生成函数毒瘤题</a>
+          </li>
+        
+          <li>
+            <a href="/2021/09/06/JPEG%E5%9B%BE%E5%83%8F%E5%8E%8B%E7%BC%A9%E8%AF%A6%E8%A7%A3/">JPEG图像压缩详解</a>
+          </li>
+        
+          <li>
+            <a href="/2021/06/26/CF1540B-Tree-Array/">CF1540B Tree Array</a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+
+  
+</aside>
+        
+	
+<iframe id="iframe1" src="/balls3.html" style="height:500px;width:1500px;position:absolute;top:500px;left:0px;z-index:-1" scrolling="no" frameborder="0"></iframe>
+		<script>
+			var width=parseInt(document.body.clientWidth.toString().replace("px", ""), 10);
+			var height=document.body.scrollHeight;
+			iframe1.style='height:'+height+'px;width:'+width+'px;position:absolute;top:0px;left:0px;z-index:-1';
+		</script>
+
+
+      </div>
+      <footer id="footer">
+  <!-- MathJax配置，可通过单美元符号书写行内公式等 -->
+<script type="text/x-mathjax-config">
+    MathJax.Hub.Config({
+    "HTML-CSS": { 
+        preferredFont: "TeX", 
+        availableFonts: ["STIX","TeX"], 
+        linebreaks: { automatic:true }, 
+        EqnChunk: (MathJax.Hub.Browser.isMobile ? 10 : 50) 
+    },
+    tex2jax: { 
+        inlineMath: [ ["$", "$"], ["\\(","\\)"] ], 
+        processEscapes: true, 
+        ignoreClass: "tex2jax_ignore|dno",
+        skipTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code']
+    },
+    TeX: {  
+        equationNumbers: { autoNumber: "AMS" },
+        noUndefined: { attributes: { mathcolor: "red", mathbackground: "#FFEEEE", mathsize: "90%" } }, 
+        Macros: { href: "{}" } 
+    },
+    messageStyle: "none"
+    }); 
+</script>
+<!-- 给MathJax元素添加has-jax class -->
+<script type="text/x-mathjax-config">
+    MathJax.Hub.Queue(function() {
+        var all = MathJax.Hub.getAllJax(), i;
+        for(i=0; i < all.length; i += 1) {
+            all[i].SourceElement().parentNode.className += ' has-jax';
+        }
+    });
+</script>
+<!-- 通过连接CDN加载MathJax的js代码 -->
+<script type="text/javascript" async
+  src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.1/MathJax.js?config=TeX-MML-AM_CHTML">
+</script>
+  
+  <div class="outer">
+    <div id="footer-info" class="inner">
+      
+      &copy; 2022 ywy_c_asm<br>
+      Powered by <a href="https://hexo.io/" target="_blank">Hexo</a>
+    </div>
+  </div>
+</footer>
+
+
+
+
+
+
+
+    </div>
+    <nav id="mobile-nav">
+  
+    <a href="/" class="mobile-nav-link">Home</a>
+  
+    <a href="/archives" class="mobile-nav-link">Archives</a>
+  
+</nav>
+    
+
+
+<script src="/js/jquery-3.4.1.min.js"></script>
+
+
+
+  
+<script src="/fancybox/jquery.fancybox.min.js"></script>
+
+
+
+
+<script src="/js/script.js"></script>
+
+
+
+
+
+  </div>
+
+
+
+
+</body>
+</html>
