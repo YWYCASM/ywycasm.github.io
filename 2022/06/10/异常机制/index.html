@@ -1,0 +1,327 @@
+<!DOCTYPE html>
+<html>
+
+
+
+<head>
+  <meta charset="utf-8">
+  
+  
+  <title>【软件构造课笔记】Java中的异常机制 | ywy_c_asm</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+  <meta name="description" content="Java中提供了一些异常引发和处理机制。">
+<meta property="og:type" content="article">
+<meta property="og:title" content="【软件构造课笔记】Java中的异常机制">
+<meta property="og:url" content="https://www.ywy-c-asm.cn/2022/06/10/%E5%BC%82%E5%B8%B8%E6%9C%BA%E5%88%B6/index.html">
+<meta property="og:site_name" content="ywy_c_asm">
+<meta property="og:description" content="Java中提供了一些异常引发和处理机制。">
+<meta property="og:locale" content="en_US">
+<meta property="article:published_time" content="2022-06-10T02:28:52.000Z">
+<meta property="article:modified_time" content="2022-06-22T04:53:03.663Z">
+<meta property="article:author" content="ywy_c_asm">
+<meta property="article:tag" content="软件构造课程笔记">
+<meta name="twitter:card" content="summary">
+  
+  
+    <link rel="icon" href="/images/ico.ico">
+  
+  
+    
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/typeface-source-code-pro@0.0.71/index.min.css">
+
+  
+  
+<link rel="stylesheet" href="/css/style.css">
+
+  
+    
+<link rel="stylesheet" href="/fancybox/jquery.fancybox.min.css">
+
+  
+<meta name="generator" content="Hexo 5.4.0"></head>
+
+<body>
+
+
+
+  <div id="container">
+    <div id="wrap">
+
+	
+		
+      <header id="header">
+  <div id="banner"></div>
+  <div id="header-outer" class="outer">
+    <div id="header-title" class="inner">
+      <h1 id="logo-wrap">
+        <a href="/" id="logo">ywy_c_asm</a>
+      </h1>
+      
+        <h2 id="subtitle-wrap">
+          <a href="/" id="subtitle">菜 是 原 罪 | 罪 原 是 菜</a>
+        </h2>
+      
+    </div>
+    <div id="header-inner" class="inner">
+      <nav id="main-nav">
+        <a id="main-nav-toggle" class="nav-icon"></a>
+        
+          <a class="main-nav-link" href="/">Home</a>
+        
+          <a class="main-nav-link" href="/archives">Archives</a>
+        
+      </nav>
+      <nav id="sub-nav">
+        
+        <a id="nav-search-btn" class="nav-icon" title="Search"></a>
+      </nav>
+      <div id="search-form-wrap">
+        <form action="//google.com/search" method="get" accept-charset="UTF-8" class="search-form"><input type="search" name="q" class="search-form-input" placeholder="Search"><button type="submit" class="search-form-submit">&#xF002;</button><input type="hidden" name="sitesearch" value="https://www.ywy-c-asm.cn"></form>
+      </div>
+    </div>
+  </div>
+</header>
+
+      <div class="outer" style="padding:0 0px">
+        <section id="main"><article id="post-异常机制" class="h-entry article article-type-post" itemprop="blogPost" itemscope itemtype="https://schema.org/BlogPosting">
+  <div class="article-meta">
+    <a href="/2022/06/10/%E5%BC%82%E5%B8%B8%E6%9C%BA%E5%88%B6/" class="article-date">
+  <time class="dt-published" datetime="2022-06-10T02:28:52.000Z" itemprop="datePublished">2022-06-10</time>
+</a>
+    
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 class="p-name article-title" itemprop="headline name">
+      【软件构造课笔记】Java中的异常机制
+    </h1>
+  
+
+      </header>
+    
+    <div class="e-content article-entry" itemprop="articleBody">
+      
+        <p>Java中提供了一些异常引发和处理机制。</p>
+<span id="more"></span>
+
+<p>Java中的<code>Throwable</code>表示可抛出对象，它派生出了<code>Exception</code>和<code>Error</code>，表示异常和错误，异常是可被捕获的，错误表示运行过程中发生的严重错误，是不可被捕获的。异常可以用<code>throw</code>语句引发一个继承自<code>Exception</code>的类对象，例如<code>throw new RuntimeException()</code>。</p>
+<p>Java中提供了<code>try-catch-finally</code>用于进行异常捕获和处理。对于<code>try</code>语句块及后续调用的过程中发生的异常，可以转到对应的<code>catch</code>语句块中处理，最终执行<code>finally</code>语句块。下面是一个简单的例子：</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">try</span>&#123;</span><br><span class="line">    <span class="keyword">throw</span> <span class="keyword">new</span> RuntimeException();</span><br><span class="line">&#125;<span class="keyword">catch</span>(RuntimeException ex)&#123;</span><br><span class="line">    System.out.println(<span class="string">&quot;catch a runtimeexception&quot;</span>);</span><br><span class="line">&#125;<span class="keyword">finally</span>&#123;</span><br><span class="line">    System.out.println(<span class="string">&quot;done&quot;</span>);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>需要注意的是，对于多个<code>catch</code>，在异常抛出后会自上而下检查，直到遇到第一个相匹配的<code>Exception</code>为止。</p>
+<p>并且，对于<code>finally</code>语句块，<strong>不管是不是引发了异常</strong>，都会被执行。<code>finally</code>的主要作用就是，对于一些需要手动释放的对象（例如文件），在操作时尽管出现异常，最终也能在<code>finally</code>中对其进行释放。</p>
+<p>在<code>catch</code>处理异常的时候也可以引发新的异常，称之为异常的再抛出。这种场合下，我们对于引发的异常无能为力，可以通过这种方式将当前异常转换为新的异常。</p>
+<p>我们可以通过继承异常类的方式创建自己的异常，例如：</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">MyException</span> <span class="keyword">extends</span> <span class="title">Exception</span> </span>&#123;</span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="title">MyException</span><span class="params">()</span> </span>&#123; <span class="keyword">super</span>(); &#125;</span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="title">MyException</span><span class="params">(String message)</span> </span>&#123; <span class="keyword">super</span>(message); &#125;</span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="title">MyException</span><span class="params">(String message, Throwable cause)</span> </span>&#123; </span><br><span class="line">        <span class="keyword">super</span>(message, cause); </span><br><span class="line">    &#125;</span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="title">MyException</span><span class="params">(Throwable cause)</span> </span>&#123; <span class="keyword">super</span>(cause); &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>Java中的异常可以分为两类，一类是<code>checked</code>异常，一类是<code>unchecked</code>异常，后者是<code>RuntimeException</code>派生出来的异常，表示发生了由内部代码编写不当引发的运行时错误。</p>
+<p>对于<code>unchecked</code>异常，我们原则上不应该捕获它们，尽管在理论上也可以用<code>try-catch</code>捕获。这些异常表示程序本身的错误，应该及时发现，而不是掩耳盗铃。这些异常不一定都是<code>throw</code>引发的，也可能是一些非法操作，比如空引用、数组越界等。</p>
+<p>对于<code>checked</code>异常，Java规定我们必须在可能引发<code>checked</code>异常的方法的规约里通过<code>throws</code>加以说明，编译器会检查它。也就是说，如果一个方法<code>throw</code>了这个异常，或者调用了<code>throws</code>声明的方法，并且没有用<code>try-catch</code>对这个异常加以处理，那么Java就认为这个方法是可能会抛出这个<code>checked</code>异常的，我们就必须在方法的声明里加入<code>throws</code>，并且规约的注释里也应该写上这一点以便于客户端对异常进行处理。</p>
+<p>下面是对于<code>throws</code>的一个简单的例子：</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">A</span><span class="params">()</span> <span class="keyword">throws</span> IOException</span>&#123;</span><br><span class="line">    <span class="keyword">throw</span> <span class="keyword">new</span> FileNotFoundException();</span><br><span class="line">&#125;</span><br><span class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">B</span><span class="params">()</span> <span class="keyword">throws</span> IOException</span>&#123;</span><br><span class="line">    A();</span><br><span class="line">&#125;</span><br><span class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">C</span><span class="params">()</span> <span class="keyword">throws</span> MyException</span>&#123;</span><br><span class="line">    <span class="keyword">try</span>&#123;</span><br><span class="line">        B();</span><br><span class="line">    &#125;<span class="keyword">catch</span>(IOException ex)&#123;</span><br><span class="line">        <span class="keyword">throw</span> <span class="keyword">new</span> MyException();</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>在LSP原则中，其中一个规则就是子类重写的方法抛出的异常必须比父类更加具体，或者子类比父类抛出更少甚至不抛出异常。加入这一点被违反了，那么客户端在将子类代替父类使用时，为父类准备的<code>try-catch</code>可能无法捕获子类抛出的异常。这一点也会被Java做静态检查。</p>
+<p>除了<code>Exception</code>，Java中还提供了<code>assert</code>机制用于开发时的断言，在开发时，有些东西我们希望确保它始终为真，那么就可以暂时使用<code>assert</code>去检查它们，如果为假，那么就会引发一个<code>Error</code>。当然，在发布后我们不需要再使用它，可以在Java编译选项里关闭断言，毕竟，它只是用来确保正确性的。</p>
+<p>例如：</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">double</span> <span class="title">log</span><span class="params">(<span class="keyword">double</span> x)</span></span>&#123;</span><br><span class="line">    <span class="keyword">assert</span> x&gt;<span class="number">0</span>;</span><br><span class="line">    <span class="comment">//...</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="https://www.ywy-c-asm.cn/2022/06/10/%E5%BC%82%E5%B8%B8%E6%9C%BA%E5%88%B6/" data-id="cl4p4e6gu000070z1f0814vw8" data-title="【软件构造课笔记】Java中的异常机制"></a>
+      
+      
+      
+  <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/%E8%BD%AF%E4%BB%B6%E6%9E%84%E9%80%A0%E8%AF%BE%E7%A8%8B%E7%AC%94%E8%AE%B0/" rel="tag">软件构造课程笔记</a></li></ul>
+
+    </footer>
+  </div>
+  
+    
+<nav id="article-nav">
+  
+  
+    <a href="/2022/05/25/%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F/" id="article-nav-older" class="article-nav-link-wrap">
+      <strong class="article-nav-caption">Older</strong>
+      <div class="article-nav-title">【软件构造课笔记】设计模式</div>
+    </a>
+  
+</nav>
+
+  
+</article>
+
+
+</section>
+        
+          <aside id="sidebar">
+  
+    
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Tags</h3>
+    <div class="widget">
+      <ul class="tag-list" itemprop="keywords"><li class="tag-list-item"><a class="tag-list-link" href="/tags/ACM/" rel="tag">ACM</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/C/" rel="tag">C++</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/JavaScript/" rel="tag">JavaScript</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/NLP/" rel="tag">NLP</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E4%B8%AA%E4%BA%BA%E4%BB%8B%E7%BB%8D/" rel="tag">个人介绍</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E4%BD%8D%E8%BF%90%E7%AE%97/" rel="tag">位运算</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E5%9B%BE%E5%83%8F%E5%A4%84%E7%90%86/" rel="tag">图像处理</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E6%95%B0%E5%AD%A6/" rel="tag">数学</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E8%BD%AF%E4%BB%B6%E6%9E%84%E9%80%A0%E8%AF%BE%E7%A8%8B%E7%AC%94%E8%AE%B0/" rel="tag">软件构造课程笔记</a></li></ul>
+    </div>
+  </div>
+
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">friends</h3>
+    <div class="widget">
+      <li><a target="_blank" rel="noopener" href="https://blog.i207m.top/" title="i207M">i207M</a></li>
+      <li><a target="_blank" rel="noopener" href="https://www.luogu.com.cn/blog/ywycasm/" title="Old ywy_c_asm">Old ywy_c_asm</a></li>
+      <li><a target="_blank" rel="noopener" href="https://blog.csdn.net/lyd_7_29" title="lyd729">lyd729</a></li>
+      <li><a target="_blank" rel="noopener" href="https://www.shadowice1984.xyz/" title="shadowice1984">shadowice1984</a></li>
+      <li><a target="_blank" rel="noopener" href="https://www.cnblogs.com/Miracevin" title="Miracle">Miracle</a></li>
+    </div>
+  </div>
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Archives</h3>
+    <div class="widget">
+      <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2022/06/">June 2022</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2022/05/">May 2022</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2022/04/">April 2022</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2021/09/">September 2021</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2021/06/">June 2021</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2021/05/">May 2021</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2021/04/">April 2021</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2021/03/">March 2021</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2021/02/">February 2021</a></li></ul>
+    </div>
+  </div>
+
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Recent Posts</h3>
+    <div class="widget">
+      <ul>
+        
+          <li>
+            <a href="/2022/06/10/%E5%BC%82%E5%B8%B8%E6%9C%BA%E5%88%B6/">【软件构造课笔记】Java中的异常机制</a>
+          </li>
+        
+          <li>
+            <a href="/2022/05/25/%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F/">【软件构造课笔记】设计模式</a>
+          </li>
+        
+          <li>
+            <a href="/2022/05/17/%E5%AF%B9%E8%B1%A1%E7%AD%89%E4%BB%B7%E6%80%A7/">【软件构造课笔记】对象等价性</a>
+          </li>
+        
+          <li>
+            <a href="/2022/05/09/%E6%8A%BD%E8%B1%A1%E6%95%B0%E6%8D%AE%E7%B1%BB%E5%9E%8BADT/">【软件构造课笔记】抽象数据类型ADT</a>
+          </li>
+        
+          <li>
+            <a href="/2022/05/02/%E5%BC%95%E7%94%A8%E4%B8%8E%E5%8F%AF%E5%8F%98%E5%AF%B9%E8%B1%A1/">【软件构造课笔记】引用与可变对象</a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+
+  
+</aside>
+        
+	
+<iframe id="iframe1" src="/balls3.html" style="height:500px;width:1500px;position:absolute;top:500px;left:0px;z-index:-1" scrolling="no" frameborder="0"></iframe>
+		<script>
+			var width=parseInt(document.body.clientWidth.toString().replace("px", ""), 10);
+			var height=document.body.scrollHeight;
+			iframe1.style='height:'+height+'px;width:'+width+'px;position:absolute;top:0px;left:0px;z-index:-1';
+		</script>
+
+
+      </div>
+      <footer id="footer">
+  <!-- MathJax配置，可通过单美元符号书写行内公式等 -->
+<script type="text/x-mathjax-config">
+    MathJax.Hub.Config({
+    "HTML-CSS": { 
+        preferredFont: "TeX", 
+        availableFonts: ["STIX","TeX"], 
+        linebreaks: { automatic:true }, 
+        EqnChunk: (MathJax.Hub.Browser.isMobile ? 10 : 50) 
+    },
+    tex2jax: { 
+        inlineMath: [ ["$", "$"], ["\\(","\\)"] ], 
+        processEscapes: true, 
+        ignoreClass: "tex2jax_ignore|dno",
+        skipTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code']
+    },
+    TeX: {  
+        equationNumbers: { autoNumber: "AMS" },
+        noUndefined: { attributes: { mathcolor: "red", mathbackground: "#FFEEEE", mathsize: "90%" } }, 
+        Macros: { href: "{}" } 
+    },
+    messageStyle: "none"
+    }); 
+</script>
+<!-- 给MathJax元素添加has-jax class -->
+<script type="text/x-mathjax-config">
+    MathJax.Hub.Queue(function() {
+        var all = MathJax.Hub.getAllJax(), i;
+        for(i=0; i < all.length; i += 1) {
+            all[i].SourceElement().parentNode.className += ' has-jax';
+        }
+    });
+</script>
+<!-- 通过连接CDN加载MathJax的js代码 -->
+<script type="text/javascript" async
+  src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.1/MathJax.js?config=TeX-MML-AM_CHTML">
+</script>
+  
+  <div class="outer">
+    <div id="footer-info" class="inner">
+      
+      &copy; 2022 ywy_c_asm<br>
+      Powered by <a href="https://hexo.io/" target="_blank">Hexo</a>
+    </div>
+  </div>
+</footer>
+
+
+
+
+
+
+
+    </div>
+    <nav id="mobile-nav">
+  
+    <a href="/" class="mobile-nav-link">Home</a>
+  
+    <a href="/archives" class="mobile-nav-link">Archives</a>
+  
+</nav>
+    
+
+
+<script src="/js/jquery-3.4.1.min.js"></script>
+
+
+
+  
+<script src="/fancybox/jquery.fancybox.min.js"></script>
+
+
+
+
+<script src="/js/script.js"></script>
+
+
+
+
+
+  </div>
+
+
+
+
+</body>
+</html>
